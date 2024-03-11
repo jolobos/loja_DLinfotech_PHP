@@ -25,7 +25,7 @@ require_once("cabecalho.php");
 		  </div>
 		</div>
 		<div class="carousel-item">
-		  <img src="img/img3.jpg" alt="New York" class="d-block w-100" style="height: 500px">
+		  <img src="img/img3.jpg" alt="Carregadores" class="d-block w-100" style="height: 500px">
 		  <div class="carousel-caption">
 			<h3 class="text-secondary">Amplo estoque em Carregadores</h3>
 			<a class="btn btn-danger text-dark" href="#">Click no botão e saiba mais</a>
@@ -40,14 +40,58 @@ require_once("cabecalho.php");
 	<span class="carousel-control-next-icon bg-dark" style="border-radius: 30%"></span>
 	  </button>
 </div>
-
-
-	<h1>Hello, world!</h1>
-</br>	
-</br>	
 </br>
-	
-	
+<div class="row" >
+<div class="col" >
+<div class="card mx-auto " style="width: 18rem;">
+  <img class="card-img-top "  src="img/card1.png" alt="Imagem de capa do card">
+  <div class="card-body">
+    <h5 class="card-title">Carregadores</h5>
+    <p class="card-text">Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.</p>
+    <a href="#" class="btn btn-primary">Visitar</a>
+  </div>
+</div>
+</div>
+<div class="col">
+<div class="card  mx-auto" style="width: 18rem;">
+  <img class="card-img-top" src="img/card2.png" alt="Imagem de capa do card">
+  <div class="card-body">
+    <h5 class="card-title">Computadores</h5>
+    <p class="card-text">Querendo efetuar um upgrade na carroça? click e veja as opções e valores.</p>
+    <a href="#" class="btn btn-primary">Visitar</a>
+  </div>
+</div>
+</div>
+<div class="col">
+<div class="card  mx-auto" style="width: 18rem;">
+  <img class="card-img-top" src="img/card3.png" alt="Imagem de capa do card">
+  <div class="card-body">
+    <h5 class="card-title">Capinhas e Peliculas</h5>
+    <p class="card-text">Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.</p>
+    <a href="#" class="btn btn-primary">Visitar</a>
+  </div>
+</div>
+</div><div class="col">
+<div class="card  mx-auto" style="width: 18rem;">
+  <img class="card-img-top" src="img/card4.png" alt="Imagem de capa do card">
+  <div class="card-body">
+    <h5 class="card-title">Troca de display</h5>
+    <p class="card-text">Consulte nossos valores e marcas disponiveis. </p></br>
+    <a href="#" class="btn btn-primary">Visitar</a>
+  </div>
+</div>
+</div><div class="col">
+<div class="card  mx-auto" style="width: 18rem;">
+  <img class="card-img-top" src="img/card5.png" alt="Imagem de capa do card">
+  <div class="card-body">
+    <h5 class="card-title">Acessórios</h5>
+    <p class="card-text">Temos inumeros acessórios para toda area de informatica e smartphones.</p>
+    <a href="#" class="btn btn-primary">Visitar</a>
+  </div>
+</div>
+</div>
+</div>
+
 	
 	</body>
 </html>
