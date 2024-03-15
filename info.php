@@ -41,10 +41,7 @@ require_once("cabecalho.php");
 	  </button>
 </div>
 </br>
-<div class="btn btn-button" style="background: black; width: 100%; height:80px">
-
-
-
+<div style="background: black; width: 100%; height:80px">
 </div>
 <section class="secao4" id="sobre">
     <div class="secao4-div row">
@@ -60,8 +57,7 @@ require_once("cabecalho.php");
         <div class="secao4-div-card col">
             <img decoding="async" src="img/card2.png" alt="imagem do card 2 html e css">
 			<h5 class="card-title">Computadores</h5>
-			<p class="card-text">Querendo efetuar um upgrade na carroça? click e veja as opções e valores.</p>
-			</br>
+			<p class="card-text" >Querendo efetuar um upgrade na carroça? click e veja as opções e valores.</p>
 			<a href="#" class="btn btn-primary">Visitar</a>
 		</div>
 
@@ -70,24 +66,81 @@ require_once("cabecalho.php");
             <img decoding="async" src="img/card3.png" alt="imagem do card 3 html e css">
 			<h5 class="card-title">Capinhas e Peliculas</h5>
 			<p class="card-text">Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.</p>
-			</br>
 			<a href="#" class="btn btn-primary">Visitar</a>
 
         </div>
 		<div class="secao4-div-card col">
-            <img decoding="async" src="img/card4.png" alt="imagem do card 3 html e css">
+            <img decoding="async" src="img/card4.png" alt="imagem do card 4 html e css">
             <h5 class="card-title">Troca de display</h5>
 			<p class="card-text">Consulte nossos valores e marcas disponiveis. </p></br>
-			<a href="#" class="btn btn-primary">Visitar</a>
+			<a href="#" class="btn btn-primary " >Visitar</a>
         </div>
 		<div class="secao4-div-card col">
-            <img decoding="async" src="img/card5.png" alt="imagem do card 3 html e css">
+            <img decoding="async" src="img/card5.png" alt="imagem do card 5 html e css">
             <h5 class="card-title">Acessórios</h5>
 			<p class="card-text">Temos inumeros acessórios para toda area de informatica e smartphones.</p>
-			</br>
 			<a href="#" class="btn btn-primary">Visitar</a>
-        </div>
+        </div>	
     </div>
+</section>
+<div  style="background: black; width: 100%; height:80px">
+<h3 class="pt-4 text-center text-info" > Ofertas da Semana </h3>
+
+</div>
+<section>
+<div class="grid_promocao m-2">
+  <div class="box1 " style="width: 700px;" >
+  <div class="card" style="width: 90%; height: 100%;">
+			<h3 class="text-info">MEGA PROMOÇÃO DA SEMANA</h3>
+			<img class="card-img-top" src="img/produtos/produto1.png" alt="Imagem de capa do card">
+			<div class="card-body">
+			<h5 class="card-title">Título do card</h5>
+			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+			<a href="#" class="btn btn-primary">Visitar</a>
+			</div>
+			</div>
+  </div>
+  <div class="box2">
+  <div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="img/produtos/produto2.png" alt="Imagem de capa do card">
+			<div class="card-body">
+			<h5 class="card-title">Título do card</h5>
+			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+			<a href="#" class="btn btn-primary">Visitar</a>
+			</div>
+			</div>
+  </div>
+  <div class="box3">
+  <div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="img/produtos/produto3.png" alt="Imagem de capa do card">
+			<div class="card-body">
+			<h5 class="card-title">Título do card</h5>
+			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+			<a href="#" class="btn btn-primary">Visitar</a>
+			</div>
+			</div>
+  </div>
+  <div class="box4">
+  <div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="img/produtos/produto4.png" alt="Imagem de capa do card">
+			<div class="card-body">
+			<h5 class="card-title">Título do card</h5>
+			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+			<a href="#" class="btn btn-primary">Visitar</a>
+			</div>
+			</div>
+  </div>
+  <div class="box5">
+  <div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="img/produtos/produto5.png" alt="Imagem de capa do card">
+			<div class="card-body">
+			<h5 class="card-title">Título do card</h5>
+			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+			<a href="#" class="btn btn-primary">Visitar</a>
+			</div>
+			</div>
+  </div>
+</div>		
 </section>
 
 
