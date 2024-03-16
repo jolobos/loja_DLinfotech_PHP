@@ -88,61 +88,65 @@ require_once("cabecalho.php");
 
 </div>
 <section>
-<div class="grid_promocao m-2">
-  <div class="box1 " style="width: 700px;" >
-  <div class="card" style="width: 90%; height: 100%;">
+
+<div class="grid_promocao">
+  <div class="box1 m-2" >
+  <div class="card" style="width: 100%; height: 100%;">
 			<h3 class="text-info">MEGA PROMOÇÃO DA SEMANA</h3>
-			<img class="card-img-top" src="img/produtos/produto1.png" alt="Imagem de capa do card">
+			<img class="card-img-top" src="img/produtos/produto1.png"  alt="Imagem de capa do card">
 			<div class="card-body">
-			<h5 class="card-title">Título do card</h5>
-			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-			<a href="#" class="btn btn-primary">Visitar</a>
+			<h5 class="card-title">Carregador Lehmox</h5>
+			<p class="card-text">Carregador bivolt lehmox de 3.1 amperes - compativel com iphone.</p>
+			<a href="#" class="btn btn-success">preço R$ ---</a>
 			</div>
 			</div>
   </div>
   <div class="box2">
-  <div class="card" style="width: 18rem;">
+  <div class="card m-2" style="width: 17rem;">
 			<img class="card-img-top" src="img/produtos/produto2.png" alt="Imagem de capa do card">
 			<div class="card-body">
 			<h5 class="card-title">Título do card</h5>
 			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-			<a href="#" class="btn btn-primary">Visitar</a>
+			<a href="#" class="btn btn-success">preço R$ ---</a>
 			</div>
 			</div>
   </div>
   <div class="box3">
-  <div class="card" style="width: 18rem;">
+  <div class="card m-2" style="width: 17rem;">
 			<img class="card-img-top" src="img/produtos/produto3.png" alt="Imagem de capa do card">
 			<div class="card-body">
 			<h5 class="card-title">Título do card</h5>
 			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-			<a href="#" class="btn btn-primary">Visitar</a>
+			<a href="#" class="btn btn-success">preço R$ ---</a>
 			</div>
 			</div>
   </div>
   <div class="box4">
-  <div class="card" style="width: 18rem;">
+  <div class="card m-2" style="width: 17rem;">
 			<img class="card-img-top" src="img/produtos/produto4.png" alt="Imagem de capa do card">
 			<div class="card-body">
 			<h5 class="card-title">Título do card</h5>
 			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-			<a href="#" class="btn btn-primary">Visitar</a>
+			<a href="#" class="btn btn-success">preço R$ ---</a>
 			</div>
 			</div>
   </div>
   <div class="box5">
-  <div class="card" style="width: 18rem;">
+  <div class="card m-2" style="width: 17rem;">
 			<img class="card-img-top" src="img/produtos/produto5.png" alt="Imagem de capa do card">
 			<div class="card-body">
 			<h5 class="card-title">Título do card</h5>
 			<p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-			<a href="#" class="btn btn-primary">Visitar</a>
+			<a href="#" class="btn btn-success">preço R$ ---</a>
 			</div>
 			</div>
   </div>
 </div>		
 </section>
-
-
+<section>
+<?php
+require_once('rodape.php')
+?>
+</section>
 </body>
 </html>

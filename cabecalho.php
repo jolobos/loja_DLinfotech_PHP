@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +32,7 @@
    <form class="form-inline my-2 my-lg-0 w-75 p-1 " >
    <div class=" row  " >
    <div class="col" >
-      <input class="form-control" type="search"  placeholder="Pesquisar">
+      <input class="form-control" type="search"  placeholder="Pesquisars">
 	  </div>
 	     <div class="col-sm-4"   >
       <button class="btn btn-outline-success" type="submit">Pesquisar</button>
