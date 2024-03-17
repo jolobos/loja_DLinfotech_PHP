@@ -6,13 +6,23 @@
     <title>INICIO - DL Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- esse script libera os botoes de compartilhamento -->
+    <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  
-  
   </head>
   <body>
+		<div class="container">
+		<nav class="navbar navbar-expand-lg d-flex flex-row-reverse" >
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+				<li><a href="#" class="btn btn-secondary">Registro</a></li>
+				<li><a href="#" class="btn btn-secondary">Conectese</a></li>
+				<li><img src="img/digo.jpg" style="border-radius: 50%;width:50px;height:50px;"></li>
+			</ul>
+		</nav>
+		<hr/>
 		
+		</div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><a href="index.php"><img src="img/logo.png" alt="logo image" style="height: 70px"></a>
    <div class="container collapse navbar-collapse" id="navbarTogglerDemo02">
 <div class="container" >
