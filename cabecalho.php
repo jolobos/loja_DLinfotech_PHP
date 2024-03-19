@@ -30,8 +30,9 @@ if(empty($_SESSION['usuario'])){
   </head>
   <body>
   
-<div class="bg-dark">
-					<nav class="navbar navbar-expand-lg  " >
+<div class=" bg-dark  ">
+					<nav class="navbar navbar-expand-lg" >
+					<div class="collapse navbar-collapse">
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 "><a href="index.php"><img src="img/logo.png" alt="logo image" style="height: 70px">
 					
 	<?php
@@ -39,45 +40,33 @@ if(empty($_SESSION['usuario'])){
 					echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<img src="img/user_null.png" style="border-radius: 50%;width:50px;height:50px;align=left;">
-					</a>
+					</a><a class="text-info">Você não está logado!</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					  <a class="dropdown-item" href="#">Conta</a>
-					  <a class="dropdown-item" href="#">Compras</a>
-					  <a class="dropdown-item" href="#">Log Out</a>
+					  <a class="dropdown-item" href="#">Logar</a>
+					  <a class="dropdown-item" href="#">Registrar</a>
 					</div>
 				  </li>
-					<li><a href="#" class="btn btn-secondary m-2">Registro</a></li>
-					<li><a href="#" class="btn btn-secondary m-2">Conecte-se</a></li>
+				  <li>
+					  <form class="form-inline">
+						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" style="width: 400px;" >
+						  <div class="input-group-prepend">
+							<button class="input-group-text btn btn-outline-success" type="submit">
+								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+								</svg>
+							</button>
+						  </div>
+						  
+						</div>
+					  </form>
+				  
+				  </li>
+				  </ul></div>
+
+					<ul><li><a href="#" class="btn btn-secondary m-2">Registre-se</a>
+					<a href="#" class="btn btn-secondary m-2">Conecte-se</a></li></ul>
 					';
 				}
 	?>
-	</ul></nav></div>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark"></a>
-   <div class="container collapse navbar-collapse" id="navbarTogglerDemo02">
-<div class="container" >
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Produtos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Serviços</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Endereço</a>
-      </li>
-    </ul>
-   </div></div>
-   
-   <form class="form-inline my-2 my-lg-0 w-75 p-1 " >
-   <div class=" row  " >
-   <div class="col" >
-      <input class="form-control" type="search"  placeholder="Pesquisars">
-	  </div>
-	     <div class="col-sm-4"   >
-      <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-	  </div>
-	  </div>
-    </form>
-	
-</nav>
+	</nav>
+	</div>
