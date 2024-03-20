@@ -23,6 +23,7 @@ if(empty($_SESSION['usuario'])){
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/modal.css">
 
 	<!-- esse script libera os botoes de compartilhamento
     <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
@@ -33,8 +34,12 @@ if(empty($_SESSION['usuario'])){
 <div class=" bg-dark fixed-top ">
 					<nav class="navbar navbar-expand-lg" >
 					<div class="collapse navbar-collapse">
-					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 "><a href="index.php"><img src="img/logo.png" alt="logo image" style="height: 70px">
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+                    <li><a href="index.php"><img src="img/logo.png" alt="logo image" style="height: 70px"></a></li>
 					
+
+                                                                          
+                                        
 	<?php
 			if($logado == 0){
 					echo '<li class="nav-item dropdown">
@@ -65,8 +70,31 @@ if(empty($_SESSION['usuario'])){
 
 					<ul><li class="mt-3"><a href="#" class="btn btn-secondary me-2" style="height: 40px;">Registre-se</a>
 					<a href="#" class="btn btn-secondary me-4" style="height: 40px;">Conecte-se</a></li></ul>
+					<li><button type="button" class="btn btn-info me-4" data-toggle="modal" data-target="#exampleModal">
+					<span class="navbar-toggler-icon"></span>
+					</button></li>
 					';
 				}
 	?>
+	
+	
 	</nav>
 	</div>
+    <div class="modal left fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+				
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+						<div id="demo" class="collapse">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					  </div>
+				</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+        </div>

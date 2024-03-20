@@ -42,6 +42,7 @@ require_once("cabecalho.php");
 	  </button>
 </div>
 </br>
+
 <div style="background: black; width: 100%; height:80px">
 </div>
 <section class="secao4" id="sobre">
