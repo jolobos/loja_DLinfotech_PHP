@@ -24,13 +24,13 @@ if(empty($_SESSION['usuario'])){
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="css/style.css">
 
-	<!-- esse script libera os botoes de compartilhamento -->
+	<!-- esse script libera os botoes de compartilhamento
     <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
-
+ -->
   </head>
   <body>
   
-<div class=" bg-dark  ">
+<div class=" bg-dark fixed-top ">
 					<nav class="navbar navbar-expand-lg" >
 					<div class="collapse navbar-collapse">
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 "><a href="index.php"><img src="img/logo.png" alt="logo image" style="height: 70px">
@@ -40,13 +40,13 @@ if(empty($_SESSION['usuario'])){
 					echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<img src="img/user_null.png" style="border-radius: 50%;width:50px;height:50px;align=left;">
-					</a><a class="text-info">Você não está logado!</a>
+					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="#">Logar</a>
 					  <a class="dropdown-item" href="#">Registrar</a>
-					</div>
+					</div><li class="navbar-brand mt-4"><a class="text-info">Você não está logado! </a></li>
 				  </li>
-				  <li>
+				  <li class="navbar-brand mt-2">
 					  <form class="form-inline">
 						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" style="width: 400px;" >
 						  <div class="input-group-prepend">
@@ -63,8 +63,8 @@ if(empty($_SESSION['usuario'])){
 				  </li>
 				  </ul></div>
 
-					<ul><li><a href="#" class="btn btn-secondary m-2">Registre-se</a>
-					<a href="#" class="btn btn-secondary m-2">Conecte-se</a></li></ul>
+					<ul><li class="mt-3"><a href="#" class="btn btn-secondary me-2" style="height: 40px;">Registre-se</a>
+					<a href="#" class="btn btn-secondary me-4" style="height: 40px;">Conecte-se</a></li></ul>
 					';
 				}
 	?>
