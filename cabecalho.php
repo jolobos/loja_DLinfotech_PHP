@@ -25,9 +25,9 @@ if(empty($_SESSION['usuario'])){
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/modal.css">
 
-	<!-- esse script libera os botoes de compartilhamento
+	<!-- esse script libera os botoes de compartilhamento-->
     <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
- -->
+ 
   </head>
   <body>
   
@@ -84,19 +84,77 @@ if(empty($_SESSION['usuario'])){
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-				
-					<button type="button" class="btn btn-info mt-2">Categorias</button>
+					<!-- Aqui será a separação de cada opção do menu modal -->
+					<ul class="nav nav-pills flex-column"><li class="nav-item">
+					<a type="button" href="#" class="btn btn-info mt-2" style="width: 50%;">Produtos</a>
 					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#bta">
-					<span class="visually-hidden">Toggle Dropend</span>
-					</button>
-						<div id="bta" class="collapse">
-						<a href="#" class="btn btn-secondary m-2" style="height: 40px;">Registre-se</a>
+					<span class="visually-hidden"></span>
+					</button></li>
+					<li class="nav-item ">
+						<div id="bta" class="collapse mt-2">
+							<ul class="nav nav-pills flex-column bg-secondary rounded">
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">HTML</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">CSS</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">JavaScript</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">PHP</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Python</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">jQuery</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">SQL</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Bootstrap</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Node.js</a></li>
+							</ul>
 						</div>
+					</li></ul>
+					
+						<!-- Aqui será a separação de cada opção do menu modal -->
+					<ul class="nav nav-pills flex-column"><li class="nav-item">
+					<a type="button" href="#" class="btn btn-info mt-2" style="width: 50%;">Serviços</a>
+					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#btb">
+					<span class="visually-hidden"></span>
+					</button></li>
+					<li class="nav-item">
+						<div id="btb" class="collapse mt-2">
+							<ul class="nav nav-pills flex-column bg-secondary rounded">
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">HTML</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">CSS</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">JavaScript</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">PHP</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Python</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">jQuery</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">SQL</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Bootstrap</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Node.js</a></li>
+							</ul>
+						</div>
+					</li></ul>
+					
+						<!-- Aqui será a separação de cada opção do menu modal -->
+					<ul class="nav nav-pills flex-column"><li class="nav-item">
+					<a type="button" href="#" class="btn btn-info mt-2 " style="width: 50%;">Endereço</a>
+					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#btc">
+					<span class="visually-hidden"></span>
+					</button></li>
+					<li class="nav-item">
+						<div id="btc" class="collapse mt-2">
+							<ul class="nav nav-pills flex-column bg-secondary rounded">
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">HTML</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">CSS</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">JavaScript</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">PHP</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Python</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">jQuery</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">SQL</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Bootstrap</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Node.js</a></li>
+							</ul>
+						</div>
+					</li></ul>
+					
 						
 					
 				</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
