@@ -85,12 +85,15 @@ if(empty($_SESSION['usuario'])){
             <div class="modal-content">
                 <div class="modal-body">
 				
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-						<div id="demo" class="collapse">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					  </div>
+					<button type="button" class="btn btn-info mt-2">Categorias</button>
+					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#bta">
+					<span class="visually-hidden">Toggle Dropend</span>
+					</button>
+						<div id="bta" class="collapse">
+						<a href="#" class="btn btn-secondary m-2" style="height: 40px;">Registre-se</a>
+						</div>
+						
+					
 				</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
