@@ -5,7 +5,7 @@
 <script type="text/javascript" src="js/multicards.js"></script>
 
 
-<!------ Include the above in your HEAD tag ---------->
+<!------ multiplos cards aki ---------->
 
 <div class="container">
 	<div class="row">
@@ -144,13 +144,5 @@
             <button class="btn btn-primary rightLst">></button>
         </div>
 	</div>
-	<div class="row">
-	    <div class="col-md-12 text-center">
-	        <br/><br/><br/>
-	        <hr/>
-	        <p>Settings</p>
-	        <p>Change data items for xs,sm,md and lg display items respectively. Ex:data-items="1,3,5,6"</p>
-	        <p>Change data slide for slides per click Ex:data-slide="1"</p>
-	    </div>
-	</div>
+	
 </div>
