@@ -25,14 +25,13 @@ if(empty($_SESSION['usuario'])){
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/modal.css">
 
-	<!-- esse script libera os botoes de compartilhamento-->
+	<!-- esse script libera os botoes de compartilhamento
     <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
- 
+ -->
   </head>
   <body>
   
-<div class=" bg-dark fixed-top ">
-					<nav class="navbar navbar-expand-lg" >
+					<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top"  >
 					<div class="collapse navbar-collapse">
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
                     <li><a href="index.php"><img src="img/logo.png" alt="logo image" style="height: 70px"></a></li>
@@ -79,7 +78,6 @@ if(empty($_SESSION['usuario'])){
 	
 	
 	</nav>
-	</div>
     <div class="modal left fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
