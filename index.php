@@ -3,7 +3,13 @@
 require_once("cabecalho.php");
 ?>
 
-<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel" style="margin-top: 85px;">
+<div id="troca" class="carousel slide" data-ride="carousel" style="margin-top: 85px;">
+ <div class="carousel-indicators">
+    <button type="button" data-bs-target="#troca" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#troca" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#troca" data-bs-slide-to="2"></button>
+  </div>
+  
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src="img/img1.jpg" alt="Primeiro Slide" style="height: 500px">
@@ -30,14 +36,12 @@ require_once("cabecalho.php");
 		  </div>
 		</div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-    <span class="sr-only">Anterior</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-    <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-    <span class="sr-only">Próximo</span>
-  </a>
+ <button class="carousel-control-prev" type="button" data-bs-target="#troca" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-dark" style="border-radius:50%; width: 70px; height: 70px;"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#troca" data-bs-slide="next">
+    <span class="carousel-control-next-icon  bg-dark" style="border-radius:50%; width: 70px; height: 70px;"></span>
+  </button>
 </div>
 
 
@@ -152,5 +156,3 @@ require_once('multicards.php')
 <?php
 require_once('rodape.php');
 ?>
-</body>
-</html>
