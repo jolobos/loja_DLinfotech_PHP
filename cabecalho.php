@@ -7,7 +7,12 @@ if(empty($_SESSION['id_usuario'])){
 	$logado = 0;
 	session_destroy();
 	}else{
-	$logado = 1;	
+	$logado = 1;
+        $id_usuario = $_SESSION['id_usuario'];
+        $email = $_SESSION['email'];
+        $nome = $_SESSION['nome'];
+        $foto = $_SESSION['foto'];
+        $apelido = $_SESSION['apelido'];
 	}
 
 ?>
@@ -46,7 +51,7 @@ if(empty($_SESSION['id_usuario'])){
 						<img src="img/user_null.png" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					  <a class="dropdown-item" href="#">Logar</a>
+					  <a class="dropdown-item" href="usuario/login.php">Logar</a>
 					  <a class="dropdown-item" href="usuario/cadastro.php">Registrar</a>
 					</div><li class="navbar-brand mt-4"><a class="text-info">Você não está logado! </a></li>
 				  </li>
@@ -68,12 +73,50 @@ if(empty($_SESSION['id_usuario'])){
 				  </ul></div>
 
 					<ul><li class="mt-3"><a href="usuario/cadastro.php" class="btn btn-secondary me-2" style="height: 40px;">Registre-se</a>
-					<a href="#" class="btn btn-secondary me-4" style="height: 40px;">Conecte-se</a></li></ul>
+					<a href="usuario/login.php" class="btn btn-secondary me-4" style="height: 40px;">Conecte-se</a></li></ul>
 					<li><button type="button" class="btn btn-info me-4" data-toggle="modal" data-target="#exampleModal">
 					<span class="navbar-toggler-icon"></span>
 					</button></li>
 					';
-				}
+                                }else{
+                                    $nick = '';
+                                    if(!empty($apelido)){$nick = $apelido;}else{$nick = $nome;}
+                                    if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="img/user_null.png" ;}
+                                    
+                                    echo '<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src="'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					  <a class="dropdown-item" href="#">Perfil</a>
+					  <a class="dropdown-item" href="#">Compras</a>
+					  <a class="dropdown-item" href="#">Configurações</a>
+					  <a class="dropdown-item" href="sair.php">Sair</a>
+                                        </div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
+				  </li>
+				  <li class="navbar-brand mt-2">
+					  <form class="form-inline">
+						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" style="width: 400px;" >
+						  <div class="input-group-prepend">
+							<button class="input-group-text btn btn-outline-success" type="submit">
+								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+								</svg>
+							</button>
+						  </div>
+						  
+						</div>
+					  </form>
+				  
+				  </li>
+				  </ul></div>
+
+					<ul><li><button type="button" class="btn btn-info me-4" data-toggle="modal" data-target="#exampleModal">
+					<span class="navbar-toggler-icon"></span>
+					</button></li>
+					</ul>
+					';
+                                }
 	?>
 	
 	
