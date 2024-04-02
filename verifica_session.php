@@ -1,16 +1,11 @@
 <?php
 session_start();
-if($_SESSION['usuario']==''){
+if($_SESSION['email']==''){
 	$msg = 'voce nao esta logado';
 	session_destroy();
 	header('location:index.php?mens='.$msg);
 }
 
-if($_SESSION['nivel']<$nivel){
-	$msg= 'voce nao tem permicao!!!';
-			header('location:index.php?mens='.$msg);
-
-}
 if (!empty($_SESSION['decorrido'])) {
 	$tempo = time() - $_SESSION['decorrido'];
 	if ($tempo>$_SESSION['vida']){

@@ -59,7 +59,7 @@ if($senha1 == $senha2){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cadastro.css">
     <title>Casdatre-se e aproveite nossos produtos</title>
-  </head>
+</head>
 
 <body>
   <?php
@@ -78,7 +78,7 @@ if($senha1 == $senha2){
         </div>
         <div class="form-box">
             <h2>Criar Conta</h2>
-            <p> Já é um membro? <a href="#"> Login </a> </p>
+            <p> Já é um membro? <a href="login.php"> Login </a> </p>
             <form action="cadastro.php" method="post">
                 <div class="input-group">
                     <label for="nome"> Nome Completo</label>

@@ -28,7 +28,7 @@ if(empty($_POST)){
 				$msg= 'Bem vindo!';
 				$_SESSION['usuario'] = $dado['usuario'];
 				$_SESSION['id_usuario'] = $dado['id_user'];
-				$_SESSION['vida'] = 1000								; //segundos
+				$_SESSION['vida'] = 1000; //segundos
 				$_SESSION['decorrido'] = time();
 				$_SESSION['nivel'] = $dado['nivel'];
 

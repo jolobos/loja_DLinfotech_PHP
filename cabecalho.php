@@ -1,13 +1,15 @@
 <?php
-$nivel = 0;
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-session_start();
-if(empty($_SESSION['usuario'])){
+if(empty($_SESSION['id_usuario'])){
 	$logado = 0;
 	session_destroy();
+	}else{
+	$logado = 1;	
 	}
+
 ?>
 <!doctype html>
 <html lang="pt-br">
