@@ -1,19 +1,9 @@
 <?php
-session_start();
+require_once('verifica_session.php');
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-if(empty($_SESSION['id_usuario'])){
-	$logado = 0;
-	session_destroy();
-	}else{
-	$logado = 1;
-        $id_usuario = $_SESSION['id_usuario'];
-        $email = $_SESSION['email'];
-        $nome = $_SESSION['nome'];
-        $foto = $_SESSION['foto'];
-        $apelido = $_SESSION['apelido'];
-	}
+
 
 ?>
 <!doctype html>
@@ -88,7 +78,7 @@ if(empty($_SESSION['id_usuario'])){
 						<img src="'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					  <a class="dropdown-item" href="#">Perfil</a>
+					  <a class="dropdown-item" href="usuario/perfil.php">Perfil</a>
 					  <a class="dropdown-item" href="#">Compras</a>
 					  <a class="dropdown-item" href="#">Configurações</a>
 					  <a class="dropdown-item" href="sair.php">Sair</a>

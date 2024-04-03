@@ -1,15 +1,45 @@
 <?php
-$nivel = 0;
+require_once('../verifica_session.php');
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-require_once("cabecalho.php");
 
-session_start();
-if(empty($_SESSION['usuario'])){
-	$logado = 0;
-	session_destroy();
-	}
+require_once("../database.php");
+if(!empty($_POST)){
+$id_usuario = $_POST['id_usuario'];
+$nome = $_POST['nome'];
+$CPF = $_POST['CPF'];
+$telefone = $_POST['telefone'];
+$celular = $_POST['celular'];
+$CEP = $_POST['CEP'];
+$UF = $_POST['UF'];
+$cidade = $_POST['cidade'];
+$bairro = $_POST['bairro'];
+$logradouro = $_POST['logradouro'];
+$complemento = $_POST['complemento'];
+$email = $_POST['email'];
+$apelido = $_POST['apelido'];
+$sql ='UPDATE usuarios SET nome=?,CPF=?,telefone=?,celular=?,CEP=?,UF=?,cidade=?,bairro=?,logradouro=?,complemento=?,email=?,apelido=? WHERE id_usuario=?';
+		try {
+		$insercao = $conexao->prepare($sql);
+		$ok = $insercao->execute(array($nome,$CPF,$telefone,$celular,$CEP,$UF,$cidade,$bairro,$logradouro,$complemento,$email,$apelido,$id_usuario));
+		}catch(PDOException $r){
+			$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
+			if ($ok){
+				$msg= 'Seus dados foram alterados com sucesso!.';
+				}else{
+					$msg='Lamento, não foi possivel alterar seus dados!.'.$r->getMessage().'';
+			}
+		header('location:perfil.php?mensagem='.$msg);
+
+}
+
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -24,31 +54,26 @@ if(empty($_SESSION['usuario'])){
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/modal.css">
-
-	<!-- esse script libera os botoes de compartilhamento
-    <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
- -->
-  </head>
+</head>
   <body>
-  
-					<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed"  >
-					<div class="collapse navbar-collapse">
-					<ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
-                    <li><a href="../index.php"><img src="../img/logo.png" alt="logo image" style="height: 70px"></a></li>
-					
-
-                                                                          
-                                        
-	<?php
-			if($logado == 0){
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed"  >
+		<div class="collapse navbar-collapse">
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+        <li><a href="../index.php"><img src="../img/logo.png" alt="logo image" style="height: 70px"></a></li><?php
+			if($logado == 1){
+                    $nick = '';
+                    if(!empty($apelido)){$nick = $apelido;}else{$nick = $nome;}
+                    if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="img/user_null.png" ;}
 					echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="../img/user_null.png" style="border-radius: 50%;width:50px;height:50px;align=left;">
+						<img src="../'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					  <a class="dropdown-item" href="#">Logar</a>
-					  <a class="dropdown-item" href="#">Registrar</a>
-					</div><li class="navbar-brand mt-4"><a class="text-info">Você não está logado! </a></li>
+					  <a class="dropdown-item" href="perfil.php">Perfil</a>
+					  <a class="dropdown-item" href="compras.php">Compras</a>
+					  <a class="dropdown-item" href="altera_usuario.php">Configurações</a>
+					  <a class="dropdown-item" href="../sair.php">Sair</a>
+					  </div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
 				  </li>
 				  <li class="navbar-brand mt-2">
 					  <form class="form-inline">
@@ -60,24 +85,16 @@ if(empty($_SESSION['usuario'])){
 								</svg>
 							</button>
 						  </div>
-						  
 						</div>
 					  </form>
-				  
 				  </li>
 				  </ul></div>
-
-					<ul><li class="mt-3"><a href="#" class="btn btn-secondary me-2" style="height: 40px;">Registre-se</a>
-					<a href="#" class="btn btn-secondary me-4" style="height: 40px;">Conecte-se</a></li></ul>
-					<li><button type="button" class="btn btn-info me-4" data-toggle="modal" data-target="#exampleModal">
+				  <ul><li><button type="button" class="btn btn-info me-4" data-toggle="modal" data-target="#exampleModal">
 					<span class="navbar-toggler-icon"></span>
 					</button></li>
-					';
-				}
-	?>
-	
-	
-	</nav>
+					</ul>';
+					}
+					?></nav>
     <div class="modal left fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -147,10 +164,7 @@ if(empty($_SESSION['usuario'])){
 							</ul>
 						</div>
 					</li></ul>
-					
-						
-					
-				</div>
+					</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
