@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/04/2024 às 19:36
+-- Tempo de geração: 03/04/2024 às 19:00
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `dlinfotech`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `cartao_usuario`
+--
+
+CREATE TABLE `cartao_usuario` (
+  `nome` varchar(120) NOT NULL,
+  `numero` varchar(16) NOT NULL,
+  `vencimento` date NOT NULL,
+  `CCV` varchar(6) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_cartao` int(11) NOT NULL,
+  `data_entrada` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `cartao_usuario`
+--
+
+INSERT INTO `cartao_usuario` (`nome`, `numero`, `vencimento`, `CCV`, `id_usuario`, `id_cartao`, `data_entrada`) VALUES
+('josias santos', '1234123412341234', '2030-04-30', '123', 6, 1, '2024-04-03');
 
 -- --------------------------------------------------------
 
@@ -46,10 +69,10 @@ CREATE TABLE `produtos` (
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `nome` varchar(150) NOT NULL,
-  `CPF` bigint(14) NOT NULL,
-  `telefone` bigint(14) NOT NULL,
-  `celular` bigint(14) NOT NULL,
-  `CEP` int(8) NOT NULL,
+  `CPF` varchar(14) NOT NULL,
+  `telefone` varchar(14) NOT NULL,
+  `celular` varchar(14) NOT NULL,
+  `CEP` varchar(10) NOT NULL,
   `UF` varchar(30) NOT NULL,
   `cidade` varchar(100) NOT NULL,
   `bairro` varchar(100) NOT NULL,
@@ -68,13 +91,19 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `CPF`, `telefone`, `celular`, `CEP`, `UF`, `cidade`, `bairro`, `logradouro`, `complemento`, `email`, `senha`, `foto`, `apelido`, `data_entrada`, `status`) VALUES
-(6, 'nome teste ', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 10:56:47', 0),
-(7, 'seliria santos de azevedo', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1),
-(8, 'Asus_m1', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:45:34', 1);
+(6, 'Josias Santos de Azevedo ', '023.510.550-39', '51985078897', '51985078897', '94945-330', 'RS', 'Cachoeirinha', 'Vista Alegre', 'rua do mane', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', 'img/digo.jpg', 'Digo', '2024-04-01 10:56:47', 0),
+(7, 'seliria santos de azevedo', '0', '51985078897', '51985078897', '0', '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1),
+(8, 'Asus_m1', '0', '51985078897', '51985078897', '0', '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', 'img/digo.jpg', '', '2024-04-01 13:45:34', 1);
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `cartao_usuario`
+--
+ALTER TABLE `cartao_usuario`
+  ADD PRIMARY KEY (`id_cartao`);
 
 --
 -- Índices de tabela `produtos`
@@ -91,6 +120,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `cartao_usuario`
+--
+ALTER TABLE `cartao_usuario`
+  MODIFY `id_cartao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`

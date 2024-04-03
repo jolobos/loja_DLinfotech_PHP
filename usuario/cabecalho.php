@@ -56,7 +56,7 @@ $sql ='UPDATE usuarios SET nome=?,CPF=?,telefone=?,celular=?,CEP=?,UF=?,cidade=?
 	<link rel="stylesheet" href="../css/modal.css">
 </head>
   <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed"  >
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"  >
 		<div class="collapse navbar-collapse">
 		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
         <li><a href="../index.php"><img src="../img/logo.png" alt="logo image" style="height: 70px"></a></li><?php
