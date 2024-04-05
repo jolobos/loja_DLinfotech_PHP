@@ -17,7 +17,7 @@ if (!empty($_SESSION['decorrido'])) {
 	if ($tempo>$_SESSION['vida']){
 		$msg = 'Sua sessão expirou!';
 		session_destroy();
-		header('location:usuario/login.php?mens='.$msg);
+		header('location:session_exp.php?mens='.$msg);
 	} else {
 		$_SESSION['decorrido'] = time();
 	}

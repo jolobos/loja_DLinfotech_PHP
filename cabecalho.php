@@ -75,7 +75,7 @@ date_default_timezone_set('America/Sao_Paulo');
                                     
                                     echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
+						<img src="img/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="usuario/perfil.php">Perfil</a>
