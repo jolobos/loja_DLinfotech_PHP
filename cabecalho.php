@@ -38,7 +38,7 @@ date_default_timezone_set('America/Sao_Paulo');
 			if($logado == 0){
 					echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="img/user_null.png" style="border-radius: 50%;width:50px;height:50px;align=left;">
+						<img src="img/foto_usuario/user_null.png" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="usuario/login.php">Logar</a>
@@ -71,11 +71,11 @@ date_default_timezone_set('America/Sao_Paulo');
                                 }else{
                                     $nick = '';
                                     if(!empty($apelido)){$nick = $apelido;}else{$nick = $nome;}
-                                    if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="img/user_null.png" ;}
+                                    if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="user_null.png" ;}
                                     
                                     echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="img/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
+						<img src="img/foto_usuario/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="usuario/perfil.php">Perfil</a>

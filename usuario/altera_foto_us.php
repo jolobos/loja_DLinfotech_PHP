@@ -11,7 +11,7 @@ require_once("../database.php");
 
     $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
     $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
-    $diretorio = "../img/"; //define o diretorio para onde enviaremos o arquivo
+    $diretorio = "../img/foto_usuario/"; //define o diretorio para onde enviaremos o arquivo
 
     move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
 
@@ -39,13 +39,21 @@ require_once("../database.php");
 require_once('cabecalho.php');
 
 ?>
-<h1 style="margin-top:95px;">Upload de Arquivos</h1>
 <?php if(isset($msg) && $msg != false) echo "<p>'.$msg.'</p>"; ?>
 <form action="altera_foto_us.php" method="POST" enctype="multipart/form-data" >
 	<div class="container">
-		<div class="col-sm-3">
+            <h1 style="margin-top:95px;">Upload de imagem</h1>
+           <?php 
+           if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="user_null.png" ;}
+           echo '<img src="../img/foto_usuario/'.$foto_usuario.'" width="300px" height="300px"/>'; 
+           
+           
+           ?>
+				
+                <div class="col-sm-3 mt-3">
 			<input class="form-control" type="file" required name="arquivo">
 			<input class="btn btn-secondary mt-3" type="submit" value="Salvar">
+                        <a class="btn btn-danger mt-3" href="altera_usuario.php">Cancelar</a>
 		</div>
 		</div>
 </form>

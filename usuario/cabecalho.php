@@ -63,10 +63,10 @@ $sql ='UPDATE usuarios SET nome=?,CPF=?,telefone=?,celular=?,CEP=?,UF=?,cidade=?
 			if($logado == 1){
                     $nick = '';
                     if(!empty($apelido)){$nick = $apelido;}else{$nick = $nome;}
-                    if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="../img/user_null.png" ;}
+                    if(!empty($foto)){$foto_usuario = $foto;}else{$foto_usuario ="user_null.png" ;}
 					echo '<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="../img/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
+						<img src="../img/foto_usuario/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="perfil.php">Perfil</a>
