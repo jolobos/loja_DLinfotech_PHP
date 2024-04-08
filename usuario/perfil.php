@@ -12,7 +12,8 @@ if(!empty($_SESSION['id_usuario'])){
     $consulta = $conexao->prepare($sql);
     $consulta->execute(array($id_usuario));
     $dado = $consulta->fetch(PDO::FETCH_ASSOC);
-
+    $data = DateTime::createFromFormat('Y-m-d H:i:s',$dado['data_entrada'] );
+    $data1 = $data->format('d/m/Y H:i:s');
     if($dado['status'] > 0){
         $status = 'ATIVO';
     }else{
@@ -79,7 +80,7 @@ if(!empty($_SESSION['id_usuario'])){
             </div>
             <div class="mb-3 mt-3">
             <label  class="form-label">Data do cadastro:</label>
-            <label  class="form-label">'.$dado['data_entrada'].'</label>
+            <label  class="form-label">'.$data1.'</label>
             </div>
             <div class="mb-3 mt-3">
             <label  class="form-label">Condição:</label>

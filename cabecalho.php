@@ -46,8 +46,8 @@ date_default_timezone_set('America/Sao_Paulo');
 					</div><li class="navbar-brand mt-4"><a class="text-info">Você não está logado! </a></li>
 				  </li>
 				  <li class="navbar-brand mt-2">
-					  <form class="form-inline">
-						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" style="width: 400px;" >
+					  <form action="produtos/procura_produto.php" method="POST"  class="form-inline">
+						<div class="input-group"><input type="search" class="form-control" name="busca_produto" placeholder="Pesquisar" style="width: 400px;" >
 						  <div class="input-group-prepend">
 							<button class="input-group-text btn btn-outline-success" type="submit">
 								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -78,15 +78,18 @@ date_default_timezone_set('America/Sao_Paulo');
 						<img src="img/foto_usuario/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					  <a class="dropdown-item" href="index.php">Inicio</a>
+					  <a class="dropdown-item" href="#">Notificações</a>
 					  <a class="dropdown-item" href="usuario/perfil.php">Perfil</a>
 					  <a class="dropdown-item" href="#">Compras</a>
 					  <a class="dropdown-item" href="usuario/altera_usuario.php">Configurações</a>
-					  <a class="dropdown-item" href="sair.php">Sair</a>
+					  <a class="dropdown-item" href="#.php">Suporte</a>
+                                          <a class="dropdown-item" href="sair.php">Sair</a>
                                         </div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
 				  </li>
 				  <li class="navbar-brand mt-2">
-					  <form class="form-inline">
-						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" style="width: 400px;" >
+					  <form class="form-inline" action="produtos/procura_produto.php" method="POST">
+						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" name="busca_produto" style="width: 400px;" >
 						  <div class="input-group-prepend">
 							<button class="input-group-text btn btn-outline-success" type="submit">
 								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

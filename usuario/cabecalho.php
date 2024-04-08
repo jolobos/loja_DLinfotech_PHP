@@ -19,6 +19,7 @@ $logradouro = $_POST['logradouro'];
 $complemento = $_POST['complemento'];
 $email = $_POST['email'];
 $apelido = $_POST['apelido'];
+$_SESSION['apelido'] = $apelido;
 $sql ='UPDATE usuarios SET nome=?,CPF=?,telefone=?,celular=?,CEP=?,UF=?,cidade=?,bairro=?,logradouro=?,complemento=?,email=?,apelido=? WHERE id_usuario=?';
 		try {
 		$insercao = $conexao->prepare($sql);
@@ -69,15 +70,18 @@ $sql ='UPDATE usuarios SET nome=?,CPF=?,telefone=?,celular=?,CEP=?,UF=?,cidade=?
 						<img src="../img/foto_usuario/'.$foto_usuario.'" style="border-radius: 50%;width:50px;height:50px;align=left;">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					  <a class="dropdown-item" href="../index.php">Inicio</a>
+					  <a class="dropdown-item" href="#">Notificações</a>
 					  <a class="dropdown-item" href="perfil.php">Perfil</a>
 					  <a class="dropdown-item" href="compras.php">Compras</a>
 					  <a class="dropdown-item" href="altera_usuario.php">Configurações</a>
+					  <a class="dropdown-item" href="#.php">Suporte</a>
 					  <a class="dropdown-item" href="../sair.php">Sair</a>
 					  </div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
 				  </li>
 				  <li class="navbar-brand mt-2">
-					  <form class="form-inline">
-						<div class="input-group"><input type="search" class="form-control" placeholder="Pesquisar" style="width: 400px;" >
+					  <form class="form-inline" action="../produtos/procura_produto.php" method="POST">
+						<div class="input-group"><input type="search" class="form-control" name="busca_produto" placeholder="Pesquisar" style="width: 400px;" >
 						  <div class="input-group-prepend">
 							<button class="input-group-text btn btn-outline-success" type="submit">
 								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
