@@ -14,7 +14,14 @@ $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
     <h3 class="alert alert-secondary">Produtos com o nome "<?php echo $busca_produto;?>"</h3>
    <div class="row">
           <?php
-          
+          if(strlen($_POST['busca_produto']) < 2){
+			  echo '<div class="col-sm-8 alert alert-dark text-center"" style="margin:auto"><h2>Valor inválido para pesquisa.</h2>
+			  <h5>Por favor, entre com um nome valido na pesquisa.</h5></div>';
+		  }else{
+			  if(empty($dados)){
+				  echo '<h2>Nenhum produto encontrado...</h2>';
+				  
+			  }else{
           foreach($dados as $d){
             if(!empty($d['foto'])){$foto_produto = $d['foto'];}else{$foto_produto ="produto_null.png" ;}
 
@@ -30,7 +37,7 @@ $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
                   </div>';
           
             
-            }
+		  }}}
             ?>
         
     </div>

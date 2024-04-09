@@ -79,7 +79,7 @@ date_default_timezone_set('America/Sao_Paulo');
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="index.php">Inicio</a>
-					  <a class="dropdown-item" href="#">Notificações</a>
+					  <a class="dropdown-item" href="usuario/notificacoes.php">Notificações</a>
 					  <a class="dropdown-item" href="usuario/perfil.php">Perfil</a>
 					  <a class="dropdown-item" href="#">Compras</a>
 					  <a class="dropdown-item" href="usuario/altera_usuario.php">Configurações</a>

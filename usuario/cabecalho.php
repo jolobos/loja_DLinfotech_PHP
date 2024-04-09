@@ -71,7 +71,7 @@ $sql ='UPDATE usuarios SET nome=?,CPF=?,telefone=?,celular=?,CEP=?,UF=?,cidade=?
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					  <a class="dropdown-item" href="../index.php">Inicio</a>
-					  <a class="dropdown-item" href="#">Notificações</a>
+					  <a class="dropdown-item" href="../usuario/notificacoes.php">Notificações</a>
 					  <a class="dropdown-item" href="perfil.php">Perfil</a>
 					  <a class="dropdown-item" href="compras.php">Compras</a>
 					  <a class="dropdown-item" href="altera_usuario.php">Configurações</a>
