@@ -126,29 +126,33 @@ echo '</div></div></div>
     if(!empty($dados['cor'])){
         
     echo '<div>';
-       if($dados['cor_1']=='azul'){
+       if($dados['azul']>0){
        echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">azul</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['vermelho']>0){
        echo '<a class="btn btn-light border-danger me-2 mt-2" href="#">vermelho</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['preto']>0){
        echo '<a class="btn btn-light border-dark me-2 mt-2" href="#">preto</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['branco']>0){
        echo '<a class="btn btn-light border-white-50 me-2 mt-2" href="#">branco</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['amarelo']>0){
        echo '<a class="btn btn-light border-warning me-2 mt-2" href="#">amarelo</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['verde']>0){
        echo '<a class="btn btn-light border-success me-2 mt-2" href="#">verde</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['laranja']>0){
        echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">laranja</a>';}
-       if($dados['cor_1']=='azul'){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">cinza</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['cinza']>0){
+       echo '<a class="btn btn-light border-primary  me-2 mt-2" href="#">cinza</a>';}
+       if($dados['rosa']>0){
        echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">rosa</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['marrom']>0){
        echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">marrom</a>';}
-       if($dados['cor_1']=='azul'){
+       if($dados['roxo']>0){
        echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">roxo</a>';}
-     
+       if($dados['prata']>0){
+       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">prata</a>';}
+       if($dados['dourado']>0){
+       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">dourado</a>';}
+      
     echo '</div>';}
     
     echo '<div class="m-2"> 
