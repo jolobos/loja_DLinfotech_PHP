@@ -5,6 +5,10 @@ $id_produto = $_GET['id_produto'];
 $sql = "SELECT * FROM produtos WHERE id_produto = '".$id_produto."'";
 $consulta = $conexao->query($sql);
 $dados = $consulta->fetch(PDO::FETCH_ASSOC);
+
+$sql2 = "SELECT * FROM ficha_tec_produto WHERE id_produto = '".$id_produto."'";
+$consulta2 = $conexao->query($sql2);
+$dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
   
     
 }
@@ -84,7 +88,7 @@ echo '</div></div></div>
 
     echo '
     <form action="endereco_compra.php" method="POST">
-    <h2>'.$dados['nome'].'</h2>
+    <h2>'.utf8_encode($dados['nome']).'</h2>
     <h3 style="top:110px;">R$ '. number_format($dados['valor'],2,'.',',').'</h3>';
      if($dados['valor'] >= 10 && $dados['valor'] <= 24.99 ){
          echo '<p>em 2X de R$ '.number_format(($dados['valor']/2),2,'.',',').'</p>';
@@ -108,7 +112,7 @@ echo '</div></div></div>
     <a class="btn btn-light active">220V</a>
     </div>';  
         
-    }}
+    }}else{ echo '</br></br>';}
     
     if($dados['voltagem_opcoes']== '110v'){
        echo '
@@ -157,7 +161,7 @@ echo '</div></div></div>
     
     echo '<div class="m-2"> 
     <h5>Decrição</h5>
-    <p>'.$dados['descricao'].'</p>
+    <p>'.utf8_encode($dados['descricao']).'</p>
     </div>
 
      <input type="hidden" name="id_produto" value="'.$id_produto.'"/>       
@@ -186,8 +190,36 @@ echo '</div></div></div>
 </div>
 
 <div id="collapseOne1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-    <h1>sadasdfadasd</h1>
-
+    <?php
+		if(!empty($dados2['id_ficha_tec'])){				
+			echo '<div class="row"><div class="col-sm-3">';
+			echo '<ul>
+						<li><p>Tamanho: '.$dados2['tamanho'].'</p></li>
+						<li><p>Altura: '.$dados2['altura'].'</p></li>
+						<li><p>Largura: '.$dados2['largura'].'</p></li>
+						<li><p>Peso: '.$dados2['peso'].'</p></li>
+						<li><p>Potência: '.$dados2['potencia'].'</p></li>
+						<li><p>Voltagem: '.$dados2['voltagem'].'</p></li>
+						<li><p>Fabricante: '.$dados2['fabricante'].'</p></li>
+						<li><p>Marca: '.$dados2['marca'].'</p></li>
+						<li><p>Modelo: '.$dados2['modelo'].'</p></li>
+						<li><p>Garantia: '.$dados2['garantia'].'</p></li>
+			</ul></div>
+			<div class="col-sm-3">
+			<ul>
+						<li><p>Temperatura MAX: '.$dados2['temperatura_max'].'</p></li>
+						<li><p>Temperatura MIN: '.$dados2['temperatura_min'].'</p></li>
+						<li><p>Armazenamento: '.$dados2['capacidade_armazenamento'].'</p></li>
+						<li><p>Durabilidade: '.$dados2['durabilidade'].'</p></li>
+						<li><p>Carga/Regarga: '.$dados2['tempo_recarga'].'</p></li>
+						<li><p>Prova d´agua: '.$dados2['prova_agua'].'</p></li>
+						<li><p>Registencia a água: '.$dados2['resistente_agua'].'</p></li>
+						<li><p>Velocidade: '.$dados2['velocidade'].'</p></li>
+			</ul>
+			';
+			echo '</div></div>';
+		}
+	?>
 </div>
 <hr/>
 <div class="accordion" id="accordionExample" >
@@ -195,7 +227,7 @@ echo '</div></div></div>
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
         <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne">
-         Garantia do produto
+         Descrição completa do produto
         </button>
       </h5>
     </div>
@@ -203,7 +235,7 @@ echo '</div></div></div>
 </div>
 
 <div id="collapseOne2" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-    <h1>sadasdfadasd</h1>
+    <?php if(!empty($dados2['descricao_longa']))echo '<h5>Descrição: </h5><div class="mx-5"><p>'.$dados2['descricao_longa'].'</p></div>';?>
 
 </div>
 <hr/>
@@ -212,7 +244,7 @@ echo '</div></div></div>
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
         <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne">
-         Condições de devolução
+         Condições de devolução e Garantia
         </button>
       </h5>
     </div>
@@ -220,7 +252,7 @@ echo '</div></div></div>
 </div>
 
 <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-    <h1>sadasdfadasd</h1>
+    <h1>Apenas será usado no momento que for decidido corretamente as Condições de troca, avaria, reembolso, entre outros.....</h1>
 
 </div>
 

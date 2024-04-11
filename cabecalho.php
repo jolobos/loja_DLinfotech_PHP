@@ -84,8 +84,10 @@ date_default_timezone_set('America/Sao_Paulo');
 					  <a class="dropdown-item" href="#">Compras</a>
 					  <a class="dropdown-item" href="usuario/altera_usuario.php">Configurações</a>
 					  <a class="dropdown-item" href="#.php">Suporte</a>
-                                          <a class="dropdown-item" href="sair.php">Sair</a>
-                                        </div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
+					  <a class="dropdown-item" href="sair.php">Sair</a>
+					  ';
+					  if($id_usuario == 6){ echo '<a class="dropdown-item" href="administrador/produtos/produtos.php">modo deus</a>';}
+                      echo '</div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
 				  </li>
 				  <li class="navbar-brand mt-2">
 					  <form class="form-inline" action="produtos/procura_produto.php" method="POST">

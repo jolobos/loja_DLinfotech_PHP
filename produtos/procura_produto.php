@@ -27,10 +27,10 @@ $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
             echo '<div class="col-sm-3">
                   <div class="card m-2 " style="height: 95%;padding-bottom: 40px;">
-                  <img class="card-img-top" src="../img/produtos/'.$foto_produto.'" alt="Imagem de capa do card" style="width: 90%; display: block;margin-left: auto;margin-right: auto;">
+                  <img class="card-img-top" src="../img/produtos/'.$foto_produto.'" style="width: 90%; height: 90%; margin: auto">
                   <div class="card-body">
-                    <h5 class="card-title">'.$d['nome'].'</h5>
-                    <p class="card-text">'.$d['descricao'].'</p>
+                    <h5 class="card-title">'.utf8_encode($d['nome']).'</h5>
+                    <p class="card-text">'.utf8_encode($d['descricao']).'</p>
                     <a href="pagina_produto.php?id_produto='.$d['id_produto'].'" class="btn btn-success" style="position: absolute;bottom:10px;">R$ '. number_format($d['valor'],2,',','.').'</a>
                   </div>
 		  </div>

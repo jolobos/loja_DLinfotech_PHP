@@ -88,7 +88,11 @@ if(!empty($_SESSION['id_usuario'])){
             </div>
             </div>
             </div>
-        </form>';
-    ?>
-     <hr/>
+        </form><hr/>';
+		
+	
+	
+	?>
+	
+     
 </div>
