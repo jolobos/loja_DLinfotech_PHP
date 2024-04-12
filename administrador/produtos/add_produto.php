@@ -4,6 +4,16 @@ require_once '../../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+
+// inserindo a foto do produto na pasta de produtos
+ if(isset($_FILES['arquivo'])){
+    $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+    $diretorio = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+
+    move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
+    header('location:add_produto.php');
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -72,7 +82,7 @@ if(!empty($_POST['cod_barras'])){ $cod_barras = $_POST['cod_barras'];}else{ $cod
 
 echo '<div style="width: 50%;margin:auto;">
     
-        <form action="add_produto.php"  method="post" >
+        <form action="add_produto.php"  method="POST" enctype="multipart/form-data" >
             <div class="row">
             <div class="col" >            
             <div class="mb-3 mt-3">
@@ -80,7 +90,7 @@ echo '<div style="width: 50%;margin:auto;">
             <input class="form-control " placeholder="Código do produto" name="cod_produto" value="'.$cod_barras.'">
             </div>
             <div class="mb-3 mt-3">
-            <label class="form-label">Nome:</label>
+            <label class="form-label">Nome do produto:</label>
             <input class="form-control" placeholder="Digite o nome do produto" name="nome" >
             </div>
             <div class="mb-3 mt-3">
@@ -91,9 +101,27 @@ echo '<div style="width: 50%;margin:auto;">
             <label class="form-label">Quantidade:</label>
             <input class="form-control" placeholder="Digite a quantidade " name="quantidade" >
             </div>
-			<div class="mb-3 mt-3">
+            <div class="mb-3 mt-3">
             <label class="form-label">Categoria:</label>
-            <input class="form-control" placeholder="Digite a categoria " name="categoria" >
+            
+            <select class="form-control" name="categoria" >
+            <option>Categorias</option>
+            <option value="eletronicos">Eletrônicos</option>
+            <option value="acessorios">Acessórios</option>
+            <option value="capinhas">Capinhas</option>
+            <option value="peliculas">Peliculas</option>
+            <option value="CPU">Computadores</option>
+            <option value="celular">Celulares</option>
+            <option value="CTV">CTV</option>
+            <option value="display">Display/Touch</option>
+            <option value="conectores">Conectores</option>
+            <option value="cabos">Cabos</option>
+            <option value="ferramenta_cel">Ferramentas p/ celular</option>
+            <option value="ferramenta_CPU">Ferramentas p/ PC´s</option>
+            <option value="placa_cel">Placas celular</option>
+            <option value="bateria">Baterias</option>
+            <option value="audio">Audio/Som</option>
+            </select>
             </div>
 			
             </div>
@@ -104,11 +132,19 @@ echo '<div style="width: 50%;margin:auto;">
             </div>
 			<div class="mb-3 mt-3">
             <label class="form-label">Voltagem:</label>
-            <input class="form-control" placeholder="Digite a voltagem " name="voltagem" >
+            <select class="form-control" name="voltagem" >
+            <option value="110">110 V</option>
+            <option value="220">220 V</option>
+            <option value="bivolt">Bi-volt</option>
+            </select>            
             </div>
 			<div class="mb-3 mt-3">
             <label class="form-label">Opções de voltagem:</label>
-            <input class="form-control" placeholder="Digite a voltagem " name="voltagem_opcoes" >
+            <select class="form-control" name="voltagem_opcoes" >
+            <option value="110">110 V</option>
+            <option value="220">220 V</option>
+            <option value="bivolt">Bi-volt</option>
+            </select>
             </div>
 			<div class="mb-3 mt-3">
             <label class="form-label">Descrição:</label>
@@ -116,21 +152,209 @@ echo '<div style="width: 50%;margin:auto;">
             </div>
 			<div class="mb-3 mt-3">
             <label class="form-label">Status:</label>
-            <input class="form-control" placeholder="Digite o status" name="status" >
+            <select class="form-control" name="status" >
+            <option value="1">Ativo</option>
+            <option value="0">Desativado</option>
+            </select>
             </div>
-			</div>
             </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label">Opções de cores:</label>
-            <input class="form-control" placeholder="fazer com radio" name="" >
             </div>
-			<div class="mb-3 mt-3" align="center">
-            <button type="submit" class="btn btn-primary ">Salvar as configurações</button>
+            
+            <h5>Variações de cores</h5>
+            <div class="row">
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="azul">
+              <label class="form-check-label" for="defaultCheck1">
+                Azul
+              </label>
             </div>
-        </form>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck2" name="vermelho">
+              <label class="form-check-label" for="defaultCheck2">
+                Vermelho
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck3" name="preto">
+              <label class="form-check-label" for="defaultCheck3">
+                Preto
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck4" name="branco">
+              <label class="form-check-label" for="defaultCheck4">
+                Branco
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck5" name="amarelo">
+              <label class="form-check-label" for="defaultCheck5">
+                Amarelo
+              </label>
+            </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck6" name="verde">
+              <label class="form-check-label" for="defaultCheck6">
+                Verde
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck7" name="laranja">
+              <label class="form-check-label" for="defaultCheck7">
+                Laranja
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck8" name="cinza">
+              <label class="form-check-label" for="defaultCheck8">
+                Cinza
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck9" name="rosa">
+              <label class="form-check-label" for="defaultCheck9">
+                Rosa
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck10" name="marrom">
+              <label class="form-check-label" for="defaultCheck10">
+                Marrom
+              </label>
+            </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck11" name="roxo">
+              <label class="form-check-label" for="defaultCheck11">
+                Roxo
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck12" name="prata">
+              <label class="form-check-label" for="defaultCheck12">
+                Prata
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="defaultCheck13" name="dourado">
+              <label class="form-check-label" for="defaultCheck13">
+                Dourado
+              </label>
+            </div>
+            </div>
+            <div class="col" >            
+            </div>
+            <div class="col" >            
+            </div>
+            </div>
+            
+            <div class="mb-3 mt-3" align="center">
+            
+            <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirmação para adicionar novo produto</h5>
+                </div>
+                <div class="modal-body">
+                  <p class="text-white text-start">Para adicionar o seu novo produto, clique em salvar produto.</p>
+                  <p class="text-white text-start">Se não terminou de configurar, clique em fechar.</p>
+                </div>
+                <div class="modal-footer">
+                  <input type="hidden"  name="confirma_post" value="1">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <button type="submit" class="btn btn-primary">Salvar produto</button>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>';
+
+//Parte para inserir a foto do produto
+echo '
+	
+            <h1>Foto do produto</h1>';
+              echo '<div align="center">
+			<input class="form-control" type="file" required name="arquivo">
+		
+		
+                <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modalExemplo">
+                    Salvar as configurações   
+                </button></div>
+</form></div>';
+
+echo '<hr/> <h4>Informações:</h4>';
+if(!empty($_POST['confirma_post'])){
+    echo '<p>Nome e categorias dos post</p>';
+    echo '<p>cod_produto: '.$_POST['cod_produto'].'</p>';
+    echo '<p>nome: '.$_POST['nome'].'</p>';
+    echo '<p>valor: '.$_POST['valor'].'</p>';
+    echo '<p>quantidade: '.$_POST['quantidade'].'</p>';
+    echo '<p>categoria: '.$_POST['categoria'].'</p>';
+    echo '<p>cor: '.$_POST['cor'].'</p>';
+    echo '<p>voltagem: '.$_POST['voltagem'].'</p>';
+    echo '<p>voltagem_opcoes: '.$_POST['voltagem_opcoes'].'</p>';
+    echo '<p>descricao: '.$_POST['descricao'].'</p>';
+    echo '<p>status: '.$_POST['status'].'</p>';
+    //Para cada checkbox eu tenho que colocar a condição de vazio.
+    if(!empty($_POST['azul'])){$azul = $_POST['azul'];}else{ $azul = 0;}
+    if(!empty($_POST['vermelho'])){$vermelho = $_POST['vermelho'];}else{ $vermelho = 0;}
+    if(!empty($_POST['preto'])){$preto = $_POST['preto'];}else{ $preto = 0;}
+    if(!empty($_POST['branco'])){$branco = $_POST['branco'];}else{ $branco = 0;}
+    if(!empty($_POST['amarelo'])){$amarelo = $_POST['amarelo'];}else{ $amarelo = 0;}
+    if(!empty($_POST['verde'])){$verde = $_POST['verde'];}else{ $verde = 0;}
+    if(!empty($_POST['laranja'])){$laranja = $_POST['laranja'];}else{ $laranja = 0;}
+    if(!empty($_POST['cinza'])){$cinza = $_POST['cinza'];}else{ $cinza = 0;}
+    if(!empty($_POST['rosa'])){$rosa = $_POST['rosa'];}else{ $rosa = 0;}
+    if(!empty($_POST['marrom'])){$marrom = $_POST['marrom'];}else{ $marrom = 0;}
+    if(!empty($_POST['roxo'])){$roxo = $_POST['roxo'];}else{ $roxo = 0;}
+    if(!empty($_POST['prata'])){$prata = $_POST['prata'];}else{ $prata = 0;}
+    if(!empty($_POST['dourado'])){$dourado = $_POST['dourado'];}else{ $dourado = 0;}
     
+    echo '<p>azul: '.$azul.'</p>';
+    echo '<p>vermelho: '.$vermelho.'</p>';
+    echo '<p>preto: '.$preto.'</p>';
+    echo '<p>branco: '.$branco.'</p>';
+    echo '<p>amarelo: '.$amarelo.'</p>';
+    echo '<p>verde: '.$verde.'</p>';
+    echo '<p>laranja: '.$laranja.'</p>';
+    echo '<p>cinza: '.$cinza.'</p>';
+    echo '<p>rosa: '.$rosa.'</p>';
+    echo '<p>marrom: '.$marrom.'</p>';
+    echo '<p>roxo: '.$roxo.'</p>';
+    echo '<p>prata: '.$prata.'</p>';
+    echo '<p>dourado: '.$dourado.'</p>';
     
-</div>';
+}
+
 ?>
 
 </body>
