@@ -8,11 +8,52 @@ date_default_timezone_set('America/Sao_Paulo');
 // inserindo a foto do produto na pasta de produtos
  if(isset($_FILES['arquivo'])){
     $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
-    $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+    $novo_nome = md5(microtime()) . $extensao; //define o nome do arquivo
     $diretorio = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
-
     move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
-    header('location:add_produto.php');
+    $foto_pr = $novo_nome;
+}
+if(isset($_FILES['arquivo1'])){
+    $extensao1 = strtolower(substr($_FILES['arquivo1']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome1 = md5(microtime()) . $extensao1; //define o nome do arquivo
+    $diretorio1 = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+    move_uploaded_file($_FILES['arquivo1']['tmp_name'], $diretorio1.$novo_nome1); //efetua o upload
+    $foto_1 = $novo_nome1;
+}
+if(isset($_FILES['arquivo2'])){
+    $extensao2 = strtolower(substr($_FILES['arquivo2']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome2 = md5(microtime()) . $extensao2; //define o nome do arquivo
+    $diretorio2 = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+    move_uploaded_file($_FILES['arquivo2']['tmp_name'], $diretorio2.$novo_nome2); //efetua o upload
+    $foto_2 = $novo_nome2;
+}
+if(isset($_FILES['arquivo3'])){
+    $extensao3 = strtolower(substr($_FILES['arquivo3']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome3 = md5(microtime()) . $extensao3; //define o nome do arquivo
+    $diretorio3 = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+    move_uploaded_file($_FILES['arquivo3']['tmp_name'], $diretorio3.$novo_nome3); //efetua o upload
+    $foto_3 = $novo_nome3;
+}
+if(isset($_FILES['arquivo4'])){
+    $extensao4 = strtolower(substr($_FILES['arquivo4']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome4 = md5(microtime()) . $extensao4; //define o nome do arquivo
+    $diretorio4 = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+    move_uploaded_file($_FILES['arquivo4']['tmp_name'], $diretorio4.$novo_nome4); //efetua o upload
+    $foto_4 = $novo_nome4;
+}
+if(isset($_FILES['arquivo5'])){
+    $extensao5 = strtolower(substr($_FILES['arquivo5']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome5 = md5(microtime()) . $extensao5; //define o nome do arquivo
+    $diretorio5 = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+    move_uploaded_file($_FILES['arquivo5']['tmp_name'], $diretorio5.$novo_nome5); //efetua o upload
+    $foto_5 = $novo_nome5;
+}
+if(isset($_FILES['arquivo6'])){
+    $extensao6 = strtolower(substr($_FILES['arquivo6']['name'], -4)); //pega a extensao do arquivo
+    $novo_nome6 = md5(microtime()) . $extensao6; //define o nome do arquivo
+    $diretorio6 = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
+    move_uploaded_file($_FILES['arquivo6']['tmp_name'], $diretorio6.$novo_nome6); //efetua o upload
+    $foto_6 = $novo_nome6;
 }
 ?>
 <!doctype html>
@@ -299,21 +340,161 @@ echo '<div style="width: 50%;margin:auto;">
         </div>';
 
 //Parte para inserir a foto do produto
-echo '
-	
-            <h1>Foto do produto</h1>';
-              echo '<div align="center">
-			<input class="form-control" type="file" required name="arquivo">
-		
-		
-                <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modalExemplo">
+echo '<h1>Foto do produto</h1>';
+              echo '<div>
+                     <label class="form-check-label" for="defaultCheck13">
+                        Foto Principal:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo">
+		</div>
+                <div class="row mt-2">
+                <div class="col">
+                <label class="form-check-label" for="defaultCheck13">
+                        Foto 1:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo1">
+		</div>
+                <div class="col">
+                <label class="form-check-label" for="defaultCheck13">
+                        Foto 2:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo2">
+		</div>
+		</div>
+                <div class="row mt-2">
+                <div class="col">
+                <label class="form-check-label" for="defaultCheck13">
+                        Foto3:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo3">
+		</div>
+                <div class="col">
+                <label class="form-check-label" for="defaultCheck13">
+                        Foto 4:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo4">
+		</div>
+                </div>
+                <div class="row mt-2">
+                <div class="col">
+                <label class="form-check-label" for="defaultCheck13">
+                        Foto 5:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo5">
+		</div>
+                <div class="col">
+                <label class="form-check-label" for="defaultCheck13">
+                        Foto 6:
+                     </label>
+                    <input class="form-control" type="file" name="arquivo6">
+		</div>
+		</div>
+<h1 class="mt-3">Ficha técnica do produto</h1>		
+<div class="row">
+    <div class="col" >            
+    <div class="mb-3 mt-3">
+    <label class="form-label">Tamanho do produto:</label>
+    <input class="form-control" placeholder="Digite o nome do produto" name="tamanho" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Altura:</label>
+    <input class="form-control" placeholder="Digite o valor" name="altura" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Largura:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="largura" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Peso:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="peso" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Potência:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="potencia" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Fabricante:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="fabricante" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Garantia:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="garantia" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Temperatura Máxima:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="temperatura_max" >
+    </div>
+    </div>
+    <div class="col">            
+    
+    <div class="mb-3 mt-3">
+    <label class="form-label">Temperatura mínima:</label>
+    <input class="form-control" placeholder="Digite a cor " name="temperatura_min" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Armazenamento:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="capacidade_armazenzamento" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Durabilidade:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="durabilidade" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Recarga:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="tempo_recarga" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Marca:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="marca" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Modelo:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="modelo" >
+    </div>
+    <div class="mb-3 mt-3">
+    <label class="form-label">Velocidade:</label>
+    <input class="form-control" placeholder="Digite a quantidade " name="velocidade" >
+    </div>
+    
+    <div class="row">
+    <div class="col">
+    <div>
+    <label class="form-label">Prova d´agua:</label>
+    <select class="form-control" name="prova_agua" >
+    <option value="0">Não</option>
+    <option value="1">Sim</option>
+    </select>
+    </div>
+    </div>
+    <div class="col">
+    <div>
+    <label class="form-label">Resistente à agua:</label>
+    <select class="form-control" name="resistente_agua" >
+    <option value="0">Não</option>
+    <option value="1">Sim</option>
+    </select>
+    </div>
+    </div>
+    </div>
+    
+
+    </div>
+    </div>    
+    <div class="mb-3 mt-3">
+        <label class="form-label">Descrição completa:</label>
+        <textarea class="form-control" rows="6" name="descricao_longa"></textarea>
+    </div>    
+    
+                <div align="center">    
+                <button type="button" class="btn btn-primary mt-3 " data-toggle="modal" data-target="#modalExemplo">
                     Salvar as configurações   
-                </button></div>
+                </button></div></div>
 </form></div>';
 
-echo '<hr/> <h4>Informações:</h4>';
+echo '<hr/><div class="container"> <h4>Informações:</h4>';
 if(!empty($_POST['confirma_post'])){
-    echo '<p>Nome e categorias dos post</p>';
+    echo '<div class=row><div class="col">'
+    . '<p>Nome e categorias dos post</p>';
     echo '<p>cod_produto: '.$_POST['cod_produto'].'</p>';
     echo '<p>nome: '.$_POST['nome'].'</p>';
     echo '<p>valor: '.$_POST['valor'].'</p>';
@@ -323,7 +504,7 @@ if(!empty($_POST['confirma_post'])){
     echo '<p>voltagem: '.$_POST['voltagem'].'</p>';
     echo '<p>voltagem_opcoes: '.$_POST['voltagem_opcoes'].'</p>';
     echo '<p>descricao: '.$_POST['descricao'].'</p>';
-    echo '<p>status: '.$_POST['status'].'</p>';
+    echo '<p>status: '.$_POST['status'].'</p></div>';
     //Para cada checkbox eu tenho que colocar a condição de vazio.
     if(!empty($_POST['azul'])){$azul = $_POST['azul'];}else{ $azul = 0;}
     if(!empty($_POST['vermelho'])){$vermelho = $_POST['vermelho'];}else{ $vermelho = 0;}
@@ -339,7 +520,7 @@ if(!empty($_POST['confirma_post'])){
     if(!empty($_POST['prata'])){$prata = $_POST['prata'];}else{ $prata = 0;}
     if(!empty($_POST['dourado'])){$dourado = $_POST['dourado'];}else{ $dourado = 0;}
     
-    echo '<p>azul: '.$azul.'</p>';
+    echo '<div class="col"><p>azul: '.$azul.'</p>';
     echo '<p>vermelho: '.$vermelho.'</p>';
     echo '<p>preto: '.$preto.'</p>';
     echo '<p>branco: '.$branco.'</p>';
@@ -351,7 +532,17 @@ if(!empty($_POST['confirma_post'])){
     echo '<p>marrom: '.$marrom.'</p>';
     echo '<p>roxo: '.$roxo.'</p>';
     echo '<p>prata: '.$prata.'</p>';
-    echo '<p>dourado: '.$dourado.'</p>';
+    echo '<p>dourado: '.$dourado.'</p></div>';
+  
+    echo '<div class="col">';
+    echo '<p>foto 1: '.$foto_pr.'</p>';
+    echo '<p>foto 2: '.$foto_1.'</p>';
+    echo '<p>foto 3: '.$foto_2.'</p>';
+    echo '<p>foto 4: '.$foto_3.'</p>';
+    echo '<p>foto 5: '.$foto_4.'</p>';
+    echo '<p>foto 6: '.$foto_5.'</p>';
+    echo '<p>foto 7: '.$foto_6.'</p> </div></div></div>';
+  
     
 }
 
