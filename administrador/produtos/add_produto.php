@@ -14,8 +14,8 @@ date_default_timezone_set('America/Sao_Paulo');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="func_pr.js"></script>
 	<link rel="stylesheet" href="../../css/modal.css">
 
@@ -32,6 +32,7 @@ date_default_timezone_set('America/Sao_Paulo');
 				</button>
 				<a class="btn btn-secondary border-danger m-2" href="produtos.php">Voltar</a>
 				<a class="btn btn-secondary border-info m-2" href="../adminintracao.php">Administração</a>
+				<a class="btn btn-secondary border-info m-2" href="../../index.php">INICIO</a>
 				<a href="../../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
 
 				</div>
@@ -53,6 +54,12 @@ date_default_timezone_set('America/Sao_Paulo');
 				</div>
 				</div>
 				</div>
+<?php
+if(!empty($_GET)){
+    echo '<h3 class="alert alert-info mt-2">'.$_GET['mensagem'].'</h3>';
+}
+
+?>
 <div style="width: 50%;margin:auto;">
 <form action="" method="post">
 <h4>Leitor de código de barras:</h4>

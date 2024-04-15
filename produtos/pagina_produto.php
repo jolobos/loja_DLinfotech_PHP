@@ -9,7 +9,6 @@ $dados = $consulta->fetch(PDO::FETCH_ASSOC);
 $sql2 = "SELECT * FROM ficha_tec_produto WHERE id_produto = '".$id_produto."'";
 $consulta2 = $conexao->query($sql2);
 $dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
-  
     
 }
 
@@ -19,7 +18,7 @@ $dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
 <div class="container" style="margin-top: 95px;">
     <hr/>
     <h3>Produto</h3>
-    
+ 
 </div>
 <?php
 echo '<div class="container bg-light" >
@@ -88,7 +87,7 @@ echo '</div></div></div>
 
     echo '
     <form action="endereco_compra.php" method="POST">
-    <h2>'.utf8_encode($dados['nome']).'</h2>
+    <h2>'.$dados['nome'].'</h2>
     <h3 style="top:110px;">R$ '. number_format($dados['valor'],2,'.',',').'</h3>';
      if($dados['valor'] >= 10 && $dados['valor'] <= 24.99 ){
          echo '<p>em 2X de R$ '.number_format(($dados['valor']/2),2,'.',',').'</p>';
@@ -161,12 +160,12 @@ echo '</div></div></div>
     
     echo '<div class="m-2"> 
     <h5>Decrição</h5>
-    <p>'.utf8_encode($dados['descricao']).'</p>
+    <p>'.$dados['descricao'].'</p>
     </div>
 
      <input type="hidden" name="id_produto" value="'.$id_produto.'"/>       
      <input class="btn btn-success "type="submit" Value="Comprar" style="position:absolute;bottom:10px;" >
-     <a href="#"class="btn btn-secondary" style="position:absolute;left:110px;bottom:10px;">Adicionar ao carrinho</a>    
+     <a href="ver_carrinho.php?id_produto='.$id_produto.'"class="btn btn-secondary" style="position:absolute;left:110px;bottom:10px;">Adicionar ao carrinho</a>    
          </form>';
         
 ?>            
@@ -190,8 +189,8 @@ echo '</div></div></div>
 </div>
 
 <div id="collapseOne1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-    <?php
-		if(!empty($dados2['id_ficha_tec'])){				
+    <?php       
+		if(!empty($dados2['id_produto'])){				
 			echo '<div class="row"><div class="col-sm-3">';
 			echo '<ul>
 						<li><p>Tamanho: '.$dados2['tamanho'].'</p></li>
