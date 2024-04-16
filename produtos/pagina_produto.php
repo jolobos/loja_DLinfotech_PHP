@@ -159,6 +159,11 @@ echo '</div></div></div>
     echo '</div>';}
     
     echo '<div class="m-2"> 
+    <h5>Quantidade</h5>
+    <input type="range"  name="quantidade_produto" value="1" min="1" max="'.$dados['quantidade'].'"
+    oninput="display.value=value" onchange="display.value=value">
+    <input type="text" id="display" class="w-25" name="quantidade_produto" value="1" readonly>
+    
     <h5>Decrição</h5>
     <p>'.$dados['descricao'].'</p>
     </div>
