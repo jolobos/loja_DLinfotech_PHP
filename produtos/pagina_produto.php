@@ -163,7 +163,7 @@ echo '</div></div></div>
     <p>'.$dados['descricao'].'</p>
     </div>
 
-     <input type="hidden" name="id_produto" value="'.$id_produto.'"/>       
+     <input type="hidden" name="id_produto_POST" value="'.$id_produto.'"/>       
      <input class="btn btn-success "type="submit" Value="Comprar" style="position:absolute;bottom:10px;" >
      <a href="ver_carrinho.php?id_produto='.$id_produto.'"class="btn btn-secondary" style="position:absolute;left:110px;bottom:10px;">Adicionar ao carrinho</a>    
          </form>';

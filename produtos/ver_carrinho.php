@@ -47,7 +47,13 @@ if(isset($_GET['destroi_produto'])){
                 <a class="btn btn-secondary" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">Ultimo Produto Visto</a>
                 <a class="btn btn-info" href="../index.php">Voltar ao INICIO</a>';
                 }else{
-                echo '<table class="table table-striped" border="3">
+				echo '<div class="row"><div class="col-sm-2 "><a class="btn btn-secondary ms-3" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">Ultimo Produto Visto</a>
+                </div><div class="col-sm-2"><a class="btn btn-info" href="../index.php">Voltar ao INICIO</a></div>
+                <div class="col me-3" align="right"><form action="endereco.php" method="POST">
+				<a class="btn btn-success" href="endereco_compra.php">Fechar o Carrinho</a></div>
+				</div>';
+                	
+                echo '<table class="table table-striped mt-2" border="3">
                 <thead>
                     <tr align="center">
                         <th colspan="8">Produtos do Carrinho</th>
