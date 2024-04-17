@@ -11,6 +11,26 @@ if(!empty($_GET['zera_lista'])){
 }
 
 require_once 'cabecalho.php';
+if(!empty($_GET['mensagem'])){
+        echo  '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h3 class="modal-title">Tudo certo...</h3>
+      </div>
+      <div class="modal-body bg-light">
+        <h5>Seu endereço foi adicionado corretamente ao banco de dados.</h5>
+      </div>
+      <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+}
+
+
 if(!empty($_POST['id_produto_POST'])){
 $_SESSION['ultimo_visto'] = $_POST['id_produto_POST'];
 if(!isset($_SESSION['produto_carrinho'])){
@@ -59,7 +79,6 @@ if(!isset($_SESSION['produto_carrinho'])){
 
 ?>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
 $(window).load(function() {
     $('#exemplomodal').modal('show');
@@ -76,9 +95,10 @@ $(window).load(function() {
       <div class="card-body">
         <h5 class="card-title">Endereço de entrega atual</h5>
 				<?php
+                                if(isset($_SESSION['id_usuario'])){
 				$sql2 = "SELECT * FROM endereco_usuario WHERE id_usuario = '".$id_usuario."'";
 				$consulta2 = $conexao->query($sql2);
-				$dados_a = $consulta2->fetch(PDO::FETCH_ASSOC);
+				$dados_a = $consulta2->fetchALL(PDO::FETCH_ASSOC);
 				if(empty($dados_a)){
 					echo '<h5>O usuario não possue endereço cadastrado. Deseja cadastrar?</h5>
 					<a class="btn btn-primary" href="cadastro_endereco.php">SIM</a>
@@ -86,34 +106,74 @@ $(window).load(function() {
 					';
 					
 				}else{
-					
-					$CEP = $dados['CEP'];
-					$rua = $dados['logradouro'];
-					$bairro = $dados['bairro'];
-					$cidade = $dados['cidade'];
-					$UF = $dados['UF'];
-					$numero = $dados['numero'];
-					$complemento = $dados['complemento'];
-					$ponto_referencia = $dados['ponto_referencia'];
-					$retirada_com = $dados['retirada_com'];
-					$telefone_entrega = $dados['telefone_entrega'];
-				
-				
-			
+                                    echo '<form>';
+                                    $checked = 1;
+                                    foreach($dados_a as $d){
+					$CEP = $d['CEP'];
+					$rua = $d['logradouro'];
+					$bairro = $d['bairro'];
+					$cidade = $d['cidade'];
+					$UF = $d['UF'];
+					$numero = $d['numero'];
+					$complemento = $d['complemento'];
+					$ponto_referencia = $d['ponto_referencia'];
+					$retirada_com = $d['retirada_com'];
+					$telefone_entrega = $d['telefone_entrega'];
+                                        if($checked == 1){ 
+                                            $checked_show = 'checked';
+                                        }else{
+                                            $checked_show = '';
+                                        }
+                                        $checked +=1;
+							
 		echo '<div class="form-check">
-		  <input class="form-check-input" type="radio" name="endereco" id="flexRadioDefault1" checked>
+		  <input class="form-check-input" type="radio" name="endereco" value="'.$d['id_endereco'].'" '.$checked_show.'>
 		  <label class="form-check-label" for="flexRadioDefault1">
-	
+                  <strong>CEP:</strong> '.$d['CEP'].' 
 		  </label>
-		</div>
-		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="endereco" id="flexRadioDefault2">
-		  <label class="form-check-label" for="flexRadioDefault2">
-			Default checked radio
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Rua:</strong> '.$d['logradouro'].' 
 		  </label>
-		</div>';
-		
-		} ?>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Bairro:</strong> '.$d['bairro'].' 
+		  </label>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Cidade:</strong> '.$d['cidade'].' 
+		  </label>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> UF:</strong> '.$d['UF'].' 
+		  </label></br>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> n°:</strong> '.$d['numero'].' 
+		  </label>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Complemento:</strong> '.$d['complemento'].' 
+		  </label>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
+		  </label></br>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
+		  </label>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
+		  </label>
+		</div><hr/>
+                ';
+                }
+                echo '<div style="position:absolute;bottom:10px;right:10px">
+                <a class="btn btn-secondary" href="cadastro_endereco.php">Novo endereço</a>
+                <input type="submit" class="btn btn-info" value="Continuar" >
+                </div>
+                </form>';
+		}
+                }else{
+                echo '<h5>Você precisa estar logado, ou se cadastrar para efetuar suas compras. Escolha uma das opções abaixo:</h5>
+		<a class="btn btn-secondary" href="../usuario/cadastro.php">Cadastro</a>
+		<a class="btn btn-info" href="../index.php?">INICIO</a>
+		'; 
+                }
+                ?>
 		<p class="card-text"></p>
       </div>
     </div>
