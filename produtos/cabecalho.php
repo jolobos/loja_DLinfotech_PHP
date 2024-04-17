@@ -1,11 +1,3 @@
-<?php
-require_once('../verifica_session.php');
-error_reporting(E_ALL);
-ini_set('display_errors','on');
-date_default_timezone_set('America/Sao_Paulo');
-require_once("../database.php");
-
-?>
 <!doctype html>
 <html lang="pt-br">
   <head>

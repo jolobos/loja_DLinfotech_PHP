@@ -1,5 +1,10 @@
 <?php
-require_once 'cabecalho.php';
+require_once('../verifica_session.php');
+error_reporting(E_ALL);
+ini_set('display_errors','on');
+date_default_timezone_set('America/Sao_Paulo');
+require_once("../database.php");
+
 if(!empty($_GET['id_produto'])){
 $id_produto = $_GET['id_produto'];
 $sql = "SELECT * FROM produtos WHERE id_produto = '".$id_produto."'";
@@ -12,6 +17,7 @@ $dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
     
 }
 
+require_once 'cabecalho.php';
 
 ?>
 
@@ -160,10 +166,15 @@ echo '</div></div></div>
     
     echo '<div class="m-2"> 
     <h5>Quantidade</h5>
+	<div class="row">
+	<div class="col-sm-4 mt-2">
     <input type="range"  name="quantidade_produto" value="1" min="1" max="'.$dados['quantidade'].'"
     oninput="display.value=value" onchange="display.value=value">
-    <input type="text" id="display" class="w-25" name="quantidade_produto" value="1" readonly>
-    
+	</div>
+	<div class="col">
+    <input type="text" id="display" class="form-control w-25" name="quantidade_produto" value="1" readonly>
+    </div>
+    </div>
     <h5>Decrição</h5>
     <p>'.$dados['descricao'].'</p>
     </div>

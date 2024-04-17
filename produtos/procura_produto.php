@@ -1,5 +1,10 @@
 <?php
-require_once 'cabecalho.php';
+require_once('../verifica_session.php');
+error_reporting(E_ALL);
+ini_set('display_errors','on');
+date_default_timezone_set('America/Sao_Paulo');
+require_once("../database.php");
+
 
 if(!empty($_POST)){
 $busca_produto = $_POST['busca_produto'];
@@ -9,6 +14,8 @@ $consulta = $conexao->query($sql);
 $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
 }
+require_once 'cabecalho.php';
+
 ?>
 <div class="container" style="margin-top: 95px;margin-bottom: 60px">
     <h3 class="alert alert-secondary">Produtos com o nome "<?php echo $busca_produto;?>"</h3>

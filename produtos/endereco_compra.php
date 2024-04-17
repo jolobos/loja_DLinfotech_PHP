@@ -1,21 +1,18 @@
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript">
-$(window).load(function() {
-    $('#exemplomodal').modal('show');
-});
-</script>
+
 <?php
-if($_GET['zera_lista']){
+require_once('../verifica_session.php');
+error_reporting(E_ALL);
+ini_set('display_errors','on');
+date_default_timezone_set('America/Sao_Paulo');
+require_once("../database.php");
+
+if(!empty($_GET['zera_lista'])){
     unset($_SESSION['produto_carrinho']);
 }
 
 require_once 'cabecalho.php';
 if(!empty($_POST['id_produto_POST'])){
 $_SESSION['ultimo_visto'] = $_POST['id_produto_POST'];
-
-
-$ultimo_visto = $_SESSION['ultimo_visto'];
 if(!isset($_SESSION['produto_carrinho'])){
     $_SESSION['lista_produto'] = array();
     if(isset($_POST['id_produto_POST'])){
@@ -42,7 +39,7 @@ if(!isset($_SESSION['produto_carrinho'])){
             $cod_produto = $dados['cod_produto'];
             $nome = $dados['nome'];
             $valor= $dados['valor'];
-            echo '<p class=""><strong>Produto:</strong> '.$nome.' <strong>Valor:</strong> '.$valor.' <strong>Quantidade:</strong> '.$qtd.'</p>';
+            echo '<p class=""><strong>Produto:</strong> '.$nome.' <strong>Valor:</strong>R$ '.$valor.' <strong>Quantidade:</strong> '.$qtd.'</p>';
              
          }
       
@@ -50,9 +47,9 @@ if(!isset($_SESSION['produto_carrinho'])){
             <h4>Escolha umas das opções a seguir para sua compra atual:</h4>
             </div>
       <div class="modal-footer bg-light">
-        <a class="btn btn-dark" href="endereco_compra.php?zera_lista=ok">Esvaziar carrinho</a>
-        <a class="btn btn-dark" href="ver_carrinho.php?compra_atual='.$ultimo_visto.'>Ver carrinho</a>
-        <a class="btn btn-dark" href="endereco_compra.php?zera_lista=ok">Adicionar ao carrinho</a>
+        <a class="btn btn-dark" href="ver_carrinho.php?zera_lista_entrega=ok">Esvaziar carrinho</a>
+        <a class="btn btn-dark" href="ver_carrinho.php" target="_blank">Ver carrinho</a>
+        <a class="btn btn-dark" href="ver_carrinho.php?id_produto='.$_SESSION['ultimo_visto'].'">Adicionar ao carrinho</a>
       </div>
     </div>
   </div>
@@ -61,6 +58,13 @@ if(!isset($_SESSION['produto_carrinho'])){
 }
 
 ?>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript">
+$(window).load(function() {
+    $('#exemplomodal').modal('show');
+});
+</script>
 <div class="container" style="margin-top:105px">
 	<h4 class="alert alert-info" align="center">Escolha o endereço de entrega dos produtos</h4>
 <div class="card mb-3">
@@ -75,12 +79,10 @@ if(!isset($_SESSION['produto_carrinho'])){
 				$sql2 = "SELECT * FROM endereco_usuario WHERE id_usuario = '".$id_usuario."'";
 				$consulta2 = $conexao->query($sql2);
 				$dados_a = $consulta2->fetch(PDO::FETCH_ASSOC);
-				var_dump($_SESSION['produto_carrinho']);
-                                echo $ultimo_visto;
 				if(empty($dados_a)){
 					echo '<h5>O usuario não possue endereço cadastrado. Deseja cadastrar?</h5>
 					<a class="btn btn-primary" href="cadastro_endereco.php">SIM</a>
-					<a class="btn btn-danger" href="endereco_compra.php?zera_lista=ok">NÃO</a>
+					<a class="btn btn-danger" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">NÃO</a>
 					';
 					
 				}else{

@@ -1,5 +1,9 @@
 <?php
-require_once 'cabecalho.php';
+require_once('../verifica_session.php');
+error_reporting(E_ALL);
+ini_set('display_errors','on');
+date_default_timezone_set('America/Sao_Paulo');
+require_once("../database.php");
 
 if(!isset($_SESSION['produto_carrinho'])){
 	$_SESSION['produto_carrinho'] = array();
@@ -34,6 +38,17 @@ if(isset($_GET['destroi_produto'])){
     unset($_SESSION['produto_carrinho'][$id]);
     }
 }
+
+if(isset($_GET['zera_lista_entrega']) || isset($_GET['zera_lista'])){
+    if(isset($_SESSION['produto_carrinho'])){
+    unset($_SESSION['produto_carrinho']);
+    if(isset($_GET['zera_lista_entrega'])){
+		header('location:endereco_compra.php');
+		
+	}
+	}
+}
+require_once 'cabecalho.php';
 
 ?>
 
