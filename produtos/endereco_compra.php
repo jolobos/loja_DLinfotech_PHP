@@ -95,7 +95,7 @@ $(window).load(function() {
       <div class="card-body">
         <h5 class="card-title">Endereço de entrega atual</h5>
 				<?php
-                                if(isset($_SESSION['id_usuario'])){
+                if(isset($_SESSION['id_usuario'])){
 				$sql2 = "SELECT * FROM endereco_usuario WHERE id_usuario = '".$id_usuario."'";
 				$consulta2 = $conexao->query($sql2);
 				$dados_a = $consulta2->fetchALL(PDO::FETCH_ASSOC);
@@ -106,7 +106,7 @@ $(window).load(function() {
 					';
 					
 				}else{
-                                    echo '<form>';
+                                    echo '<form action="../conclui_venda/modo_pagamento.php" method="POST">';
                                     $checked = 1;
                                     foreach($dados_a as $d){
 					$CEP = $d['CEP'];
@@ -127,7 +127,7 @@ $(window).load(function() {
                                         $checked +=1;
 							
 		echo '<div class="form-check">
-		  <input class="form-check-input" type="radio" name="endereco" value="'.$d['id_endereco'].'" '.$checked_show.'>
+		  <input class="form-check-input" type="radio" name="id_endereco" value="'.$d['id_endereco'].'" '.$checked_show.'>
 		  <label class="form-check-label" for="flexRadioDefault1">
                   <strong>CEP:</strong> '.$d['CEP'].' 
 		  </label>
