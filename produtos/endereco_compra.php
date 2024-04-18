@@ -30,7 +30,10 @@ if(!empty($_GET['mensagem'])){
 </div>';
 }
 
-
+if($_GET['fechar_carrinho']){
+        $_SESSION['lista_produto'] = array();
+        $_SESSION['lista_produto'] = $_SESSION['produto_carrinho'];
+}else{
 if(!empty($_POST['id_produto_POST'])){
 $_SESSION['ultimo_visto'] = $_POST['id_produto_POST'];
 if(!isset($_SESSION['produto_carrinho'])){
@@ -74,6 +77,7 @@ if(!isset($_SESSION['produto_carrinho'])){
     </div>
   </div>
 </div>';
+}
 }
 }
 

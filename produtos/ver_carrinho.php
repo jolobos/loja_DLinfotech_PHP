@@ -65,7 +65,7 @@ require_once 'cabecalho.php';
 				echo '<div class="row"><div class="col-sm-2 "><a class="btn btn-secondary ms-3" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">Ultimo Produto Visto</a>
                 </div><div class="col-sm-2"><a class="btn btn-info" href="../index.php">Voltar ao INICIO</a></div>
                 <div class="col me-3" align="right"><form action="endereco.php" method="POST">
-				<a class="btn btn-success" href="endereco_compra.php">Fechar o Carrinho</a></div>
+				<a class="btn btn-success" href="endereco_compra.php?fechar_carrinho=ok">Fechar o Carrinho</a></div>
 				</div>';
                 	
                 echo '<table class="table table-striped mt-2" border="3">
