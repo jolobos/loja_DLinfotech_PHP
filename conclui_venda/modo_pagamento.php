@@ -11,19 +11,7 @@ $sql = "SELECT * FROM cartao_usuario WHERE id_usuario = '".$id_usuario."'";
 $consulta = $conexao->query($sql);
 $dados = $consulta->fetch   (PDO::FETCH_ASSOC);
 $id_cartao = $dados['id_cartao'];
-if(!empty($_POST['pix'])){
-	header('location:confere_compra.php?pix=ok');
-}		
-if(!empty($_POST['boleto'])){
-	header('location:confere_compra.php?boleto=ok');
-}
-if(!empty($_POST['cartao'])){
-        $vezes = $_POST['vezes'];
-	header('location:confere_compra.php?cartao='.$id_cartao.'&vezes='.$vezes);
-}
-if(!empty($_POST['entrega'])){
-	header('location:confere_compra.php?entrega=ok');
-}
+		
 
 //valores para mostrar...
 $total = 0;
@@ -36,7 +24,9 @@ $total += $dados['valor'] * $qtd;
 }
 
 require_once'cabecalho.php';
+
 ?>
+<script type="text/javascript" src="chama_forma_pg.js"></script>
 <div class="container" style="margin-top:105px">
 	<h4 class="alert alert-info" align="center">Escolha a forma de pagamento dos produtos</h4>
 <div class="card mb-3">
@@ -53,7 +43,6 @@ require_once'cabecalho.php';
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
-<form action="" method="POST">
         <div class="form-check" data-toggle="collapse" data-target="#collapseOne">
 		  <input  type="hidden"  name="pix" value="1" >
 		  <label class="form-check-label"  >
@@ -69,9 +58,8 @@ require_once'cabecalho.php';
 		<h5>Pagamento à vista.</h5>
                 <p>Total: <?php echo 'R$ '.number_format($total,2,',','.'); ?></p>
 		<div align="right">
-		<input type="submit" class="btn btn-secondary" value="selecionar">
-		</div>
-</form>
+		<button id="busca" class="btn btn-secondary" placeholder="Digite o nome do produto..." value="solda" onmousedown="pagamento(this.value)">Selecionar</button>
+                </div>
       
       </div>
     </div>
@@ -285,7 +273,10 @@ require_once'cabecalho.php';
 </div>
 </div>
 </div>
-	
+
+<button id="busca" class="form-control" placeholder="Digite o nome do produto..." name= "car"value="ca" onmousedown="pagamento(this.value)">carregador</button>
+<div id="resultado">    
+</div>
 <?php
 
 if(!empty($_POST['boleto'])){

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-Abr-2024 às 05:00
--- Versão do servidor: 10.1.36-MariaDB
--- versão do PHP: 7.0.32
+-- Tempo de geração: 19/04/2024 às 18:15
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dlinfotech`
+-- Banco de dados: `dlinfotech`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cartao_usuario`
+-- Estrutura para tabela `cartao_usuario`
 --
 
 CREATE TABLE `cartao_usuario` (
@@ -36,10 +35,10 @@ CREATE TABLE `cartao_usuario` (
   `id_usuario` int(11) NOT NULL,
   `id_cartao` int(11) NOT NULL,
   `data_entrada` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `cartao_usuario`
+-- Despejando dados para a tabela `cartao_usuario`
 --
 
 INSERT INTO `cartao_usuario` (`nome`, `numero`, `vencimento`, `CCV`, `id_usuario`, `id_cartao`, `data_entrada`) VALUES
@@ -48,7 +47,7 @@ INSERT INTO `cartao_usuario` (`nome`, `numero`, `vencimento`, `CCV`, `id_usuario
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `endereco_usuario`
+-- Estrutura para tabela `endereco_usuario`
 --
 
 CREATE TABLE `endereco_usuario` (
@@ -64,12 +63,20 @@ CREATE TABLE `endereco_usuario` (
   `ponto_referencia` varchar(100) NOT NULL,
   `retirada_com` varchar(100) NOT NULL,
   `telefone_entrega` varchar(14) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `endereco_usuario`
+--
+
+INSERT INTO `endereco_usuario` (`id_endereco`, `id_usuario`, `CEP`, `logradouro`, `bairro`, `cidade`, `UF`, `numero`, `complemento`, `ponto_referencia`, `retirada_com`, `telefone_entrega`) VALUES
+(1, 6, '94945-330', 'so testando', 'Vista Alegre', 'Cachoeirinha', 'RS', 12, 'casa', 'igreja dos macumba', 'parangole', '(51) 98507-889'),
+(6, 6, '94945-330', 'rua do mane', 'logo ali', 'Cachoeirinha', 'RS', 21, 'beco', 'arvore mijada', 'rolifilty', '(51) 98507-889');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `ficha_tec_produto`
+-- Estrutura para tabela `ficha_tec_produto`
 --
 
 CREATE TABLE `ficha_tec_produto` (
@@ -94,19 +101,20 @@ CREATE TABLE `ficha_tec_produto` (
   `prova_agua` int(1) NOT NULL,
   `resistente_agua` int(1) NOT NULL,
   `velocidade` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `ficha_tec_produto`
+-- Despejando dados para a tabela `ficha_tec_produto`
 --
 
 INSERT INTO `ficha_tec_produto` (`id_ficha_tec`, `id_produto`, `tamanho`, `altura`, `largura`, `peso`, `potencia`, `fabricante`, `garantia`, `voltagem`, `temperatura_max`, `temperatura_min`, `capacidade_armazenamento`, `durabilidade`, `tempo_recarga`, `marca`, `modelo`, `descricao_longa`, `prova_agua`, `resistente_agua`, `velocidade`) VALUES
+(0, 13, '2 metros', '2 metros', '', '250 gm', '', 'PIX', '3 meses', 'bivolt', '', '', '', '', '', 'pix', '4k-ultra', 'if(isset($_FILES[\'arquivo1\'])){\r\n    $extensao1 = strtolower(substr($_FILES[\'arquivo1\'][\'name\'], -4)); //pega a extensao do arquivo\r\n    if($extensao1 == \'.png\' || $extensao1 == \'.jpg\' || $extensao1 == \'.svg\' || $extensao1 == \'.gif\'){\r\n    $novo_nome1 = md5(microtime()) . $extensao1; //define o nome do arquivo\r\n    $diretorio1 = \"../../img/produtos/\"; //define o diretorio para onde enviaremos o arquivo\r\n    move_uploaded_file($_FILES[\'arquivo1\'][\'tmp_name\'], $diretorio1.$novo_nome1); //efetua o upload\r\n    $foto_1 = $novo_nome1;\r\n}else{$foto_1 = \'\'; }}if(isset($_FILES[\'arquivo1\'])){\r\n    $extensao1 = strtolower(substr($_FILES[\'arquivo1\'][\'name\'], -4)); //pega a extensao do arquivo\r\n    if($extensao1 == \'.png\' || $extensao1 == \'.jpg\' || $extensao1 == \'.svg\' || $extensao1 == \'.gif\'){\r\n    $novo_nome1 = md5(microtime()) . $extensao1; //define o nome do arquivo\r\n    $diretorio1 = \"../../img/produtos/\"; //define o diretorio para onde enviaremos o arquivo\r\n    move_uploaded_file($_FILES[\'arq', 0, 0, '18gbps'),
 (1, 1, '-----', '20cm', '30cm', '1,05kg', '600w', 'yaxun', '1 ano', '220', '450 °c', '100°c', '---', '---', '---', 'yaxun', '886D', 'Lorem ipsum dolor sit amet. Eum esse quia aut voluptas illum est voluptatem harum non dolorem quia in rerum maiores eum ipsum incidunt aut Quis fugiat. Non iure asperiores qui suscipit illo aut dolores iure eum fuga amet ut voluptatem tempore sit perspiciatis vero. Ab illo fuga ut tenetur sequi et aperiam temporibus qui omnis omnis in voluptas quae sed fuga molestiae sed asperiores architecto. Aut quasi molestiae est laudantium vero est doloremque accusantium qui quasi sequi At molestias autem aut labore laborum. </p><p>Ex ullam dignissimos sed quidem corrupti aut internos quae vel pariatur adipisci eum explicabo voluptatem. Ut iusto debitis ut placeat quae id architecto voluptas ut optio possimus. </p><p>Ea fuga nisi ex dolore rerum sed velit obcaecati ut galisum magni id illo praesentium. Sit earum similique non exercitationem eveniet ea dolorem porro et delectus voluptas. Qui veniam temporibus et error porro et esse similique nam asperiores ullam et atque dolor qui harum fugit. S', 0, 0, '25 s aquecimento');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `notificacoes`
+-- Estrutura para tabela `notificacoes`
 --
 
 CREATE TABLE `notificacoes` (
@@ -120,12 +128,12 @@ CREATE TABLE `notificacoes` (
   `link_5` int(120) NOT NULL,
   `condicao` int(1) NOT NULL,
   `data_envio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produtos`
+-- Estrutura para tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -160,32 +168,33 @@ CREATE TABLE `produtos` (
   `roxo` int(1) NOT NULL,
   `prata` int(1) NOT NULL,
   `dourado` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `produtos`
+-- Despejando dados para a tabela `produtos`
 --
 
 INSERT INTO `produtos` (`id_produto`, `cod_produto`, `nome`, `valor`, `quantidade`, `categoria`, `cor`, `voltagem`, `voltagem_opcoes`, `descricao`, `status`, `foto`, `foto_1`, `foto_2`, `foto_3`, `foto_4`, `foto_5`, `foto_6`, `azul`, `vermelho`, `preto`, `branco`, `amarelo`, `verde`, `laranja`, `cinza`, `rosa`, `marrom`, `roxo`, `prata`, `dourado`) VALUES
-(1, '10', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 220V', 529.00, 3.00, 'eletronicos', 'azul', '220', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.ÂÂÂ', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, '21', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 110V\n', 500.00, 5.00, 'eletronicos', 'azul', '110', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, '32', 'Carregador Motorola TurboPower 20w - Tipo-C - bivolt', 99.99, 12.00, 'carregadores', 'preto', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto7.png', 'produto7_1.png', 'produto7_2.png', 'produto7_3.png', 'produto7_4.png', 'produto7_5.png', '', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, '43', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, '54', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 220V', 529.00, 3.00, 'eletronicos', 'azul', '220', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 110V\n', 500.00, 5.00, 'eletronicos', 'azul', '110', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, '', 'Carregador Motorola TurboPower 20w - Tipo-C - bivolt', 99.99, 12.00, 'carregadores', 'preto', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto7.png', 'produto7_1.png', 'produto7_2.png', 'produto7_3.png', 'produto7_4.png', 'produto7_5.png', '', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, '', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, '', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(13, '1124232', 'Cabo HDMI pix 2 mts', 10.00, 25.00, 'cabos', 'preto', 'bivolt', 'bivolt', 'adicione uma descrição rapida.', 1, '23d4d9b5c26523e78fcfa235086abfdb.jpg', 'c2651ef93f6c67524860edc685193b8b.jpg', '6d86194c9cb692ce87c1d48c9cd349c2.jpg', 'd6d480bf7636b60e55719541f3a3a6ef.jpg', '213e8b4f8997971bf057201053f7721b.jpg', '', '', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `nome` varchar(150) NOT NULL,
-  `CPF` varchar(14) NOT NULL,
-  `telefone` varchar(14) NOT NULL,
-  `celular` varchar(14) NOT NULL,
-  `CEP` varchar(9) NOT NULL,
+  `CPF` bigint(14) NOT NULL,
+  `telefone` bigint(14) NOT NULL,
+  `celular` bigint(14) NOT NULL,
+  `CEP` int(8) NOT NULL,
   `UF` varchar(30) NOT NULL,
   `cidade` varchar(100) NOT NULL,
   `bairro` varchar(100) NOT NULL,
@@ -197,81 +206,75 @@ CREATE TABLE `usuarios` (
   `apelido` varchar(100) NOT NULL,
   `data_entrada` datetime NOT NULL,
   `status` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `CPF`, `telefone`, `celular`, `CEP`, `UF`, `cidade`, `bairro`, `logradouro`, `complemento`, `email`, `senha`, `foto`, `apelido`, `data_entrada`, `status`) VALUES
-(6, 'nome teste ', '02351055039', '51985078897', '51985078897', '94945330', 'RS', 'kaxuxa', 'vista', 'logo ali', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'digÃ£o', '2024-04-01 10:56:47', 0),
-(7, 'seliria santos de azevedo', '0', '51985078897', '51985078897', '0', '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1),
-(8, 'Asus_m1', '0', '51985078897', '51985078897', '0', '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:45:34', 1);
+(6, 'nome teste ', 2351055039, 51985078897, 51985078897, 94945330, 'RS', 'kaxuxa', 'vista', 'logo ali', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'digo', '2024-04-01 10:56:47', 0),
+(7, 'seliria santos de azevedo', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1),
+(8, 'Asus_m1', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:45:34', 1);
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `endereco_usuario`
+-- Índices de tabela `endereco_usuario`
 --
 ALTER TABLE `endereco_usuario`
   ADD PRIMARY KEY (`id_endereco`);
 
 --
--- Indexes for table `ficha_tec_produto`
+-- Índices de tabela `ficha_tec_produto`
 --
 ALTER TABLE `ficha_tec_produto`
   ADD PRIMARY KEY (`id_ficha_tec`);
 
 --
--- Indexes for table `notificacoes`
+-- Índices de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
   ADD PRIMARY KEY (`id_notificacoes`);
 
 --
--- Indexes for table `produtos`
+-- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id_produto`);
 
 --
--- Indexes for table `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `endereco_usuario`
+-- AUTO_INCREMENT de tabela `endereco_usuario`
 --
 ALTER TABLE `endereco_usuario`
-  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `ficha_tec_produto`
---
-ALTER TABLE `ficha_tec_produto`
-  MODIFY `id_ficha_tec` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `notificacoes`
+-- AUTO_INCREMENT de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
   MODIFY `id_notificacoes` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `produtos`
+-- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
