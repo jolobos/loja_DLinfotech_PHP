@@ -12,7 +12,10 @@ $consulta = $conexao->query($sql);
 $dados = $consulta->fetch   (PDO::FETCH_ASSOC);
 $id_cartao = $dados['id_cartao'];
 		
-
+if(!empty($_POST['id_endereco'])){
+    $_SESSION['endereco'] = $_POST['id_endereco'];
+    
+}
 //valores para mostrar...
 $total = 0;
 foreach($_SESSION['lista_produto'] as $id => $qtd){
@@ -54,13 +57,15 @@ require_once'cabecalho.php';
 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
-		<!--tags de pagamento -->
+	<form action="pix/confirmacao_pix.php" method="POST"	<!--tags de pagamento -->
 		<h5>Pagamento à vista.</h5>
                 <p>Total: <?php echo 'R$ '.number_format($total,2,',','.'); ?></p>
 		<div align="right">
-		<button id="busca" class="btn btn-secondary" placeholder="Digite o nome do produto..." value="solda" onmousedown="pagamento(this.value)">Selecionar</button>
+		<input type="hidden"  name="confirma_pix" value="ok">
+		<input type="hidden"  name="valor" <?php echo 'value="'.$total.'"'; ?> >
+		<input type="submit" class="btn btn-secondary" value="Selecionar"> 
                 </div>
-      
+        </form>
       </div>
     </div>
   </div>
@@ -273,20 +278,3 @@ require_once'cabecalho.php';
 </div>
 </div>
 </div>
-
-<button id="busca" class="form-control" placeholder="Digite o nome do produto..." name= "car"value="ca" onmousedown="pagamento(this.value)">carregador</button>
-<div id="resultado">    
-</div>
-<?php
-
-if(!empty($_POST['boleto'])){
-	echo $_POST['boleto'];
-}
-if(!empty($_POST['entrega'])){
-	echo $_POST['entrega'];
-}
-if(!empty($_POST['cartao'])){
-	echo $_POST['cartao'];
-}
-
-?>
