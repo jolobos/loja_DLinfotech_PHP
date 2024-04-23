@@ -44,6 +44,15 @@ if(!isset($_SESSION['produto_carrinho'])){
     $_SESSION['lista_produto'] [$id] = $quantidade_produto;
     }
 }else{
+	$a = count($_SESSION['produto_carrinho']);
+		if($a == 0){
+			$_SESSION['lista_produto'] = array();
+			if(isset($_POST['id_produto_POST'])){
+			$id = intval($_POST['id_produto_POST']);
+			$quantidade_produto = $_POST['quantidade_produto'];
+			$_SESSION['lista_produto'] [$id] = $quantidade_produto;
+			unset($_SESSION['produto_carrinho']);}
+}else{
    echo  '<div class="modal fade modal-lg" data-bs-backdrop="static"  id="exemplomodal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -54,7 +63,7 @@ if(!isset($_SESSION['produto_carrinho'])){
         <h5>Você possui os seguintes produtos no seu carrinho:</h5>
      
       <div class="bg-light">';
-         foreach($_SESSION['produto_carrinho'] as $id => $qtd){
+         foreach($_SESSION['lista_produto'] as $id => $qtd){
             $sql = "SELECT * FROM produtos WHERE id_produto = ?";
             $consulta = $conexao->prepare($sql);
             $consulta->execute(array($id));
@@ -77,6 +86,7 @@ if(!isset($_SESSION['produto_carrinho'])){
     </div>
   </div>
 </div>';
+}
 }
 }
 }

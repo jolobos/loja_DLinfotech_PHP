@@ -3,6 +3,20 @@ require_once('../../verifica_session.php');
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 require_once("../../database.php");
+if(isset($_GET['concluido_compra'])){
+	unset($_SESSION['endereco']);
+	unset($_SESSION['lista_produto']);
+	unset($_SESSION['ultimo_visto']);
+	unset($_SESSION['produto_carrinho']);
+	header('location:../../index.php?mensagem_compra=ok');
+}
+if(isset($_GET['cancela_venda'])){
+	$_SESSION['produto_carrinho'] = $_SESSION['lista_produto'];
+	unset($_SESSION['endereco']);
+	unset($_SESSION['lista_produto']);
+	header('location:../../produtos/ver_carrinho.php?mensagem_cancela=ok');
+}
+
 if(!empty($_POST['confirma_pix'])){
    $chave_pix="02351055039";
    $beneficiario_pix="JOSIAS SANTOS DE AZEVEDO";
@@ -16,7 +30,7 @@ if (is_numeric($_POST["valor"])){
 }
 else {
    $valor_pix="0.00";
-}
+}}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -38,7 +52,7 @@ function copiar() {
   copyText.select();
   copyText.setSelectionRange(0, 99999); /* For mobile devices */
   document.execCommand("copy");
-  document.getElementById("clip_btn").innerHTML='<i class="fas fa-clipboard-check"></i>';
+  document.getElementById("clip_btn").innerHTML='<i class="fas fa-clipboard-check"></i> - Copiado';
 }
 function reais(v){
     v=v.replace(/\D/g,"");
@@ -104,7 +118,7 @@ if ($gerar_qrcode){
    $pix.="6304"; //Adiciona o campo do CRC no fim da linha do pix.
    $pix.=crcChecksum($pix); //Calcula o checksum CRC16 e acrescenta ao final.
    $linhas=round(strlen($pix)/120)+1;
-   ?>
+}?>
 
 </head>
 <body>
@@ -228,13 +242,24 @@ Caso a entrega não seja concluida dentro do prazo máximo da empresa, o cliente
 <h5>Conclusão da compra</h5>
 <p> Ao clicar em "concluir compra", você receberá em sua tela o código pix para copiar, ou ler o QRCode. Após isso você terá a opção de retorno a tela principal, ou de visualizar
 as suas compras.</p>
+
+<form action="" method="POST" align="center" class="mb-5">
+<input type="hidden" name="confirma_qrcode" value="true">
+<input type="hidden" name="valor" value="<?php $_POST['valor'] ?>">
+<input type="hidden" name="confirma_pix" value="ok">
+<a href="?cancela_venda=1" class="btn btn-secondary">Cancelar a Compra</a>
+<input type="submit" class="btn btn-success" value="Concluir Compra">
+</form>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 $(window).load(function() {
     $('#exemplomodal').modal('show');
 });
 </script>   
- <div class="modal fade modal-lg" id="exemplomodal">
+ <?php
+ if(isset($_POST['confirma_qrcode'])){
+	 echo '
+ <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-info">   
@@ -243,7 +268,7 @@ $(window).load(function() {
    <h3>Linha do Pix (copia e cola):</h3>
    <div class="row">
       <div class="col">
-      <textarea class="form-control ms-3" id="brcodepix" rows="4" onclick="copiar()"><?= $pix;?></textarea>
+      <textarea class="form-control ms-3" id="brcodepix" rows="4" onclick="copiar()">'. $pix.'</textarea>
       </div>
       <div class="col-sm-4">
       <p><button type="button" id="clip_btn" class="btn btn-primary ms-3"  data-toggle="tooltip" data-placement="top" title="Copiar código pix" onclick="copiar()"><i class="fas fa-clipboard"> - Copiar</i></button></p>
@@ -252,30 +277,27 @@ $(window).load(function() {
    </div>
     <div>
    <h3>Imagem de QRCode do Pix:</h3>
-   <p style="text-align: center">
-
-   <?php
+   <h2 style="text-align: center">R$ '.number_format($total_somado,2,',','.').'</2>
+   <p style="text-align: center">';
    ob_start();
    QRCode::png($pix, null,'M',5);
    $imageString = base64_encode( ob_get_contents() );
    ob_end_clean();
    // Exibe a imagem diretamente no navegador codificada em base64.
    echo '<img src="data:image/png;base64,' . $imageString . '"><br><br><br><img src="logo_pix.png"></p>';
-}
-}
-?>
-<div class="modal-body bg-light">
-        <h5>Seu endereço foi adicionado corretamente ao banco de dados.</h5>
-      </div>
-      <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+echo '
 
+      <div class="modal-footer bg-light">
+			<a href="?concluido_compra=ok" class="btn btn-secondary">INICIO</a>
+			<a href="#" class="btn btn-secondary">Minhas Compras</a>
       </div>
     </div>
   </div>
 </div>';       
        
-       
+ }
+
+?>      
     </div>
     </div>
 </body>

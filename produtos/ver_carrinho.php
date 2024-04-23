@@ -67,7 +67,10 @@ require_once 'cabecalho.php';
                 <div class="col me-3" align="right"><form action="endereco.php" method="POST">
 				<a class="btn btn-success" href="endereco_compra.php?fechar_carrinho=ok">Fechar o Carrinho</a></div>
 				</div>';
-                	
+                
+				if(isset($_GET['mensagem_cancela'])){
+					echo '<h4 class="alert alert-warning mt-2 text-center">Os produtos da compra cancelada foram adicionados ao seu carrinho</h4>';
+				}
                 echo '<table class="table table-striped mt-2" border="3">
                 <thead>
                     <tr align="center">

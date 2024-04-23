@@ -1,6 +1,33 @@
 <?php
 
 require_once("cabecalho.php");
+if(isset($_GET['mensagem_compra'])){
+	  echo  '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+	  <script type="text/javascript">
+$(window).load(function() {
+    $("#exemplomodal").modal("show");
+});
+</script>
+	  <div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h3 class="modal-title">Tudo certo...</h3>
+      </div>
+      <div class="modal-body bg-light">
+        <h5>Sua compra foi realizada com sucesso.</h5>
+		<p> Voce pode visualizar as informações da sua compra, e das suas compras anteriores, acessando a página de "COMPRAS" 
+		no menu do usuário.</p>
+		</div>
+      <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+}
 ?>
 
 <div id="troca" class="carousel slide" data-ride="carousel" style="margin-top: 85px;">
