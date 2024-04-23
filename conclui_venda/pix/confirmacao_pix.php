@@ -8,7 +8,13 @@ if(isset($_GET['concluido_compra'])){
 	unset($_SESSION['lista_produto']);
 	unset($_SESSION['ultimo_visto']);
 	unset($_SESSION['produto_carrinho']);
-	header('location:../../index.php?mensagem_compra=ok');
+        if($_GET['concluido_compra'] == 'ok'){
+        header('location:../../index.php?mensagem_compra=ok');
+        
+        }else{
+                header('location:../../index.php?mensagem_compra=falho');
+    
+        }
 }
 if(isset($_GET['cancela_venda'])){
 	$_SESSION['produto_carrinho'] = $_SESSION['lista_produto'];
@@ -258,6 +264,45 @@ $(window).load(function() {
 </script>   
  <?php
  if(isset($_POST['confirma_qrcode'])){
+    $data = date('Y-m-d H:i:s');
+    $autorizado = 0;
+    $pagamento = 'PIX';
+    $parcelas = 1;
+    $id_endereco = $_SESSION['endereco']; 
+    $sql ='INSERT INTO compras (id_usuario,id_endereco,data,total,autorizado,pagamento,parcelas)
+    values(?,?,?,?,?,?,?)';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($id_usuario,$id_endereco,$data,$total_somado,$autorizado,$pagamento,$parcelas));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+     
+     
+    if($ok){
+        $sqld = "SELECT id_compra,data FROM compras WHERE id_compra ORDER BY id_compra DESC LIMIT 0,1";
+        $consulta = $conexao->query($sqld);
+        $dadosd = $consulta->fetch(PDO::FETCH_ASSOC);
+        $id_compras = $dadosd['id_compra'];
+        $data_item = date('Y-m-d H:i:s');
+        foreach ($_SESSION['lista_produto'] as $id => $qtd) {
+            $sql ='INSERT INTO itens_da_compra (id_compra,id_produto,quantidade,data_item)
+            values(?,?,?,?)';
+            try {
+                $insercao = $conexao->prepare($sql);
+                $ok_a = $insercao->execute(array ($id_compras,$id,$qtd,$data_item));
+            }catch(PDOException $r){
+        //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                $ok_a = False;
+            }catch (Exception $r){//todos as exceções
+                $ok_a= False; 
+            }
+ 
+        }
+    if($ok_a){
 	 echo '
  <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
   <div class="modal-dialog">
@@ -295,6 +340,25 @@ echo '
   </div>
 </div>';       
        
+ }else{
+     echo ' <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">   
+      <h2>Erro!!!!</h2></div>
+      <div class="modal-body">
+      <p>Lamento, a compra não pode ser efetuada por um erro de comunicação com o banco de dados.</p>
+      <p>Por favor, escolha uma das opções abaixo e tente novamente mais tarde. Obrigado!.</p>';
+      //<p>'.$r.'<p>
+      echo '</div>
+      <div class="modal-footer bg-light">
+			<a href="?concluido_compra=falho" class="btn btn-secondary">INICIO</a>
+			<a href="#" class="btn btn-secondary">Minhas Compras</a>
+      </div>
+';
+     
+ }
+ }
  }
 
 ?>      

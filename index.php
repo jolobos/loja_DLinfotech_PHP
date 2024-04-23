@@ -11,22 +11,33 @@ $(window).load(function() {
 </script>
 	  <div class="modal fade modal-lg" id="exemplomodal">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-info">
-        <h3 class="modal-title">Tudo certo...</h3>
+    <div class="modal-content">';
+        if($_GET['mensagem_compra'] == 'ok'){
+        echo '<div class="modal-header bg-info">
+          <h3 class="modal-title">Tudo certo...</h3>
       </div>
       <div class="modal-body bg-light">
         <h5>Sua compra foi realizada com sucesso.</h5>
-		<p> Voce pode visualizar as informações da sua compra, e das suas compras anteriores, acessando a página de "COMPRAS" 
-		no menu do usuário.</p>
-		</div>
-      <div class="modal-footer bg-light">
+	<p> Voce pode visualizar as informações da sua compra, e das suas compras anteriores, acessando a página de "COMPRAS" 
+	no menu do usuário.</p>
+      </div>';
+        
+        }else{    
+                    echo '<div class="modal-header bg-danger">
+                   <h3 class="modal-title">Vishhh...</h3>
+                    </div>
+                    <div class="modal-body bg-light">
+                      <h5>Sua compra não pode ser realizada.</h5>
+                              <p> Nosso sistema deve estar apresentando alguma inconsistencia momentânea, tente realizar o seu pedido mais tarde. Obrigado!</p>
+                   </div> ';}
+      echo '<div class="modal-footer bg-light">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 
       </div>
     </div>
   </div>
 </div>';
+
 }
 ?>
 
