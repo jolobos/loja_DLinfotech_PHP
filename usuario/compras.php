@@ -77,6 +77,46 @@ if(isset($_GET['ver_pr_compra'])){
   </div>
 </div>';
 }
+if(isset($_GET['mensagem'])){
+	$msg = $_GET['mensagem'];
+	echo  '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header bg-info">
+        <h3 class="modal-title">Tudo certo!!!!</h3>
+      </div>
+      <div class="modal-body bg-light">
+		<h5>'.$msg.'</h5>
+	      
+	</div>
+      <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+}
+if(isset($_GET['cancelar_compra'])){
+	$id_compra_cancela = $_GET['cancelar_compra'];
+echo  '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header bg-danger">
+        <h3 class="modal-title">Confirmação de cancelamento.</h3>
+      </div>
+      <div class="modal-body bg-light">
+		<h5>Tem certeza que deseja excluir essa compra da sua lista?</h5>
+	</div>
+      <div class="modal-footer bg-light">
+            <a class="btn btn-dark mt-2 " href="cancela_compra.php?cancelar_compra='.$id_compra_cancela.'">Cancelar Compra</a> 
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+}
 ?>
 <div class="container" style="margin-top:105px">
 <h2>Compras com pagamento não confirmado</h2><hr>
@@ -207,7 +247,7 @@ if($cont_ent > 0){
                 <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'">Ver Produtos</a>
                 <a class="btn btn-dark mt-2 w-75" href="?cancelar_compra='.$id_compra.'">Cancelar Compra</a></td></tr>
 ';
-				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de aprovação de pagamento</h3>';}
+				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de entrega</h3>';}
 
 	echo '</tbody></table>';
 	?>
@@ -219,7 +259,7 @@ foreach($dados_a as $d_1){
 if($d_1['autorizado'] == 1 && $d_1['entregue'] == 1){ $cont_faturado += 1;}
 }
 //puxando dados
-if($cont_ent > 0){
+if($cont_faturado > 0){
 	  echo '<table class="table table-striped mt-2" border="3">
                 <thead>
                     <tr align="center">
@@ -275,7 +315,7 @@ if($cont_ent > 0){
                 <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'">Ver Produtos</a>
                 </td></tr>
 ';
-				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de aprovação de pagamento</h3>';}
+				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhuma compra efetuada ou entregue</h3>';}
 
 	echo '</tbody></table>';
 	?>
