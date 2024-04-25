@@ -17,11 +17,11 @@ if(isset($_GET['ver_pr_compra'])){
 	$id_venda_lista = $_GET['ver_pr_compra'];
 	$sql_10 = "SELECT * FROM itens_da_compra WHERE id_compra = '".$id_venda_lista."'";
 	$consulta_10 = $conexao->query($sql_10);
-	$dados_ab = $consulta_10->fetch(PDO::FETCH_ASSOC);
+	$dados_ab = $consulta_10->fetchALL(PDO::FETCH_ASSOC);
 	
 	echo  '<div class="modal fade modal-lg" id="exemplomodal">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content ">
       <div class="modal-header bg-info">
         <h3 class="modal-title">Lista de produtos da compra de n°: "'.$id_venda_lista.'"</h3>
       </div>
@@ -29,44 +29,46 @@ if(isset($_GET['ver_pr_compra'])){
 		echo '<table class="table table-striped mt-2" border="3">
                 <thead>
                     <tr align="center">
-                        <th colspan="8">Produtos do Carrinho</th>
+                        <th colspan="8">Produtos da Compra</th>
                     </tr>
                     <tr>
                         <th>Código do produto</th>
                         <th>Foto do produto </th>
                         <th>Produto</th>
                         <th>Valor</th>
-                        <th>Disponível</th>
                         <th>Quantidade</th>
-                        <th>valor somado</th>
-                        <th>Ações</th>
+                        <th>Total</th>
+                        
                     </tr>
                 </thead>
                 <tbody>';
-	
-	while($dados_ab = $consulta_10->fetch(PDO::FETCH_ASSOC)){
-	$id_produto_lista = $dados_ab['id_produto'];
+	$total_somado = 0;
+	foreach($dados_ab as $d_ab){
+	$id_produto_lista = $d_ab['id_produto'];
 	$sql_100 = "SELECT * FROM produtos WHERE id_produto = '".$id_produto_lista."'";
 	$consulta_100 = $conexao->query($sql_100);
 	$dados_abc = $consulta_100->fetch(PDO::FETCH_ASSOC);
 	
 	$cod_produto = $dados_abc['cod_produto'];
-    $nome = $dados_abc['nome'];
-    $valor= $dados_abc['valor'];
-    $quantidade= $dados_ab['quantidade'];
+        $nome = $dados_abc['nome'];
+        $valor= $dados_abc['valor'];
+        $quantidade= $d_ab['quantidade'];
 	$foto_pr= $dados_abc['foto'];
 	$total = $quantidade * $dados_abc['valor'];
+        $total_somado += $total;
 	echo '<tr style="height: 110px">
                 <td><P style="margin-top: 40px">'.$cod_produto.'</P></td>
                 <td><img style="width:100px "src="../img/produtos/'.$foto_pr.'"> </td>
                 <td width="400"><P style="margin-top: 40px">'.$nome.'</P></td>
-                <td><P style="margin-top: 40px">R$: '. number_format($valor,2,',','.').'</P></td>
-                <td><P style="margin-top: 40px">'.$quantidade.' Un</P></td>
-                <td><P style="margin-top: 40px"> R$: '.number_format($total,2,',','.').'</P></td></tr>';
+                <td><P style="margin-top: 40px; width: 70px">R$: '. number_format($valor,2,',','.').'</P></td>
+                <td><P style="margin-top:40px ; width: 70px">'.$quantidade.' Un</P></td>
+                <td><P style="margin-top: 40px; width: 70px"> R$: '.number_format($total,2,',','.').'</P></td></tr>';
 	
 	}        
 		
-      echo '</tbody></table></div>
+      echo '<tr><td align="right" colspan="6"><P >Total R$: '.number_format($total_somado,2,',','.').'</P></td></tr>
+
+          </tbody></table></div>
       <div class="modal-footer bg-light">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 
@@ -103,9 +105,9 @@ if($cont > 0){
                 </thead>
                 <tbody>';
                 foreach ($dados_a as $d_2){
-				$id_compra = $d_2['id_compra'];
-				if($d_1['autorizado'] == 0){
-                $sql = "SELECT * FROM vendas WHERE id_compra = ?";
+                $id_compra = $d_2['id_compra'];
+		if($d_2['autorizado'] == 0 && $d_2['entregue'] == 0 ){
+                $sql = "SELECT * FROM compras  WHERE id_compra = ?";
                 $consulta = $conexao->prepare($sql);
                 $consulta->execute(array($id_compra));
                 $dados = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -169,9 +171,9 @@ if($cont_ent > 0){
                 </thead>
                 <tbody>';
                 foreach ($dados_a as $d_2){
-				$id_compra = $d_2['id_compra'];
-				if($d_2['autorizado'] == 1 && $d_2['entregue'] == 0 ){
-                $sql = "SELECT * FROM vendas WHERE id_compra = ?";
+		$id_compra = $d_2['id_compra'];
+		if($d_2['autorizado'] == 1 && $d_2['entregue'] == 0 ){
+                $sql = "SELECT * FROM compras WHERE id_compra = ?";
                 $consulta = $conexao->prepare($sql);
                 $consulta->execute(array($id_compra));
                 $dados = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -235,10 +237,11 @@ if($cont_ent > 0){
                     </tr>
                 </thead>
                 <tbody>';
+          
                 foreach ($dados_a as $d_2){
-				$id_compra = $d_2['id_compra'];
-				if($d_2['autorizado'] == 1 && $d_2['entregue'] == 0 ){
-                $sql = "SELECT * FROM vendas WHERE id_compra = ?";
+		$id_compra = $d_2['id_compra'];
+		if($d_2['autorizado'] == 1 && $d_2['entregue'] == 1 ){
+                $sql = "SELECT * FROM compras WHERE id_compra = ?";
                 $consulta = $conexao->prepare($sql);
                 $consulta->execute(array($id_compra));
                 $dados = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -270,7 +273,7 @@ if($cont_ent > 0){
                 <td><P class="mt-4">'.$ent.'</P></td>
                 <td><P class="mt-4"> R$: '.number_format($total,2,',','.').'</P></td>
                 <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'">Ver Produtos</a>
-                <a class="btn btn-dark mt-2 w-75" href="?cancelar_compra='.$id_compra.'">Cancelar Compra</a></td></tr>
+                </td></tr>
 ';
 				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de aprovação de pagamento</h3>';}
 
