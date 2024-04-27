@@ -217,7 +217,7 @@ require_once'cabecalho.php';
 <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
-<form action="" method="POST">
+<form action="na_entrega.php" method="POST">
 		<div class="form-check" data-toggle="collapse" data-target="#collapseFour">
 		  <input class="form-check-input" type="hidden"  name="entrega" value="4" >
 		  <label class="form-check-label" >
@@ -232,18 +232,18 @@ require_once'cabecalho.php';
                 <h5>Formas de Pagamento.</h5>
                 <?php 
                 echo '<div class="form-check form-check-inline mt-2">
-                                    <input class="form-check-input" type="radio" name="entrega" id="inlineRadio1" value="pix_entrega" checked>
+                                    <input class="form-check-input" type="radio" name="entrega" id="inlineRadio1" value="pix" checked>
                                     <label class="form-check-label" for="inlineRadio1"><strong>PIX</strong></label>
-                                    <label>À vista R$ '.number_format($dados['valor'],2,',','.').'</label>
+                                    <label>À vista R$ '.number_format($total,2,',','.').'</label>
                                   </div>
                                   <div class="form-check form-check-inline mt-2">
-                                    <input class="form-check-input" type="radio" name="entrega" id="inlineRadio2" value="dinheiro_entrega">
-                                     <label class="form-check-label" for="inlineRadio1"><strong>Dinheiro</strong></label>
-                                    <label>À vista R$ '.number_format($dados['valor'],2,',','.').'</label>
+                                    <input class="form-check-input" type="radio" name="entrega" id="inlineRadio2" value="dinheiro">
+                                     <label class="form-check-label" for="inlineRadio2"><strong>Dinheiro</strong></label>
+                                    <label>À vista R$ '.number_format($total,2,',','.').'</label>
                                   </div>
                                   <div class="form-check form-check-inline mt-2">
-                                    <input class="form-check-input" type="radio" name="entrega" id="inlineRadio3" value="cartao_entrega">
-                                    <label class="form-check-label" for="inlineRadio1"><strong>Cartão</strong></label> ';
+                                    <input class="form-check-input" type="radio" name="entrega" id="inlineRadio3" value="cartao">
+                                    <label class="form-check-label" for="inlineRadio3"><strong>Cartão</strong></label> ';
                                     if($total >= 10 && $total <= 24.99 ){                                    
                                     echo '<label class="form-check-label" for="inlineRadio3">Até 2X de R$ '.number_format(($total/2),2,'.',',').'</label>';
                                         }
