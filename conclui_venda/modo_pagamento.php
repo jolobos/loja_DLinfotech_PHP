@@ -193,7 +193,7 @@ require_once'cabecalho.php';
   <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
-<form action="" method="POST">
+<form action="boleto/confirmacao_boleto.php" method="POST">
 		<div class="form-check"data-toggle="collapse" data-target="#collapseThree">
 		  <input class="form-check-input" type="hidden"  name="boleto" value="3" >
 		  <label class="form-check-label" >
@@ -207,6 +207,7 @@ require_once'cabecalho.php';
 		<!--tags de pagamento -->
 		<h5>Pagamento à vista.</h5>
                 <p>Total: <?php echo 'R$ '.number_format($total,2,',','.'); ?></p>
+                <p class="text-danger">+ R$ 3.50 de taxa da impressão do boleto bancario.</p>
 		<div align="right">
 		<input type="submit" class="btn btn-secondary" value="selecionar">
 		</div>
