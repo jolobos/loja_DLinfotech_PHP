@@ -23,7 +23,7 @@ if(isset($_GET['cancela_venda'])){
 	$_SESSION['produto_carrinho'] = $_SESSION['lista_produto'];
 	unset($_SESSION['endereco']);
 	unset($_SESSION['lista_produto']);
-	header('location:../../produtos/ver_carrinho.php?mensagem_cancela=ok');
+	header('location:../produtos/ver_carrinho.php?mensagem_cancela=ok');
 }
 ?>
 <!doctype html>
@@ -269,7 +269,10 @@ $(window).load(function() {
 		<h3>Compra efetuada com sucesso!!!!</h3> 
       </div>';
 echo '
-
+      <div class="modal-body bg-light   "><p><strong>Observação:</strong></p>
+      <p>Fique atento ao celular e ao prazo de entrega de seus produtos. Para maiores informações da entrega, use o menu de "COMPRAS".</p>
+      <p>A DLInfotech agradece a sua preferência.</p>
+      </div>
       <div class="modal-footer bg-light">
 			<a href="?concluido_compra=ok" class="btn btn-secondary">INICIO</a>
 			<a href="#" class="btn btn-secondary">Minhas Compras</a>
@@ -345,7 +348,10 @@ if(isset($_POST['confirma_dinheiro'])){
 		<h3>Compra efetuada com sucesso!!!!</h3> 
       </div>';
 echo '
-
+     <div class="modal-body bg-light"><p><strong>Observação:</strong></p>
+      <p>Fique atento ao celular e ao prazo de entrega de seus produtos. Para maiores informações da entrega, use o menu de "COMPRAS".</p>
+      <p>A DLInfotech agradece a sua preferência.</p>
+      </div>
       <div class="modal-footer bg-light">
 			<a href="?concluido_compra=ok" class="btn btn-secondary">INICIO</a>
 			<a href="#" class="btn btn-secondary">Minhas Compras</a>
@@ -421,8 +427,11 @@ if(isset($_POST['confirma_cartao'])){
 		<h3>Compra efetuada com sucesso!!!!</h3> 
       </div>';
 echo '
-
-      <div class="modal-footer bg-light">
+      <div class="modal-body bg-light"><p><strong>Observação:</strong></p>
+      <p>Fique atento ao celular e ao prazo de entrega de seus produtos. Para maiores informações da entrega, use o menu de "COMPRAS".</p>
+      <p>A DLInfotech agradece a sua preferência.</p>
+      </div>
+        <div class="modal-footer bg-light">
 			<a href="?concluido_compra=ok" class="btn btn-secondary">INICIO</a>
 			<a href="#" class="btn btn-secondary">Minhas Compras</a>
       </div>

@@ -106,6 +106,7 @@ echo '<div style="width: 50%;margin:auto;">
             <option value="eletronicos">Eletrônicos</option>
             <option value="acessorios">Acessórios</option>
             <option value="capinhas">Capinhas</option>
+            <option value="carregadores">Carregadores</option>
             <option value="peliculas">Peliculas</option>
             <option value="CPU">Computadores</option>
             <option value="celular">Celulares</option>
@@ -116,7 +117,7 @@ echo '<div style="width: 50%;margin:auto;">
             <option value="ferramenta_cel">Ferramentas p/ celular</option>
             <option value="ferramenta_CPU">Ferramentas p/ PC´s</option>
             <option value="placa_cel">Placas celular</option>
-            <option value="bateria">Baterias</option>
+            <option value="baterias">Baterias</option>
             <option value="audio">Audio/Som</option>
             </select>
             </div>

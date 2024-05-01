@@ -6,10 +6,18 @@ date_default_timezone_set('America/Sao_Paulo');
 require_once("../database.php");
 
 
-if(!empty($_POST)){
+if(!empty($_POST['busca_produto'])){
 $busca_produto = $_POST['busca_produto'];
 
 $sql = "SELECT * FROM produtos WHERE nome LIKE '%".$busca_produto."%'";
+$consulta = $conexao->query($sql);
+$dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+}
+if(!empty($_GET['categoria'])){
+$busca_produto = $_GET['categoria'];
+
+$sql = "SELECT * FROM produtos WHERE categoria LIKE '%".$busca_produto."%'";
 $consulta = $conexao->query($sql);
 $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
@@ -21,7 +29,7 @@ require_once 'cabecalho.php';
     <h3 class="alert alert-secondary">Produtos com o nome "<?php echo $busca_produto;?>"</h3>
    <div class="row">
           <?php
-          if(strlen($_POST['busca_produto']) < 2){
+            if(strlen($busca_produto) < 2){
 			  echo '<div class="col-sm-8 alert alert-dark text-center"" style="margin:auto"><h2>Valor inválido para pesquisa.</h2>
 			  <h5>Por favor, entre com um nome valido na pesquisa.</h5></div>';
 		  }else{
@@ -44,7 +52,7 @@ require_once 'cabecalho.php';
                   </div>';
           
             
-		  }}}
+        }}}
             ?>
         
     </div>

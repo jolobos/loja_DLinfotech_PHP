@@ -94,7 +94,7 @@ $(window).load(function() {
             <img decoding="async" src="img/card1.png" alt="imagem do card 1 html e css">
 			<h5 class="card-title">Carregadores</h5>
 			<p class="card-text">Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.</p>
-			<a href="#" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>
+			<a href="produtos/procura_produto.php?categoria=carregadores" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>
 		</div>
 
         <!-- Card 2 -->
@@ -102,15 +102,15 @@ $(window).load(function() {
             <img decoding="async" src="img/card2.png" alt="imagem do card 2 html e css">
 			<h5 class="card-title">Computadores</h5>
 			<p class="card-text" >Querendo efetuar um upgrade na carroça? click e veja as opções e valores.</p>
-			<a href="#" class="btn btn-primary align-self-stretch mt-auto">Visitar</a>
+			<a href="produtos/procura_produto.php?categoria=computadores" class="btn btn-primary align-self-stretch mt-auto">Visitar</a>
 		</div>
 
         <!-- Card 3 -->
         <div class="secao4-div-card col d-flex flex-column align-items-center">
             <img decoding="async" src="img/card3.png" alt="imagem do card 3 html e css">
-			<h5 class="card-title">Capinhas e Peliculas</h5>
+			<h5 class="card-title">Capinhas para celulares</h5>
 			<p class="card-text">Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.</p>
-			<a href="#" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>
+			<a href="produtos/procura_produto.php?categoria=capinhas" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>
 
         </div>
 		<div class="secao4-div-card col d-flex flex-column align-items-center">
@@ -123,7 +123,7 @@ $(window).load(function() {
             <img decoding="async" src="img/card5.png" alt="imagem do card 5 html e css">
             <h5 class="card-title">Acessórios</h5>
 			<p class="card-text">Temos inumeros acessórios para toda area de informatica e smartphones.</p>
-			<a href="#" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>
+			<a href="produtos/procura_produto.php?categoria=acessorios" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>
         </div>	
     </div>
 </section>

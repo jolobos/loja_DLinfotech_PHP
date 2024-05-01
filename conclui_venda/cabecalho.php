@@ -66,29 +66,35 @@
                 <div class="modal-body">
 					<!-- Aqui será a separação de cada opção do menu modal -->
 					<ul class="nav nav-pills flex-column"><li class="nav-item">
-					<a type="button" href="#" class="btn btn-info mt-2" style="width: 50%;">Produtos</a>
+					<a type="button" href="#" class="btn btn-info mt-2" style="width: 230px;">Categoria de produtos</a>
 					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#bta">
 					<span class="visually-hidden"></span>
 					</button></li>
 					<li class="nav-item ">
 						<div id="bta" class="collapse mt-2">
 							<ul class="nav nav-pills flex-column bg-secondary rounded">
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">HTML</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">CSS</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">JavaScript</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">PHP</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Python</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">jQuery</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">SQL</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Bootstrap</a></li>
-							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="#">Node.js</a></li>
+							 <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=acessorios">Acessórios</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=audio">Audio</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=baterias">Baterias</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=cabos">Cabos</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=capinhas">Capinhas</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=celulares">Celulares</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=computadores">Computadores</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=conectores">Conectores</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=CTV">CTV</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=display">Display/Touch</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=eletronicos">Eletrônicos</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=ferramenta_cel">Ferramentas p/ celular</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=ferramenta_CPU">Ferramentas p/ PC's</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=peliculas">Peliculas</a></li>
+							  <li class="nav-item"><a class="btn btn-secondary" style="width: 100%;" href="../produtos/procura_produto.php?categoria=placa_cel">Placas de celular</a></li>
 							</ul>
 						</div>
 					</li></ul>
 					
 						<!-- Aqui será a separação de cada opção do menu modal -->
 					<ul class="nav nav-pills flex-column"><li class="nav-item">
-					<a type="button" href="#" class="btn btn-info mt-2" style="width: 50%;">Serviços</a>
+					<a type="button" href="#" class="btn btn-info mt-2" style="width: 230px;">Serviços</a>
 					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#btb">
 					<span class="visually-hidden"></span>
 					</button></li>
@@ -110,7 +116,7 @@
 					
 						<!-- Aqui será a separação de cada opção do menu modal -->
 					<ul class="nav nav-pills flex-column"><li class="nav-item">
-					<a type="button" href="#" class="btn btn-info mt-2 " style="width: 50%;">Endereço</a>
+					<a type="button" href="#" class="btn btn-info mt-2 " style="width: 230px;">Endereço</a>
 					<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mt-2" data-toggle="collapse" data-target="#btc">
 					<span class="visually-hidden"></span>
 					</button></li>

@@ -158,13 +158,19 @@ Caso a entrega não seja concluida dentro do prazo máximo da empresa, o cliente
 <h5>Conclusão da compra</h5>
 <p> Ao clicar em "concluir compra", você receberá em sua tela o boleto de impressão para copiar, imprimir, ou ler o código de barras. Após isso você terá a opção de retorno a tela principal, ou de visualizar
 as suas compras.</p>
-
+<?php
+if(isset($_POST['valor'])){
+$valor2 = $_POST['valor'] ;
+}else{
+    $valor2 = $total_somado;
+}
+echo '
 <form action="" method="POST" align="center" class="mb-5">
 <input type="hidden" name="confirma_boleto" value="true">
-<input type="hidden" name="valor" value="<?php $_POST['valor'] ?>">
+<input type="hidden" name="valor" value="'.$valor2.'">
 <a href="?cancela_venda=1" class="btn btn-secondary">Cancelar a Compra</a>
 <input type="submit" class="btn btn-success" value="Concluir Compra">
-</form>
+</form>';?>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 $(window).load(function() {
