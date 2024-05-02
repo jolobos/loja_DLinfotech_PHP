@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/04/2024 às 19:33
+-- Tempo de geração: 02/05/2024 às 03:47
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -67,7 +67,16 @@ CREATE TABLE `compras` (
 --
 
 INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_endereco`, `data`, `total`, `autorizado`, `entregue`, `pagamento`, `parcelas`) VALUES
-(14, 6, 1, '2024-04-23 14:31:35', 1.00, 0, 0, 'PIX', 1);
+(14, 6, 1, '2024-04-23 14:31:35', 1.00, 0, 0, 'PIX', 1),
+(16, 6, 1, '2024-04-25 14:11:51', 287.48, 0, 0, 'PIX', 1),
+(17, 6, 1, '2024-04-25 14:12:53', 287.48, 0, 0, 'PIX', 1),
+(18, 6, 1, '2024-04-25 14:13:21', 287.48, 1, 0, 'PIX', 1),
+(19, 6, 1, '2024-04-25 14:14:13', 529.00, 1, 0, 'PIX', 1),
+(20, 6, 1, '2024-04-25 14:14:37', 529.00, 1, 1, 'PIX', 1),
+(21, 6, 1, '2024-04-25 14:14:48', 529.00, 0, 0, 'PIX', 1),
+(22, 6, 1, '2024-04-28 18:16:21', 20.00, 0, 0, 'PIX', 1),
+(29, 6, 1, '2024-04-30 13:35:01', 20.00, 0, 0, 'BOLETO', 1),
+(30, 6, 1, '2024-05-01 14:45:54', 17.50, 0, 0, 'BOLETO', 1);
 
 -- --------------------------------------------------------
 
@@ -155,7 +164,25 @@ CREATE TABLE `itens_da_compra` (
 --
 
 INSERT INTO `itens_da_compra` (`id_item_compra`, `id_compra`, `id_produto`, `quantidade`, `data_item`) VALUES
-(2, 14, 13, 10.00, '2024-04-23 14:31:35');
+(2, 14, 13, 10.00, '2024-04-23 14:31:35'),
+(6, 16, 3, 2.00, '2024-04-25 14:11:51'),
+(7, 16, 5, 5.00, '2024-04-25 14:11:51'),
+(8, 17, 3, 2.00, '2024-04-25 14:12:53'),
+(9, 17, 5, 5.00, '2024-04-25 14:12:53'),
+(10, 18, 3, 2.00, '2024-04-25 14:13:21'),
+(11, 18, 5, 5.00, '2024-04-25 14:13:21'),
+(12, 19, 1, 1.00, '2024-04-25 14:14:13'),
+(13, 20, 1, 1.00, '2024-04-25 14:14:37'),
+(14, 21, 1, 1.00, '2024-04-25 14:14:48'),
+(15, 22, 4, 1.00, '2024-04-28 18:16:21'),
+(16, 23, 4, 1.00, '2024-04-28 18:18:06'),
+(17, 24, 4, 1.00, '2024-04-28 18:18:18'),
+(18, 25, 4, 1.00, '2024-04-28 18:18:39'),
+(19, 26, 4, 1.00, '2024-04-28 18:21:52'),
+(20, 27, 4, 1.00, '2024-04-28 18:23:48'),
+(21, 28, 4, 1.00, '2024-04-28 18:24:43'),
+(22, 29, 4, 1.00, '2024-04-30 13:35:01'),
+(23, 30, 5, 1.00, '2024-05-01 14:45:54');
 
 -- --------------------------------------------------------
 
@@ -166,15 +193,26 @@ INSERT INTO `itens_da_compra` (`id_item_compra`, `id_compra`, `id_produto`, `qua
 CREATE TABLE `notificacoes` (
   `id_notificacoes` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
+  `titulo` varchar(120) NOT NULL,
   `conteudo` varchar(250) NOT NULL,
-  `link_1` int(120) NOT NULL,
-  `link_2` int(120) NOT NULL,
-  `link_3` int(120) NOT NULL,
-  `link_4` int(120) NOT NULL,
-  `link_5` int(120) NOT NULL,
+  `link_1` varchar(120) NOT NULL,
+  `link_2` varchar(120) NOT NULL,
+  `link_3` varchar(120) NOT NULL,
+  `link_4` varchar(120) NOT NULL,
+  `link_5` varchar(120) NOT NULL,
   `condicao` int(1) NOT NULL,
-  `data_envio` int(11) NOT NULL
+  `data_envio` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `notificacoes`
+--
+
+INSERT INTO `notificacoes` (`id_notificacoes`, `id_usuario`, `titulo`, `conteudo`, `link_1`, `link_2`, `link_3`, `link_4`, `link_5`, `condicao`, `data_envio`) VALUES
+(1, 6, '', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00'),
+(2, 6, '', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00'),
+(3, 6, 'Testando as notitifacações', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00'),
+(4, 6, '', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -227,6 +265,79 @@ INSERT INTO `produtos` (`id_produto`, `cod_produto`, `nome`, `valor`, `quantidad
 (4, '', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (5, '', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (13, '1124232', 'Cabo HDMI pix 2 mts', 0.10, 25.00, 'cabos', 'preto', 'bivolt', 'bivolt', 'adicione uma descrição rapida.', 1, '23d4d9b5c26523e78fcfa235086abfdb.jpg', 'c2651ef93f6c67524860edc685193b8b.jpg', '6d86194c9cb692ce87c1d48c9cd349c2.jpg', 'd6d480bf7636b60e55719541f3a3a6ef.jpg', '213e8b4f8997971bf057201053f7721b.jpg', '', '', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tela_principal`
+--
+
+CREATE TABLE `tela_principal` (
+  `id_tela` int(11) NOT NULL,
+  `banner_1` varchar(40) NOT NULL,
+  `banner_2` varchar(40) NOT NULL,
+  `banner_3` varchar(40) NOT NULL,
+  `banner_4` varchar(40) NOT NULL,
+  `banner_5` varchar(40) NOT NULL,
+  `link_banner_1` varchar(70) NOT NULL,
+  `link_banner_2` varchar(70) NOT NULL,
+  `link_banner_3` varchar(70) NOT NULL,
+  `link_banner_4` varchar(70) NOT NULL,
+  `link_banner_5` varchar(70) NOT NULL,
+  `titulo_banner_1` varchar(40) NOT NULL,
+  `titulo_banner_2` varchar(40) NOT NULL,
+  `titulo_banner_3` varchar(40) NOT NULL,
+  `titulo_banner_4` varchar(40) NOT NULL,
+  `titulo_banner_5` varchar(40) NOT NULL,
+  `ft_box_1` varchar(40) NOT NULL,
+  `ft_box_2` varchar(40) NOT NULL,
+  `ft_box_3` varchar(40) NOT NULL,
+  `ft_box_4` varchar(40) NOT NULL,
+  `ft_box_5` varchar(40) NOT NULL,
+  `titulo_box_1` varchar(40) NOT NULL,
+  `titulo_box_2` varchar(40) NOT NULL,
+  `titulo_box_3` varchar(40) NOT NULL,
+  `titulo_box_4` varchar(40) NOT NULL,
+  `titulo_box_5` varchar(40) NOT NULL,
+  `descricao_box_1` varchar(150) NOT NULL,
+  `descricao_box_2` varchar(150) NOT NULL,
+  `descricao_box_3` varchar(150) NOT NULL,
+  `descricao_box_4` varchar(150) NOT NULL,
+  `descricao_box_5` varchar(150) NOT NULL,
+  `categoria_box_1` varchar(40) NOT NULL,
+  `categoria_box_2` varchar(40) NOT NULL,
+  `categoria_box_3` varchar(40) NOT NULL,
+  `categoria_box_4` varchar(40) NOT NULL,
+  `categoria_box_5` varchar(40) NOT NULL,
+  `id_oferta_1` int(40) NOT NULL,
+  `id_oferta_2` int(40) NOT NULL,
+  `id_oferta_3` int(40) NOT NULL,
+  `id_oferta_4` int(40) NOT NULL,
+  `id_oferta_5` int(40) NOT NULL,
+  `id_car_prod_1` int(40) NOT NULL,
+  `id_car_prod_2` int(40) NOT NULL,
+  `id_car_prod_3` int(40) NOT NULL,
+  `id_car_prod_4` int(40) NOT NULL,
+  `id_car_prod_5` int(40) NOT NULL,
+  `id_car_prod_6` int(40) NOT NULL,
+  `id_car_prod_7` int(40) NOT NULL,
+  `id_car_prod_8` int(40) NOT NULL,
+  `id_car_prod_9` int(40) NOT NULL,
+  `id_car_prod_10` int(40) NOT NULL,
+  `id_car_prod_11` int(40) NOT NULL,
+  `id_car_prod_12` int(40) NOT NULL,
+  `id_car_prod_13` int(40) NOT NULL,
+  `id_car_prod_14` int(40) NOT NULL,
+  `id_car_prod_15` int(40) NOT NULL,
+  `id_car_prod_16` int(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `tela_principal`
+--
+
+INSERT INTO `tela_principal` (`id_tela`, `banner_1`, `banner_2`, `banner_3`, `banner_4`, `banner_5`, `link_banner_1`, `link_banner_2`, `link_banner_3`, `link_banner_4`, `link_banner_5`, `titulo_banner_1`, `titulo_banner_2`, `titulo_banner_3`, `titulo_banner_4`, `titulo_banner_5`, `ft_box_1`, `ft_box_2`, `ft_box_3`, `ft_box_4`, `ft_box_5`, `titulo_box_1`, `titulo_box_2`, `titulo_box_3`, `titulo_box_4`, `titulo_box_5`, `descricao_box_1`, `descricao_box_2`, `descricao_box_3`, `descricao_box_4`, `descricao_box_5`, `categoria_box_1`, `categoria_box_2`, `categoria_box_3`, `categoria_box_4`, `categoria_box_5`, `id_oferta_1`, `id_oferta_2`, `id_oferta_3`, `id_oferta_4`, `id_oferta_5`, `id_car_prod_1`, `id_car_prod_2`, `id_car_prod_3`, `id_car_prod_4`, `id_car_prod_5`, `id_car_prod_6`, `id_car_prod_7`, `id_car_prod_8`, `id_car_prod_9`, `id_car_prod_10`, `id_car_prod_11`, `id_car_prod_12`, `id_car_prod_13`, `id_car_prod_14`, `id_car_prod_15`, `id_car_prod_16`) VALUES
+(1, 'img1.jpg', 'img7.jpg', 'img3.jpg', '', '', '#', '#', '#', '#', '#', 'Monte seu PC Gamer', 'Quebrou? Temos a solução!', 'Amplo estoque em Carregadores', 'Amplo estoque em Carregadores', 'Amplo estoque em Carregadores', '0', '0', '0', '0', '0', 'Carregadores', 'Computadores', 'Capinhas para celulares', 'Troca de display', 'Acessórios', 'Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.', 'Querendo efetuar um upgrade na carroça? click e veja as opções e valores.', 'Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.', 'Consulte nossos valores e marcas disponiveis.', 'Temos inumeros acessórios para toda area de informatica e smartphones.', 'carregadores', 'computadores', 'capinhas', 'vazio', 'acessorios', 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 13, 1, 2, 3, 4, 5, 13, 3, 4, 5, 13);
 
 -- --------------------------------------------------------
 
@@ -304,6 +415,12 @@ ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id_produto`);
 
 --
+-- Índices de tabela `tela_principal`
+--
+ALTER TABLE `tela_principal`
+  ADD PRIMARY KEY (`id_tela`);
+
+--
 -- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -317,7 +434,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de tabela `endereco_usuario`
@@ -329,19 +446,25 @@ ALTER TABLE `endereco_usuario`
 -- AUTO_INCREMENT de tabela `itens_da_compra`
 --
 ALTER TABLE `itens_da_compra`
-  MODIFY `id_item_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_item_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
-  MODIFY `id_notificacoes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_notificacoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de tabela `tela_principal`
+--
+ALTER TABLE `tela_principal`
+  MODIFY `id_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
