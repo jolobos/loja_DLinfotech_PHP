@@ -11,6 +11,7 @@
                     $contagem_ids = 0;
                     while($contagem_ids < 16){
                         $contagem_ids +=1;
+                        if($d['id_car_prod_'.$contagem_ids] != 0){
                         $id_car_prod = $d['id_car_prod_'.$contagem_ids];
                         $sql6 = "SELECT * FROM produtos WHERE id_produto = '".$id_car_prod."'";
                         $consulta6 = $conexao->query($sql6);
@@ -26,7 +27,7 @@
                                 </div>          
                             </div></a>';
 
-                    }
+                    }}
 
                 ?>
                         

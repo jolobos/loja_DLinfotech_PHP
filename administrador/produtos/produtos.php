@@ -89,8 +89,8 @@ if(empty($_POST['cod_produto'])){
   if($dados['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
   echo '<table  border="3" class="table table-striped border-secondary">
   <thead><tr><th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th></tr></thead>';
-  echo '<tbody><tr><td>'.$dados['cod_produto'].'</td><td>'.utf8_encode($dados['nome']).'</td>
-		<td>$ '.$dados['valor'].'</td><td>'.$dados['quantidade'].'</td>
+  echo '<tbody><tr><td>'.$dados['cod_produto'].'</td><td>'.$dados['nome'].'</td>
+		<td>$ '. number_format($dados['valor'],2,',','.').'</td><td>'.$dados['quantidade'].'</td>
 	  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "ver.php?id_produto='.$dados['id_produto'].'">ver</a>
 	  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$dados['id_produto'].'"> alterar</a>
 	  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$dados['id_produto'].'"> deletar</a></td></tr>';		

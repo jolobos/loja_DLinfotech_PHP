@@ -1,5 +1,29 @@
 <?php
+require_once '../../database.php';
+require_once '../../verifica_session.php';
+error_reporting(E_ALL);
+ini_set('display_errors','on');
+date_default_timezone_set('America/Sao_Paulo');
 
+if(isset($_SESSION['banner'])){
+    unset($_SESSION['banner']);
+}
+
+if(isset($_SESSION['box'])){
+    unset($_SESSION['box']);
+}
+
+if(isset($_SESSION['oferta'])){
+    unset($_SESSION['oferta']);
+}
+
+if(isset($_SESSION['carr'])){
+    unset($_SESSION['carr']);
+}
+
+$sql1 = "SELECT * FROM tela_principal ";
+$consulta1 = $conexao->query($sql1);
+$dados1 = $consulta1->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -20,35 +44,163 @@
   <body style="background: #778899">
   <div class="container">
 				<div class="bg-dark"><h1 class="text-success">
-					Opções para produtos
+					Opções para tela inicial
 				</h1>
-				<button type="button" class="btn btn-info m-2" data-toggle="modal" data-target="#exampleModal">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-menu-button-wide-fill" viewBox="0 0 16 16">
-				<path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0zm1 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m9.927.427A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
-			</svg> - MENU
-				</button>
+				
 				<a class="btn btn-secondary border-info m-2" href="../menu_admin.php">Administração</a>
 				<a href="../../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
 
 				</div>
-			    <div class="modal right fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-				<a class="btn btn-secondary border-danger m-2" href="add_produto.php">Inserir Produto</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="ctrl_quantidade.php">Controle de quantidade</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="ctrl_saida_produto.php">Controle de saida</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_promocao.php">Produtos em promoção</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_destaque.php">Produtos em destaque</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_banner.php">Produtos do banner</a></br>
-				
-				</div>
-				<div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-				</div>
-				</div>
-				</div>
+                <div class="card mt-2" role="document">
+                    <div class="card-header">
+                        <h3 class="text-info">Opções de Banners</h3>
+                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                            <?php
+                            $contagem_banners = 0;
+                            while($contagem_banners < 5){
+                                $contagem_banners += 1;
+                                if(!empty($dados1['banner_'.$contagem_banners])){
+                                echo '<div class="col"><p><strong>Banner '.$contagem_banners.':</strong></p>
+                                <img src="../../img/banner/'.$dados1['banner_'.$contagem_banners].'" style="height:100px;width:300px">
+                                <p><strong>Titulo: </strong>'.$dados1['titulo_banner_'.$contagem_banners].'</p>
+                                <p><strong>Link da pagina: </strong>'.$dados1['link_banner_'.$contagem_banners].'</p>
+                                <a class="btn btn-secondary border-warning m-2" href="troca_banner.php?banner='.$contagem_banners.'">Trocar Banner</a>';
+                                if($contagem_banners != 1){
+                                echo   '<a class="btn btn-secondary border-danger m-2" href="troca_banner.php?excluir_banner='.$contagem_banners.'">Excluir Banner</a></div>
+ 
+                                ';}else {    echo '</div>';}
+                                if($contagem_banners == 3){
+                                    echo '</div><div class="row">';
+                                }
+                            }else{
+                                echo '<div class="col"><p><strong>Banner '.$contagem_banners.':</strong></p><a class="btn btn-secondary border-danger m-2" href="troca_banner.php?inserir='.$contagem_banners.'">inserir novo banner</a></div>';
+                                
+
+                                
+                            }
+                            }
+                            ?>
+                            </div>
+			</div>
+			</div>
+      <div class="card mt-2" role="document">
+                    <div class="card-header">
+                        <h3 class="text-info">Opções de Box</h3>
+                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                            <?php
+                            $contagem_box = 0;
+                            while($contagem_box < 5){
+                                $contagem_box += 1;
+                                if(!empty($dados1['ft_box_'.$contagem_box])){
+                                echo '<div class="col"><p><strong>Box '.$contagem_box.':</strong></p>
+                                <img src="../../img/box/'.$dados1['ft_box_'.$contagem_box].'" style="height:200px;width:200px">
+                                <p><strong>Titulo: </strong>'.$dados1['titulo_box_'.$contagem_box].'</p>
+                                <p><strong>Descrição: </strong>'.$dados1['descricao_box_'.$contagem_box].'</p>
+                                <p><strong>Link do Box: </strong>'.$dados1['categoria_box_'.$contagem_box].'</p>
+                                <a class="btn btn-secondary border-warning m-2" href="troca_box.php?box='.$contagem_box.'">Trocar Box</a></div>
+ 
+                           ';
+                                if($contagem_box == 3){
+                                    echo '</div><div class="row">';
+                                }
+                            }else{
+                                echo '<div class="col"><p><strong>Box '.$contagem_box.':</strong></p><a class="btn btn-secondary border-danger m-2" href="troca_box.php?inserir='.$contagem_box.'">inserir novo banner</a></div>';
+                                
+
+                                
+                            }
+                            }
+                            ?>
+                            
+			</div>
+			</div>
+			</div>
       
-  </div></body></html>
+                <div class="card mt-2" role="document">
+                    <div class="card-header">
+                        <h3 class="text-info">Opções de Ofertas da semana</h3>
+                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                            <?php
+                            $contagem_ofertas = 0;
+                            while($contagem_ofertas < 5){
+                                $contagem_ofertas += 1;
+                                if(!empty($dados1['id_oferta_'.$contagem_ofertas])){
+                                    $sql1 = "SELECT * FROM produtos WHERE id_produto = '".$dados1['id_oferta_'.$contagem_ofertas]."'";
+                                    $consulta1 = $conexao->query($sql1);
+                                    $dados_of = $consulta1->fetch(PDO::FETCH_ASSOC);
+                                    
+                                echo '<div class="col"><p><strong>'.$contagem_ofertas.'° Oferta:</strong></p>
+                                <img src="../../img/produtos/'.$dados_of['foto'].'" style="height:200px;width:200px">
+                                <p><strong>Produto: </strong>'.$dados_of['nome'].'</p>
+                                <p><strong>Código de identificação do produto: </strong>'.$dados_of['id_produto'].'</p>
+                                <a class="btn btn-secondary border-warning m-2" href="troca_oferta.php?oferta='.$contagem_ofertas.'">Trocar Oferta</a></div>
+ 
+                           ';
+                                if($contagem_ofertas == 3){
+                                    echo '</div><div class="row">';
+                                }
+                            }else{
+                                echo '<div class="col"><p><strong>Box '.$contagem_ofertas.':</strong></p><a class="btn btn-secondary border-danger m-2" href="troca_oferta.php?inserir='.$contagem_ofertas.'">inserir novo banner</a></div>';
+                                
+
+                                
+                            }
+                            }
+                            ?>
+                            
+			</div>
+			</div>
+			</div>
+      
+                <div class="card mt-2" role="document">
+                    <div class="card-header">
+                        <h3 class="text-info">Opções de Produtos do carrossel</h3>
+                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                            <?php
+                            $contagem_car = 0;
+                            while($contagem_car < 16){
+                                $contagem_car += 1;
+                                if(!empty($dados1['id_car_prod_'.$contagem_car])){
+                                    $sql1 = "SELECT * FROM produtos WHERE id_produto = '".$dados1['id_car_prod_'.$contagem_car]."'";
+                                    $consulta1 = $conexao->query($sql1);
+                                    $dados_pr = $consulta1->fetch(PDO::FETCH_ASSOC);
+                                    
+                                    
+                                echo '<div class="col m-1 p-1" ><div class="card m-1 p-2 w-100" style="height: 380px;">
+                                <p><strong>'.$contagem_car.'° Produto:</strong></p>
+                                <img src="../../img/produtos/'.$dados_pr['foto'].'" style="height:100px;width:100px">
+                                <p><strong>Produto: </strong>'.$dados_pr['nome'].'</p>
+                                <p><strong>Cod. identificação do produto: </strong>'.$dados_pr['id_produto'].'</p>
+                                <a class="btn btn-secondary border-warning" style="position:absolute;bottom:55px;" href="troca_carr.php?carr='.$contagem_car.'">Trocar Produto</a>
+                                <a class="btn btn-secondary border-danger " style="position:absolute;bottom:10px;" href="troca_carr.php?excluir_carr='.$contagem_car.'">Excluir produto</a></div></div>
+ 
+                           ';
+                                if(($contagem_car % 4) == 0){
+                                    echo '</div><div class="row">';
+                                }
+                            }else{
+                                echo '<div class="col"><p><strong>'.$contagem_car.'° Produto:</strong></p><a class="btn btn-secondary border-danger m-2" href="troca_carr.php?inserir='.$contagem_car.'">inserir novo Produto</a></div>';
+                                
+
+                                
+                            }
+                            }
+                            ?>
+                            
+			</div>
+			</div>
+			</div>
+      
+      
+			</div>
+      
+ </body></html>
 

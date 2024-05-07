@@ -130,36 +130,36 @@ $(window).load(function() {
     <div class="secao4-div row">
         <!-- Card 1 -->
         <div class="secao4-div-card col d-flex flex-column align-items-center">
-            <img decoding="async" src="img/card1.png" alt="imagem do card 1 html e css">
-            <?php	echo '<h5 class="card-title">'.$d['titulo_box_1'].'</h5> 
+             <?php	echo '<img decoding="async" src="img/box/'.$d['ft_box_1'].'" alt="imagem do card 5 html e css">
+                        <h5 class="card-title">'.$d['titulo_box_1'].'</h5> 
 			<p class="card-text">'.$d['descricao_box_1'].'</p>
 			<a href="produtos/procura_produto.php?categoria='.$d['categoria_box_1'].'" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>';?>
 		</div>
 
         <!-- Card 2 -->
         <div class="secao4-div-card col d-flex flex-column align-items-center">
-            <img decoding="async" src="img/card2.png" alt="imagem do card 2 html e css">
-            <?php	echo '<h5 class="card-title">'.$d['titulo_box_2'].'</h5> 
+                         <?php	echo '<img decoding="async" src="img/box/'.$d['ft_box_2'].'" alt="imagem do card 5 html e css">
+                        <h5 class="card-title">'.$d['titulo_box_2'].'</h5> 
 			<p class="card-text">'.$d['descricao_box_2'].'</p>
 			<a href="produtos/procura_produto.php?categoria='.$d['categoria_box_2'].'" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>';?>
 		</div>
 
         <!-- Card 3 -->
         <div class="secao4-div-card col d-flex flex-column align-items-center">
-            <img decoding="async" src="img/card3.png" alt="imagem do card 3 html e css">
-            <?php	echo '<h5 class="card-title">'.$d['titulo_box_3'].'</h5> 
+             <?php	echo '<img decoding="async" src="img/box/'.$d['ft_box_3'].'" alt="imagem do card 5 html e css">
+                        <h5 class="card-title">'.$d['titulo_box_3'].'</h5> 
 			<p class="card-text">'.$d['descricao_box_3'].'</p>
 			<a href="produtos/procura_produto.php?categoria='.$d['categoria_box_3'].'" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>';?>
 		</div>
 		<div class="secao4-div-card col d-flex flex-column align-items-center">
-            <img decoding="async" src="img/card4.png" alt="imagem do card 4 html e css">
-            <?php	echo '<h5 class="card-title">'.$d['titulo_box_4'].'</h5> 
+                         <?php	echo '<img decoding="async" src="img/box/'.$d['ft_box_4'].'" alt="imagem do card 5 html e css">
+                        <h5 class="card-title">'.$d['titulo_box_4'].'</h5> 
 			<p class="card-text">'.$d['descricao_box_4'].'</p>
 			<a href="produtos/procura_produto.php?categoria='.$d['categoria_box_4'].'" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>';?>
 		</div>
 		<div class="secao4-div-card col d-flex flex-column align-items-center">
-            <img decoding="async" src="img/card5.png" alt="imagem do card 5 html e css">
-            <?php	echo '<h5 class="card-title">'.$d['titulo_box_5'].'</h5> 
+             <?php	echo '<img decoding="async" src="img/box/'.$d['ft_box_5'].'" alt="imagem do card 5 html e css">
+                        <h5 class="card-title">'.$d['titulo_box_5'].'</h5> 
 			<p class="card-text">'.$d['descricao_box_5'].'</p>
 			<a href="produtos/procura_produto.php?categoria='.$d['categoria_box_5'].'" class="btn btn-primary align-self-stretch mt-auto" >Visitar</a>';?>
 		</div>	
@@ -205,47 +205,47 @@ echo '<div class="grid_promocao">
 			<div class="card-body">
 			<h5 class="card-title">'.$dados1['nome'].'</h5>
 			<p class="card-text">'.$dados1['descricao'].'</p>
-			<a href="produtos/pagina_produto.php?id_produto='.$id_produto1.'" class="btn btn-success">preço R$ '. number_format($dados1['valor'],2,',','.').'</a>
+			<a href="produtos/pagina_produto.php?id_produto='.$id_produto1.'" class="btn btn-success" style="position:absolute;bottom:20px">preço R$ '. number_format($dados1['valor'],2,',','.').'</a>
 			</div>
 			</div>
   </div>
   <div class="box2" >
   <div class="card mt-2" style="width: 587px; height: 490px;" >
-      <img class="card-img-top" src="img/produtos/'.$dados2['foto'].'" alt="Imagem de capa do card" style="width: 45%; display: block;margin-left: auto;margin-right: auto;">
+      <img class="card-img-top" src="img/produtos/'.$dados2['foto'].'" alt="Imagem de capa do card" style="width:  300px;height:300px; display: block;margin-left: auto;margin-right: auto;">
 			<div class="card-body">
 			<h5 class="card-title">'.$dados2['nome'].'</h5>
 			<p class="card-text">'.$dados2['descricao'].'</p>
-			<a href="produtos/pagina_produto.php?id_produto='.$id_produto2.'" class="btn btn-success">preço R$ '. number_format($dados2['valor'],2,',','.').'</a>
+			<a href="produtos/pagina_produto.php?id_produto='.$id_produto2.'" class="btn btn-success" style="position:absolute;bottom:20px">preço R$ '. number_format($dados2['valor'],2,',','.').'</a>
 			</div>
 			</div>
   </div>
   <div class="box3">
   <div class="card mt-2" style="width: 580px; height: 490px;">
-			<img class="card-img-top" src="img/produtos/'.$dados3['foto'].'" alt="Imagem de capa do card" style="width: 45%;display: block;margin-left: auto;margin-right: auto;">
+			<img class="card-img-top" src="img/produtos/'.$dados3['foto'].'" alt="Imagem de capa do card" style="width: 300px;height:300px;display: block;margin-left: auto;margin-right: auto;">
 			<div class="card-body">
 			<h5 class="card-title">'.$dados3['nome'].'</h5>
 			<p class="card-text">'.$dados3['descricao'].'</p>
-			<a href="produtos/pagina_produto.php?id_produto='.$id_produto3.'" class="btn btn-success">preço R$ '. number_format($dados3['valor'],2,',','.').'</a>
+			<a href="produtos/pagina_produto.php?id_produto='.$id_produto3.'" class="btn btn-success" style="position:absolute;bottom:20px">preço R$ '. number_format($dados3['valor'],2,',','.').'</a>
 			</div>
 			</div>
   </div>
   <div class="box4">
   <div class="card mt-2" style="width: 587px; height: 490px;">
-			<img class="card-img-top" src="img/produtos/'.$dados4['foto'].'" alt="Imagem de capa do card" style="width: 45%;display: block;margin-left: auto;margin-right: auto;">
+			<img class="card-img-top" src="img/produtos/'.$dados4['foto'].'" alt="Imagem de capa do card" style="width:  300px;height:300px;display: block;margin-left: auto;margin-right: auto;">
 			<div class="card-body">
 			<h5 class="card-title">'.$dados4['nome'].'</h5>
 			<p class="card-text">'.$dados4['descricao'].'</p>
-			<a href="produtos/pagina_produto.php?id_produto='.$id_produto4.'" class="btn btn-success">preço R$ '. number_format($dados4['valor'],2,',','.').'</a>
+			<a href="produtos/pagina_produto.php?id_produto='.$id_produto4.'" class="btn btn-success" style="position:absolute;bottom:20px">preço R$ '. number_format($dados4['valor'],2,',','.').'</a>
 			</div>
 			</div>
   </div>
   <div class="box5">
   <div class="card mt-2" style="width: 580px; height: 490px;">
-			<img class="card-img-top" src="img/produtos/'.$dados5['foto'].'" alt="Imagem de capa do card" style="width: 45%;display: block;margin-left: auto;margin-right: auto;">
+			<img class="card-img-top" src="img/produtos/'.$dados5['foto'].'" alt="Imagem de capa do card" style="width:  300px;height:300px;display: block;margin-left: auto;margin-right: auto;">
 			<div class="card-body">
 			<h5 class="card-title">'.$dados5['nome'].'</h5>
 			<p class="card-text">'.$dados5['descricao'].'</p>
-			<a href="produtos/pagina_produto.php?id_produto='.$id_produto5.'" class="btn btn-success">preço R$ '. number_format($dados5['valor'],2,',','.').'</a>
+			<a href="produtos/pagina_produto.php?id_produto='.$id_produto5.'" class="btn btn-success" style="position:absolute;bottom:20px">preço R$ '. number_format($dados5['valor'],2,',','.').'</a>
 			</div>
 			</div>
   </div>

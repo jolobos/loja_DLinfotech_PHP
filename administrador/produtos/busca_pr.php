@@ -10,7 +10,7 @@ $valor = $_GET['valor'];
 
   $sql = "SELECT * FROM produtos WHERE nome LIKE '%".$valor."%'LIMIT 0,15";
   $consulta = $conexao->query($sql);
-    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
   
   if(!empty($valor)){
@@ -28,7 +28,7 @@ $valor = $_GET['valor'];
   
   foreach($dados as $d){
 	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.utf8_encode($d['nome']).'</td><td>$ '.$d['valor'].'</td><td>'.$d['quantidade'].'</td>
+	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
 	  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
 	  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
 	  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
@@ -38,7 +38,7 @@ $valor = $_GET['valor'];
    echo '</table>';
   }else{
 
-	 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Por favor, digite o nome do produto desejado, ou entre com o código do produto...</h3</div>';
+	 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Por favor, digite o nome do produto desejado, ou entre com o código do produto...</h3></div>';
 
   
   }
