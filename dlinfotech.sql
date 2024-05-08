@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/05/2024 às 03:47
+-- Tempo de geração: 08/05/2024 às 18:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -337,7 +337,7 @@ CREATE TABLE `tela_principal` (
 --
 
 INSERT INTO `tela_principal` (`id_tela`, `banner_1`, `banner_2`, `banner_3`, `banner_4`, `banner_5`, `link_banner_1`, `link_banner_2`, `link_banner_3`, `link_banner_4`, `link_banner_5`, `titulo_banner_1`, `titulo_banner_2`, `titulo_banner_3`, `titulo_banner_4`, `titulo_banner_5`, `ft_box_1`, `ft_box_2`, `ft_box_3`, `ft_box_4`, `ft_box_5`, `titulo_box_1`, `titulo_box_2`, `titulo_box_3`, `titulo_box_4`, `titulo_box_5`, `descricao_box_1`, `descricao_box_2`, `descricao_box_3`, `descricao_box_4`, `descricao_box_5`, `categoria_box_1`, `categoria_box_2`, `categoria_box_3`, `categoria_box_4`, `categoria_box_5`, `id_oferta_1`, `id_oferta_2`, `id_oferta_3`, `id_oferta_4`, `id_oferta_5`, `id_car_prod_1`, `id_car_prod_2`, `id_car_prod_3`, `id_car_prod_4`, `id_car_prod_5`, `id_car_prod_6`, `id_car_prod_7`, `id_car_prod_8`, `id_car_prod_9`, `id_car_prod_10`, `id_car_prod_11`, `id_car_prod_12`, `id_car_prod_13`, `id_car_prod_14`, `id_car_prod_15`, `id_car_prod_16`) VALUES
-(1, 'img1.jpg', 'img7.jpg', 'img3.jpg', '', '', '#', '#', '#', '#', '#', 'Monte seu PC Gamer', 'Quebrou? Temos a solução!', 'Amplo estoque em Carregadores', 'Amplo estoque em Carregadores', 'Amplo estoque em Carregadores', '0', '0', '0', '0', '0', 'Carregadores', 'Computadores', 'Capinhas para celulares', 'Troca de display', 'Acessórios', 'Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.', 'Querendo efetuar um upgrade na carroça? click e veja as opções e valores.', 'Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.', 'Consulte nossos valores e marcas disponiveis.', 'Temos inumeros acessórios para toda area de informatica e smartphones.', 'carregadores', 'computadores', 'capinhas', 'vazio', 'acessorios', 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 13, 1, 2, 3, 4, 5, 13, 3, 4, 5, 13);
+(1, 'e8cad0e6e3d44e076b9f7f9c4a2cc80b.jpg', '9dea3afc4a69d6811b7c76d0b7881d29.jpg', 'img3.jpg', '', '', '#', '#', '#', '', '', 'Tudo em PC´s Gamer', 'Consulte nossos preços', 'Amplo estoque em Carregadores', '', '', '9e00a727bc3123b70f37df48ba5ecafe.png', '0795aa396c555479efe3691e6996de24.png', 'card3.png', 'card4.png', 'card5.png', 'carregadores', 'Computadores', 'Capinhas para celulares', 'Troca de display', 'Acessórios', ' Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.', 'Querendo efetuar um upgrade na carroça? click e veja as opções e valores.', 'Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.', 'Consulte nossos valores e marcas disponiveis.', 'Temos inumeros acessórios para toda area de informatica e smartphones.', 'carregadores', 'computadores', 'capinhas', 'vazio', 'acessorios', 1, 2, 13, 4, 5, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 13, 3, 4, 5, 0);
 
 -- --------------------------------------------------------
 

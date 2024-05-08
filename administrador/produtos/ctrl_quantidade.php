@@ -39,12 +39,11 @@ date_default_timezone_set('America/Sao_Paulo');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
+				<a class="btn btn-secondary border-danger m-2" href="produtos.php">Produtos</a></br>
 				<a class="btn btn-secondary border-danger m-2" href="add_produto.php">Inserir Produto</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_quantidade.php">Controle de quantidade</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_saida_produto.php">Controle de saida</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_promocao.php">Produtos em promoção</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_destaque.php">Produtos em destaque</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_banner.php">Produtos do banner</a></br>
+				
 				
 				</div>
 				<div class="modal-footer">
@@ -66,7 +65,7 @@ date_default_timezone_set('America/Sao_Paulo');
                 <a class="btn btn-danger w-100" href="?critico=15">15 produtos em situação critica</a></div>
                 <div class="col"><a class="btn btn-danger w-100" href="?critico=30">30 produtos em situação critica</a></div>
                 <div class="col"><a class="btn btn-danger w-100" href="?zerado=ok">Produto com quantidade zerada</a></div>
-                <div class="col"><a class="btn btn-danger w-100" href="?zerado=ok">Produto desativado c/ quantidade</a></div>
+                <div class="col"><a class="btn btn-danger w-100" href="?desativado=ok">Produto desativado c/ quantidade</a></div>
            </div> </div>
               <div class="card-body mt-3">
                   <h5>Pesquisa personalizada:</h5>
@@ -74,8 +73,10 @@ date_default_timezone_set('America/Sao_Paulo');
                       <div class="form-control">
                       <label>Quantidade de produtos:</label>
                       <input type="number" class="form-control-sm" min="1" name="quant_person_1" value="1">
-                      <label>Quantidade de unidades:</label>
+                      <label>Unidades de: </label>
                       <input type="number" class="form-control-sm" min="1" name="quant_person_2" value="1">
+                      <label> Até:</label>
+                      <input type="number" class="form-control-sm" min="1" name="quant_person_3" value="1">
                       <input type="submit" class="btn btn-info" value="Buscar">
                       </div>
                   </form>
@@ -92,34 +93,37 @@ date_default_timezone_set('America/Sao_Paulo');
       </div>
 <?php
 
-if(isset($_GET['quant'])){
-    $quant = $_GET['quant'];
+if(isset($_GET['cod_prod'])){
+    $cod = $_GET['cod_prod'];
     // LIKE '%".$valor."%'LIMIT 0,15
-    $sql = "SELECT * FROM produtos WHERE quantidade <= '".$quant."' ORDER BY nome ASC";
+    $sql = "SELECT * FROM produtos WHERE cod_produto = '".$cod."' ORDER BY quantidade ASC";
     $consulta = $conexao->query($sql);
     $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
     echo '<div class="card mt-2">
           <div class="card-header">
-              <h4>Unidades abaixo de '.$quant.'</h4>
+              <h4>Produtos encontrados com o código: '.$cod.'</h4>
           </div>
           <div class="card-body">';
           if(!empty($dados)){
 
 
-          echo '<table  border="3" class="table table-striped border-secondary">';
-          echo '<thead>';
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
           echo '<tr>';
 
-          echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=150>Valor</th><th width=150>quantidade</th><th width=150>status</th><th width=260>Açoes</th>';
 
           echo '</tr>';
           echo '</thead>';
-          echo '<tbody style="max-width: 100px;overflow: auto">';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
 
           foreach($dados as $d){
                   if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-                  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-                  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+                  $bg = 'class="border border-dark"';
+                  if($d['quantidade'] <= 10 && $d['quantidade'] > 1){ $bg = 'class="bg-danger border border-dark"';}
+                  if($d['quantidade'] <= 20 && $d['quantidade'] > 11){ $bg = 'class="bg-warning border border-dark"';}
+                  echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=150>'.$d['quantidade'].'</td>
+                  <td width=150>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
                   <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
                   <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
          }
@@ -141,6 +145,265 @@ if(isset($_GET['quant'])){
 }
 
 
+if(isset($_GET['quant'])){
+    $quant = $_GET['quant'];
+    // LIKE '%".$valor."%'LIMIT 0,15
+    $sql = "SELECT * FROM produtos WHERE quantidade <= '".$quant."' ORDER BY quantidade ASC";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    echo '<div class="card mt-2">
+          <div class="card-header">
+              <h4>Unidades abaixo de '.$quant.'</h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=150>Valor</th><th width=150>quantidade</th><th width=150>status</th><th width=260>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+          foreach($dados as $d){
+                  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+                  $bg = 'class="border border-dark"';
+                  if($d['quantidade'] <= 10 && $d['quantidade'] > 1){ $bg = 'class="bg-danger border border-dark"';}
+                  if($d['quantidade'] <= 20 && $d['quantidade'] > 11){ $bg = 'class="bg-warning border border-dark"';}
+                  echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=150>'.$d['quantidade'].'</td>
+                  <td width=150>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+                  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
+                  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+         }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}
+
+if(isset($_GET['zerado'])){
+    $quant = 0;
+    // LIKE '%".$valor."%'LIMIT 0,15
+    $sql = "SELECT * FROM produtos WHERE quantidade <= '".$quant."' ORDER BY quantidade ASC";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    echo '<div class="card mt-2">
+          <div class="card-header">
+              <h4>Unidades abaixo de '.$quant.'</h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=150>Valor</th><th width=150>quantidade</th><th width=150>status</th><th width=260>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+          foreach($dados as $d){
+                  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+                  $bg = 'class="border border-dark"';
+                  if($d['quantidade'] <= 10 && $d['quantidade'] > 1){ $bg = 'class="bg-danger border border-dark"';}
+                  if($d['quantidade'] <= 20 && $d['quantidade'] > 11){ $bg = 'class="bg-warning border border-dark"';}
+                  echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=150>'.$d['quantidade'].'</td>
+                  <td width=150>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+                  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
+                  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+         }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}
+
+if(isset($_GET['desativado'])){
+    $quant = 1;
+    // LIKE '%".$valor."%'LIMIT 0,15
+    $sql = "SELECT * FROM produtos WHERE quantidade >= '".$quant."' AND status = '0' ORDER BY quantidade ASC";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    echo '<div class="card mt-2">
+          <div class="card-header">
+              <h4>Unidades acima de '.$quant.' e dasativado</h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=150>Valor</th><th width=150>quantidade</th><th width=150>status</th><th width=260>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+          foreach($dados as $d){
+                  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+                  $bg = 'class="border border-dark"';
+                  if($d['quantidade'] <= 10 && $d['quantidade'] > 1){ $bg = 'class="bg-danger border border-dark"';}
+                  if($d['quantidade'] <= 20 && $d['quantidade'] > 11){ $bg = 'class="bg-warning border border-dark"';}
+                  echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=150>'.$d['quantidade'].'</td>
+                  <td width=150>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+                  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
+                  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+         }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}
+
+
+if(isset($_GET['critico'])){
+    $prod = $_GET['critico'];
+    $quant = 15;
+    // LIKE '%".$valor."%'LIMIT 0,15
+    $sql = "SELECT * FROM produtos WHERE quantidade <= '".$quant."' ORDER BY quantidade ASC LIMIT 0,".$prod."";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    echo '<div class="card mt-2">
+          <div class="card-header">
+              <h4>'.$prod.' produtos com unidades abaixo de '.$quant.'</h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=150>Valor</th><th width=150>quantidade</th><th width=150>status</th><th width=260>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+          foreach($dados as $d){
+                  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+                  $bg = 'class="border border-dark"';
+                  if($d['quantidade'] <= 10 && $d['quantidade'] > 1){ $bg = 'class="bg-danger border border-dark"';}
+                  if($d['quantidade'] <= 20 && $d['quantidade'] > 11){ $bg = 'class="bg-warning border border-dark"';}
+                  echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=150>'.$d['quantidade'].'</td>
+                  <td width=150>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+                  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
+                  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+         }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}
+
+
+if(isset($_GET['quant_person_1'])){
+    $prod = $_GET['quant_person_1'];
+    $quant = $_GET['quant_person_2'];
+    $quant_2 = $_GET['quant_person_3'];
+    // LIKE '%".$valor."%'LIMIT 0,15
+    $sql = "SELECT * FROM produtos WHERE quantidade >= '".$quant."' AND quantidade <= '".$quant_2."' ORDER BY quantidade ASC LIMIT 0,".$prod."";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    echo '<div class="card mt-2">
+          <div class="card-header">
+              <h4>'.$prod.' produtos com unidades entre '.$quant.' e '.$quant_2.'</h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=150>Valor</th><th width=150>quantidade</th><th width=150>status</th><th width=260>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+          foreach($dados as $d){
+                  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+                  $bg = 'class="border border-dark"';
+                  if($d['quantidade'] <= 10 && $d['quantidade'] > 1){ $bg = 'class="bg-danger border border-dark"';}
+                  if($d['quantidade'] <= 20 && $d['quantidade'] > 11){ $bg = 'class="bg-warning border border-dark"';}
+                  echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=150>'.$d['quantidade'].'</td>
+                  <td width=150>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+                  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
+                  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+         }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}
 
 ?>
       

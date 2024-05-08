@@ -38,12 +38,10 @@ date_default_timezone_set('America/Sao_Paulo');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
+				<a class="btn btn-secondary border-danger m-2" href="produtos.php">Produtos</a></br>
 				<a class="btn btn-secondary border-danger m-2" href="add_produto.php">Inserir Produto</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_quantidade.php">Controle de quantidade</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_saida_produto.php">Controle de saida</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_promocao.php">Produtos em promoção</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_destaque.php">Produtos em destaque</a></br>
-				<a class="btn btn-secondary border-success m-2" href="produtos_banner.php">Produtos do banner</a></br>
 				
 				</div>
 				<div class="modal-footer">
