@@ -160,7 +160,7 @@ if(isset($_GET['quant_menor'])){
 	
     echo '<div class="card mt-2">
           <div class="card-header">
-              <h4>'.$quant.' Produtos que mais foram vendidos </h4>
+              <h4>'.$quant.' Produtos que menos foram vendidos </h4>
           </div>
           <div class="card-body">';
           if(!empty($dados)){
@@ -204,6 +204,57 @@ if(isset($_GET['quant_menor'])){
 
 
 }	
-	 
+	
+if(isset($_GET['quant_sem'])){
+	$quant = $_GET['quant_sem'];
+        $sql_a = 'SELECT * FROM produtos AS p WHERE NOT EXISTS (SELECT id_produto FROM itens_da_compra AS it WHERE it.id_produto = p.id_produto) ORDER BY nome ASC LIMIT 0,20 ';
+        $consulta_a = $conexao->query($sql_a);
+	$dados = $consulta_a->fetchALL(PDO::FETCH_ASSOC);
+	
+	
+    echo '<div class="card mt-2">
+          <div class="card-header">
+              <h4>'.$quant.' Produtos que não foram vendidos </h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=150>codigo do produto</th><th width=400>Produto</th><th width=140>Valor</th><th width=125>quantidade</th><th width=100>status</th><th width=240>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+          foreach($dados as $d){
+			
+			if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+			$bg = 'class="border border-dark"';
+			echo '<tr '.$bg.'><td width=150>'.$d['cod_produto'].'</td><td width=400>'.$d['nome'].'</td><td width=150>$ '. number_format($d['valor'],2,',','.').'</td><td width=120>'.$d['quantidade'].'</td>
+			<td width=100>'.$status.'</td><td width=240><a class="btn btn-dark border-success me-2 mt-1 mb-1" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
+			<a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
+			<a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+	}
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}
+
 ?>
 </div>
