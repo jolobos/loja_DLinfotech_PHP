@@ -50,6 +50,7 @@ date_default_timezone_set('America/Sao_Paulo');
 				</div>
 				</div>
 				</div>
+      <?php if(isset($_GET['mensagem'])){echo $_GET['mensagem'];}?>
 <h4 class="mt-3">Pesquisar produto: </h4>
 <div class="col-sm-5">
 <input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)"/>

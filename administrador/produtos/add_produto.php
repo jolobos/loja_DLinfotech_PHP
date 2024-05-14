@@ -347,66 +347,66 @@ echo '<h1 class="mt-3">Ficha técnica do produto</h1>
     <div class="col" >            
     <div class="mb-3 mt-3">
     <label class="form-label">Tamanho do produto:</label>
-    <input class="form-control" placeholder="Digite o nome do produto" name="tamanho" >
+    <input class="form-control" placeholder="Digite o tamanho do produto" name="tamanho" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Altura:</label>
-    <input class="form-control" placeholder="Digite o valor" name="altura" >
+    <input class="form-control" placeholder="Digite a altura" name="altura" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Largura:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="largura" >
+    <input class="form-control" placeholder="Digite a largura " name="largura" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Peso:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="peso" >
+    <input class="form-control" placeholder="Digite o peso " name="peso" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Potência:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="potencia" >
+    <input class="form-control" placeholder="Digite a potência " name="potencia" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Fabricante:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="fabricante" >
+    <input class="form-control" placeholder="Digite o fabricante " name="fabricante" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Garantia:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="garantia" >
+    <input class="form-control" placeholder="Digite a garantia " name="garantia" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Temperatura Máxima:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="temperatura_max" >
+    <input class="form-control" placeholder="Digite a temperatura máxima " name="temperatura_max" >
     </div>
     </div>
     <div class="col">            
     
     <div class="mb-3 mt-3">
     <label class="form-label">Temperatura mínima:</label>
-    <input class="form-control" placeholder="Digite a cor " name="temperatura_min" >
+    <input class="form-control" placeholder="Digite a temperatura mínima " name="temperatura_min" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Armazenamento:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="capacidade_armazenamento" >
+    <input class="form-control" placeholder="Digite o armazenamento " name="capacidade_armazenamento" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Durabilidade:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="durabilidade" >
+    <input class="form-control" placeholder="Digite a durabilidade " name="durabilidade" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Recarga:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="tempo_recarga" >
+    <input class="form-control" placeholder="Digite o tempo de recarga " name="tempo_recarga" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Marca:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="marca" >
+    <input class="form-control" placeholder="Digite a marca " name="marca" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Modelo:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="modelo" >
+    <input class="form-control" placeholder="Digite o modelo " name="modelo" >
     </div>
     <div class="mb-3 mt-3">
     <label class="form-label">Velocidade:</label>
-    <input class="form-control" placeholder="Digite a quantidade " name="velocidade" >
+    <input class="form-control" placeholder="Digite a velocidade " name="velocidade" >
     </div>
     
     <div class="row">

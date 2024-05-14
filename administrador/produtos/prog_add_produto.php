@@ -13,7 +13,7 @@ if(isset($_FILES['arquivo'])){
     $diretorio = "../../img/produtos/"; //define o diretorio para onde enviaremos o arquivo
     move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
     $foto_pr = $novo_nome;
-}else{$foto_pr = 'produto_null'; }}
+}else{$foto_pr = 'produto_null.png'; }}
 
 if(isset($_FILES['arquivo1'])){
     $extensao1 = strtolower(substr($_FILES['arquivo1']['name'], -4)); //pega a extensao do arquivo

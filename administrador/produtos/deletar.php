@@ -5,6 +5,65 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
+if(!empty($_GET['desativar'])){
+    $id_desativar = $_GET['desativar'];
+    $status = 0;
+    $sql ='UPDATE produtos SET status=? WHERE id_produto=?';
+		try {
+		$insercao = $conexao->prepare($sql);
+		$ok = $insercao->execute(array ($status,$id_desativar));
+		}catch(PDOException $r){
+			//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
+			if ($ok){
+				$msg= '<p class="alert alert-success" > Produto desativado com sucesso.  </p>';
+				}else{
+					$msg='<p class="alert alert-danger" > Produto  não desativado. Erro.'.$r->getMessage().'</p>';
+			}
+			header('location:produtos.php?mensagem='.$msg);//redireciona para local especificado
+	
+}
+
+if(!empty($_GET['deletar'])){
+    $id_deletar = $_GET['deletar'];
+    $sql ='DELETE FROM produtos
+		WHERE id_produto=?';
+		try {
+		$insercao = $conexao->prepare($sql);
+		$ok1 = $insercao->execute(array ($id_deletar));
+		}catch(PDOException $r){
+			//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok1 = False;
+		}catch (Exception $r){//todos as exceções
+		$ok1= False; 
+			
+		}
+			if ($ok1){
+                            $sql ='DELETE FROM ficha_tec_produto
+                            WHERE id_produto=?';
+                            try {
+                            $insercao = $conexao->prepare($sql);
+                            $ok = $insercao->execute(array ($id_deletar));
+                            }catch(PDOException $r){
+                                    //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                                    $ok = False;
+                            }catch (Exception $r){//todos as exceções
+                            $ok= False; 
+
+                            }
+				if ($ok){
+				$msg= '<p class="alert alert-success" > Produto deletado com sucesso.  </p>';
+				}else{
+					$msg='<p class="alert alert-danger" > Produto  não deletado. Erro.'.$r->getMessage().'</p>';
+			}
+			}
+			header('location:produtos.php?mensagem='.$msg);//redireciona para local especificado
+	
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -55,11 +114,10 @@ date_default_timezone_set('America/Sao_Paulo');
       
 <div class="card mt-2">
         <div class="card-header">
-            <h4 class="text-info">Visualização do produto</h4>
-		</div>
-		<div class="card-body">
-		<?php
-		if($_GET['id_produto']){
+            <h4 class="text-info">Deletar   o produto</h4>
+            <h5>Escolha uma das opções abaixo:</h5>
+            <?php 
+            if(!empty($_GET['id_produto'])){
 			$id = $_GET['id_produto'];
 			$sql = "SELECT * FROM produtos WHERE id_produto = '".$id."'";
 			$consulta = $conexao->query($sql);
@@ -67,13 +125,48 @@ date_default_timezone_set('America/Sao_Paulo');
 			
 			$sql1 = "SELECT * FROM ficha_tec_produto WHERE id_produto = '".$id."'";
 			$consulta1 = $conexao->query($sql1);
-			$dados1 = $consulta1->fetch(PDO::FETCH_ASSOC);
-			
+                        $dados1 = $consulta1->fetch(PDO::FETCH_ASSOC);
+            
+            echo '
+            <a class="btn btn-primary" href="?desativar='.$id.'">Desativar</a>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModa2">
+                  Deletar
+            </button>
+               
+            <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="exampleModalLabel">Exclusão permanente do produto selecionado.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body bg-light">
+                    <h4>Atenção!!!</h4>
+                    <p>Tenha certeza que a exclusão do produto selecionado, não afetará a integridade dos relatórios e dos controles de vendas dos produ- tos.</p>
+                    <p>Lembre-se que caso o produto seja vendido e você insista em exclui-lo, pode acabar tirando a visualização desse produto para o cliente que deseja 
+                    visualizá-lo no menu compras. </p>
+                  </div>
+                  <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" href="?deletar='.$id.'">Deletar produto</a>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            '; }?>
+		</div>
+    <div class="card-body overflow-auto" style="max-height: 750px;">
+		<?php
+		if(!empty($_GET['id_produto'])){
 			if($dados['status'] > 0){ $status = 'ativo';}else{ $status = 'desativado';}
 			if(!empty($dados1)){
                         if($dados1['prova_agua'] > 0){ $p_agua= 'sim';}else{ $p_agua = 'nao';}
                         if($dados1['resistente_agua'] > 0){ $r_agua = 'sim';}else{ $r_agua= 'nao';}}
-			echo '<h5>Produto</h5>
+			echo '<h5 class="alert alert-danger">Atenção! Confira corretamente se deseja realmente excluir esse produto ou apenas desativa-lo. 
+                            A exclusão do produto pode gerar conflito na busca de relatórios, assim sendo indicado apenas a desativação do status do produto.</h5>
+                            <h5>Produto</h5>
 			<form action="prog_add_produto.php"  method="POST" enctype="multipart/form-data" >
             <div class="row">
             <div class="col" >            
