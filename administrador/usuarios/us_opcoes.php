@@ -62,14 +62,13 @@ if(!empty($_GET['id_usuario'])){
 	<div class="card mt-2">
 	<div class="card-header">
 	<h3 class="text-info">Opções do Usuários: </h3>
-	<a href="" class="btn btn-primary">Compras</a>
-	<a href="" class="btn btn-primary">Compras pendentes</a>
-	<a href="" class="btn btn-primary">Compras entregues</a>
-	<a href="" class="btn btn-primary">Notificações</a>
-	<a href="" class="btn btn-danger">Desativar</a>
+	<?php	echo '
+	<a href="compras_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Compras</a>
+	<a href="notificacoes_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Notificações</a>
+	<a href="desativa_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-danger">Desativar</a>
 	</div>
-	<div class="card-body">
-	<?php 
+	<div class="card-body">';
+ 
 	if(!empty($_GET['id_usuario'])){
 		if($dados['status'] > 0){ $status = 'Ativo';}else{ $status = 'desativado';}
 		$data = $dados['data_entrada'];
