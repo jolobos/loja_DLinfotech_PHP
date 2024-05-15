@@ -23,7 +23,7 @@ date_default_timezone_set('America/Sao_Paulo');
   <body style="background: #778899">
   <div class="container">
 				<div class="bg-dark"><h1 class="text-success">
-					Opções para produtos
+					Opções para Usuários
 				</h1>
 				<button type="button" class="btn btn-info m-2" data-toggle="modal" data-target="#exampleModal">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-menu-button-wide-fill" viewBox="0 0 16 16">
@@ -136,14 +136,72 @@ date_default_timezone_set('America/Sao_Paulo');
 
   
   }	
-		
-		
-		
-		
 	}else if(!empty($_POST['tel_usuario'])){
-		echo $_POST['tel_usuario'];
+		$valor=$_POST['tel_usuario'];
+  $sql = "SELECT * FROM usuarios WHERE telefone='".$valor."'";
+  $consulta = $conexao->query($sql);
+  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+		  if(!empty($dados)){
+    
+  
+  echo '<table  border="3" class="table table-striped border-secondary" >';
+  echo '<thead>';
+  echo '<tr>';
+  
+  echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=80>Açoes</th>';
+  
+  echo '</tr>';
+  echo '</thead>';
+  echo '<tbody>';
+  
+  foreach($dados as $d){
+	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+	  echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
+	  <td width=100>'.$status.'</td><td width=80><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
+	  </td></tr>';
+ }
+  
+  echo '</tbody>';
+   echo '</table>';
+  }else{
+
+	 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuario encontrado...</h3></div>';
+
+  
+  }	
 	}else if(!empty($_POST['email_usuario'])){
-		echo $_POST['email_usuario'];
+		$valor=$_POST['email_usuario'];
+  $sql = "SELECT * FROM usuarios WHERE email='".$valor."'";
+  $consulta = $conexao->query($sql);
+  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+		  if(!empty($dados)){
+    
+  
+  echo '<table  border="3" class="table table-striped border-secondary" >';
+  echo '<thead>';
+  echo '<tr>';
+  
+  echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=80>Açoes</th>';
+  
+  echo '</tr>';
+  echo '</thead>';
+  echo '<tbody>';
+  
+  foreach($dados as $d){
+	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+	  echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
+	  <td width=100>'.$status.'</td><td width=80><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
+	  </td></tr>';
+ }
+  
+  echo '</tbody>';
+   echo '</table>';
+  }else{
+
+	 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuario encontrado...</h3></div>';
+
+  
+  }	
 	}else{ 
 			echo '<div><h3 class="alert alert-secondary mt-2">Por favor, entre com o campo de busca do usuário...</h3</div>';
 
