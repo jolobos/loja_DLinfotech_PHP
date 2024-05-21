@@ -10,6 +10,37 @@ if(!empty($_GET['id_usuario'])){
 	$consulta = $conexao->query($sql);
 	$dados = $consulta->fetch(PDO::FETCH_ASSOC);
 }
+
+if(!empty($_POST['assunto']) && !empty($_POST['conteudo'])){
+	$id = $_POST['id_usuario'];
+	$condicao = 1;
+	$data_envio = date("Y-m-d H:s:i");
+	$assunto = $_POST['assunto'];
+	$conteudo = $_POST['conteudo'];
+	$link_1 = $_POST['Link_1'];
+	$link_2 = $_POST['Link_2'];
+	$link_3 = $_POST['Link_3'];
+	$link_4 = $_POST['Link_4'];
+	$link_5 = $_POST['Link_5'];
+	$sql ='INSERT INTO notificacoes (id_usuario,titulo,conteudo,link_1,link_2,link_3,link_4,link_5,condicao,data_envio)
+    values(?,?,?,?,?,?,?,?,?,?)';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($id,$assunto,$conteudo,$link_1,$link_2,$link_3,$link_4,$link_5,$condicao,$data_envio));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+	if($ok){    
+    $msg= 'Sua mensagem foi enviada com sucesso!!!';
+}else{
+    $msg='Lamento, não foi possivel enviar a mensagem.'.$r->getMessage().'';
+}
+header('location:us_opcoes.php?mensagem='.$msg.'&id_usuario='.$id);
+
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -62,86 +93,67 @@ if(!empty($_GET['id_usuario'])){
 				</div>
 	<div class="card mt-2">
 	<div class="card-header">
-	<h3 class="text-info">Opções do Usuários: </h3>
-	<?php	echo '
-	<a href="compras_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Compras</a>
-	<a href="notificacoes_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Notificações</a>
-	<a href="enviar_not_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Enviar notificação</a>
-	<a href="status_us.php?ativa=ok&id_usuario='.$_GET['id_usuario'].'" class="btn btn-success">Ativar</a>
-	<a href="status_us.php?desativa=ok&id_usuario='.$_GET['id_usuario'].'" class="btn btn-danger">Desativar</a>
+		<h3 class="text-info">Envie a sua Notificação ao usuário</h3>
 	</div>
-	<div class="card-body">';
- 
-	if(!empty($_GET['id_usuario'])){
-		if($dados['status'] > 0){ $status = 'Ativo';}else{ $status = 'desativado';}
-		$data = $dados['data_entrada'];
-		echo '<h5>Informações do usuário</h5>';
-		echo '<strong>Foto do usuário</strong><br>
-		<img src=../../img/foto_usuario/'.$dados['foto'].' style="width:300px;height:300px;border-radius:50%">';
-		echo '<form action="">
-            <div class="row">
-            <div class="col" >            
-            <div class="mb-3 mt-3">
-            <label class="form-label"><strong>Nome: </strong>'.$dados['nome'].'</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label"><strong>CPF: </strong>'.$dados['CPF'].'</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label"><strong>Telefone:</strong> '.$dados['telefone'].'</label>
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Celular: </strong>'.$dados['celular'].'</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label"><strong>CEP: </strong>'.$dados['CEP'].'</label>
-            </div>
-            </div>
-            <div class="col">            
-            <div class="mb-3 mt-3">
-            <label class="form-label"><strong>UF: </strong>'.$dados['UF'].'</label>
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Cidade:</strong> '.$dados['cidade'].'</label>
-                      
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Bairro: </strong>'.$dados['bairro'].'</label>
-            
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Logradouro: </strong>'.$dados['logradouro'].'</label>
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Complemento: </strong>'.$dados['complemento'].'</label>
-            </div>
-            </div>
-            <div class="col">            
-            <div class="mb-3 mt-3">
-            <label class="form-label"><strong>E-mail: </strong>'.$dados['email'].'</label>
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Apelido: </strong>'.$dados['apelido'].'</label>
-                      
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Data de entrada: </strong>'.date_format(new DateTime($data), "d/m/Y H:i:s").'</label>
-            
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Logradouro: </strong>'.$dados['logradouro'].'</label>
-            </div>
-			<div class="mb-3 mt-3">
-            <label class="form-label"><strong>Status: </strong>'.$status.'</label>
-            </div>
-            </div>
-            
-			
-			</div>';
-	}
-	?>
+	<div class="card-body">
+	<form action="enviar_not_us.php" method="post">
+	<h4>Assunto</h4>
+	<input type="text" class="form-control form-control-lg border-dark" name="assunto" required>
+	<div class="row">
+	<div class="col">
+	<h4 class="mt-2">Mensagem</h4>
+	<textarea class="form-control border-dark" rows="9" name="conteudo" required></textarea>
+	</div>
+	<div class="col-sm-5">
+	<h4 class="mt-2">Links</h4>
+	<div class="row">
+	<div class="col-sm-2 pt-1">
+	<strong class="pt-2">Link 1:</strong>
+	</div>
+	<div class="col">
+	<input type="text" class="form-control border-dark" name="Link_1" placeholder="Digite aqui o primeiro Link...">
+	</div>
+	</div>
+	<div class="row mt-1">
+	<div class="col-sm-2 pt-1">
+	<strong class="pt-2">Link 2:</strong>
+	</div>
+	<div class="col">
+	<input type="text" class="form-control border-dark" name="Link_2" placeholder="Digite aqui o segundo Link...">
+	</div>
+	</div>
+	<div class="row mt-1">
+	<div class="col-sm-2 pt-1">
+	<strong class="pt-2">Link 3:</strong>
+	</div>
+	<div class="col">
+	<input type="text" class="form-control border-dark" name="Link_3" placeholder="Digite aqui o terceiro Link...">
+	</div>
+	</div>
+	<div class="row mt-1">
+	<div class="col-sm-2 pt-1">
+	<strong class="pt-2">Link 4:</strong>
+	</div>
+	<div class="col">
+	<input type="text" class="form-control border-dark" name="Link_4" placeholder="Digite aqui o quarto Link...">
+	</div>
+	</div>
+	<div class="row mt-1">
+	<div class="col-sm-2 pt-1">
+	<strong class="pt-2">Link 5:</strong>
+	</div>
+	<div class="col">
+	<input type="text" class="form-control border-dark" name="Link_5" placeholder="Digite aqui o quinto Link...">
+	</div>
+	</div>
 	
 	</div>
 	</div>
-</div>
-	
+	<div align="center">
+		<?php echo '<input type="hidden" name="id_usuario" value="'.$id_usuario.'">'; ?>
+		<input type="submit" class="btn btn-primary mt-3" value="Enviar Notificação">
+	</div>
+	</form>
+	</div>
+	</div>
+	</div>
