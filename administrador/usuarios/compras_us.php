@@ -9,6 +9,50 @@ if(!empty($_GET['id_usuario'])){
 	$sql = "SELECT * FROM compras WHERE id_usuario = '".$id_usuario."'";
 	$consulta = $conexao->query($sql);
 $dados_a = $consulta->fetchALL(PDO::FETCH_ASSOC);}
+
+if(!empty($_GET['confirmar_pgt_sim'])){	
+	$id_sim = $_GET['confirmar_pgt_sim'];
+	$valor = 1;
+	$sql ='UPDATE compras SET autorizado=? WHERE id_compra=?';
+		try {
+		$insercao = $conexao->prepare($sql);
+		$ok = $insercao->execute(array($valor,$id_sim));
+		}catch(PDOException $r){
+			$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
+		if ($ok){
+			$msg= 'Tudo certo!';
+		}else{
+			$msg='Não foi dessa vez!'.$r->getMessage().'';
+		}
+		header('location:?mensagem='.$msg.'&id_usuario='.$id_usuario); 
+}
+
+if(!empty($_GET['entrega_sim'])){	
+	$id_sim = $_GET['entrega_sim'];
+	$valor = 1;
+	$sql ='UPDATE compras SET entregue=? WHERE id_compra=?';
+		try {
+		$insercao = $conexao->prepare($sql);
+		$ok = $insercao->execute(array($valor,$id_sim));
+		}catch(PDOException $r){
+			$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
+		if ($ok){
+			$msg= 'Tudo certo!';
+		}else{
+			$msg='Não foi dessa vez!'.$r->getMessage().'';
+		}
+		header('location:?mensagem='.$msg.'&id_usuario='.$id_usuario); 
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -172,6 +216,48 @@ echo  '<div class="modal fade modal-lg" id="exemplomodal">
 </div>';
 }
 
+if(isset($_GET['confirma_pgt'])){
+	$id_confirma_pgt = $_GET['confirma_pgt'];
+echo  '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header bg-info">
+        <h3 class="modal-title">Confirmação de Pagamento.</h3>
+      </div>
+      <div class="modal-body bg-light">
+		<h5>Tem certeza que deseja confirmar o pagamento dessa compra?</h5>
+	</div>
+      <div class="modal-footer bg-light">
+            <a class="btn btn-dark mt-2 " href="?confirmar_pgt_sim='.$id_confirma_pgt.'&id_usuario='.$id_usuario.'">Confirmar</a> 
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+}
+
+if(isset($_GET['entrega'])){
+	$id_entrega = $_GET['entrega'];
+echo  '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header bg-info">
+        <h3 class="modal-title">Confirmação de entrega.</h3>
+      </div>
+      <div class="modal-body bg-light">
+		<h5>Tem certeza que deseja confirmar a entrega dessa compra?</h5>
+	</div>
+      <div class="modal-footer bg-light">
+            <a class="btn btn-dark mt-2 " href="?entrega_sim='.$id_entrega.'&id_usuario='.$id_usuario.'">Confirmar</a> 
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+}
+
 
 
 
@@ -235,6 +321,7 @@ if($cont > 0){
                 <td><P class="mt-4">'.$ent.'</P></td>
                 <td><P class="mt-4"> R$: '.number_format($total,2,',','.').'</P></td>
                 <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'&id_usuario='.$id_usuario.'">Ver Produtos</a>
+                <a class="btn btn-secondary w-75 mt-2" href="?confirma_pgt='.$id_compra.'&id_usuario='.$id_usuario.'">confirmar pagamento</a>
                 <a class="btn btn-dark mt-2 w-75" href="?cancelar_compra='.$id_compra.'&id_usuario='.$id_usuario.'">Cancelar Compra</a></td></tr>';
 				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de aprovação de pagamento</h3>';}
 
@@ -300,6 +387,7 @@ if($cont_ent > 0){
                 <td><P class="mt-4">'.$ent.'</P></td>
                 <td><P class="mt-4"> R$: '.number_format($total,2,',','.').'</P></td>
                 <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'&id_usuario='.$id_usuario.'">Ver Produtos</a>
+                <a class="btn btn-secondary w-75 mt-2" href="?entrega='.$id_compra.'&id_usuario='.$id_usuario.'">Confirmar entrega</a>
                 <a class="btn btn-dark mt-2 w-75" href="?cancelar_compra='.$id_compra.'&id_usuario='.$id_usuario.'">Cancelar Compra</a></td></tr>
 ';
 				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de entrega</h3>';}
