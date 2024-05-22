@@ -57,83 +57,37 @@ date_default_timezone_set('America/Sao_Paulo');
 				</div>
 	<div class="card mt-2">
 	<div class="card-header">
-	<h3>Escolha uma das opções para novos usuários</h3>
+	<h3>Lista completa de usuários desativados</h3>
 	</div>
 	<div class="card-body">
-	<a href="?mes=1" class="btn btn-secondary border-info">Ultimo mês</a>
-	<a href="?mes=2" class="btn btn-secondary border-info">Ultimos 2 meses</a>
-	<a href="?mes=3" class="btn btn-secondary border-info">Ultimos 3 meses</a>
-	<a href="?sem=1" class="btn btn-secondary border-info">Ultima semana</a>
-	<a href="?sem=2" class="btn btn-secondary border-info">Ultimas 2 semanas</a>
-	<a href="?sem=3" class="btn btn-secondary border-info">Ultimas 3 semanas</a>
-	<form method="post">
-	<h4>Periodo personalizado</h4>
-	<label>Quantos dias você deseja buscar?
-	</label>
-	<div class="row">
-	<div class="col-sm-2">
-	<input type="number" class="form-control" name="dias_busca" min="1">
-	</div><div class="col">
-	<input type="submit" class="btn btn-info" value="Buscar">
+	<div>
+		<table  border="3" class="table table-striped border-secondary" style="width:1243px">
+		<thead>
+		<tr>
+		  
+		<th width=275>Nome</th><th width=130>CPF</th><th width=142>Telefone</th><th width=285>E-mail</th><th width=125>status</th><th width=130>data</th><th>Açoes</th>
+		  
+		</tr>
+		</thead>
+		</table>
 	</div>
-	</div>
-	</form>
-	</div>
+	<div class="overflow-auto" style="height:500px">
 	<?php
-	if(!empty($_GET['sem']) || !empty($_GET['mes'])){
-		echo '<h3 class="ms-3">Resultado:</h3>';
-		echo '<table  border="3" class="table table-striped border-secondary" align="center" >';
-		echo '<thead>';
-		echo '<tr>';
-		  
-		echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=150>data</th><th width=80>Açoes</th>';
-		  
-		echo '</tr>';
-		echo '</thead>';
-		echo '<tbody>';
-		if(isset($_GET['sem'])){ 
-		if($_GET['sem'] == 1){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -7 DAY)' ;}
-		if($_GET['sem'] == 2){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -14 DAY)' ;}
-		if($_GET['sem'] == 3){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -21 DAY)' ;}
-		
-		$sql = "SELECT * FROM usuarios WHERE data_entrada >=".$periodo." ORDER BY data_entrada DESC";
+		$sql = "SELECT * FROM usuarios WHERE status = 0 ORDER BY data_entrada DESC";
 		$consulta = $conexao->query($sql);
 		$dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
-		if(!empty($dados)){
+		echo '<table border="3" class="table table-striped border-secondary" style="width:1243px">
+		<tbody>';
 		foreach($dados as $d){
 			if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
 			$data_new = $d['data_entrada'];
-			echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
-			<td width=100>'.$status.'</td><td width=100>'.date_format(new DateTime($data_new),"d/m/Y").'</td><td width=80><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
+			echo '<tr><td width=275>'.$d['nome'].'</td><td width=130>'.$d['CPF'].'</td><td width=142>'. $d['telefone'].'</td><td width=285>'.$d['email'].'</td>
+			<td width=125>'.$status.'</td><td width=130>'.date_format(new DateTime($data_new),"d/m/Y").'</td><td><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
 			</td></tr>';
-		}}else{
-				 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
-
 		}
-		}
-		if(isset($_GET['mes'])){ 
-		if($_GET['mes'] == 1){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -30 DAY)' ;}
-		if($_GET['mes'] == 2){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -60 DAY)' ;}
-		if($_GET['mes'] == 3){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -90 DAY)' ;}
-		
-		$sql = "SELECT * FROM usuarios WHERE data_entrada >=".$periodo." ORDER BY data_entrada DESC";
-		$consulta = $conexao->query($sql);
-		$dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
-		if(!empty($dados)){
-		foreach($dados as $d){
-			if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-			$data_new = $d['data_entrada'];
-			echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
-			<td width=100>'.$status.'</td><td width=100>'.date_format(new DateTime($data_new),"d/m/Y").'</td><td width=80><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
-			</td></tr>';
-		}}else{
-				 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
-
-		}
-		
-		
-		}
-	}
+		echo '</tbody></table>';
 	?>
+	</div>
+	</div>
 	</div>
 	</div>

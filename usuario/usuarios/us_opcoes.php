@@ -4,7 +4,12 @@ require_once '../../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-
+if(!empty($_GET['id_usuario'])){	
+	$id_usuario = $_GET['id_usuario'];
+	$sql = "SELECT * FROM usuarios WHERE id_usuario='".$id_usuario."'";
+	$consulta = $conexao->query($sql);
+	$dados = $consulta->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -57,83 +62,86 @@ date_default_timezone_set('America/Sao_Paulo');
 				</div>
 	<div class="card mt-2">
 	<div class="card-header">
-	<h3>Escolha uma das opções para novos usuários</h3>
+	<h3 class="text-info">Opções do Usuários: </h3>
+	<?php	echo '
+	<a href="compras_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Compras</a>
+	<a href="notificacoes_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Notificações</a>
+	<a href="enviar_not_us.php?id_usuario='.$_GET['id_usuario'].'" class="btn btn-primary">Enviar notificação</a>
+	<a href="status_us.php?ativa=ok&id_usuario='.$_GET['id_usuario'].'" class="btn btn-success">Ativar</a>
+	<a href="status_us.php?desativa=ok&id_usuario='.$_GET['id_usuario'].'" class="btn btn-danger">Desativar</a>
 	</div>
-	<div class="card-body">
-	<a href="?mes=1" class="btn btn-secondary border-info">Ultimo mês</a>
-	<a href="?mes=2" class="btn btn-secondary border-info">Ultimos 2 meses</a>
-	<a href="?mes=3" class="btn btn-secondary border-info">Ultimos 3 meses</a>
-	<a href="?sem=1" class="btn btn-secondary border-info">Ultima semana</a>
-	<a href="?sem=2" class="btn btn-secondary border-info">Ultimas 2 semanas</a>
-	<a href="?sem=3" class="btn btn-secondary border-info">Ultimas 3 semanas</a>
-	<form method="post">
-	<h4>Periodo personalizado</h4>
-	<label>Quantos dias você deseja buscar?
-	</label>
-	<div class="row">
-	<div class="col-sm-2">
-	<input type="number" class="form-control" name="dias_busca" min="1">
-	</div><div class="col">
-	<input type="submit" class="btn btn-info" value="Buscar">
-	</div>
-	</div>
-	</form>
-	</div>
-	<?php
-	if(!empty($_GET['sem']) || !empty($_GET['mes'])){
-		echo '<h3 class="ms-3">Resultado:</h3>';
-		echo '<table  border="3" class="table table-striped border-secondary" align="center" >';
-		echo '<thead>';
-		echo '<tr>';
-		  
-		echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=150>data</th><th width=80>Açoes</th>';
-		  
-		echo '</tr>';
-		echo '</thead>';
-		echo '<tbody>';
-		if(isset($_GET['sem'])){ 
-		if($_GET['sem'] == 1){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -7 DAY)' ;}
-		if($_GET['sem'] == 2){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -14 DAY)' ;}
-		if($_GET['sem'] == 3){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -21 DAY)' ;}
-		
-		$sql = "SELECT * FROM usuarios WHERE data_entrada >=".$periodo." ORDER BY data_entrada DESC";
-		$consulta = $conexao->query($sql);
-		$dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
-		if(!empty($dados)){
-		foreach($dados as $d){
-			if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-			$data_new = $d['data_entrada'];
-			echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
-			<td width=100>'.$status.'</td><td width=100>'.date_format(new DateTime($data_new),"d/m/Y").'</td><td width=80><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
-			</td></tr>';
-		}}else{
-				 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
-
-		}
-		}
-		if(isset($_GET['mes'])){ 
-		if($_GET['mes'] == 1){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -30 DAY)' ;}
-		if($_GET['mes'] == 2){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -60 DAY)' ;}
-		if($_GET['mes'] == 3){ $periodo = ' DATE_ADD(CURDATE(),INTERVAL -90 DAY)' ;}
-		
-		$sql = "SELECT * FROM usuarios WHERE data_entrada >=".$periodo." ORDER BY data_entrada DESC";
-		$consulta = $conexao->query($sql);
-		$dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
-		if(!empty($dados)){
-		foreach($dados as $d){
-			if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-			$data_new = $d['data_entrada'];
-			echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
-			<td width=100>'.$status.'</td><td width=100>'.date_format(new DateTime($data_new),"d/m/Y").'</td><td width=80><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
-			</td></tr>';
-		}}else{
-				 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
-
-		}
-		
-		
-		}
+	<div class="card-body">';
+ 
+	if(!empty($_GET['id_usuario'])){
+		if($dados['status'] > 0){ $status = 'Ativo';}else{ $status = 'desativado';}
+		$data = $dados['data_entrada'];
+		echo '<h5>Informações do usuário</h5>';
+		echo '<strong>Foto do usuário</strong><br>
+		<img src=../../img/foto_usuario/'.$dados['foto'].' style="width:300px;height:300px;border-radius:50%">';
+		echo '<form action="">
+            <div class="row">
+            <div class="col" >            
+            <div class="mb-3 mt-3">
+            <label class="form-label"><strong>Nome: </strong>'.$dados['nome'].'</label>
+            </div>
+            <div class="mb-3 mt-3">
+            <label class="form-label"><strong>CPF: </strong>'.$dados['CPF'].'</label>
+            </div>
+            <div class="mb-3 mt-3">
+            <label class="form-label"><strong>Telefone:</strong> '.$dados['telefone'].'</label>
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Celular: </strong>'.$dados['celular'].'</label>
+            </div>
+            <div class="mb-3 mt-3">
+            <label class="form-label"><strong>CEP: </strong>'.$dados['CEP'].'</label>
+            </div>
+            </div>
+            <div class="col">            
+            <div class="mb-3 mt-3">
+            <label class="form-label"><strong>UF: </strong>'.$dados['UF'].'</label>
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Cidade:</strong> '.$dados['cidade'].'</label>
+                      
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Bairro: </strong>'.$dados['bairro'].'</label>
+            
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Logradouro: </strong>'.$dados['logradouro'].'</label>
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Complemento: </strong>'.$dados['complemento'].'</label>
+            </div>
+            </div>
+            <div class="col">            
+            <div class="mb-3 mt-3">
+            <label class="form-label"><strong>E-mail: </strong>'.$dados['email'].'</label>
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Apelido: </strong>'.$dados['apelido'].'</label>
+                      
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Data de entrada: </strong>'.date_format(new DateTime($data), "d/m/Y H:i:s").'</label>
+            
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Logradouro: </strong>'.$dados['logradouro'].'</label>
+            </div>
+			<div class="mb-3 mt-3">
+            <label class="form-label"><strong>Status: </strong>'.$status.'</label>
+            </div>
+            </div>
+            
+			
+			</div>';
 	}
 	?>
+	
 	</div>
 	</div>
+</div>
+	
