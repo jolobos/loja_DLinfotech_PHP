@@ -67,6 +67,131 @@ date_default_timezone_set('America/Sao_Paulo');
 	<a href="?gasto=20" class="btn btn-secondary border-info">Top 20 gastos</a>
 	<a href="?gasto=30" class="btn btn-secondary border-info">Top 30 gastos</a>
 	
+        <h3>Busca personalizada</h3>
+        <h5>Usuários que mais compram</h5>
+        <form>
+              <div class="form-control">
+              <label>Quantidade de usuários:</label>
+              <input type="number" class="form-control-sm" min="1" name="quant_person_1" value="1">
+              <input type="submit" class="btn btn-info" value="Buscar">
+              </div>
+        </form>
+        <h5 class="mt-2">Usuários que mais gastam</h5>
+        <form>
+              <div class="form-control">
+              <label>Quantidade de usuários:</label>
+              <input type="number" class="form-control-sm" min="1" name="quant_person_2" value="1">
+              <input type="submit" class="btn btn-info" value="Buscar">
+              </div>
+        </form>
 	</div>
-	</div>
+<?php	
+if(isset($_GET['top']) || isset($_GET['quant_person_1'])){
+        if(!empty($_GET['top'])){$quant = $_GET['top'];}
+        if(!empty($_GET['quant_person_1'])){$quant = $_GET['quant_person_1'];}
+        $sql_a = "SELECT id_usuario, COUNT(id_usuario) as quantidades FROM compras GROUP BY id_usuario ORDER BY quantidades DESC LIMIT 0,".$quant."";
+	$consulta_a = $conexao->query($sql_a);
+	$dados = $consulta_a->fetchALL(PDO::FETCH_ASSOC);
+	
+	
+    echo '<div class="card m-3">
+          <div class="card-header">
+              <h4>Top '.$quant.' Usuarios que mais compraram </h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;width:1243px">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=275>Nome</th><th width=130>CPF</th><th width=142>Telefone</th><th width=285>E-mail</th><th width=125>status</th><th width=130>n° de compras</th><th>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+           foreach($dados as $d){
+                $sql_b = "SELECT * FROM usuarios WHERE id_usuario = '".$d['id_usuario']."'";
+		$consulta_b = $conexao->query($sql_b);
+		$d_b = $consulta_b->fetch(PDO::FETCH_ASSOC);
+	  if($d_b['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+	  echo '<tr><td width=275>'.$d_b['nome'].'</td><td width=130>'.$d_b['CPF'].'</td><td width=142>'. $d_b['telefone'].'</td><td width=285>'.$d_b['email'].'</td>
+	  <td width=125>'.$status.'</td><td width=130>'.$d['quantidades'].'</td><td><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d_b['id_usuario'].'">Selecionar</a>
+	  </td></tr>';
+ }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}        
+        
+if(isset($_GET['gasto']) || isset($_GET['quant_person_2'])){
+        if(!empty($_GET['gasto'])){$quant = $_GET['gasto'];}
+        if(!empty($_GET['quant_person_2'])){$quant = $_GET['quant_person_2'];}
+        $sql_a = "SELECT id_usuario, SUM(total) as gastos FROM compras GROUP BY id_usuario ORDER BY gastos DESC LIMIT 0,".$quant."";
+	$consulta_a = $conexao->query($sql_a);
+	$dados = $consulta_a->fetchALL(PDO::FETCH_ASSOC);
+	
+	
+    echo '<div class="card m-3">
+          <div class="card-header">
+              <h4>Top '.$quant.' Usuarios que mais compraram </h4>
+          </div>
+          <div class="card-body">';
+          if(!empty($dados)){
+
+
+          echo '<table  border="3" class="border-secondary" style="table-layout: fixed;width:1243px">';
+          echo '<thead style="display: block;position: relative;" class="border">';
+          echo '<tr>';
+
+          echo '<th width=275>Nome</th><th width=130>CPF</th><th width=142>Telefone</th><th width=285>E-mail</th><th width=115>status</th><th width=140>Valores gastos</th><th>Açoes</th>';
+
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+
+           foreach($dados as $d){
+                $sql_b = "SELECT * FROM usuarios WHERE id_usuario = '".$d['id_usuario']."'";
+		$consulta_b = $conexao->query($sql_b);
+		$d_b = $consulta_b->fetch(PDO::FETCH_ASSOC);
+	  if($d_b['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+	  echo '<tr><td width=275>'.$d_b['nome'].'</td><td width=130>'.$d_b['CPF'].'</td><td width=142>'. $d_b['telefone'].'</td><td width=285>'.$d_b['email'].'</td>
+	  <td width=115>'.$status.'</td><td width=140>R$ '. number_format($d['gastos'],2,',','.').'</td><td><a class="btn btn-dark border-success me-2" href = "us_opcoes.php?id_usuario='.$d_b['id_usuario'].'">Selecionar</a>
+	  </td></tr>';
+ }
+
+          echo '</tbody>';
+           echo '</table>';
+          }else{
+
+                 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum produto encontrado...</h3></div>';
+
+
+          }
+            
+    echo '</div>
+        
+    ';
+
+
+}        
+        
+        
+  ?>     
+            
+        </div>
 </div>
