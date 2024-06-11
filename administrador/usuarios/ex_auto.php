@@ -113,11 +113,11 @@ date_default_timezone_set('America/Sao_Paulo');
     </div>
     <div id="collapseThree" class="collapse" data-parent="#accordion">
       <div class="card-body">
-	  <form class="mb-2">
+	  <form action="testando.php"class="mb-2">
 	  <h4>Tempo personalizado</h4>
 	  <div class="row">
 	  <div class="col-sm-2">
-	  <input type="date" name="data_per_des" class="form-control">
+	  <input type="date" name="data_person_temp_com_des" class="form-control">
 	  </div>
 	  <div class="col-sm-2">
 	  <input type="submit" value="Enviar" class="btn btn-primary">
@@ -519,7 +519,90 @@ $(document).ready(function(){
 </script>';
 
 }
+// iniciando configuração de tempo sem compras
+if(isset($_GET['tempoxcomdes']) || isset($GET['data_person_temp_com_des'])){
+	if(isset($_GET['tempoxcomdes'])){$compras = $_GET['tempoxcomdes'];}
+	if(isset($_GET['data_person_temp_com_des'])){
+	$date1=date_create($_GET['data_person_temp_com_des']);
+	$date2=date_create(date('Y-m-d'));
+	$diff=date_diff($date1,$date2);
+	$compras = $diff->format("%a");
+	}
+    if(!empty($compras))
+	{ $sql = "SELECT * FROM usuarios AS u WHERE NOT EXISTS (SELECT id_usuario FROM compras AS cp WHERE cp.id_usuario = u.id_usuario) ORDER BY nome ASC ";
+	  $consulta = $conexao->query($sql);
+	  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+	
+		
+		
+		echo '
+		
+		<div class="modal modal-xl" id="myModal">
+				<div class="modal-dialog">
+				<div class="modal-content">
 
+				  <!-- Modal Header -->
+				  <div class="modal-header">
+					<h4 class="modal-title">Você está preste a excluir os seguintes usuários:</h4>
+					
+				  </div>
+
+				  <!-- Modal body -->
+				  <div class="modal-body">
+				  <h4>Lista de usuários para '.$compras.' dias</h4>';
+		echo '<h3 class="ms-3">Resultado:</h3>';
+		echo '<table  border="3" class="table table-striped border-secondary" style="table-layout: fixed;">';
+		echo '<thead border="2" class="border-secondary" style="display: block;position: relative">';
+		echo '<tr>';
+		  
+		echo '<th width=270>Nome</th><th width=120>CPF</th><th width=130>Telefone</th><th width=335>E-mail</th><th width=130>status</th><th width=120>data</th>';
+		  
+		echo '</tr>';
+		echo '</thead>';
+		echo '<tbody   style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+		if(!empty($dados)){		
+		foreach($dados as $d_b){ 
+				if($compras != 0){
+				$tempo = $compras;
+				$periodo = ' DATE_ADD(CURDATE(),INTERVAL -'.$tempo.' DAY)' ;	
+				$sql_c = "SELECT * FROM usuarios WHERE id_usuario = ".$d_b['id_usuario']." AND data_entrada >= ".$periodo."";
+				$consulta_c = $conexao->query($sql_c);
+				$d = $consulta_c->fetch(PDO::FETCH_ASSOC);		
+				if(!empty($d['id_usuario'])){
+				if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+				$data_new = $d['data_entrada'];
+				echo '<tr><td width=270>'.$d['nome'].'</td><td width=120>'.$d['CPF'].'</td><td width=130>'. $d['telefone'].'</td><td width=335>'.$d['email'].'</td>
+				<td width=130>'.$status.'</td><td>'.date_format(new DateTime($data_new),"d/m/Y").'</td>
+				</td></tr>';}}else{echo '<tr><td width=1110>Lamento, não há resultado para sua busca...</td></tr>';
+		}}
+		}
+		 echo '
+		 </tbody></table>
+		 
+		 </div>
+
+				  <!-- Modal footer -->
+				  <div class="modal-footer">
+					<a href="?exclui_compra='.$compras.'" class="btn btn-primary">Excluir</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
+				  </div>
+
+				</div>
+			  </div>
+			</div>';
+echo '<script>
+$(document).ready(function(){
+  // Show the Modal on load
+  $("#myModal").modal("show");
+    });
+	
+	$("#myBtn").click(function(){
+    $("#myModal").modal("hide");
+  });
+</script>';
+
+}
+}
 
 ?>	
 	
