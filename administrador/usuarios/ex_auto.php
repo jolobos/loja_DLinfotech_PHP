@@ -260,7 +260,7 @@ if(!empty($_GET['tempodes'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="?desativa_tempo='.$tempo.'" class="btn btn-primary">Desativar</a>
+					<a href="prog_ex_auto.php?desativa_tempo='.$tempo.'" class="btn btn-primary">Desativar</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
@@ -329,7 +329,7 @@ if(!empty($_GET['tempoex'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="?exclui_tempo='.$tempo.'" class="btn btn-primary">Excluir</a>
+					<a href="prog_ex_auto.php?exclui_tempo='.$tempo.'" class="btn btn-primary">Excluir</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
@@ -414,7 +414,7 @@ if(isset($_GET['comprades'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="?desativa_compra='.$compras.'" class="btn btn-primary">Desativar</a>
+					<a href="prog_ex_auto.php?desativa_compra='.$compras.'" class="btn btn-primary">Desativar</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
@@ -500,7 +500,7 @@ if(isset($_GET['compraex'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="?exclui_compra='.$compras.'" class="btn btn-primary">Excluir</a>
+					<a href="prog_ex_auto.php?exclui_compra='.$compras.'" class="btn btn-primary">Excluir</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
@@ -587,7 +587,7 @@ if(isset($_GET['tempoxcomdes']) || isset($_GET['data_person_temp_com_des'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="?desativa_tempo_compra='.$compras.'" class="btn btn-primary">Desativar</a>
+					<a href="prog_ex_auto.php?desativa_tempo_compra='.$compras.'" class="btn btn-primary">Desativar</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
@@ -674,7 +674,7 @@ if(isset($_GET['tempoxcomexc']) || isset($_GET['data_person_temp_com_exc'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="?exclui_tempo_compra='.$compras.'" class="btn btn-primary">Desativar</a>
+					<a href="prog_ex_auto.php?exclui_tempo_compra='.$compras.'" class="btn btn-primary">Desativar</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
