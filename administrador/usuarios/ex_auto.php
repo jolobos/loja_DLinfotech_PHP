@@ -359,7 +359,7 @@ if(isset($_GET['comprades'])){
 	$consulta_b = $conexao->query($sql_b);
 	$dados_b = $consulta_b->fetchALL(PDO::FETCH_ASSOC);
 	}
-		
+	$cont =0;
 		
 		echo '
 		
@@ -393,7 +393,9 @@ if(isset($_GET['comprades'])){
 				$data_new = $d['data_entrada'];
 				echo '<tr><td width=270>'.$d['nome'].'</td><td width=120>'.$d['CPF'].'</td><td width=130>'. $d['telefone'].'</td><td width=335>'.$d['email'].'</td>
 				<td width=130>'.$status.'</td><td>'.date_format(new DateTime($data_new),"d/m/Y").'</td>
-				</td></tr>';}
+				</td></tr>';
+                                $cont +=1;
+                                }
 		}else if(!empty($dados_b)){		
 		foreach($dados_b as $d_b){ 
 				if($d_b['id_us'] == $compras){
@@ -404,8 +406,12 @@ if(isset($_GET['comprades'])){
 				$data_new = $d['data_entrada'];
 				echo '<tr><td width=270>'.$d['nome'].'</td><td width=120>'.$d['CPF'].'</td><td width=130>'. $d['telefone'].'</td><td width=335>'.$d['email'].'</td>
 				<td width=130>'.$status.'</td><td>'.date_format(new DateTime($data_new),"d/m/Y").'</td>
-		</td></tr>';}else{echo '<tr><td width=1110>Lamento, não há resultado para sua busca...</td></tr>';
-		}}
+		</td></tr>';
+                                $cont +=1;
+                                }}
+		}
+                if($cont == 0){echo '<tr><td width=1110 colspan=6>Lamento, não há resultado para sua busca...</td></tr>';
+                
 		}
 		 echo '
 		 </tbody></table>
@@ -445,7 +451,7 @@ if(isset($_GET['compraex'])){
 	$consulta_b = $conexao->query($sql_b);
 	$dados_b = $consulta_b->fetchALL(PDO::FETCH_ASSOC);
 	}
-		
+	$cont = 0;	
 		
 		echo '
 		
@@ -479,7 +485,9 @@ if(isset($_GET['compraex'])){
 				$data_new = $d['data_entrada'];
 				echo '<tr><td width=270>'.$d['nome'].'</td><td width=120>'.$d['CPF'].'</td><td width=130>'. $d['telefone'].'</td><td width=335>'.$d['email'].'</td>
 				<td width=130>'.$status.'</td><td>'.date_format(new DateTime($data_new),"d/m/Y").'</td>
-				</td></tr>';}
+				</td></tr>';
+                                $cont +=1;
+                                }
 		}else if(!empty($dados_b)){		
 		foreach($dados_b as $d_b){ 
 				if($d_b['id_us'] == $compras){
@@ -490,8 +498,12 @@ if(isset($_GET['compraex'])){
 				$data_new = $d['data_entrada'];
 				echo '<tr><td width=270>'.$d['nome'].'</td><td width=120>'.$d['CPF'].'</td><td width=130>'. $d['telefone'].'</td><td width=335>'.$d['email'].'</td>
 				<td width=130>'.$status.'</td><td>'.date_format(new DateTime($data_new),"d/m/Y").'</td>
-		</td></tr>';}else{echo '<tr><td width=1110>Lamento, não há resultado para sua busca...</td></tr>';
-		}}
+		</td></tr>';
+                                $cont +=1;
+                                }}
+		}
+                if($cont == 0){echo '<tr><td width=1110 colspan=6>Lamento, não há resultado para sua busca...</td></tr>';
+                
 		}
 		 echo '
 		 </tbody></table>
@@ -674,7 +686,7 @@ if(isset($_GET['tempoxcomexc']) || isset($_GET['data_person_temp_com_exc'])){
 
 				  <!-- Modal footer -->
 				  <div class="modal-footer">
-					<a href="prog_ex_auto.php?exclui_tempo_compra='.$compras.'" class="btn btn-primary">Desativar</a>
+					<a href="prog_ex_auto.php?exclui_tempo_compra='.$compras.'" class="btn btn-primary">Excluir</a>
 					<button type="button" class="btn btn-danger" data-dismiss="modal" id="myBtn">Cancelar</button>
 				  </div>
 
