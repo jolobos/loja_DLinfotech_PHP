@@ -38,13 +38,11 @@ date_default_timezone_set('America/Sao_Paulo');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-				<a class="btn btn-secondary border-danger m-2" href="usuarios.php">Usuários</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="novos_usuarios.php">Novos usuários</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="des_usuarios.php">Usuários desativados</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="us_mais_cp.php">Usuários que mais compram</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="us_menos_cp.php">Usuários que menos compram</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="us_nunca_cp.php">Usuários que nunca compraram</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="ex_auto.php">Exclusão automática</a></br>
+				<a class="btn btn-secondary border-danger m-2" href="compras.php">Compras do dia</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="novos_usuarios.php">Compras por usuário</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="des_usuarios.php">Compras sem pagamento</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="us_mais_cp.php">Compras não entregue</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="us_menos_cp.php">Compras sem usuários</a></br>
 				
 				</div>
 				<div class="modal-footer">
@@ -58,21 +56,48 @@ date_default_timezone_set('America/Sao_Paulo');
                 <h3 class="text-info">Pesquisa de compras do dia</h3>
             </div>
             <div class="card-body">
+                
                 <?php
-                if(isset($_GET['ver_pr_compra'])){
-	$id_venda_lista = $_GET['ver_pr_compra'];
+                if(isset($_GET['opcoes_compra'])){
+	$id_venda_lista = $_GET['opcoes_compra'];
 	$sql_10 = "SELECT * FROM itens_da_compra WHERE id_compra = '".$id_venda_lista."'";
 	$consulta_10 = $conexao->query($sql_10);
 	$dados_ab = $consulta_10->fetchALL(PDO::FETCH_ASSOC);
 	
+        $sql_11 = "SELECT * FROM compras WHERE id_compra = '".$id_venda_lista."'";
+	$consulta_11 = $conexao->query($sql_11);
+	$dados_com = $consulta_11->fetch(PDO::FETCH_ASSOC);
+	$us_a = $dados_com['id_usuario'];
+        
+        $sql_12 = "SELECT * FROM usuarios WHERE id_usuario = '".$us_a."'";
+	$consulta_12 = $conexao->query($sql_12);
+	$dados_usu = $consulta_12->fetch(PDO::FETCH_ASSOC);
+	
+        
 	echo  '<div class="modal fade modal-lg" id="exemplomodal">
   <div class="modal-dialog">
     <div class="modal-content ">
       <div class="modal-header bg-info">
         <h3 class="modal-title">Lista de produtos da compra de n°: "'.$id_venda_lista.'"</h3>
-      </div>
+       </div>
       <div class="modal-body bg-light">';
-		echo '<table class="table table-striped mt-2" border="3">
+	echo '
+        <h4>Dados do usuário</h4> 
+        <table><thead><tr>
+        <th width=120>Id. Usuario</th>
+        <th width=200>Nome</th>
+        <th  width=120>CPF</th>
+        <th  width=120>Telefone</th>
+        <th>Opções</th>
+        </tr>
+        </thead><tbody><tr>
+        <td>'.$dados_usu['id_usuario'].'</td>
+        <td>'.$dados_usu['nome'].'</td>
+        <td>'.$dados_usu['CPF'].'</td>
+        <td>'.$dados_usu['telefone'].'</td>
+        <td><a class="btn btn-secondary" href="../usuarios/us_opcoes.php?id_usuario='.$dados_usu['id_usuario'].'" target=_blank>Visualizar usuário</a></td>    
+        </tr></tbody></table>
+        <table class="table table-striped mt-2" border="3">
                 <thead>
                     <tr align="center">
                         <th colspan="8">Produtos da Compra</th>
@@ -116,9 +141,45 @@ date_default_timezone_set('America/Sao_Paulo');
 
           </tbody></table></div>
       <div class="modal-footer bg-light">
+                <a class="btn btn-dark border-info" href="?alterar_compra='.$id_venda_lista.'">alterar compra</a>
+                <a class="btn btn-dark border-info" href="?add_itens_compra='.$id_venda_lista.'">Adicionar produtos</a>
+
+                <button type="button" class="btn btn-dark border-danger" data-bs-toggle="modal" data-bs-target="#myModal">
+                     Excluir
+                </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 
       </div>
+    </div>
+  </div>
+</div>';
+      echo '
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-danger">
+        <h4 class="modal-title">Tem certeza que deseja excluir essa compra?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body bg-white">
+        <p>Escolha uma das opções abaixo...</p>
+        <div align="right">
+        <a class="btn btn-success" href="?excluir_compra='.$id_venda_lista.'">Excluir</a>
+        <a class="btn btn-danger" href="?opcoes_compra='.$id_venda_lista.'">Cancelar</a>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer bg-white">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+
     </div>
   </div>
 </div>';
@@ -126,6 +187,7 @@ date_default_timezone_set('America/Sao_Paulo');
                 
                 
                     $dia = date("Y-m-d");
+                    echo '<h3>Compras efetuadas em '. date_format(new DateTime($dia),"d/m/Y").'</h3>';
                     $sql = "SELECT * FROM compras WHERE data >= DATE('".$dia."')";
                     $consulta = $conexao->query($sql);
                     $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
@@ -136,14 +198,14 @@ date_default_timezone_set('America/Sao_Paulo');
                         echo '<thead style="display: block;position: relative;" class="border">';
                         echo '<tr>';
 
-                        echo '  <th width=200>Id. da compra</th>
-                        <th width=200>Pagamento</th>
-                        <th width=200>Endereço</th>
-                        <th width=200>Data da compra</th>
-                        <th width=200>Pago</th>
-                        <th width=200>Entregue</th>
-                        <th width=200>Total da compra</th>
-                        <th width=200>Ações</th>';
+                        echo '  <th width=120>Id. da compra</th>
+                        <th width=120>Pagamento</th>
+                        <th width=250>Endereço</th>
+                        <th width=120>Data da compra</th>
+                        <th width=120>Pago</th>
+                        <th width=120>Entregue</th>
+                        <th width=120>Total da compra</th>
+                        <th width=120>Ações</th>';
                         echo '</tr>';
                         echo '</thead>';
                         echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
@@ -166,16 +228,15 @@ date_default_timezone_set('America/Sao_Paulo');
                                     }else{
                                             $ent = 'Sim';
                                     }
-                       echo '<tr style="height: 110px">
-                            <td width=200><P class="mt-4">'.$d['id_compra'].'</P></td>
-                            <td width=200><P class="mt-4">'.$d['pagamento'].'</P></td>
-                            <td width=200><P class="mt-4">'.$endereco.'</P></td>
-                            <td width=200><P class="mt-4">'.date_format(new DateTime($d['data']),"d/m/Y").'</P></td>
-                            <td width=200><P class="mt-4">'.$pago.'</P></td>
-                            <td width=200><P class="mt-4">'.$ent.'</P></td>
-                            <td width=200><P class="mt-4"> R$: '.number_format($d['total'],2,',','.').'</P></td>
-                            <td width=200><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'">Ver Produtos</a>
-                            <a class="btn btn-dark mt-2 w-75" href="?cancelar_compra='.$id_compra.'">Cancelar Compra</a></td></tr>';
+                       echo '<tr style="height: 60px">
+                            <td width=120><P class="mt-4">'.$d['id_compra'].'</P></td>
+                            <td width=120><P class="mt-4">'.$d['pagamento'].'</P></td>
+                            <td width=250><P class="mt-4">'.$endereco.'</P></td>
+                            <td width=120><P class="mt-4">'.date_format(new DateTime($d['data']),"d/m/Y").'</P></td>
+                            <td width=120><P class="mt-4">'.$pago.'</P></td>
+                            <td width=120><P class="mt-4">'.$ent.'</P></td>
+                            <td width=120><P class="mt-4"> R$: '.number_format($d['total'],2,',','.').'</P></td>
+                            <td width=120><a class="btn btn-success w-75 mt-2" href="?opcoes_compra='.$id_compra.'">Opções</a></td></tr>';
                         
                     }
                     
