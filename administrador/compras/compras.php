@@ -16,7 +16,6 @@ date_default_timezone_set('America/Sao_Paulo');
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="func_us.js"></script>
 	<link rel="stylesheet" href="../../css/modal.css">
 
 </head>
@@ -39,10 +38,12 @@ date_default_timezone_set('America/Sao_Paulo');
             <div class="modal-content">
                 <div class="modal-body">
 				<a class="btn btn-secondary border-danger m-2" href="compras.php">Compras do dia</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="novos_usuarios.php">Compras por usuário</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="des_usuarios.php">Compras sem pagamento</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="us_mais_cp.php">Compras não entregue</a></br>
-				<a class="btn btn-secondary border-warning m-2" href="us_menos_cp.php">Compras sem usuários</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="compras_usuario.php">Compras por usuário</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="compras_data.php">Compras por data</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="compras_valor.php">Compras por valor</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="compras_sem_pag.php">Compras sem pagamento</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="compras_nao_ent.php">Compras não entregue</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="compras_sem_us.php">Compras sem usuários</a></br>
 				
 				</div>
 				<div class="modal-footer">
