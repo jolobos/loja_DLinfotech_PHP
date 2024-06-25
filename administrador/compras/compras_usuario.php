@@ -61,15 +61,244 @@ date_default_timezone_set('America/Sao_Paulo');
                 <h3>Escolha o tipo de busca desejado</h3>
                 <div class="row">
                 <div class="col-sm-4">
-                <input type="search" id="busca" style="width:370px" class="form-control" placeholder="Digite o nome do usuário..." onKeyUp="buscarprodutos(this.value)" autofocus/>
-                <form>
-                <input type="search" style="width:370px" class="form-control mt-3" name="CPF_us" placeholder="Digite o nome do usuário..."/>
-                <input type="submit" class="btn btn-secondary" value="Pesquisar">
+				<p><strong>Nome</strong></p>
+                <input type="search" id="busca"  class="form-control" placeholder="Digite o nome do usuário..." onKeyUp="buscarprodutos(this.value)" autofocus/>
+                <form class="mt-2">
+                <p><strong>ID Usuário</strong></p>
+				<div class="row">
+				<div class="col-sm-8">
+                <input type="search" class="form-control" name="ID_us" placeholder="Digite o ID do usuário..."/>
+                </div><div class="col"><input type="submit" class="btn btn-secondary" value="Pesquisar"></div></div>
+				</form>
+				<form class="mt-2">
+				<p><strong>CPF</strong></p>
+               <div class="row">
+				<div class="col-sm-8">
+                <input type="search" class="form-control" name="CPF_us" placeholder="Digite o CPF do usuário..."/>
+                </div>
+				<div class="col">
+				<input type="submit" class="btn btn-secondary" value="Pesquisar"></div>
+				</div>
+				</form>
+				<form class="mt-2">
+				<p><strong>E-mail</strong></p>
+				<div class="row">
+				<div class="col-sm-8">
+                <input type="email" class="form-control" name="email_us" placeholder="Digite o E-mail do usuário..."/>
+                </div><div class="col"><input type="submit" class="btn btn-secondary" value="Pesquisar"></div></div>
                 </form>
                 </div>
                 <div class="col">
-                <div class="mt-3" id="resultado">
-                </div>
-                </div>
+				<div class="mt-3" id="resultado">
+				<?php
+				if(isset($_GET['ID_us'])){
+					$valor = $_GET['ID_us'];
+					if($valor != ''){
+					  $sql = "SELECT * FROM usuarios WHERE id_usuario = ".$valor." LIMIT 0,10";
+					  $consulta = $conexao->query($sql);
+					  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+					  
+					  if(!empty($dados)){
+						
+					  
+					  echo '<table  border="3" class="table table-striped border-secondary" >';
+					  echo '<thead>';
+					  echo '<tr>';
+					  
+					  echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=80>Açoes</th>';
+					  
+					  echo '</tr>';
+					  echo '</thead>';
+					  echo '<tbody>';
+					  
+					  foreach($dados as $d){
+						  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+						  echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
+						  <td width=100>'.$status.'</td><td width=80><a class="btn btn-dark border-success me-2" href = "compras_usuario.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
+						  </td></tr>';
+					 }
+					  
+					  echo '</tbody>';
+					   echo '</table>';
+					  }else{
+
+						 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
+
+					  
+					  }
+					}else{
+						echo '<div><h3 class="alert alert-secondary mt-2">Por favor, entre com o campo de busca do usuário...</h3</div>';
+
+					}
+				}
+				else if(isset($_GET['CPF_us'])){
+					$valor = $_GET['CPF_us'];
+					if($valor != ''){
+					  $sql = "SELECT * FROM usuarios WHERE CPF = ".$valor." LIMIT 0,10";
+					  $consulta = $conexao->query($sql);
+					  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+					  
+					  if(!empty($dados)){
+						
+					  
+					  echo '<table  border="3" class="table table-striped border-secondary" >';
+					  echo '<thead>';
+					  echo '<tr>';
+					  
+					  echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=80>Açoes</th>';
+					  
+					  echo '</tr>';
+					  echo '</thead>';
+					  echo '<tbody>';
+					  
+					  foreach($dados as $d){
+						  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+						  echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
+						  <td width=100>'.$status.'</td><td width=80><a class="btn btn-dark border-success me-2" href = "compras_usuario.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
+						  </td></tr>';
+					 }
+					  
+					  echo '</tbody>';
+					   echo '</table>';
+					  }else{
+
+						 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
+
+					  
+					  }
+					}else{
+						echo '<div><h3 class="alert alert-secondary mt-2">Por favor, entre com o campo de busca do usuário...</h3</div>';
+
+					}
+				}
+				else if(isset($_GET['email_us'])){
+					$valor = $_GET['email_us'];
+					if($valor != ''){
+					  $sql = "SELECT * FROM usuarios WHERE email = ".$valor." LIMIT 0,10";
+					  $consulta = $conexao->query($sql);
+					  $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+					  
+					  if(!empty($dados)){
+						
+					  
+					  echo '<table  border="3" class="table table-striped border-secondary" >';
+					  echo '<thead>';
+					  echo '<tr>';
+					  
+					  echo '<th width=200>Nome</th><th width=100>CPF</th><th width=100>Telefone</th><th width=200>E-mail</th><th width=100>status</th><th width=80>Açoes</th>';
+					  
+					  echo '</tr>';
+					  echo '</thead>';
+					  echo '<tbody>';
+					  
+					  foreach($dados as $d){
+						  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+						  echo '<tr><td width=220>'.$d['nome'].'</td><td width=100>'.$d['CPF'].'</td><td width=100>'. $d['telefone'].'</td><td width=200>'.$d['email'].'</td>
+						  <td width=100>'.$status.'</td><td width=80><a class="btn btn-dark border-success me-2" href = "compras_usuario.php?id_usuario='.$d['id_usuario'].'">Selecionar</a>
+						  </td></tr>';
+					 }
+					  
+					  echo '</tbody>';
+					   echo '</table>';
+					  }else{
+
+						 echo '<div class="col-sm-8 mx-auto"><h3 class="alert alert-secondary">Nenhum usuário encontrado...</h3></div>';
+
+					  
+					  }
+					}else{
+						echo '<div><h3 class="alert alert-secondary mt-2">Por favor, entre com o campo de busca do usuário...</h3</div>';
+
+					}
+				}
+                ?></div>
+				</div>
             </div>
         </div>
+		<?php
+			if(isset($_GET['id_usuario'])){
+				$id_compra = $_GET['id_usuario'];
+				$sql_1 = "SELECT * FROM usuarios WHERE id_usuario = ".$id_compra." LIMIT 0,10";
+				$consulta_1 = $conexao->query($sql_1);
+				$dados_usu = $consulta_1->fetch(PDO::FETCH_ASSOC);
+				
+				$sql_2 = "SELECT * FROM compras WHERE id_usuario = ".$id_compra."";
+				$consulta_2 = $conexao->query($sql_2);
+				$dados_2 = $consulta_2->fetchALL(PDO::FETCH_ASSOC);
+				
+				
+				
+				echo '<div class="modal fade modal-lg" id="exemplomodal">
+					  <div class="modal-dialog">
+						<div class="modal-content ">
+						  <div class="modal-header bg-info">
+							<h3 class="modal-title">Compras efetuadas pelo usuário : "'.$dados_usu['nome'].'"</h3>
+						   </div>
+						  <div class="modal-body bg-light">';
+								echo '<table  align="center" border="3" class="border-secondary" style="table-layout: fixed;width:1113px">';
+								echo '<thead style="display: block;position: relative;" class="border">';
+								echo '<tr>';
+
+								echo '  <th width=120>Id. da compra</th>
+								<th width=120>Pagamento</th>
+								<th width=250>Endereço</th>
+								<th width=120>Data da compra</th>
+								<th width=120>Pago</th>
+								<th width=120>Entregue</th>
+								<th width=120>Total da compra</th>
+								<th width=120>Ações</th>';
+								echo '</tr>';
+								echo '</thead>';
+								echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
+								
+								foreach ($dados as $d){
+									$id_compra = $d['id_compra'];
+									$id_endereco = $d['id_endereco'];
+									$sqlend = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$id_endereco."'";
+									$consultaend = $conexao->query($sqlend);
+									$dados_end = $consultaend->fetch(PDO::FETCH_ASSOC);
+									$endereco = '<strong>R:</strong> '.$dados_end['logradouro'].' <strong>N°</strong> '.$dados_end['numero'].'<br><strong>B: </strong>'.$dados_end['bairro'].' <strong>Cidade:</strong> '.$dados_end['cidade'].'';
+													
+													$autorizado= $d['autorizado'];
+									if($autorizado == 0){ $pago = 'Não';
+														}else{
+																$pago = 'Sim';
+														}
+													$entregue=$d['entregue'];
+														if($entregue == 0){ $ent = 'Não';
+														}else{
+																$ent = 'Sim';
+														}
+								   echo '<tr style="height: 60px">
+										<td width=120><P class="mt-4">'.$d['id_compra'].'</P></td>
+										<td width=120><P class="mt-4">'.$d['pagamento'].'</P></td>
+										<td width=250><P class="mt-4">'.$endereco.'</P></td>
+										<td width=120><P class="mt-4">'.date_format(new DateTime($d['data']),"d/m/Y").'</P></td>
+										<td width=120><P class="mt-4">'.$pago.'</P></td>
+										<td width=120><P class="mt-4">'.$ent.'</P></td>
+										<td width=120><P class="mt-4"> R$: '.number_format($d['total'],2,',','.').'</P></td>
+										<td width=120><a class="btn btn-success w-75 mt-2" href="?opcoes_compra='.$id_compra.'">Opções</a></td></tr></tbody></table>';
+									  
+								  
+						  echo '</div>
+						  <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+						  ';
+									
+			}
+			}
+		?>
+		
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+$(window).load(function() {
+    $('#exemplomodal').modal('show');
+});
+</script>

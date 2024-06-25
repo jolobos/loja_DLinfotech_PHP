@@ -237,7 +237,7 @@ date_default_timezone_set('America/Sao_Paulo');
                             <td width=120><P class="mt-4">'.$pago.'</P></td>
                             <td width=120><P class="mt-4">'.$ent.'</P></td>
                             <td width=120><P class="mt-4"> R$: '.number_format($d['total'],2,',','.').'</P></td>
-                            <td width=120><a class="btn btn-success w-75 mt-2" href="?opcoes_compra='.$id_compra.'">Opções</a></td></tr>';
+                            <td width=120><a class="btn btn-success w-75 mt-2" href="?opcoes_compra='.$id_compra.'">Opções</a></td></tr></tbody></table>';
                         
                     }
                     
