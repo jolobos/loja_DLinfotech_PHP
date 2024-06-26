@@ -231,8 +231,8 @@ date_default_timezone_set('America/Sao_Paulo');
 				
 				
 				
-				echo '<div class="modal fade modal-lg" id="exemplomodal">
-					  <div class="modal-dialog">
+				echo '<div class="modal fade modal-xl"  id="exemplomodal">
+					  <div class="modal-dialog" >
 						<div class="modal-content ">
 						  <div class="modal-header bg-info">
 							<h3 class="modal-title">Compras efetuadas pelo usuário : "'.$dados_usu['nome'].'"</h3>
@@ -253,9 +253,10 @@ date_default_timezone_set('America/Sao_Paulo');
 								echo '</tr>';
 								echo '</thead>';
 								echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
-								
-								foreach ($dados as $d){
-									$id_compra = $d['id_compra'];
+								$contagem = 0;
+								foreach ($dados_2 as $d){
+									$contagem += 1;
+									$id_compra_1 = $d['id_compra'];
 									$id_endereco = $d['id_endereco'];
 									$sqlend = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$id_endereco."'";
 									$consultaend = $conexao->query($sqlend);
@@ -280,11 +281,14 @@ date_default_timezone_set('America/Sao_Paulo');
 										<td width=120><P class="mt-4">'.$pago.'</P></td>
 										<td width=120><P class="mt-4">'.$ent.'</P></td>
 										<td width=120><P class="mt-4"> R$: '.number_format($d['total'],2,',','.').'</P></td>
-										<td width=120><a class="btn btn-success w-75 mt-2" href="?opcoes_compra='.$id_compra.'">Opções</a></td></tr></tbody></table>';
+										<td width=120><a class="btn btn-success w-75 mt-2" href="?opcoes_compra='.$id_compra_1.'">Opções</a></td></tr>';
+										
+										}
+										echo '</tbody></table>';
 									  
 								  
 						  echo '</div>
-						  <div class="modal-footer bg-light">
+						  <div class="modal-footer bg-light">'.$contagem.'<br>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 
       </div>
@@ -292,8 +296,135 @@ date_default_timezone_set('America/Sao_Paulo');
   </div>
 						  ';
 									
+			
 			}
-			}
+			
+                if(isset($_GET['opcoes_compra'])){
+	$id_venda_lista = $_GET['opcoes_compra'];
+	$sql_10 = "SELECT * FROM itens_da_compra WHERE id_compra = '".$id_venda_lista."'";
+	$consulta_10 = $conexao->query($sql_10);
+	$dados_ab = $consulta_10->fetchALL(PDO::FETCH_ASSOC);
+	
+        $sql_11 = "SELECT * FROM compras WHERE id_compra = '".$id_venda_lista."'";
+	$consulta_11 = $conexao->query($sql_11);
+	$dados_com = $consulta_11->fetch(PDO::FETCH_ASSOC);
+	$us_a = $dados_com['id_usuario'];
+        
+        $sql_12 = "SELECT * FROM usuarios WHERE id_usuario = '".$us_a."'";
+	$consulta_12 = $conexao->query($sql_12);
+	$dados_usu = $consulta_12->fetch(PDO::FETCH_ASSOC);
+	
+        
+	echo  '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header bg-info">
+        <h3 class="modal-title">Lista de produtos da compra de n°: "'.$id_venda_lista.'"</h3>
+       </div>
+      <div class="modal-body bg-light">';
+	echo '
+        <h4>Dados do usuário</h4> 
+        <table><thead><tr>
+        <th width=120>Id. Usuario</th>
+        <th width=200>Nome</th>
+        <th  width=120>CPF</th>
+        <th  width=120>Telefone</th>
+        <th>Opções</th>
+        </tr>
+        </thead><tbody><tr>
+        <td>'.$dados_usu['id_usuario'].'</td>
+        <td>'.$dados_usu['nome'].'</td>
+        <td>'.$dados_usu['CPF'].'</td>
+        <td>'.$dados_usu['telefone'].'</td>
+        <td><a class="btn btn-secondary" href="../usuarios/us_opcoes.php?id_usuario='.$dados_usu['id_usuario'].'" target=_blank>Visualizar usuário</a></td>    
+        </tr></tbody></table>
+        <table class="table table-striped mt-2" border="3">
+                <thead>
+                    <tr align="center">
+                        <th colspan="8">Produtos da Compra</th>
+                    </tr>
+                    <tr>
+                        <th>Código do produto</th>
+                        <th>Foto do produto </th>
+                        <th>Produto</th>
+                        <th>Valor</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>';
+	$total_somado = 0;
+	foreach($dados_ab as $d_ab){
+	$id_produto_lista = $d_ab['id_produto'];
+	$sql_100 = "SELECT * FROM produtos WHERE id_produto = '".$id_produto_lista."'";
+	$consulta_100 = $conexao->query($sql_100);
+	$dados_abc = $consulta_100->fetch(PDO::FETCH_ASSOC);
+	
+	$cod_produto = $dados_abc['cod_produto'];
+        $nome = $dados_abc['nome'];
+        $valor= $dados_abc['valor'];
+        $quantidade= $d_ab['quantidade'];
+	$foto_pr= $dados_abc['foto'];
+	$total = $quantidade * $dados_abc['valor'];
+        $total_somado += $total;
+	echo '<tr style="height: 110px">
+                <td><P style="margin-top: 40px">'.$cod_produto.'</P></td>
+                <td><img style="width:100px "src="../../img/produtos/'.$foto_pr.'"> </td>
+                <td width="400"><P style="margin-top: 40px">'.$nome.'</P></td>
+                <td><P style="margin-top: 40px; width: 70px">R$: '. number_format($valor,2,',','.').'</P></td>
+                <td><P style="margin-top:40px ; width: 70px">'.$quantidade.' Un</P></td>
+                <td><P style="margin-top: 40px; width: 70px"> R$: '.number_format($total,2,',','.').'</P></td></tr>';
+	
+	}        
+		
+      echo '<tr><td align="right" colspan="6"><P >Total R$: '.number_format($total_somado,2,',','.').'</P></td></tr>
+
+          </tbody></table></div>
+      <div class="modal-footer bg-light">
+                <a class="btn btn-dark border-info" href="alterar_com?alterar_compra='.$id_venda_lista.'">alterar compra</a>
+                <a class="btn btn-dark border-info" href="add_itens?add_itens_compra='.$id_venda_lista.'">Adicionar produtos</a>
+
+                <button type="button" class="btn btn-dark border-danger" data-bs-toggle="modal" data-bs-target="#myModal">
+                     Excluir
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+      echo '
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-danger">
+        <h4 class="modal-title">Tem certeza que deseja excluir essa compra?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body bg-white">
+        <p>Escolha uma das opções abaixo...</p>
+        <div align="right">
+        <a class="btn btn-success" href="excluir_com?excluir_compra='.$id_venda_lista.'">Excluir</a>
+        <a class="btn btn-danger" href="?opcoes_compra='.$id_venda_lista.'">Cancelar</a>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer bg-white">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+
+    </div>
+  </div>
+</div>';
+}			
 		?>
 		
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>

@@ -142,8 +142,8 @@ date_default_timezone_set('America/Sao_Paulo');
 
           </tbody></table></div>
       <div class="modal-footer bg-light">
-                <a class="btn btn-dark border-info" href="?alterar_compra='.$id_venda_lista.'">alterar compra</a>
-                <a class="btn btn-dark border-info" href="?add_itens_compra='.$id_venda_lista.'">Adicionar produtos</a>
+                <a class="btn btn-dark border-info" href="alterar_com?alterar_compra='.$id_venda_lista.'">alterar compra</a>
+                <a class="btn btn-dark border-info" href="add_itens?add_itens_compra='.$id_venda_lista.'">Adicionar produtos</a>
 
                 <button type="button" class="btn btn-dark border-danger" data-bs-toggle="modal" data-bs-target="#myModal">
                      Excluir
@@ -171,7 +171,7 @@ date_default_timezone_set('America/Sao_Paulo');
       <div class="modal-body bg-white">
         <p>Escolha uma das opções abaixo...</p>
         <div align="right">
-        <a class="btn btn-success" href="?excluir_compra='.$id_venda_lista.'">Excluir</a>
+        <a class="btn btn-success" href="excluir_com?excluir_compra='.$id_venda_lista.'">Excluir</a>
         <a class="btn btn-danger" href="?opcoes_compra='.$id_venda_lista.'">Cancelar</a>
         </div>
       </div>
