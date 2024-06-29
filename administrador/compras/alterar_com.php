@@ -4,6 +4,94 @@ require_once '../../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+
+if(isset($_GET['id_prod'])){
+		$quantidade = $_GET['atualiza_quant'];
+		$id_compra = $_GET['alterar_compra'];
+		$id_produto = $_GET['id_prod'];
+		$sql ='UPDATE itens_da_compra SET quantidade=? WHERE id_compra = '.$id_compra.' AND id_produto = '.$id_produto.'';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($quantidade));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+	
+	if($ok){
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=OK! atualizado com sucesso");
+	}else{
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=ERRO! Nao rolou...");
+
+	}
+}
+
+if(isset($_GET['quitar'])){
+		$id_compra = $_GET['alterar_compra'];
+		$valor = 1;
+		$sql ='UPDATE compras SET autorizado=? WHERE id_compra = '.$id_compra.'';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($valor));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+	
+	if($ok){
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=OK! atualizado com sucesso");
+	}else{
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=ERRO! Nao rolou...");
+
+	}
+}
+if(isset($_GET['entregar'])){
+		$id_compra = $_GET['alterar_compra'];
+		$valor = 1;
+		$sql ='UPDATE compras SET entregue=? WHERE id_compra = '.$id_compra.'';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($valor));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+	
+	if($ok){
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=OK! atualizado com sucesso");
+	}else{
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=ERRO! Nao rolou...");
+
+	}
+}
+
+if(isset($_GET['excluir_prod'])){
+		$exc_prod = $_GET['excluir_prod'];
+		$id_compra = $_GET['alterar_compra'];
+		$sql ='DELETE FROM itens_da_compra WHERE id_compra = ? AND id_produto = ?';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($id_compra,$exc_prod));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+	
+	if($ok){
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=OK! atualizado com sucesso");
+	}else{
+		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=ERRO! Nao rolou...");
+
+	}
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -73,6 +161,8 @@ date_default_timezone_set('America/Sao_Paulo');
 					$sql_12 = "SELECT * FROM usuarios WHERE id_usuario = '".$us_a."'";
 				$consulta_12 = $conexao->query($sql_12);
 				$dados_usu = $consulta_12->fetch(PDO::FETCH_ASSOC);
+				if($dados_com['entregue'] == 0){ $entregue = 'Não'; }else{ $entregue = 'Sim';}
+				if($dados_com['autorizado'] == 0){ $pago = 'Não'; }else{ $pago = 'Sim';}
 				
 				echo '
 					<h4>Dados do usuário</h4> 
@@ -81,7 +171,9 @@ date_default_timezone_set('America/Sao_Paulo');
 					<th width=200>Nome</th>
 					<th  width=120>CPF</th>
 					<th  width=120>Telefone</th>
-					<th>Opções</th>
+					<th width=230>Opções</th>
+					<th width=120>Compra entregue</th>
+					<th>compra paga</th>
 					</tr>
 					</thead><tbody><tr>
 					<td>'.$dados_usu['id_usuario'].'</td>
@@ -89,7 +181,7 @@ date_default_timezone_set('America/Sao_Paulo');
 					<td>'.$dados_usu['CPF'].'</td>
 					<td>'.$dados_usu['telefone'].'</td>
 					<td><a class="btn btn-secondary" href="../usuarios/us_opcoes.php?id_usuario='.$dados_usu['id_usuario'].'" target=_blank>Visualizar usuário</a></td>    
-					</tr></tbody></table>
+					<td>'.$entregue.'</td><td>'.$pago.'</td></tr></tbody></table>
 					<table class="table table-striped mt-2" border="3">
 							<thead>
 								<tr align="center">
@@ -135,11 +227,14 @@ date_default_timezone_set('America/Sao_Paulo');
 				
 				}        
 					
-				  echo '<tr><td align="right" colspan="7"><P >Total R$: '.number_format($total_somado,2,',','.').'</P></td></tr>
+				  echo '<tr><td colspan="4" align="right"><a class="btn btn-dark border-info" href="?entregar=ok&alterar_compra='.$id_venda_lista.'">entregar venda</a>
+				  <a class="btn btn-dark border-info" href="?quitar=ok&alterar_compra='.$id_venda_lista.'">quitar venda</a></td>
+				  <td align="right" colspan="3"><P >Total R$: '.number_format($total_somado,2,',','.').'</P></td></tr>
 
 					  </tbody></table>';
 					
 					if(isset($_GET['quant_prod'])){
+						$id_prod = $_GET['quant_prod'];
 						echo  '<div class="modal fade modal-lg" id="exemplomodal">
 						  <div class="modal-dialog">
 						  <div class="modal-content ">
@@ -154,6 +249,7 @@ date_default_timezone_set('America/Sao_Paulo');
 						  </div>
 						  <div class="col">
 						  <input type="hidden" name="alterar_compra" value="'.$id_venda_lista.'">
+						  <input type="hidden" name="id_prod" value="'.$id_prod.'">
 						  <input type="submit" class="btn btn-success" value="Atualizar">
 						  </div>
 						  </div>
