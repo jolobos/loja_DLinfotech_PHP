@@ -9,7 +9,12 @@ if(isset($_GET['id_produto'])){
     $id_produto = $_GET['id_produto'];
     $id_compra = $_SESSION['add_itens'];
     $quantidade = 1;
-    $data_item = date("Y-m-d");
+    $data_item = date("Y-m-d H:i:s");
+    
+    $sql = "SELECT * FROM itens_da_compra WHERE id_produto = ".$id_produto." AND id_compra=".$id_compra."";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    if(empty($dados)){    
     $sql ='INSERT INTO itens_da_compra (id_compra,id_produto,quantidade,data_item) values(?,?,?,?)';
     try {
         $insercao = $conexao->prepare($sql);
@@ -22,10 +27,38 @@ if(isset($_GET['id_produto'])){
     } 
    
     if($ok){
+        $total = 0;
+        $sql1 = "SELECT * FROM itens_da_compra WHERE id_compra=".$id_compra."";
+        $consulta1 = $conexao->query($sql1);
+        $dados1 = $consulta1->fetchALL(PDO::FETCH_ASSOC);
+        
+        foreach($dados1 as $d1){
+            $sql2 = "SELECT * FROM produtos WHERE id_produto=".$d1['id_produto']."";
+            $consulta2 = $conexao->query($sql2);
+            $dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
+            $total += $dados2['valor'] * $d1['quantidade']; 
+        }
+        
+     $sql ='UPDATE compras SET total=? WHERE id_compra=?';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok1 = $insercao->execute(array ($total,$id_compra));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok1 = False;
+    }catch (Exception $r){//todos as exceções
+	$ok1= False; 
+    } 
+   }
+   
+    if($ok1){
+        unset($_SESSION['add_itens']);
         header("location:compras_usuario.php?opcoes_compra=".$id_compra);
     }
+}else{
+    $mensagem_negada = '<h3 class="alert alert-danger">Produto já existente na compra! Selecione outro produto, por favor.</h3>';
 }
-
+}
 ?>
 
 <html lang="pt-br">
@@ -53,6 +86,7 @@ if(isset($_GET['id_produto'])){
 			</svg>MENU
 				</button>
 				<a class="btn btn-secondary border-info m-2" href="../menu_admin.php">Administração</a>
+				<?php echo '<a href="compras_usuario.php?opcoes_compra='.$_SESSION['add_itens'].'" class="btn btn-secondary border-danger m-2">voltar</a>'; ?>
 				<a href="../../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
 
 				</div>
@@ -80,8 +114,10 @@ if(isset($_GET['id_produto'])){
                 <h3 class="text-info">Alteração de compras</h3>
             </div>
             <div class="card-body">
+                <?php if(isset($mensagem_negada)){ echo $mensagem_negada; } ?>
                 <div class="row">
                     <div class="col-sm-3">
+                        
                         <input type="search" id="busca"  class="form-control" placeholder="Digite o nome do usuário..." onKeyUp="buscarprodutos(this.value)" autofocus/>
                     </div>
                     <div class="col">

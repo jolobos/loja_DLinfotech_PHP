@@ -19,8 +19,32 @@ if(isset($_GET['id_prod'])){
     }catch (Exception $r){//todos as exceções
 	$ok= False; 
     }
+    
+    if($ok){
+        $total = 0;
+        $sql1 = "SELECT * FROM itens_da_compra WHERE id_compra=".$id_compra."";
+        $consulta1 = $conexao->query($sql1);
+        $dados1 = $consulta1->fetchALL(PDO::FETCH_ASSOC);
+        
+        foreach($dados1 as $d1){
+            $sql2 = "SELECT * FROM produtos WHERE id_produto=".$d1['id_produto']."";
+            $consulta2 = $conexao->query($sql2);
+            $dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
+            $total += $dados2['valor'] * $d1['quantidade']; 
+        }
+        
+     $sql ='UPDATE compras SET total=? WHERE id_compra=?';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok1 = $insercao->execute(array ($total,$id_compra));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok1 = False;
+    }catch (Exception $r){//todos as exceções
+	$ok1= False; 
+        }}
 	
-	if($ok){
+	if($ok1){
 		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=OK! atualizado com sucesso");
 	}else{
 		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=ERRO! Nao rolou...");
@@ -84,8 +108,30 @@ if(isset($_GET['excluir_prod'])){
     }catch (Exception $r){//todos as exceções
 	$ok= False; 
     }
-	
 	if($ok){
+        $total = 0;
+        $sql1 = "SELECT * FROM itens_da_compra WHERE id_compra=".$id_compra."";
+        $consulta1 = $conexao->query($sql1);
+        $dados1 = $consulta1->fetchALL(PDO::FETCH_ASSOC);
+        
+        foreach($dados1 as $d1){
+            $sql2 = "SELECT * FROM produtos WHERE id_produto=".$d1['id_produto']."";
+            $consulta2 = $conexao->query($sql2);
+            $dados2 = $consulta2->fetch(PDO::FETCH_ASSOC);
+            $total += $dados2['valor'] * $d1['quantidade']; 
+        }
+        
+     $sql ='UPDATE compras SET total=? WHERE id_compra=?';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok1 = $insercao->execute(array ($total,$id_compra));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok1 = False;
+    }catch (Exception $r){//todos as exceções
+	$ok1= False; 
+        }}
+	if($ok1){
 		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=OK! atualizado com sucesso");
 	}else{
 		header("location:alterar_com.php?alterar_compra=".$id_compra."&mensagem=ERRO! Nao rolou...");
@@ -119,6 +165,7 @@ if(isset($_GET['excluir_prod'])){
 			</svg>MENU
 				</button>
 				<a class="btn btn-secondary border-info m-2" href="../menu_admin.php">Administração</a>
+				<?php echo '<a href="compras_usuario.php?opcoes_compra='.$_GET['alterar_compra'].'" class="btn btn-secondary border-danger m-2">voltar</a>'; ?>
 				<a href="../../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
 
 				</div>
