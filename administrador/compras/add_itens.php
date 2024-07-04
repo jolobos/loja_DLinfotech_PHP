@@ -86,7 +86,6 @@ if(isset($_GET['id_produto'])){
 			</svg>MENU
 				</button>
 				<a class="btn btn-secondary border-info m-2" href="../menu_admin.php">Administração</a>
-				<?php echo '<a href="compras_usuario.php?opcoes_compra='.$_SESSION['add_itens'].'" class="btn btn-secondary border-danger m-2">voltar</a>'; ?>
 				<a href="../../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
 
 				</div>
@@ -118,7 +117,7 @@ if(isset($_GET['id_produto'])){
                 <div class="row">
                     <div class="col-sm-3">
                         
-                        <input type="search" id="busca"  class="form-control" placeholder="Digite o nome do usuário..." onKeyUp="buscarprodutos(this.value)" autofocus/>
+                        <input type="search" id="busca"  class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)" autofocus/>
                     </div>
                     <div class="col">
                         <div id="resultado">
@@ -130,3 +129,4 @@ if(isset($_GET['id_produto'])){
         </div>
             
   </div>
+  

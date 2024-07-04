@@ -165,7 +165,6 @@ if(isset($_GET['excluir_prod'])){
 			</svg>MENU
 				</button>
 				<a class="btn btn-secondary border-info m-2" href="../menu_admin.php">Administração</a>
-				<?php echo '<a href="compras_usuario.php?opcoes_compra='.$_GET['alterar_compra'].'" class="btn btn-secondary border-danger m-2">voltar</a>'; ?>
 				<a href="../../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
 
 				</div>
