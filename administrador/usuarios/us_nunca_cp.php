@@ -152,7 +152,7 @@ $qrTotal = $consulta_c->fetch(PDO::FETCH_ASSOC);
     */
    for($i = $pagina-$exibir; $i <= $pagina-1; $i++){
        if($i > 0)
-        echo '<a  class="btn btn-primary mb-2 " href="?pagina='.$i.'"> '.$i.' </a>';
+        echo '<a  class="btn btn-primary mb-2 ms-1" href="?pagina='.$i.'"> '.$i.' </a>';
   }
 
   echo '<a  class="btn btn-primary mb-2 ms-1" href="?pagina='.$pagina.'"><strong>'.$pagina.'</strong></a>';
