@@ -4,6 +4,67 @@ require_once '../../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+
+if(!empty($_POST['email']) && !empty($_POST['senha'])){
+	$verificacao = false;
+	if(!empty($_POST['nome'])){ $verificacao = true; }else{	$verificacao = false;}
+	if(!empty($_POST['email'])){ $verificacao = true; }else{	$verificacao = false;}
+	if(is_numeric($_POST['telefone']) && !empty($_POST['telefone'])){ $verificacao = true; }else{	$verificacao = false;}
+	if(is_numeric($_POST['CPF']) && !empty($_POST['CPF'])){ $verificacao = true; }else{	$verificacao = false;}
+	if(!empty($_POST['senha'])){ $verificacao = true; }else{	$verificacao = false;}
+	if(!empty($_POST['conf_senha'])){ $verificacao = true; }else{	$verificacao = false;}
+	
+	if($verificacao){
+		$nome_v = $_POST['nome'];
+		$email_v = $_POST['email'];
+		$CPF_v = $_POST['CPF'];
+		$sql= 'SELECT nome,email,CPF FROM usuarios WHERE nome= ? or email= ? or CPF = ?';
+		$consulta = $conexao->prepare($sql);
+		$consulta->execute(array($nome_v,$email_v,$CPF_v));
+		$dado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+		$nome_ve = $dado['nome'];
+		$email_ve = $dado['email'];
+		if(!empty($nome_ve || $email_ve)){
+			$msg = 'o Nome, E-mail ou CPF do usuário já existe em nosso banco de dados';
+			header('location:?mensagem='.$msg);
+		}else{
+			
+		$nome = $_POST['nome'];
+		$email = $_POST['email'];
+		$telefone = $_POST['telefone'];
+		$celular = $_POST['telefone'];
+		$senha1 = md5($_POST['senha']);
+		$senha2 = md5($_POST['conf_senha']);
+		$data = date("Y-m-d H:i:s");
+		$status = 1;
+		if($senha1 == $senha2){
+				$sql ='INSERT INTO usuarios(nome,email,celular,telefone,senha,data_entrada,status) values(?,?,?,?,?,?,?)';
+				try {
+				$insercao = $conexao->prepare($sql);
+				$ok = $insercao->execute(array ($nome,$email,$celular,$telefone,$senha1,$data,$status));
+				}catch(PDOException $r){
+					//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+					$ok = False;
+				}catch (Exception $r){//todos as exceções
+				$ok= False; 
+					
+				}
+					if ($ok){
+						$msg= 'Usuário cadastrado com sucesso.';
+						}else{
+							$msg='Lamento, não foi possivel cadastrar o usuario.'.$r->getMessage().'';
+					}
+					header('location:?mensagem='.$msg);
+						}else{
+						 $msg = 'Por favor, digite as senhas corretamente para o cadastro!!!';  
+						 header('location:?mensagem='.$msg);
+		   
+						}
+			}
+			
+}
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -185,7 +246,101 @@ date_default_timezone_set('America/Sao_Paulo');
 						</div>';	
 				}					
 							  
-					
+				
+					if(isset($_GET['adicionar_cliente'])){
+					echo  '<div class="modal fade modal-lg" id="exemplomodal">
+							  <div class="modal-dialog">
+								<div class="modal-content ">
+								  <div class="modal-header bg-info">
+									<h3 class="modal-title">Entre com os dados obrigatórios do novo usuário</h3>
+								   </div>
+								  <div class="modal-body bg-light">
+								  <form method="POST">
+								  <table border="3" class="rounded w-75">
+								  <thead class="border bg-light">
+								  <tr>
+								  <th>
+								  <strong class="ms-3">
+								  Casdastro
+								  </strong>
+								  </th>
+								  </tr>
+								  </thead>
+								  <tbody>
+								  <tr>
+								  <td>
+								  <strong>
+								  Nome Completo
+								  </strong>
+								  </td>
+								  <td>
+								  <input type="search" name="nome" class="form-control mt-2" value="" required/>
+								  </td>
+								  </tr>
+								  <tr>
+								  <td>
+								  <strong>
+								  E-mail
+								  </strong>
+								  </td>
+								  <td>
+								  <input type="e-mail" name="email" class="form-control mt-2" value="" required/>
+								  </td>
+								  </tr>
+								  <tr> 
+								  <td>
+								  <strong>
+								  CPF
+								  </strong>
+								  </td>
+								  <td>
+								  <input type="cpf" name="CPF" class="form-control mt-2" value="" required/>
+								  </td>
+								  </tr>
+								  <tr>
+								  <td>
+								  <strong>
+								  Telefone
+								  </strong>
+								  </td>
+								  <td>
+								  <input type="search" name="telefone" class="form-control mt-2" required/>
+								  </td>
+								  </tr>
+								  <tr>
+								  <td>
+								  <strong>
+								  Senha
+								  </strong>
+								  </td>
+								  <td>
+								  <input type="password" name="senha" class="form-control mt-2" required/>
+								  </td>
+								  </tr>
+								  <tr>
+								  <td>
+								  <strong>
+								  Confirmação da senha
+								  </strong>
+								  </td>
+								  <td>
+								  <input type="password" name="conf_senha" class="form-control mt-2" required/>
+								  </td>
+								  </tr>
+								  <tr>
+								  <td colspan="2" align="right">
+								  <button type="button" class="btn btn-secondary mt-3 mb-2" data-bs-dismiss="modal">Fechar</button>
+								  <input type="submit" class="btn btn-success mt-3 mb-2 me-3" value="Cadastrar" />
+								  </td>
+								  </tr>
+								  </tbody>
+								  </table>
+								  </form>
+								  </div>
+								  </div>
+								  </div>
+								  </div>
+								';}
 		?>
 		</div>
 	</div>
