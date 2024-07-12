@@ -5,6 +5,10 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
+if(isset($_SESSION['id_usuario'])){
+	unset($_SESSION['id_usuario']);
+}
+
 if(!empty($_POST['email']) && !empty($_POST['senha'])){
 	$verificacao = false;
 	if(!empty($_POST['nome'])){ $verificacao = true; }else{	$verificacao = false;}
@@ -234,7 +238,7 @@ if(!empty($_POST['email']) && !empty($_POST['senha'])){
 						<td>'.$dados_usu['nome'].'</td>
 						<td>'.$dados_usu['CPF'].'</td>
 						<td>'.$dados_usu['telefone'].'</td>
-						<td><a class="btn btn-secondary" href="../usuarios/select_prod.php?id_usuario='.$dados_usu['id_usuario'].'">Selecionar</a></td>
+						<td><a class="btn btn-secondary" href="select_prod.php?id_usuario='.$dados_usu['id_usuario'].'">Selecionar</a></td>
 						</tr></tbody></table>';    
 						
 						echo '</div>
