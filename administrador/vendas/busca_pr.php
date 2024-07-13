@@ -16,21 +16,21 @@ $valor = $_GET['valor'];
   if(!empty($valor)){
     
   
-  echo '<table  border="3" class="table table-striped border-secondary" >';
-  echo '<thead>';
+  echo '<table  border="3" class="table table-striped border-secondary" border="3" style="table-layout: fixed;width:100%" >';
+  echo '<thead style="display: block;position: relative;" class="border">';
   echo '<tr>';
   
   echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
   
   echo '</tr>';
   echo '</thead>';
-  echo '<tbody>';
+  echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
   
   foreach($dados as $d){
 	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
 	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
 	  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "?id_produto='.$d['id_produto'].'">Adicionar</a>
-	  <a class="btn btn-dark border-success me-2" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a>
+	  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a>
 	  </td></tr>';
  }
   

@@ -98,7 +98,7 @@ if(!empty($_POST['email']) && !empty($_POST['senha'])){
 			</div>
 			</div>
         <div class="card-body">
-		<h3>Escolha um dos seguintes usuários para efetuar a compra</h3>
+		<h3>Escolha um dos seguintes usuários para efetuar a venda</h3>
 		<?php
 			$quantidade_us = 20; 
 			$pagina     = (isset($_GET['pagina'])) ? (int)$_GET['pagina'] : 1;
