@@ -36,6 +36,7 @@ if(!empty($_GET['id_usuario'])){
             <h3 class="text-info">Seleção dos produtos para vendas</h3>
 			</div>
 			<div class="col" align="right">
+				<a class="btn btn-dark border-danger" href="checkout.php">Voltar</a>
 				<a href="checkout.php" class="btn btn-secondary border-info">Trocar Usuário</a>
 			</div>
 			</div>
@@ -66,10 +67,29 @@ if(!empty($_GET['id_usuario'])){
 		<h4>Compra</h4>
 		</div>
 		<div class="card-body">
+		
 		</div>
 		<div class="card-footer">
-		Total: R$
+		<div class="row">
+		<div class="col-sm-4">
+		Total: R$ <?php  echo '100,00';?>
+		</div>
+		<div class="col" align="right">
+			<div class="row">
+			<div class="colsm-6">
+			<form method="post">
+			<input type="hidden" name="zerar_lista" value="ok">
+			<input type="submit" class="btn btn-primary" value="Limpar Compra">
+			</form>
+			</div>
+			<div class="col-sm-4">
+			<form method="post" action="conf_venda.php">
+			<input type="hidden" name="lista" value="ok">
+			<input type="submit" class="btn btn-success" value="Concluir">
+			</form>
+			
 		
+		</div>
 		</div>
 		</div>
 			
@@ -77,6 +97,7 @@ if(!empty($_GET['id_usuario'])){
 		</div>
 		</div>
 		
+		</div>
 		</div>
 		</div>
 		</div>
@@ -171,10 +192,13 @@ if(!empty($_POST['cod_pr_avancado'])){
 				  foreach($dados_a as $d){
 					  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
 					  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-					  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "?id_produto='.$d['id_produto'].'">Adicionar</a>
-					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a>
-					  </td></tr>';
-				 }
+					  <td>'.$status.'</td><td><form method="post">
+					  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+					  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
+					  
+					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
+					  </td</tr>';
+								 }
 				  
 				  echo '</tbody>';
 				   echo '</table>';	  
@@ -216,10 +240,13 @@ if(!empty($_POST['cod_pr_avancado'])){
 				  foreach($dados_b as $d){
 					  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
 					  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-					  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "?id_produto='.$d['id_produto'].'">Adicionar</a>
-					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a>
-					  </td></tr>';
-				 }
+					  <td>'.$status.'</td><td><form method="post">
+					  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+					  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
+					  
+					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
+					  </td</tr>';
+								 }
 				  
 				  echo '</tbody>';
 				   echo '</table>';	  
@@ -261,10 +288,13 @@ if(!empty($_POST['cod_pr_avancado'])){
 				  foreach($dados_c as $d){
 					  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
 					  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-					  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "?id_produto='.$d['id_produto'].'">Adicionar</a>
-					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a>
-					  </td></tr>';
-				 }
+					  <td>'.$status.'</td><td><form method="post">
+					  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+					  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
+					  
+					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
+					  </td</tr>';
+								 }
 				  
 				  echo '</tbody>';
 				   echo '</table>';	  

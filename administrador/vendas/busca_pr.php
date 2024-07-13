@@ -29,8 +29,11 @@ $valor = $_GET['valor'];
   foreach($dados as $d){
 	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
 	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-	  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "?id_produto='.$d['id_produto'].'">Adicionar</a>
-	  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a>
+	  <td>'.$status.'</td><td><form method="post">
+	  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+	  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
+	  
+	  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
 	  </td></tr>';
  }
   
