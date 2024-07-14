@@ -10,6 +10,39 @@ if(!empty($_GET['id_usuario'])){
 }else if(!empty($_SESSION['id_usuario'])){
 	header("location:checkout.php?msg=Nenhum usuário escolhido.");
 }
+//inicio da programação que controla a lista de produtos.
+
+if(!isset($_SESSION['produto_carrinho']) && empty($_SESSION['produto_carrinho'])){
+	$_SESSION['produto_carrinho'] = array();
+	}
+
+
+
+if(!empty($_POST['id_produto'])){
+if(isset($_POST['id_produto'])){
+    $id = intval($_POST['id_produto']);
+    if(!isset($_SESSION['produto_carrinho'][$id])){
+        $_SESSION['produto_carrinho'][$id]=1;
+    }else{
+       $_SESSION['produto_carrinho'][$id] +=1;
+       $sql = "SELECT * FROM produtos WHERE id_produto='".$id."'";
+       $consulta = $conexao->query($sql);
+       $dados = $consulta->fetch(PDO::FETCH_ASSOC);
+       $quantidadea = $dados['quantidade'];
+       if($_SESSION['produto_carrinho'][$id] > $quantidadea){
+                     $_SESSION['produto_carrinho'][$id] -=1;
+
+                }
+}
+}
+
+}
+
+if(isset($_POST['zerar_lista'])){
+    unset($_SESSION['produto_carrinho']);
+    
+}
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -28,7 +61,7 @@ if(!empty($_GET['id_usuario'])){
 
 </head>
 <body style="background: #778899">
-  <div class="container">
+<div class="container">
 	<div class="card mt-2" style="height:700px">
         <div class="card-header">
 			<div class="row">
@@ -40,67 +73,117 @@ if(!empty($_GET['id_usuario'])){
 				<a href="checkout.php" class="btn btn-secondary border-info">Trocar Usuário</a>
 			</div>
 			</div>
-			</div>
+		</div>
         <div class="card-body">
-		<div class="row">
-		<div class="col-sm-8">
-		<div class="row">
-		<div class="col">
-		<h5>Digite o nome do produto</h5>
-		<input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)" autofocus/>
-		</div>
-		<div class="col">
-		<br>
-		<form method="post">
-			<input type="hidden" name="pesquisa_avancada" value="ok">
-			<input type="submit" class="btn btn-secondary border-info mt-2" value="Pesquisa Avançada" />
-		</form>
-		</div>
-		</div>
-		<div id="resultado" class="mt-3">
-		
-		</div>
-		</div>
-		<div class="col">
-		<div class="card" style="height:600px">
-        <div class="card-header">
-		<h4>Compra</h4>
-		</div>
-		<div class="card-body">
-		
-		</div>
-		<div class="card-footer">
-		<div class="row">
-		<div class="col-sm-4">
-		Total: R$ <?php  echo '100,00';?>
-		</div>
-		<div class="col" align="right">
 			<div class="row">
-			<div class="colsm-6">
-			<form method="post">
-			<input type="hidden" name="zerar_lista" value="ok">
-			<input type="submit" class="btn btn-primary" value="Limpar Compra">
-			</form>
+				<div class="col-sm-8">
+						<div class="row">
+						<div class="col">
+						<h5>Digite o nome do produto</h5>
+						<input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)" autofocus/>
+						</div>
+						<div class="col">
+						<br>
+						<form method="post">
+							<input type="hidden" name="pesquisa_avancada" value="ok">
+							<input type="submit" class="btn btn-secondary border-info mt-2" value="Pesquisa Avançada" />
+						</form>
+						</div>
+						</div>
+					<div id="resultado" class="mt-3">
+					
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="height:600px">
+						<div class="card-header">
+							<h4>Compra</h4>
+						</div>
+						<div class="card-body overflow-auto">
+						<?php
+						if(!empty($_SESSION['produto_carrinho'])){
+							$cont = 0;
+							foreach ($_SESSION['produto_carrinho'] as $id => $qtd) {
+							$sql = "SELECT * FROM produtos WHERE id_produto = ?";
+							$consulta = $conexao->prepare($sql);
+							$consulta->execute(array($id));
+							$dados = $consulta->fetch(PDO::FETCH_ASSOC);
+							$cod_produto = $dados['cod_produto'];
+							$nome = $dados['nome'];
+							$valor= $dados['valor'];
+							$quantidade= $dados['quantidade'];
+							if($qtd > $quantidade){
+								 $_SESSION['produto_carrinho'][$id] -=1;
+
+							}
+							$somado = $valor * $qtd;
+							$foto_pr= $dados['foto'];
+							echo '
+							<div class="card mt-1">
+							<div class="card-header">
+							<small>'.$nome.'</small>
+							</div>
+							<div class="card-body">
+							<div class="row">
+							<div class="col-sm-3">
+							<small> Qtd: '.$qtd.'</small>
+							</div>
+							<div class="col">
+							<small> Vlr: '.number_format($valor,2,',','.').'</small>
+							</div>
+							<div class="col">
+							<small>Total: R$'.number_format($somado,2,',','.').'</small>
+							</div>
+							
+							</div>
+							
+							</div>
+							</div>
+							
+							';
+							
+							$cont += $somado;
+							}
+							
+						}
+						
+						?>
+						</div>
+					<div class="card-footer">
+						<div class="row">
+						<div class="col">
+						Total: R$ <?php if(!empty($_SESSION['produto_carrinho'])){
+							echo number_format($cont,2,',','.');
+							}else{
+							echo '0,00';}
+						;?>
+						</div>
+						<div class="col-sm-3" align="right">
+							<form method="post">
+							<input type="hidden" name="zerar_lista" value="ok">
+							<input type="submit" class="btn btn-primary" value="Limpar">
+							</form>
+							</div>
+							<div class="col-sm-3">
+							<form method="post" action="conf_venda.php">
+							<input type="hidden" name="lista" value="ok">
+							<input type="submit" class="btn btn-success" value="Concluir">
+							</form>
+							
+					
+						</div>
+						</div>
+					</div>
+							
+				
+					</div>
+				</div>
+			
 			</div>
-			<div class="col-sm-4">
-			<form method="post" action="conf_venda.php">
-			<input type="hidden" name="lista" value="ok">
-			<input type="submit" class="btn btn-success" value="Concluir">
-			</form>
 			
-		
 		</div>
-		</div>
-		</div>
-			
-	
-		</div>
-		</div>
-		
-		</div>
-		</div>
-		</div>
-		</div>
+	</div>
+</div>
 </body>
 
 <?php
@@ -172,7 +255,7 @@ if(!empty($_POST['cod_pr_avancado'])){
 	$dados_a = $consulta_a->fetchALL(PDO::FETCH_ASSOC);
 	if(!empty($dados_a)){
 		$confirmacao = true;
-		echo  '<div class="modal fade modal-lg" id="exemplomodal">
+		echo  '<div class="modal fade modal-xl" id="exemplomodal">
 				  <div class="modal-dialog">
 					<div class="modal-content ">
 					  <div class="modal-header bg-info">
@@ -183,21 +266,20 @@ if(!empty($_POST['cod_pr_avancado'])){
 				  echo '<thead style="display: block;position: relative;" class="border">';
 				  echo '<tr>';
 				  
-				  echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
+				   echo '<th width="200">codigo do produto</th><th width="380">Produto</th><th width="110">Valor</th><th width="150">quantidade</th><th width="262">Açoes</th>';
 				  
 				  echo '</tr>';
 				  echo '</thead>';
 				  echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
   
 				  foreach($dados_a as $d){
-					  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-					  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-					  <td>'.$status.'</td><td><form method="post">
-					  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
-					  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
-					  
-					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
-					  </td</tr>';
+					  echo '<tr><td width="200">'.$d['cod_produto'].'</td><td width="380">'.$d['nome'].'</td><td width="110">$ '. number_format($d['valor'],2,',','.').'</td><td width="150">'.$d['quantidade'].'</td>
+						 <td width="245"><form method="post">
+						  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+						  <input type="submit" class="btn btn-dark border-success me-2  mt-1"  value="Adicionar" />
+						  
+						  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
+										  </td</tr>';
 								 }
 				  
 				  echo '</tbody>';
@@ -220,7 +302,7 @@ if(!empty($_POST['cod_pr_avancado'])){
 	$dados_b = $consulta_b->fetchALL(PDO::FETCH_ASSOC);
 	if(!empty($dados_b)){
 		$confirmacao = true;
-		echo  '<div class="modal fade modal-lg" id="exemplomodal">
+		echo  '<div class="modal fade modal-xl" id="exemplomodal">
 				  <div class="modal-dialog">
 					<div class="modal-content ">
 					  <div class="modal-header bg-info">
@@ -231,21 +313,20 @@ if(!empty($_POST['cod_pr_avancado'])){
 				  echo '<thead style="display: block;position: relative;" class="border">';
 				  echo '<tr>';
 				  
-				  echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
+				   echo '<th width="200">codigo do produto</th><th width="380">Produto</th><th width="110">Valor</th><th width="150">quantidade</th><th width="262">Açoes</th>';
 				  
 				  echo '</tr>';
 				  echo '</thead>';
 				  echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
   
 				  foreach($dados_b as $d){
-					  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-					  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-					  <td>'.$status.'</td><td><form method="post">
-					  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
-					  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
-					  
-					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
-					  </td</tr>';
+					  echo '<tr><td width="200">'.$d['cod_produto'].'</td><td width="380">'.$d['nome'].'</td><td width="110">$ '. number_format($d['valor'],2,',','.').'</td><td width="150">'.$d['quantidade'].'</td>
+						 <td width="245"><form method="post">
+						  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+						  <input type="submit" class="btn btn-dark border-success me-2  mt-1"  value="Adicionar" />
+						  
+						  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
+										  </td</tr>';
 								 }
 				  
 				  echo '</tbody>';
@@ -268,7 +349,7 @@ if(!empty($_POST['cod_pr_avancado'])){
 	$dados_c = $consulta_c->fetchALL(PDO::FETCH_ASSOC);
 	if(!empty($dados_c)){
 		$confirmacao = true;
-		echo  '<div class="modal fade modal-lg" id="exemplomodal">
+		echo  '<div class="modal fade modal-xl" id="exemplomodal">
 				  <div class="modal-dialog">
 					<div class="modal-content ">
 					  <div class="modal-header bg-info">
@@ -279,21 +360,20 @@ if(!empty($_POST['cod_pr_avancado'])){
 				  echo '<thead style="display: block;position: relative;" class="border">';
 				  echo '<tr>';
 				  
-				  echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
+				   echo '<th width="200">codigo do produto</th><th width="380">Produto</th><th width="110">Valor</th><th width="150">quantidade</th><th width="262">Açoes</th>';
 				  
 				  echo '</tr>';
 				  echo '</thead>';
 				  echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
   
 				  foreach($dados_c as $d){
-					  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-					  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-					  <td>'.$status.'</td><td><form method="post">
-					  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
-					  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
-					  
-					  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
-					  </td</tr>';
+					  echo '<tr><td width="200">'.$d['cod_produto'].'</td><td width="380">'.$d['nome'].'</td><td width="110">$ '. number_format($d['valor'],2,',','.').'</td><td width="150">'.$d['quantidade'].'</td>
+						 <td width="245"><form method="post">
+						  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
+						  <input type="submit" class="btn btn-dark border-success me-2  mt-1"  value="Adicionar" />
+						  
+						  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
+										  </td</tr>';
 								 }
 				  
 				  echo '</tbody>';
@@ -311,6 +391,7 @@ if(!empty($_POST['cod_pr_avancado'])){
 	}
 }	
 }	
+
 
 ?>
 

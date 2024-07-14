@@ -8,7 +8,7 @@ $valor = $_GET['valor'];
  
 
 
-  $sql = "SELECT * FROM produtos WHERE nome LIKE '%".$valor."%'LIMIT 0,15";
+  $sql = "SELECT * FROM produtos WHERE nome LIKE '%".$valor."%' AND status = 1 LIMIT 0,15";
   $consulta = $conexao->query($sql);
   $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
@@ -20,18 +20,18 @@ $valor = $_GET['valor'];
   echo '<thead style="display: block;position: relative;" class="border">';
   echo '<tr>';
   
-  echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
+  echo '<th width="160">codigo do produto</th><th width="250">Produto</th><th width="87">Valor</th><th width="100">quantidade</th><th width="230">Açoes</th>';
   
   echo '</tr>';
   echo '</thead>';
   echo '<tbody style="display: block;  overflow: auto;width: 100%;max-height: 400px;overflow-y: scroll;overflow-x: hidden;">';
   
   foreach($dados as $d){
-	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-	  <td>'.$status.'</td><td><form method="post">
+	  
+	  echo '<tr><td width="160">'.$d['cod_produto'].'</td><td width="250">'.$d['nome'].'</td><td width="87">$ '. number_format($d['valor'],2,',','.').'</td><td width="100">'.$d['quantidade'].'</td>
+	 <td><form method="post">
 	  <input type="hidden" name="id_produto" value="'.$d['id_produto'].'" />
-	  <input type="submit" class="btn btn-dark border-success me-2"  value="Adicionar" />
+	  <input type="submit" class="btn btn-dark border-success me-2  mt-1"  value="Adicionar" />
 	  
 	  <a class="btn btn-dark border-success me-2 mt-1" href = "?ver_produto='.$d['id_produto'].'">  Verificar </a></form>
 	  </td></tr>';
