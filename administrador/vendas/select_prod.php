@@ -6,43 +6,66 @@ ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
 if(!empty($_GET['id_usuario'])){
-	$_SESSION['id_usuario'] = $_GET['id_usuario'];
-}else if(!empty($_SESSION['id_usuario'])){
+	$_SESSION['id_usuario_1'] = $_GET['id_usuario'];
+}else if(empty($_SESSION['id_usuario_1'])){
 	header("location:checkout.php?msg=Nenhum usuário escolhido.");
 }
 //inicio da programação que controla a lista de produtos.
 
-if(!isset($_SESSION['produto_carrinho']) && empty($_SESSION['produto_carrinho'])){
+if(!isset($_SESSION['produto_carrinho'])){
 	$_SESSION['produto_carrinho'] = array();
 	}
 
-
+if(!empty($_POST['inserir_cod_prod'])){
+	$cod = $_POST['inserir_cod_prod'];
+	$sql = "SELECT * FROM produtos WHERE cod_produto='".$cod."'";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetch(PDO::FETCH_ASSOC);
+	
+	$_POST['id_produto'] = $dados['id_produto'];
+	
+}
 
 if(!empty($_POST['id_produto'])){
 if(isset($_POST['id_produto'])){
     $id = intval($_POST['id_produto']);
     if(!isset($_SESSION['produto_carrinho'][$id])){
-        $_SESSION['produto_carrinho'][$id]=1;
+		if(isset($_POST['qtd_cod_prod'])){
+        $_SESSION['produto_carrinho'][$id] = $_POST['qtd_cod_prod'];}else{
+		$_SESSION['produto_carrinho'][$id]=1;}
     }else{
-       $_SESSION['produto_carrinho'][$id] +=1;
-       $sql = "SELECT * FROM produtos WHERE id_produto='".$id."'";
+		if(isset($_POST['qtd_cod_prod'])){
+        $_SESSION['produto_carrinho'][$id] = $_POST['qtd_cod_prod'];}else{
+				
+		$_SESSION['produto_carrinho'][$id] +=1;}
+       
+
+                }
+}
+	   $sql = "SELECT * FROM produtos WHERE id_produto='".$id."'";
        $consulta = $conexao->query($sql);
        $dados = $consulta->fetch(PDO::FETCH_ASSOC);
        $quantidadea = $dados['quantidade'];
        if($_SESSION['produto_carrinho'][$id] > $quantidadea){
-                     $_SESSION['produto_carrinho'][$id] -=1;
-
-                }
-}
-}
+                     $_SESSION['produto_carrinho'][$id] = intval($quantidadea);
 
 }
+}
+
+
 
 if(isset($_POST['zerar_lista'])){
     unset($_SESSION['produto_carrinho']);
     
 }
-
+if(!isset($_SESSION['modo_pesquisa'])){$_SESSION['modo_pesquisa'] = 0; }
+if(isset($_POST['modo_pesquisa'])){
+	$_SESSION['modo_pesquisa'] = $_POST['modo_pesquisa'] ;
+	}
+	
+if(isset($_POST['remove_prod'])){
+	unset($_SESSION['produto_carrinho'][$_POST['remove_prod']]);
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -69,16 +92,44 @@ if(isset($_POST['zerar_lista'])){
             <h3 class="text-info">Seleção dos produtos para vendas</h3>
 			</div>
 			<div class="col" align="right">
+				
+				<div class="row">
+				<div class="col">
 				<a class="btn btn-dark border-danger" href="checkout.php">Voltar</a>
+				</div>
+				<div class="col-sm-3">
+				<?php
+				if(isset($_SESSION['modo_pesquisa'])){
+				if($_SESSION['modo_pesquisa'] == 0){
+					echo '<form method="POST">
+							<input type="hidden" name="modo_pesquisa" value="1" />
+							<input type="submit" class="btn btn-secondary border-info" value="Busca por código" />
+							</form>';
+				}else{
+					echo '<form method="POST">
+							<input type="hidden" name="modo_pesquisa" value="0" />
+							<input type="submit" class="btn btn-secondary border-info" value="Busca por nome" />
+							</form>';
+				
+				}
+				}
+				?>
+				</div>
+				<div class="col-sm-3">
 				<a href="checkout.php" class="btn btn-secondary border-info">Trocar Usuário</a>
+				</div>
+				</div>
 			</div>
 			</div>
 		</div>
         <div class="card-body">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-sm-8" id="por_nom_pr">
+				<?php 
+				if($_SESSION['modo_pesquisa'] == 0){
+					echo '
 						<div class="row">
-						<div class="col">
+						<div class="col" >
 						<h5>Digite o nome do produto</h5>
 						<input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)" autofocus/>
 						</div>
@@ -93,6 +144,24 @@ if(isset($_POST['zerar_lista'])){
 					<div id="resultado" class="mt-3">
 					
 					</div>
+				';
+				}else{
+					echo '<form method="post">
+					<h5>Entre com o código do produto</h5><div class="row">
+						<div class="col-sm-2" >
+							<input type="number" class="form-control" name="qtd_cod_prod" min="1" value="1">
+							</div>
+							<div class="col" >
+							<input type="search" class="form-control" name="inserir_cod_prod" autofocus>
+							</div>
+						<div class="col" >
+							<input type="submit" class="btn btn-secondary border-info " value="Inserir Produto" />
+							</div>
+							</div>
+							</form>';
+				}
+				
+				?>
 				</div>
 				<div class="col">
 					<div class="card" style="height:600px">
@@ -121,7 +190,19 @@ if(isset($_POST['zerar_lista'])){
 							echo '
 							<div class="card mt-1">
 							<div class="card-header">
+							<div class="row">
+							<div class="col">
 							<small>'.$nome.'</small>
+							</div>
+							<div class="col-sm-2">
+							<form method="POST">
+							<input type="hidden" name="remove_prod" value="'.$id.'" />
+							<input type="submit"  class="btn btn-dark" value="R" />
+							</form>
+							</div>
+							
+							</div>
+							
 							</div>
 							<div class="card-body">
 							<div class="row">
@@ -401,3 +482,6 @@ $(window).load(function() {
     $('#exemplomodal').modal('show');
 });
 </script>
+
+
+				

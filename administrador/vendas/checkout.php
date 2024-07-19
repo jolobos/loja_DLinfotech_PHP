@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
-if(isset($_SESSION['id_usuario'])){
-	unset($_SESSION['id_usuario']);
+if(isset($_SESSION['id_usuario_1'])){
+	unset($_SESSION['id_usuario_1']);
 }
 
 if(!empty($_POST['email']) && !empty($_POST['senha'])){
