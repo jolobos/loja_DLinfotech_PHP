@@ -11,6 +11,9 @@ if(!empty($_GET['id_usuario'])){
 	header("location:checkout.php?msg=Nenhum usuário escolhido.");
 }
 //inicio da programação que controla a lista de produtos.
+if(isset($_SESSION['endereco'])){
+	unset($_SESSION['endereco']);
+}
 
 if(!isset($_SESSION['produto_carrinho'])){
 	$_SESSION['produto_carrinho'] = array();
@@ -95,7 +98,7 @@ if(isset($_POST['remove_prod'])){
 				
 				<div class="row">
 				<div class="col">
-				<a class="btn btn-dark border-danger" href="checkout.php">Voltar</a>
+				<a class="btn btn-dark border-danger" href="checkout.php?troca_us=1">Voltar</a>
 				</div>
 				<div class="col-sm-3">
 				<?php

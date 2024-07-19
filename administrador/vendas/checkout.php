@@ -8,28 +8,61 @@ date_default_timezone_set('America/Sao_Paulo');
 if(isset($_SESSION['id_usuario_1'])){
 	unset($_SESSION['id_usuario_1']);
 }
+if($_GET['troca_us']{
+	if(isset($_SESSION['produto_carrinho'])){
+		unset($_SESSION['produto_carrinho']);
+	}
+}
 
 if(!empty($_POST['email']) && !empty($_POST['senha'])){
 	$verificacao = false;
-	if(!empty($_POST['nome'])){ $verificacao = true; }else{	$verificacao = false;}
-	if(!empty($_POST['email'])){ $verificacao = true; }else{	$verificacao = false;}
-	if(is_numeric($_POST['telefone']) && !empty($_POST['telefone'])){ $verificacao = true; }else{	$verificacao = false;}
-	if(is_numeric($_POST['CPF']) && !empty($_POST['CPF'])){ $verificacao = true; }else{	$verificacao = false;}
-	if(!empty($_POST['senha'])){ $verificacao = true; }else{	$verificacao = false;}
-	if(!empty($_POST['conf_senha'])){ $verificacao = true; }else{	$verificacao = false;}
+	if(!empty($_POST['nome'])){ $verificacao = true; }else{
+		$msg = 'o Nome está vazio.';
+		header('location:?mensagem='.$msg);
+	}
+	if($verificacao){
+	if(!empty($_POST['email'])){ $verificacao = true; 
+	}else{
+		$msg = 'O E-mail está vazio.';
+		header('location:?mensagem='.$msg);
+	}}
+	if($verificacao){
+	if(is_numeric($_POST['telefone']) && !empty($_POST['telefone'])){ $verificacao = true; }
+	else{	
+		$msg = 'O Telefone está vazio ou incorreto.';
+		header('location:?mensagem='.$msg);
+	}}
+	if($verificacao){
+	if(is_numeric($_POST['CPF']) && !empty($_POST['CPF'])){ $verificacao = true; }
+	else{	
+		$msg = 'O CPF está vazio ou incorreto.';
+		header('location:?mensagem='.$msg);
+	}}
+	if($verificacao){
+	if(!empty($_POST['senha'])){ $verificacao = true; }
+	else{	
+		$msg = 'O senha está vazia.';
+		header('location:?mensagem='.$msg);
+	}}
+	if($verificacao){
+	if(!empty($_POST['conf_senha'])){ $verificacao = true; }
+	else{	
+		$msg = 'As senhas utilizadas não conferem.';
+		header('location:?mensagem='.$msg);
+	}}
 	
 	if($verificacao){
 		$nome_v = $_POST['nome'];
 		$email_v = $_POST['email'];
 		$CPF_v = $_POST['CPF'];
-		$sql= 'SELECT nome,email,CPF FROM usuarios WHERE nome= ? or email= ? or CPF = ?';
+		$sql= 'SELECT nome,email,CPF FROM usuarios WHERE email= ? or CPF = ?';
 		$consulta = $conexao->prepare($sql);
-		$consulta->execute(array($nome_v,$email_v,$CPF_v));
+		$consulta->execute(array($email_v,$CPF_v));
 		$dado = $consulta->fetch(PDO::FETCH_ASSOC);
 
-		$nome_ve = $dado['nome'];
+		$CPF_ve = $dado['CPF'];
 		$email_ve = $dado['email'];
-		if(!empty($nome_ve || $email_ve)){
+		if(!empty($CPF_ve || $email_ve)){
 			$msg = 'o Nome, E-mail ou CPF do usuário já existe em nosso banco de dados';
 			header('location:?mensagem='.$msg);
 		}else{
@@ -37,16 +70,17 @@ if(!empty($_POST['email']) && !empty($_POST['senha'])){
 		$nome = $_POST['nome'];
 		$email = $_POST['email'];
 		$telefone = $_POST['telefone'];
+		$CPF = $_POST['CPF'];
 		$celular = $_POST['telefone'];
 		$senha1 = md5($_POST['senha']);
 		$senha2 = md5($_POST['conf_senha']);
 		$data = date("Y-m-d H:i:s");
 		$status = 1;
 		if($senha1 == $senha2){
-				$sql ='INSERT INTO usuarios(nome,email,celular,telefone,senha,data_entrada,status) values(?,?,?,?,?,?,?)';
+				$sql ='INSERT INTO usuarios(nome,email,CPF,celular,telefone,senha,data_entrada,status) values(?,?,?,?,?,?,?)';
 				try {
 				$insercao = $conexao->prepare($sql);
-				$ok = $insercao->execute(array ($nome,$email,$celular,$telefone,$senha1,$data,$status));
+				$ok = $insercao->execute(array ($nome,$email,$CPF,$celular,$telefone,$senha1,$data,$status));
 				}catch(PDOException $r){
 					//$msg= 'Problemas com o SGBD.'.$r->getMessage();
 					$ok = False;
@@ -100,6 +134,9 @@ if(!empty($_POST['email']) && !empty($_POST['senha'])){
         <div class="card-body">
 		<h3>Escolha um dos seguintes usuários para efetuar a venda</h3>
 		<?php
+			if(isset($_GET['mensagem'])){
+				echo '<h3 class="alert alert-info">'.$_GET['mensagem'].'</h3>';
+			}
 			$quantidade_us = 20; 
 			$pagina     = (isset($_GET['pagina'])) ? (int)$_GET['pagina'] : 1;
 			$inicio     = ($quantidade_us * $pagina) - $quantidade_us;
