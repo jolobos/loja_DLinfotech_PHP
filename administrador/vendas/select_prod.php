@@ -38,7 +38,7 @@ if(isset($_POST['id_produto'])){
 		$_SESSION['produto_carrinho'][$id]=1;}
     }else{
 		if(isset($_POST['qtd_cod_prod'])){
-        $_SESSION['produto_carrinho'][$id] = $_POST['qtd_cod_prod'];}else{
+        $_SESSION['produto_carrinho'][$id] += $_POST['qtd_cod_prod'];}else{
 				
 		$_SESSION['produto_carrinho'][$id] +=1;}
        
@@ -61,7 +61,7 @@ if(isset($_POST['zerar_lista'])){
     unset($_SESSION['produto_carrinho']);
     
 }
-if(!isset($_SESSION['modo_pesquisa'])){$_SESSION['modo_pesquisa'] = 0; }
+if(!isset($_SESSION['modo_pesquisa'])){$_SESSION['modo_pesquisa'] = 1; }
 if(isset($_POST['modo_pesquisa'])){
 	$_SESSION['modo_pesquisa'] = $_POST['modo_pesquisa'] ;
 	}

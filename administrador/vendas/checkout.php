@@ -8,7 +8,7 @@ date_default_timezone_set('America/Sao_Paulo');
 if(isset($_SESSION['id_usuario_1'])){
 	unset($_SESSION['id_usuario_1']);
 }
-if($_GET['troca_us']{
+if(!empty($_GET['troca_us'])){
 	if(isset($_SESSION['produto_carrinho'])){
 		unset($_SESSION['produto_carrinho']);
 	}
@@ -127,6 +127,7 @@ if(!empty($_POST['email']) && !empty($_POST['senha'])){
             <h3 class="text-info">Bem Vindo ao checkout de vendas</h3>
 			</div>
 			<div class="col" align="right">
+				<a href="../menu_admin.php" class="btn btn-secondary border-info">Administração</a>
 				<a href="?adicionar_cliente=ok" class="btn btn-secondary border-info">Adicionar Usuário</a>
 			</div>
 			</div>

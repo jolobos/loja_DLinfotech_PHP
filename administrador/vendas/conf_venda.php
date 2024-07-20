@@ -92,7 +92,7 @@ if ($ok){
 </head>
 <body style="background: #778899">
 <div class="container">
-	<div class="card mt-2" style="height:700px">
+	<div class="card mt-2">
         <div class="card-header">
 		
 		<div class="row">
@@ -106,6 +106,73 @@ if ($ok){
 		
 		</div>
 		<div class="card-body">
+		<h3 class="text-info">Lista dos produtos</h3>
+		<?php
+		$total_venda = 0;
+			if(!empty($_SESSION['produto_carrinho'])){
+				echo '<table  border="3" class="table table-striped border-secondary" style="table-layout: fixed;width:100%">
+                <thead style="display: block;position: relative;" class="border">
+                    <tr align="center">
+                        <th colspan="7">Produtos do Carrinho</th>
+                    </tr>
+                    <tr>
+                        <th width="160">Código do produto</th>
+                        <th width="140">Foto do produto </th>
+                        <th width="450">Produto</th>
+                        <th width="100">Valor</th>
+                        <th width="100">Disponível</th>
+                        <th width="100">Quantidade</th>
+                        <th width="205">valor somado</th>
+                    </tr>
+                </thead>
+                <tbody style="display: block;  overflow: auto;width: 100%;max-height: 300px;overflow-y: scroll;overflow-x: hidden;">';
+                foreach ($_SESSION['produto_carrinho'] as $id => $qtd) {
+                $sql = "SELECT * FROM produtos WHERE id_produto = ?";
+                $consulta = $conexao->prepare($sql);
+                $consulta->execute(array($id));
+                $dados = $consulta->fetch(PDO::FETCH_ASSOC);
+                $cod_produto = $dados['cod_produto'];
+                $nome = $dados['nome'];
+                $valor= $dados['valor'];
+                $quantidade= $dados['quantidade'];
+                if($qtd > $quantidade){
+                     $_SESSION['produto_carrinho'][$id] -=1;
+
+                }
+                $somado = $valor * $qtd;
+                $foto_pr= $dados['foto'];
+                echo '<tr style="height: 110px">
+                <td  width="160"><P style="margin-top: 40px">'.$cod_produto.'</P></td>
+                <td  width="140" align="center"><img style="width:100px "src="../../img/produtos/'.$foto_pr.'"></td>
+                <td width="450"><P style="margin-top: 40px">'.$nome.'</P></td>
+                <td  width="100"><P style="margin-top: 40px">R$: '. number_format($valor,2,',','.').'</P></td>
+                <td  width="100"><P style="margin-top: 40px">'.$quantidade.' Un</P></td>
+                <td width="100"><P style="margin-top: 40px">'.$qtd.' Un</P></td>
+                <td width="190"><P style="margin-top: 40px"> R$: '.number_format($somado,2,',','.').'</P></td></tr>';
+				$total_venda += $somado;
+			}
+			echo '
+			</tbody></table>';
+			echo '
+			<div class="row">
+			<div class="col">
+			<table><thead>
+			<tr><th>Total da venda</th><td>R$ '.number_format($total_venda,2,',','.').'</td></tr>
+			</thead></table>
+			</div>
+			<div class="col-sm-3">
+				<form method="POST">
+				<input type="submit" class="btn btn-success" value="Concluir Venda" />
+				</fom>
+			</div>
+			</div>
+			';
+			
+
+			}
+		?>
+		<hr>
+		<h3 class="text-info">Local de entrega</h3>
 			<?php
 				if(isset($_SESSION['endereco'])){
 					$id_endereco_esc = $_SESSION['endereco'];
@@ -158,13 +225,11 @@ if ($ok){
 								
 								</div>
 								</div>
-								
+								</div>
 								';
 				
 				}
 			?>
-
-
 		</div>
 	</div>
 </div>
