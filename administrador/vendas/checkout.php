@@ -141,7 +141,7 @@ if(!empty($_POST['email']) && !empty($_POST['senha'])){
 			$quantidade_us = 20; 
 			$pagina     = (isset($_GET['pagina'])) ? (int)$_GET['pagina'] : 1;
 			$inicio     = ($quantidade_us * $pagina) - $quantidade_us;
-				$sql_a = "SELECT * FROM usuarios WHERE status = 1 LIMIT $inicio,$quantidade_us ";
+				$sql_a = "SELECT * FROM usuarios WHERE status = 1 ORDER BY nome LIMIT $inicio,$quantidade_us ";
 				$consulta_a = $conexao->query($sql_a);
 				$dados = $consulta_a->fetchALL(PDO::FETCH_ASSOC);
 				
