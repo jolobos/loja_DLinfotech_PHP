@@ -7,6 +7,48 @@ date_default_timezone_set('America/Sao_Paulo');
 
 $id_usuario_1 = $_SESSION['id_usuario_1'];
 
+if(isset($_POST['concluir_a_venda'])){
+echo    '<div class="modal fade modal-lg" id="exemplomodal" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content ">
+					  <div class="modal-header bg-info">
+					  <h5>Atenção!!!!</h5>
+					  </div>
+					  <div class="modal-body bg-white">
+					  <h5>Ao clicar no botão de confirmação, você estará concluindo a venda para clientes.<br> Os dados da compra serão salvos no bancos de dados e você não consiguirá mais editar a venda.</h5>
+					  <p>Após a conclusão da venda você será redirecionado para o pós venda, onde poderá escolher efetuar uma nova venda, ou obter informações e impressões da venda atual.</p>
+					  <p>Se deseja concluir a venda atual, escolha a maneira de pagamento que será realizada na entrega e clique em concluir, senão clique em cancelar.</p></div>
+					  <form action="pos_venda.php" method="POST" class="bg-white">
+					  <strong>Forma de pagamento:</strong>
+					   <select class="form-select form-select-lg mb-3 mt-2 w-25" name="forma_pagamento" >
+						<option value="DINHEIRO">Dinheiro</option>
+						<option value="PIX">Pix</option>
+						<option value="CARTAO">Cartão</option>
+					  </select>
+
+					  <div class="modal-footer bg-light">
+	                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+	                  <input type="submit" class="btn btn-success" value="Concluir" />
+					  </form>
+					  </div>
+					 </div>
+				</div>
+			</div>
+					  
+					  
+					  ';
+		
+	
+	
+}
+
+if(isset($_GET['compra_cancelada'])){
+		unset($_SESSION['endereco']);
+		unset($_SESSION['id_usuario_1']);
+		unset($_SESSION['produto_carrinho']);
+		header("location:checkout.php");
+	
+}
 if(!empty($_POST['esc_novo_end'])){
 	unset($_SESSION['endereco']);
 }
@@ -43,7 +85,7 @@ $telefone_contato = $_POST['telefone_contato'];
     values(?,?,?,?,?,?,?,?,?,?,?)';
     try {
         $insercao = $conexao->prepare($sql);
-	$ok = $insercao->execute(array ($id_usuario1,$CEP,$rua,$bairro,$cidade,$UF,$numero,$complemento,$ponto_referencia,$responsavel_retirada,$telefone_contato));
+	$ok = $insercao->execute(array ($id_usuario_1,$CEP,$rua,$bairro,$cidade,$UF,$numero,$complemento,$ponto_referencia,$responsavel_retirada,$telefone_contato));
     }catch(PDOException $r){
         $ok = False;
     }catch (Exception $r){//todos as exceções
@@ -51,7 +93,7 @@ $telefone_contato = $_POST['telefone_contato'];
     }
 if ($ok){
     $msg = 'Endereço cadastrado com sucesso!!!';
-    header('location:endereco_compra.php?mensagem='.$msg);
+    header('location:?mensagem='.$msg);
 }else{
     echo  '<div class="modal fade modal-lg" id="exemplomodal">
   <div class="modal-dialog">
@@ -162,13 +204,18 @@ if ($ok){
 			</div>
 			<div class="col-sm-3">
 				<form method="POST">
-				<input type="submit" class="btn btn-success" value="Concluir Venda" />
-				</fom>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo321">
+					Cancelar
+				</button>
+				<input type="submit" class="btn btn-success" name="concluir_a_venda" value="Concluir Venda" />
+				</form>
 			</div>
 			</div>
 			';
 			
 
+			}else{
+				echo '<h5 class="alert alert-secondary border-info" align="center">Não há produtos na sua lista de vendas.<br> Volte para adicionar os produtos para o usuário escolhido.</h5> ';
 			}
 		?>
 		<hr>
@@ -228,16 +275,90 @@ if ($ok){
 								</div>
 								';
 				
+				}else{
+					echo '<h5 class="alert alert-secondary border-info" align="center">Por favor! Escolha ou adicione um endereço valido de seu cliente para poder concluir a venda.<br> 
+											<a class="btn btn-secondary mt-3" href="?novo_cadastro_end=ok">Novo endereço</a>
+</h5> ';
+
 				}
 			?>
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="modalExemplo321" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja cancelar a venda?</h5>
+      </div>
+      <div class="modal-body bg-white">
+		Para cancelar a venda, clique no botão abaixo.<br> Ou clique em fechar para continuar conferindo a venda.
+	  </div>
+      <div class="modal-footer bg-white">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <a class="btn btn-primary"  href="?compra_cancelada=ok">Cancelar Venda</a>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <?php
-
+if(isset($_GET['novo_cadastro_end'])){
+	echo    '<div class="modal fade modal-xl" id="exemplomodal" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content ">
+					  <div class="modal-header bg-info">
+					  <h5>Escolha um endereço para entrega</h5>
+					  </div>
+					  <div class="modal-body bg-white">
+					  <h5> Insira um endereço para entrega dos produtos:</h5>
+					  <form action="" method="post">
+						<div class="row">
+						<div class="col-sm-6">
+						<label>CEP:</label>
+						<input class="form-control  mt-2" name="CEP" id="cep" title="Ex: 00000-000" pattern="([0-9]{5})-([0-9]{3})"placeholder="Digite o seu CEP..." required autofocus>
+						<label>Rua:</label>
+						<input type="text" class="form-control mt-2" name="logradouro" placeholder="Digite a sua rua..." required>
+						<label>Bairro:</label>
+						<input type="text" class="form-control mt-2" name="bairro" placeholder="Digite o seu bairro..." required>
+						<label>Cidade:</label>
+						<input type="text" class="form-control mt-2" name="cidade" placeholder="Digite a sua cidade..." required>
+						<label>UF:</label>
+									<input type="text" class="form-control mt-2" name="UF" placeholder="Digite o seu estado..." value="Rio Grande do Sul" >
+						</div>
+						<div class="col-sm-6">
+						<label>Numero:</label>
+									<input type="text" class="form-control mt-2" name="numero" title="Ex: 123" required pattern="([0-9]{1,})" placeholder="Digite o seu numero..." >
+						<label>complemento:</label>
+						<input type="text" class="form-control mt-2" name="complemento" placeholder="Digite o seu complemento..." >
+						<label>Ponto de referência:</label>
+						<input type="text" class="form-control mt-2" name="ponto_referencia" placeholder="Digite o seu ponto de referência..." >
+						<label>Responsável pela retirada:</label>
+						<input type="text" class="form-control  mt-2" name="responsavel_retirada" placeholder="Digite o responsável..." required>
+						<label>telefone para contato:</label>
+						<input type="tel" class="form-control mt-2 sp_celphones" name="telefone_contato" title="Ex: (00) 00000-0000" pattern="(.([0-9]{2}.))\s([9]{1})?([0-9]{4})-([0-9]{4})" placeholder="Digite o telefone de contato..." required >
+						</div>
+						</div>
+								<div align="center">
+								<input class="btn btn-primary mt-3 " type="submit" value="Salvar">
+								<a class="btn btn-danger mt-3 ms-3" href="">Voltar</a>
+								</div>
+					  </form>
+					  </div>
+					  <div class="modal-footer bg-light">
+					  
+					  </div>
+					 </div>
+				</div>
+			</div>
+					  
+					  
+					  ';
+	
+}
 if(isset($endereco) && $endereco == false){
-	echo    '<div class="modal fade modal-xl" id="exemplomodal">
+	echo    '<div class="modal fade modal-xl" id="exemplomodal" data-backdrop="static">
 				<div class="modal-dialog">
 					<div class="modal-content ">
 					  <div class="modal-header bg-info">
@@ -349,7 +470,7 @@ echo '<form method="POST">';
                 }		
 	echo ' </div>
 					  <div class="modal-footer bg-light">
-						<a class="btn btn-secondary" href="cadastro_endereco.php">Novo endereço</a>
+						<a class="btn btn-secondary" href="?novo_cadastro_end=ok">Novo endereço</a>
 						<input type="submit" class="btn btn-info" value="Continuar" >
 						</form>
 					  </div>
