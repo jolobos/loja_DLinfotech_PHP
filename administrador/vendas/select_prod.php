@@ -24,9 +24,11 @@ if(!empty($_POST['inserir_cod_prod'])){
 	$sql = "SELECT * FROM produtos WHERE cod_produto='".$cod."'";
     $consulta = $conexao->query($sql);
     $dados = $consulta->fetch(PDO::FETCH_ASSOC);
-	
+	if($dados['status'] == 1){
 	$_POST['id_produto'] = $dados['id_produto'];
-	
+	}else{
+		header("location:select_prod.php?mensagem=Lamento, produto não pode ser escolhido para venda, por que está em falta ou trancado.");
+	}
 }
 
 if(!empty($_POST['id_produto'])){

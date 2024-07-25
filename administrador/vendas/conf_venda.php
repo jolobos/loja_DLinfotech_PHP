@@ -7,7 +7,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 $id_usuario_1 = $_SESSION['id_usuario_1'];
 
-if(isset($_POST['concluir_a_venda'])){
+if(isset($_POST['concluir_a_venda']) && isset($_POST['total'])){
 echo    '<div class="modal fade modal-lg" id="exemplomodal" data-backdrop="static">
 				<div class="modal-dialog">
 					<div class="modal-content ">
@@ -25,6 +25,7 @@ echo    '<div class="modal fade modal-lg" id="exemplomodal" data-backdrop="stati
 						<option value="PIX">Pix</option>
 						<option value="CARTAO">Cartão</option>
 					  </select>
+					  <input type="hidden" name="total" value="'.$_POST['total'].'" />
 
 					  <div class="modal-footer bg-light">
 	                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -207,6 +208,7 @@ if ($ok){
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo321">
 					Cancelar
 				</button>
+				<input type="hidden" name="total" value="'.$total_venda.'" />
 				<input type="submit" class="btn btn-success" name="concluir_a_venda" value="Concluir Venda" />
 				</form>
 			</div>
@@ -342,7 +344,7 @@ if(isset($_GET['novo_cadastro_end'])){
 						</div>
 								<div align="center">
 								<input class="btn btn-primary mt-3 " type="submit" value="Salvar">
-								<a class="btn btn-danger mt-3 ms-3" href="">Voltar</a>
+								<a class="btn btn-danger mt-3 ms-3" href="conf_venda.php">Voltar</a>
 								</div>
 					  </form>
 					  </div>

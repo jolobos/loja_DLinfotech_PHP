@@ -394,3 +394,10 @@ $(window).load(function() {
     $('#exemplomodal').modal('show');
 });
 </script>
+<?php
+if(isset($_GET['mensagem'])){
+	if($_GET['mensagem'] == 'Venda Concluída.'){
+	echo '<script type="text/javascript">window.open("imprimir_nota.php");</script>';
+}
+}
+?>
