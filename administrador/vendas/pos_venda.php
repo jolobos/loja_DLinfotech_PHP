@@ -80,8 +80,11 @@ if(!empty($_POST['forma_pagamento']) && !empty($_POST['total'])){
                 $ok_ab= False; 
             }
 			if($ok_ab){
-				$dados_p_status = $consulta_p->fetch(PDO::FETCH_ASSOC);
-				if($dados_p_status['quantidade'] <= 0){
+				$sql_p_status = "SELECT * FROM produtos WHERE id_produto='".$id."'";
+				$consulta_p_status = $conexao->query($sql_p_status);
+				$dados_p_status = $consulta_p_status->fetch(PDO::FETCH_ASSOC);
+				$verifica_status = $dados_p_status['quantidade'];
+				if($verifica_status <= 0){
 					$status_n = 0;
 					$sql_n_n ='UPDATE produtos SET status=? WHERE id_produto = '.$id.'';
 					try {
@@ -100,7 +103,7 @@ if(!empty($_POST['forma_pagamento']) && !empty($_POST['total'])){
 			
 		}
 		
-		if($ok_abc){
+		if($ok_ab){
 			unset($_SESSION['endereco']);
 			unset($_SESSION['produto_carrinho']);
 			unset($_SESSION['id_usuario_1']);

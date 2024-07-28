@@ -1,1 +1,4 @@
-<h3>vou deixar para terminar depois</h3>
+<?php
+require_once '../relatorios/index';
+
+?>
