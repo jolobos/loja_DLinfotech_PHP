@@ -41,7 +41,7 @@ if($senha1 == $senha2){
 				}else{
 					$msg='Lamento, não foi possivel cadastrar o usuario.'.$r->getMessage().'';
 			}
-			header('location:altera_usuario.php?mensagem='.$msg);
+			header('location:../index.php?mensagem='.$msg);
                 }else{
                  $msg = 'Por favor, digite as senhas corretamente para o cadastro!!!';  
                  header('location:cadastro.php?mensagem='.$msg);
@@ -65,14 +65,13 @@ if($senha1 == $senha2){
   <?php
     if(!empty($_GET)){
         $msg = $_GET['mensagem'];
-        echo '';
-        echo '<div align="center"'
-        . 'style=" height: 50px;width: 1000px;position: absolute;top: 35px;margin: auto;border-radius;border: 2px solid #191970;
-  border-radius: 25px;background:#FF6347;">'
-        . '<h3 style="margin-top: 10px ;">Desculpa, '.$msg.'. </h3></div>';
+        
+        echo '<div align="center" style=" height: 50px;width: 1000px;position: absolute;top: 8px;margin: auto;border-radius;border: 2px solid #191970;
+  border-radius: 25px;background:#FF6347;">
+        <h3 style="margin-top: 10px ;">Desculpa, '.$msg.'. </h3></div>';
     }
     ?>
-    <div class="box">
+    <div class="box" style="justify-content: center;margin-top: 40px">
         <div class="img-box">
             <img src="../img/img_cadastro.svg">
         </div>

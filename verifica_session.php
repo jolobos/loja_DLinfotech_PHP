@@ -6,6 +6,7 @@ if(empty($_SESSION['id_usuario'])){
 	}else{
 	$logado = 1;
         $id_usuario = $_SESSION['id_usuario'];
+        $administrador = $_SESSION['administrador'];
         $email = $_SESSION['email'];
         $nome = $_SESSION['nome'];
         $foto = $_SESSION['foto'];

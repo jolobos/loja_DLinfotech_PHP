@@ -25,10 +25,22 @@ $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 require_once 'cabecalho.php';
 
 ?>
-<div class="container" style="margin-top: 95px;margin-bottom: 60px">
-    <h3 class="alert alert-secondary">Produtos com o nome "<?php echo $busca_produto;?>"</h3>
-   <div class="row">
-          <?php
+<div class="container" style="margin-top: 100px;margin-bottom: 60px">
+     <?php
+       if(!isset($busca_produto)){
+           echo '<h3 class="alert alert-secondary">Sem nome de produto digitado.</h3>
+           <div class="row">';
+        }else{
+            echo '<h3 class="alert alert-secondary">Produtos com o nome "'.$busca_produto.'"</h3>
+        <div class="row">';
+        }
+   
+         
+            if(!isset($busca_produto)){
+                echo '<div class="col-sm-8 alert alert-dark text-center"" style="margin:auto"><h2>Valor inválido para pesquisa.</h2>
+			  <h5>Por favor, entre com um nome valido na pesquisa.</h5></div>';
+            }else{
+          
             if(strlen($busca_produto) < 2){
 			  echo '<div class="col-sm-8 alert alert-dark text-center"" style="margin:auto"><h2>Valor inválido para pesquisa.</h2>
 			  <h5>Por favor, entre com um nome valido na pesquisa.</h5></div>';
@@ -53,6 +65,7 @@ require_once 'cabecalho.php';
           
             
         }}}
+            }
             ?>
         
     </div>

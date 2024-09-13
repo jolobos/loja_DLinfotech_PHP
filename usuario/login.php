@@ -19,6 +19,7 @@ if(!empty($_POST)){
 				$msg= 'Bem vindo';
 				$_SESSION['email'] = $dado['email'];
 				$_SESSION['id_usuario'] = $dado['id_usuario'];
+				$_SESSION['administrador'] = $dado['administrador'];
 				$_SESSION['apelido'] = $dado['apelido'];
 				$_SESSION['foto'] = $dado['foto'];
 				$_SESSION['nome'] = $dado['nome'];

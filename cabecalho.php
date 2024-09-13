@@ -86,7 +86,10 @@ date_default_timezone_set('America/Sao_Paulo');
 					  <a class="dropdown-item" href="#.php">Suporte</a>
 					  <a class="dropdown-item" href="sair.php">Sair</a>
 					  ';
-					  if($id_usuario == 6){ echo '<a class="dropdown-item" href="administrador/menu_admin.php">Administração</a>';}
+					  if($administrador == 1){ 
+                                              echo '<a class="dropdown-item" href="administrador/menu_admin.php">Administração</a>';
+                                              
+                                          }
                       echo '</div><li class="navbar-brand mt-4"><p class="text-info">'.$nick.'</p></li>
 				  </li>
 				  <li class="navbar-brand mt-2">
