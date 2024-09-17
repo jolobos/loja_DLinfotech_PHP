@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/05/2024 às 18:46
+-- Tempo de geração: 17/09/2024 às 18:01
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -251,20 +251,33 @@ CREATE TABLE `produtos` (
   `marrom` int(1) NOT NULL,
   `roxo` int(1) NOT NULL,
   `prata` int(1) NOT NULL,
-  `dourado` int(1) NOT NULL
+  `dourado` int(1) NOT NULL,
+  `link_azul` varchar(45) NOT NULL,
+  `link_vermelho` varchar(45) NOT NULL,
+  `link_preto` varchar(45) NOT NULL,
+  `link_branco` varchar(45) NOT NULL,
+  `link_amarelo` varchar(45) NOT NULL,
+  `link_verde` varchar(45) NOT NULL,
+  `link_laranja` varchar(45) NOT NULL,
+  `link_cinza` varchar(45) NOT NULL,
+  `link_rosa` varchar(45) NOT NULL,
+  `link_marrom` varchar(45) NOT NULL,
+  `link_roxo` varchar(45) NOT NULL,
+  `link_prata` varchar(45) NOT NULL,
+  `link_dourado` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Despejando dados para a tabela `produtos`
 --
 
-INSERT INTO `produtos` (`id_produto`, `cod_produto`, `nome`, `valor`, `quantidade`, `categoria`, `cor`, `voltagem`, `voltagem_opcoes`, `descricao`, `status`, `foto`, `foto_1`, `foto_2`, `foto_3`, `foto_4`, `foto_5`, `foto_6`, `azul`, `vermelho`, `preto`, `branco`, `amarelo`, `verde`, `laranja`, `cinza`, `rosa`, `marrom`, `roxo`, `prata`, `dourado`) VALUES
-(1, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 220V', 529.00, 3.00, 'eletronicos', 'azul', '220', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 110V\n', 500.00, 5.00, 'eletronicos', 'azul', '110', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, '', 'Carregador Motorola TurboPower 20w - Tipo-C - bivolt', 99.99, 12.00, 'carregadores', 'preto', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto7.png', 'produto7_1.png', 'produto7_2.png', 'produto7_3.png', 'produto7_4.png', 'produto7_5.png', '', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, '', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, '', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(13, '1124232', 'Cabo HDMI pix 2 mts', 0.10, 25.00, 'cabos', 'preto', 'bivolt', 'bivolt', 'adicione uma descrição rapida.', 1, '23d4d9b5c26523e78fcfa235086abfdb.jpg', 'c2651ef93f6c67524860edc685193b8b.jpg', '6d86194c9cb692ce87c1d48c9cd349c2.jpg', 'd6d480bf7636b60e55719541f3a3a6ef.jpg', '213e8b4f8997971bf057201053f7721b.jpg', '', '', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `produtos` (`id_produto`, `cod_produto`, `nome`, `valor`, `quantidade`, `categoria`, `cor`, `voltagem`, `voltagem_opcoes`, `descricao`, `status`, `foto`, `foto_1`, `foto_2`, `foto_3`, `foto_4`, `foto_5`, `foto_6`, `azul`, `vermelho`, `preto`, `branco`, `amarelo`, `verde`, `laranja`, `cinza`, `rosa`, `marrom`, `roxo`, `prata`, `dourado`, `link_azul`, `link_vermelho`, `link_preto`, `link_branco`, `link_amarelo`, `link_verde`, `link_laranja`, `link_cinza`, `link_rosa`, `link_marrom`, `link_roxo`, `link_prata`, `link_dourado`) VALUES
+(1, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 220V', 529.00, 3.00, 'eletronicos', 'azul', '220', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 110V\n', 500.00, 5.00, 'eletronicos', 'azul', '110', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(3, '', 'Carregador Motorola TurboPower 20w - Tipo-C - bivolt', 99.99, 12.00, 'carregadores', 'preto', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto7.png', 'produto7_1.png', 'produto7_2.png', 'produto7_3.png', 'produto7_4.png', 'produto7_5.png', '', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(4, '', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(5, '', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(13, '1124232', 'Cabo HDMI pix 2 mts', 0.10, 25.00, 'cabos', 'preto', 'bivolt', 'bivolt', 'adicione uma descrição rapida.', 1, '23d4d9b5c26523e78fcfa235086abfdb.jpg', 'c2651ef93f6c67524860edc685193b8b.jpg', '6d86194c9cb692ce87c1d48c9cd349c2.jpg', 'd6d480bf7636b60e55719541f3a3a6ef.jpg', '213e8b4f8997971bf057201053f7721b.jpg', '', '', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -337,7 +350,7 @@ CREATE TABLE `tela_principal` (
 --
 
 INSERT INTO `tela_principal` (`id_tela`, `banner_1`, `banner_2`, `banner_3`, `banner_4`, `banner_5`, `link_banner_1`, `link_banner_2`, `link_banner_3`, `link_banner_4`, `link_banner_5`, `titulo_banner_1`, `titulo_banner_2`, `titulo_banner_3`, `titulo_banner_4`, `titulo_banner_5`, `ft_box_1`, `ft_box_2`, `ft_box_3`, `ft_box_4`, `ft_box_5`, `titulo_box_1`, `titulo_box_2`, `titulo_box_3`, `titulo_box_4`, `titulo_box_5`, `descricao_box_1`, `descricao_box_2`, `descricao_box_3`, `descricao_box_4`, `descricao_box_5`, `categoria_box_1`, `categoria_box_2`, `categoria_box_3`, `categoria_box_4`, `categoria_box_5`, `id_oferta_1`, `id_oferta_2`, `id_oferta_3`, `id_oferta_4`, `id_oferta_5`, `id_car_prod_1`, `id_car_prod_2`, `id_car_prod_3`, `id_car_prod_4`, `id_car_prod_5`, `id_car_prod_6`, `id_car_prod_7`, `id_car_prod_8`, `id_car_prod_9`, `id_car_prod_10`, `id_car_prod_11`, `id_car_prod_12`, `id_car_prod_13`, `id_car_prod_14`, `id_car_prod_15`, `id_car_prod_16`) VALUES
-(1, 'e8cad0e6e3d44e076b9f7f9c4a2cc80b.jpg', '9dea3afc4a69d6811b7c76d0b7881d29.jpg', 'img3.jpg', '', '', '#', '#', '#', '', '', 'Tudo em PC´s Gamer', 'Consulte nossos preços', 'Amplo estoque em Carregadores', '', '', '9e00a727bc3123b70f37df48ba5ecafe.png', '0795aa396c555479efe3691e6996de24.png', 'card3.png', 'card4.png', 'card5.png', 'carregadores', 'Computadores', 'Capinhas para celulares', 'Troca de display', 'Acessórios', ' Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.', 'Querendo efetuar um upgrade na carroça? click e veja as opções e valores.', 'Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.', 'Consulte nossos valores e marcas disponiveis.', 'Temos inumeros acessórios para toda area de informatica e smartphones.', 'carregadores', 'computadores', 'capinhas', 'vazio', 'acessorios', 1, 2, 13, 4, 5, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 13, 3, 4, 5, 0);
+(1, 'e8cad0e6e3d44e076b9f7f9c4a2cc80b.jpg', '9dea3afc4a69d6811b7c76d0b7881d29.jpg', 'img3.jpg', '', '', '#', '#', '#', '', '', 'Tudo em PC´s Gamer', 'Consulte nossos preços', 'Amplo estoque em Carregadores', '', '', '9e00a727bc3123b70f37df48ba5ecafe.png', '0795aa396c555479efe3691e6996de24.png', 'card3.png', 'card4.png', 'card5.png', 'carregadores', 'Computadores', 'Capinhas para celulares', 'Troca de display', 'Acessórios', ' Encontre carregadores para todas as marcas e modelos em celulares, notebooks e computadores.', 'Querendo efetuar um upgrade na carroça? click e veja as opções e valores.', 'Temos capinhas e peliculas para inumeros modelos e marcas, com o melhor preço.', 'Consulte nossos valores e marcas disponiveis.', 'Temos inumeros acessórios para toda area de informatica e smartphones.', 'carregadores', 'computadores', 'capinhas', 'vazio', 'acessorios', 1, 2, 13, 4, 5, 1, 2, 3, 4, 5, 4, 1, 2, 3, 4, 5, 13, 3, 4, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -362,17 +375,19 @@ CREATE TABLE `usuarios` (
   `foto` varchar(40) NOT NULL,
   `apelido` varchar(100) NOT NULL,
   `data_entrada` datetime NOT NULL,
-  `status` int(1) NOT NULL
+  `status` int(1) NOT NULL,
+  `administrador` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nome`, `CPF`, `telefone`, `celular`, `CEP`, `UF`, `cidade`, `bairro`, `logradouro`, `complemento`, `email`, `senha`, `foto`, `apelido`, `data_entrada`, `status`) VALUES
-(6, 'nome teste ', 2351055039, 51985078897, 51985078897, 94945330, 'RS', 'kaxuxa', 'vista', 'logo ali', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'digo', '2024-04-01 10:56:47', 0),
-(7, 'seliria santos de azevedo', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1),
-(8, 'Asus_m1', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:45:34', 1);
+INSERT INTO `usuarios` (`id_usuario`, `nome`, `CPF`, `telefone`, `celular`, `CEP`, `UF`, `cidade`, `bairro`, `logradouro`, `complemento`, `email`, `senha`, `foto`, `apelido`, `data_entrada`, `status`, `administrador`) VALUES
+(6, 'nome teste ', 2351055039, 51985078897, 51985078897, 94945330, 'RS', 'kaxuxa', 'vista', 'logo ali', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'digo', '2024-04-01 10:56:47', 0, 1),
+(7, 'seliria santos de azevedo', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1, 0),
+(8, 'Asus_m1', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:45:34', 1, 0),
+(9, 'malaquias', 0, 5198995452, 5198995452, 0, '', '', '', '', '', 'malaquias.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-09-13 15:18:30', 1, 0);
 
 --
 -- Índices para tabelas despejadas
@@ -470,7 +485,7 @@ ALTER TABLE `tela_principal`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
