@@ -136,31 +136,31 @@ echo '</div></div></div>
         
     echo '<div>';
        if($dados['azul']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">azul</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#3561bb" href="?id_produto='.$dados['link_azul'].'">azul</a>';}
        if($dados['vermelho']>0){
-       echo '<a class="btn btn-light border-danger me-2 mt-2" href="#">vermelho</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ff1e04" href="?id_produto='.$dados['link_vermelho'].'">vermelho</a>';}
        if($dados['preto']>0){
-       echo '<a class="btn btn-light border-dark me-2 mt-2" href="#">preto</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#000101"href="?id_produto='.$dados['link_preto'].'">preto</a>';}
        if($dados['branco']>0){
-       echo '<a class="btn btn-light border-white-50 me-2 mt-2" href="#">branco</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ddfff5" href="?id_produto='.$dados['link_branco'].'">branco</a>';}
        if($dados['amarelo']>0){
-       echo '<a class="btn btn-light border-warning me-2 mt-2" href="#">amarelo</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ebf500" href="?id_produto='.$dados['link_amarelo'].'">amarelo</a>';}
        if($dados['verde']>0){
-       echo '<a class="btn btn-light border-success me-2 mt-2" href="#">verde</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#3eca5e" href="?id_produto='.$dados['link_verde'].'">verde</a>';}
        if($dados['laranja']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">laranja</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#cd7a0f" href="?id_produto='.$dados['link_laranja'].'">laranja</a>';}
        if($dados['cinza']>0){
-       echo '<a class="btn btn-light border-primary  me-2 mt-2" href="#">cinza</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#878788" href="?id_produto='.$dados['link_cinza'].'">cinza</a>';}
        if($dados['rosa']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">rosa</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ed2d7d" href="?id_produto='.$dados['link_rosa'].'">rosa</a>';}
        if($dados['marrom']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">marrom</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#88564d" href="?id_produto='.$dados['link_marrom'].'">marrom</a>';}
        if($dados['roxo']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">roxo</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#660099" href="?id_produto='.$dados['link_roxo'].'">roxo</a>';}
        if($dados['prata']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">prata</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#cacaba" href="?id_produto='.$dados['link_prata'].'">prata</a>';}
        if($dados['dourado']>0){
-       echo '<a class="btn btn-light border-primary me-2 mt-2" href="#">dourado</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#daa520" href="?id_produto='.$dados['link_dourado'].'">dourado</a>';}
       
     echo '</div>';}
     
