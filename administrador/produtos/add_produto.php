@@ -122,7 +122,21 @@ echo '<div style="width: 50%;margin:auto;">
             <div class="col">            
             <div class="mb-3 mt-3">
             <label class="form-label">Cor:</label>
-            <input class="form-control" placeholder="Digite a cor " name="cor" >
+            <select class="form-control" name="cor" >
+            <option value="branco">Branco</option>
+            <option value="preto">Preto</option>
+            <option value="azul">Azul</option>
+            <option value="vermelho">Vermelho</option>
+            <option value="amarelo">Amarelo</option>
+            <option value="verde">Verde</option>
+            <option value="laranja">Laranja</option>
+            <option value="cinza">Cinza</option>
+            <option value="rosa">Rosa/Touch</option>
+            <option value="marrom">Marrom</option>
+            <option value="roxo">Roxo</option>
+            <option value="prata">Prata</option>
+            <option value="dourado">Dourado</option>
+            </select>
             </div>
 			<div class="mb-3 mt-3">
             <label class="form-label">Voltagem:</label>
