@@ -66,19 +66,39 @@ if(isset($_FILES['arquivo6'])){
 
 //adicionando na sql produtos:
 //Para cada checkbox eu tenho que colocar a condição de vazio.
-if(!empty($_POST['azul'])){$azul = $_POST['azul'];}else{ $azul = 0;}
-if(!empty($_POST['vermelho'])){$vermelho = $_POST['vermelho'];}else{ $vermelho = 0;}
-if(!empty($_POST['preto'])){$preto = $_POST['preto'];}else{ $preto = 0;}
-if(!empty($_POST['branco'])){$branco = $_POST['branco'];}else{ $branco = 0;}
-if(!empty($_POST['amarelo'])){$amarelo = $_POST['amarelo'];}else{ $amarelo = 0;}
-if(!empty($_POST['verde'])){$verde = $_POST['verde'];}else{ $verde = 0;}
-if(!empty($_POST['laranja'])){$laranja = $_POST['laranja'];}else{ $laranja = 0;}
-if(!empty($_POST['cinza'])){$cinza = $_POST['cinza'];}else{ $cinza = 0;}
-if(!empty($_POST['rosa'])){$rosa = $_POST['rosa'];}else{ $rosa = 0;}
-if(!empty($_POST['marrom'])){$marrom = $_POST['marrom'];}else{ $marrom = 0;}
-if(!empty($_POST['roxo'])){$roxo = $_POST['roxo'];}else{ $roxo = 0;}
-if(!empty($_POST['prata'])){$prata = $_POST['prata'];}else{ $prata = 0;}
-if(!empty($_POST['dourado'])){$dourado = $_POST['dourado'];}else{ $dourado = 0;}
+if(!empty($_POST['var_cores'])){
+    if($_POST['var_cores'] == 1){
+        $var_cores = $_POST['var_cores'];
+        if(!empty($_POST['azul'])){$azul = $_POST['azul'];}else{ $azul = 0;}
+        if(!empty($_POST['vermelho'])){$vermelho = $_POST['vermelho'];}else{ $vermelho = 0;}
+        if(!empty($_POST['preto'])){$preto = $_POST['preto'];}else{ $preto = 0;}
+        if(!empty($_POST['branco'])){$branco = $_POST['branco'];}else{ $branco = 0;}
+        if(!empty($_POST['amarelo'])){$amarelo = $_POST['amarelo'];}else{ $amarelo = 0;}
+        if(!empty($_POST['verde'])){$verde = $_POST['verde'];}else{ $verde = 0;}
+        if(!empty($_POST['laranja'])){$laranja = $_POST['laranja'];}else{ $laranja = 0;}
+        if(!empty($_POST['cinza'])){$cinza = $_POST['cinza'];}else{ $cinza = 0;}
+        if(!empty($_POST['rosa'])){$rosa = $_POST['rosa'];}else{ $rosa = 0;}
+        if(!empty($_POST['marrom'])){$marrom = $_POST['marrom'];}else{ $marrom = 0;}
+        if(!empty($_POST['roxo'])){$roxo = $_POST['roxo'];}else{ $roxo = 0;}
+        if(!empty($_POST['prata'])){$prata = $_POST['prata'];}else{ $prata = 0;}
+        if(!empty($_POST['dourado'])){$dourado = $_POST['dourado'];}else{ $dourado = 0;}
+    }else{
+        $var_cores = 0;
+        $azul = 0;
+        $vermelho = 0;
+        $preto = 0;
+        $branco = 0;
+        $amarelo = 0;
+        $verde = 0;
+        $laranja = 0;
+        $cinza = 0;
+        $rosa = 0;
+        $marrom = 0;
+        $roxo = 0;
+        $prata = 0;
+        $dourado = 0;
+    }}
+
     
 
 if(!empty($_POST['cod_produto']) && !empty($_POST['valor']) && !empty($_POST['quantidade'])){
@@ -94,11 +114,11 @@ if(!empty($_POST['cod_produto']) && !empty($_POST['valor']) && !empty($_POST['qu
     $descricao = $_POST['descricao'];		
     $status = $_POST['status'];		
 			
-    $sql ='INSERT INTO produtos(cod_produto,nome,valor,quantidade,categoria,cor,voltagem,voltagem_opcoes,descricao,status,foto,foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,azul,vermelho,preto,branco,amarelo,verde,laranja,cinza,rosa,marrom,roxo,prata,dourado)
+    $sql ='INSERT INTO produtos(cod_produto,nome,valor,quantidade,categoria,cor,voltagem,voltagem_opcoes,descricao,status,foto,foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,var_cores,azul,vermelho,preto,branco,amarelo,verde,laranja,cinza,rosa,marrom,roxo,prata,dourado)
     values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     try {
         $insercao = $conexao->prepare($sql);
-	$ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado));
+	$ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$var_cores,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado));
     }catch(PDOException $r){
 //$msg= 'Problemas com o SGBD.'.$r->getMessage();
         $ok = False;

@@ -168,7 +168,19 @@ echo '<div style="width: 50%;margin:auto;">
             </div>
             </div>
             
+            <div class="row">
+            <div class="col-sm-4" > 
             <h5>Variações de cores</h5>
+            </div>
+            <div class="col">
+            
+             <input class="form-check-input" type="checkbox" value="1" id="varcores" data-bs-toggle="collapse" href="#collapseOne" name="var_cores">
+             <label class="form-check-label" for="varcores">
+             Ativar
+             </label>
+             </div>
+            
+            <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
             <div class="row">
             <div class="col" >            
             <div class="form-check">
@@ -281,6 +293,7 @@ echo '<div style="width: 50%;margin:auto;">
             <div class="col" >            
             </div>
             <div class="col" >            
+            </div>
             </div>
             </div>
             
