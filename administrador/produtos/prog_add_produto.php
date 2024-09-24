@@ -115,7 +115,7 @@ if(!empty($_POST['cod_produto']) && !empty($_POST['valor']) && !empty($_POST['qu
     $status = $_POST['status'];		
 			
     $sql ='INSERT INTO produtos(cod_produto,nome,valor,quantidade,categoria,cor,voltagem,voltagem_opcoes,descricao,status,foto,foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,var_cores,azul,vermelho,preto,branco,amarelo,verde,laranja,cinza,rosa,marrom,roxo,prata,dourado)
-    values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     try {
         $insercao = $conexao->prepare($sql);
 	$ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$var_cores,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado));
