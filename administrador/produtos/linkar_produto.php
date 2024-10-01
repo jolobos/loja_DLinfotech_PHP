@@ -4,6 +4,15 @@ require_once '../../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+
+if(!empty($_POST['cod_barras'])){
+    $sql = "SELECT id_produto FROM produtos WHERE cod_produto = ".$_POST['cod_barras']."";
+    $consulta = $conexao->query($sql);
+    $dados = $consulta->fetch(PDO::FETCH_ASSOC);
+    if(!empty($dados['id_produto'])){
+    $_SESSION['produto_escolhido'] = $dados['id_produto'];
+    }
+}
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -56,6 +65,240 @@ date_default_timezone_set('America/Sao_Paulo');
               <h4>Escolha uma das opções abaixo:</h4>
           </div>
           <div class="card-body">
+            <div class="row">
+                <div class="col">   
+                <form action="" method="post">
+                <h4>Leitor de código de barras:</h4>
+                <div class="row">
+                    <div class="col" >            
+                        <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras" autofocus>
+                    </div>
+                            <div class="col" >            
+                                <input type="submit" class="btn btn-dark " value="Adicionar">
+                    </div>
+                </div>
+                </form>
               
-          </div>
+                
+                <?php
+                    if(!empty($_SESSION['produto_escolhido'])){
+                        echo '
+                            <div class="row">
+                                <div class="col"> 
+                            <h5>Azul: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_azul">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Vermelho: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_vermelho">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Branco: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_branco">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Preto: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_preto">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Amarelo: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_amarelo">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Verde: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_verde">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Laranja: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_laranja">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            </div>
+                            
+                            <div class="col">
+                            <h5>Cinza: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_cinza">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Rosa: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_rosa">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Marrom: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_marrom">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Roxo: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_roxo">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Prata: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_prata">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            
+                            <h5>Dourado: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_dourado">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>
+                            </div>
+                            </div>
+                           
+                            
+
+                            
+                          ';
+                    }
+                
+                ?>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card mt-2 h-100">
+                    <div class="card-header">
+                        <h4>Produto escolhido:</h4>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                            if(!empty($_SESSION['produto_escolhido'])){
+                                $sql_a = "SELECT * FROM produtos WHERE id_produto = ".$_SESSION['produto_escolhido']."";
+                                $consulta_a = $conexao->query($sql_a);
+                                $dados_a = $consulta_a->fetch(PDO::FETCH_ASSOC);
+                                echo '<table><tr>';
+                                echo '<td><img style="width:100px "src="../../img/produtos/'.$dados_a['foto'].'"></td>';
+                                echo '<td><strong>'.$dados_a['nome'].'</strong></td>';
+                                echo '</tr></table>';
+                            }
+                        ?>
+                    </div>
+                </div>
+                </div>
+                </div>
+      </div>
       </div>
