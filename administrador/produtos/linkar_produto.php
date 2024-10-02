@@ -13,6 +13,47 @@ if(!empty($_POST['cod_barras'])){
     $_SESSION['produto_escolhido'] = $dados['id_produto'];
     }
 }
+
+if(!empty($_POST['cod_barras_azul'])){
+    $_SESSION['azul'] = $_POST['cod_barras_azul'];
+}
+if(!empty($_POST['cod_barras_vermelho'])){
+    $_SESSION['vermelho'] = $_POST['cod_barras_vermelho'];
+}
+if(!empty($_POST['cod_barras_preto'])){
+    $_SESSION['preto'] = $_POST['cod_barras_preto'];
+}
+if(!empty($_POST['cod_barras_branco'])){
+    $_SESSION['branco'] = $_POST['cod_barras_branco'];
+}
+if(!empty($_POST['cod_barras_amarelo'])){
+    $_SESSION['amarelo'] = $_POST['cod_barras_amarelo'];
+}
+if(!empty($_POST['cod_barras_verde'])){
+    $_SESSION['verde'] = $_POST['cod_barras_verde'];
+}
+if(!empty($_POST['cod_barras_laranja'])){
+    $_SESSION['laranja'] = $_POST['cod_barras_laranja'];
+}
+if(!empty($_POST['cod_barras_cinza'])){
+    $_SESSION['cinza'] = $_POST['cod_barras_cinza'];
+}
+if(!empty($_POST['cod_barras_rosa'])){
+    $_SESSION['rosa'] = $_POST['cod_barras_rosa'];
+}
+if(!empty($_POST['cod_barras_marrom'])){
+    $_SESSION['marrom'] = $_POST['cod_barras_marrom'];
+}
+if(!empty($_POST['cod_barras_roxo'])){
+    $_SESSION['roxo'] = $_POST['cod_barras_roxo'];
+}
+if(!empty($_POST['cod_barras_prata'])){
+    $_SESSION['prata'] = $_POST['cod_barras_prata'];
+}
+if(!empty($_POST['cod_barras_dourado'])){
+    $_SESSION['dourado'] = $_POST['cod_barras_dourado'];
+}
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -82,7 +123,7 @@ if(!empty($_POST['cod_barras'])){
                 
                 <?php
                     if(!empty($_SESSION['produto_escolhido'])){
-                        echo '
+                        echo '<hr>
                             <div class="row">
                                 <div class="col"> 
                             <h5>Azul: </h5>
@@ -290,10 +331,16 @@ if(!empty($_POST['cod_barras'])){
                                 $sql_a = "SELECT * FROM produtos WHERE id_produto = ".$_SESSION['produto_escolhido']."";
                                 $consulta_a = $conexao->query($sql_a);
                                 $dados_a = $consulta_a->fetch(PDO::FETCH_ASSOC);
+                               
                                 echo '<table><tr>';
                                 echo '<td><img style="width:100px "src="../../img/produtos/'.$dados_a['foto'].'"></td>';
                                 echo '<td><strong>'.$dados_a['nome'].'</strong></td>';
                                 echo '</tr></table>';
+                               
+                                if(isset($_SESSION['azul']) && $dados_a['azul'] == 1){
+                                    echo '<tr><td>Azul = OK</td></tr>';
+                                }
+                                
                             }
                         ?>
                     </div>
