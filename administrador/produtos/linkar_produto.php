@@ -123,10 +123,15 @@ if(!empty($_POST['cod_barras_dourado'])){
                 
                 <?php
                     if(!empty($_SESSION['produto_escolhido'])){
+                        
+                        $sql_b = "SELECT * FROM produtos WHERE id_produto = ".$_SESSION['produto_escolhido']."";
+                        $consulta_b = $conexao->query($sql_b);
+                        $dados_b = $consulta_b->fetch(PDO::FETCH_ASSOC);
                         echo '<hr>
                             <div class="row">
-                                <div class="col"> 
-                            <h5>Azul: </h5>
+                                <div class="col">';
+                         if($dados_b['azul'] == 1){
+                            echo '<h5>Azul: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -138,9 +143,11 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';
+                             }
                             
-                            <h5>Vermelho: </h5>
+                             if($dados_b['vermelho'] == 1){
+                            echo '<h5>Vermelho: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -152,9 +159,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                             </div>';}
                             
-                            <h5>Branco: </h5>
+                             if($dados_b['branco'] == 1){
+                            echo '<h5>Branco: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -166,9 +174,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                             </div>';}
                             
-                            <h5>Preto: </h5>
+                            if($dados_b['preto'] == 1){
+                            echo '<h5>Preto: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -180,9 +189,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Amarelo: </h5>
+                            if($dados_b['amarelo'] == 1){
+                            echo '<h5>Amarelo: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -194,9 +204,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Verde: </h5>
+                            if($dados_b['verde'] == 1){
+                            echo '<h5>Verde: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -208,9 +219,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Laranja: </h5>
+                            if($dados_b['laranja'] == 1){
+                            echo '<h5>Laranja: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -222,11 +234,14 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
-                            </div>
+                            </div>';}
                             
-                            <div class="col">
-                            <h5>Cinza: </h5>
+                            echo '</div>
+                            
+                            <div class="col">';
+                            
+                            if($dados_b['cinza'] == 1){
+                            echo '<h5>Cinza: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -238,9 +253,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Rosa: </h5>
+                            if($dados_b['rosa'] == 1){
+                            echo '<h5>Rosa: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -252,9 +268,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Marrom: </h5>
+                            if($dados_b['marrom'] == 1){
+                            echo '<h5>Marrom: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -266,9 +283,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Roxo: </h5>
+                            if($dados_b['roxo'] == 1){
+                            echo '<h5>Roxo: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -280,9 +298,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Prata: </h5>
+                            if($dados_b['prata'] == 1){
+                            echo '<h5>Prata: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -294,9 +313,10 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
+                            </div>';}
                             
-                            <h5>Dourado: </h5>
+                            if($dados_b['dourado'] == 1){
+                            echo '<h5>Dourado: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -308,14 +328,9 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>
-                            </div>
-                            </div>
-                           
-                            
-
-                            
-                          ';
+                            </div>';}
+                            echo '</div>
+                                </div>';
                     }
                 
                 ?>
@@ -339,6 +354,54 @@ if(!empty($_POST['cod_barras_dourado'])){
                                
                                 if(isset($_SESSION['azul']) && $dados_a['azul'] == 1){
                                     echo '<tr><td>Azul = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['vermelho']) && $dados_a['vermelho'] == 1){
+                                    echo '<tr><td>Vermelho = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['branco']) && $dados_a['branco'] == 1){
+                                    echo '<tr><td>Branco = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['preto']) && $dados_a['preto'] == 1){
+                                    echo '<tr><td>Preto = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['amarelo']) && $dados_a['amarelo'] == 1){
+                                    echo '<tr><td>Amarelo = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['verde']) && $dados_a['verde'] == 1){
+                                    echo '<tr><td>Verde = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['laranja']) && $dados_a['laranja'] == 1){
+                                    echo '<tr><td>Laranja = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['cinza']) && $dados_a['cinza'] == 1){
+                                    echo '<tr><td>Cinza = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['rosa']) && $dados_a['rosa'] == 1){
+                                    echo '<tr><td>Cinza = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['marrom']) && $dados_a['marrom'] == 1){
+                                    echo '<tr><td>Marrom = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['roxo']) && $dados_a['roxo'] == 1){
+                                    echo '<tr><td>Roxo = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['prata']) && $dados_a['prata'] == 1){
+                                    echo '<tr><td>Prata = OK</td></tr>';
+                                }
+                                
+                                if(isset($_SESSION['dourado']) && $dados_a['dourado'] == 1){
+                                    echo '<tr><td>Dourado = OK</td></tr>';
                                 }
                                 
                             }
