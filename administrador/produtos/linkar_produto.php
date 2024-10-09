@@ -71,15 +71,7 @@ if(!empty($_POST['cod_barras_dourado'])){
     <script src="https://kit.fontawesome.com/0f8eed42e7.js" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6M96X7Y2Y"></script>
 
-    <script>
-    function copiar() {
-    var copyText = document.getElementById("cod_produto");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /* For mobile devices */
-    document.execCommand("copy");
-    document.getElementById("clip_btn").innerHTML='<i class="fas fa-clipboard-check"></i> - Copiado';
-    }
-    </script>
+  
 </head>
   <body style="background: #778899">
   <div class="container">
@@ -565,6 +557,7 @@ if(!empty($_POST['cod_barras_dourado'])){
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Busca de Produtos</h5>
       </div>
+          
       <div class="modal-body bg-light">
          <input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)"/>
          <div class="mt-2" id="resultado"></div>
@@ -575,3 +568,18 @@ if(!empty($_POST['cod_barras_dourado'])){
     </div>
   </div>
 </div>
+<?php
+$cont_2 = 0;
+while($cont_2 < 8){
+    echo '<script>
+            function copiar_'.$cont_2.'() {
+            var copyText = document.getElementById("cod_produto_'.$cont_2.'");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+            }
+            </script>';
+
+    $cont_2++;
+}
+?>
