@@ -8,7 +8,7 @@ $valor = $_GET['valor'];
  
 
 
-  $sql = "SELECT * FROM produtos WHERE nome LIKE '%".$valor."%'LIMIT 0,15";
+  $sql = "SELECT * FROM produtos WHERE nome LIKE '%".$valor."%'LIMIT 0,7";
   $consulta = $conexao->query($sql);
   $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
 
@@ -20,7 +20,7 @@ $valor = $_GET['valor'];
   echo '<thead>';
   echo '<tr>';
   
-  echo '<th>codigo do produto</th><th>Produto</th><th>Valor</th><th>quantidade</th><th>status</th><th>Açoes</th>';
+  echo '<th>codigo do produto</th><th>Produto</th><th>foto</th><th>status</th><th>Açoes</th>';
   
   echo '</tr>';
   echo '</thead>';
@@ -28,10 +28,8 @@ $valor = $_GET['valor'];
   
   foreach($dados as $d){
 	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td>$ '. number_format($d['valor'],2,',','.').'</td><td>'.$d['quantidade'].'</td>
-	  <td>'.$status.'</td><td><a class="btn btn-dark border-success me-2" href = "ver.php?id_produto='.$d['id_produto'].'">ver</a>
-	  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$d['id_produto'].'"> alterar</a>
-	  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$d['id_produto'].'"> deletar</a></td></tr>';
+	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td><img style="width:50px;height:50px " src="../../img/produtos/'.$d['foto'].'"></td>
+	  <td>'.$status.'</td><td><button class="btn btn-dark border-success">Copiar</button></td></tr>';
  }
   
   echo '</tbody>';
@@ -44,3 +42,5 @@ $valor = $_GET['valor'];
   }
   
 ?>
+
+

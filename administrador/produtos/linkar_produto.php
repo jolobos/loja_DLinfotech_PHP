@@ -66,8 +66,8 @@ if(!empty($_POST['cod_barras_dourado'])){
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="func_pr.js"></script>
-	<link rel="stylesheet" href="../../css/modal.css">
+    <script type="text/javascript" src="func_link_cor.js"></script>
+    <link rel="stylesheet" href="../../css/modal.css">
 
 </head>
   <body style="background: #778899">
@@ -116,9 +116,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                     </div>
                             <div class="col" >            
                                 <input type="submit" class="btn btn-dark " value="Adicionar">
-                    </div>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                    Buscar produto
+                                </button>
+                            </div>
                 </div>
                 </form>
+                    
               
                 
                 <?php
@@ -350,60 +354,190 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 echo '<table><tr>';
                                 echo '<td><img style="width:100px "src="../../img/produtos/'.$dados_a['foto'].'"></td>';
                                 echo '<td><strong>'.$dados_a['nome'].'</strong></td>';
-                                echo '</tr></table>';
+                                echo '</tr>';
                                
-                                if(isset($_SESSION['azul']) && $dados_a['azul'] == 1){
-                                    echo '<tr><td>Azul = OK</td></tr>';
+                                if($dados_a['azul'] == 1){
+                                    echo '<tr><td>
+                                    <label>Azul</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_azul=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_azul=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Azul</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_azul=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_azul=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['vermelho']) && $dados_a['vermelho'] == 1){
-                                    echo '<tr><td>Vermelho = OK</td></tr>';
+                                if($dados_a['vermelho'] == 1){
+                                    echo '<tr><td>
+                                    <label>Vermelho</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_vermelho=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_vermelho=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Vermelho</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_vermelho=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_vermelho=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['branco']) && $dados_a['branco'] == 1){
-                                    echo '<tr><td>Branco = OK</td></tr>';
+                                if($dados_a['branco'] == 1){
+                                    echo '<tr><td>
+                                    <label>Branco</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_branco=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_branco=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Branco</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_branco=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_branco=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['preto']) && $dados_a['preto'] == 1){
-                                    echo '<tr><td>Preto = OK</td></tr>';
+                                if($dados_a['preto'] == 1){
+                                    echo '<tr><td>
+                                    <label>Preto</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_preto=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_preto=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Preto</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_preto=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_preto=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['amarelo']) && $dados_a['amarelo'] == 1){
-                                    echo '<tr><td>Amarelo = OK</td></tr>';
+                                if($dados_a['amarelo'] == 1){
+                                    echo '<tr><td>
+                                    <label>Amarelo</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_amarelo=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_amarelo=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Amarelo</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_amarelo=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_amarelo=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['verde']) && $dados_a['verde'] == 1){
-                                    echo '<tr><td>Verde = OK</td></tr>';
+                                if($dados_a['verde'] == 1){
+                                    echo '<tr><td>
+                                    <label>Verde</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_verde=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_verde=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Verde</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_verde=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_verde=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['laranja']) && $dados_a['laranja'] == 1){
-                                    echo '<tr><td>Laranja = OK</td></tr>';
+                                if($dados_a['laranja'] == 1){
+                                    echo '<tr><td>
+                                    <label>Laranja</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_laranja=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_laranja=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Laranja</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_laranja=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_laranja=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['cinza']) && $dados_a['cinza'] == 1){
-                                    echo '<tr><td>Cinza = OK</td></tr>';
+                                if($dados_a['cinza'] == 1){
+                                   echo '<tr><td>
+                                    <label>Cinza</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_cinza=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_cinza=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Cinza</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_cinza=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_cinza=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['rosa']) && $dados_a['rosa'] == 1){
-                                    echo '<tr><td>Cinza = OK</td></tr>';
+                                if($dados_a['rosa'] == 1){
+                                    echo '<tr><td>
+                                    <label>Rosa</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_rosa=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_rosa=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Rosa</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_rosa=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_rosa=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['marrom']) && $dados_a['marrom'] == 1){
-                                    echo '<tr><td>Marrom = OK</td></tr>';
+                                if($dados_a['marrom'] == 1){
+                                   echo '<tr><td>
+                                    <label>Marrom</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_marrom=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_marrom=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Marrom</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_marrom=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_marrom=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['roxo']) && $dados_a['roxo'] == 1){
-                                    echo '<tr><td>Roxo = OK</td></tr>';
+                                if($dados_a['roxo'] == 1){
+                                   echo '<tr><td>
+                                    <label>Roxo</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_roxo=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_roxo=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Roxo</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_roxo=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_roxo=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['prata']) && $dados_a['prata'] == 1){
-                                    echo '<tr><td>Prata = OK</td></tr>';
+                                if($dados_a['prata'] == 1){
+                                    echo '<tr><td>
+                                    <label>Prata</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_prata=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_prata=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Prata</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled"  disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_prata=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_prata=ok">Desativar</a></td></tr>';
                                 }
                                 
-                                if(isset($_SESSION['dourado']) && $dados_a['dourado'] == 1){
-                                    echo '<tr><td>Dourado = OK</td></tr>';
+                                if($dados_a['dourado'] == 1){
+                                    echo '<tr><td>
+                                    <label>Dourado</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_dourado=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_dourado=ok">Desativar</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>
+                                    <label>Dourado</label> 
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+                                    </td><td><a class="btn btn-secondary" href="?ativa_cor_dourado=ok">Ativar</a>
+                                    <a class="btn btn-secondary" href="?desativa_cor_dourado=ok">Desativar</a></td></tr>';
                                 }
-                                
+                                echo '</table>';
                             }
                         ?>
                     </div>
@@ -412,3 +546,21 @@ if(!empty($_POST['cod_barras_dourado'])){
                 </div>
       </div>
       </div>
+      </div>
+      
+      <div class="modal fade modal-xl" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Busca de Produtos</h5>
+      </div>
+      <div class="modal-body bg-light">
+         <input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)"/>
+         <div class="mt-2" id="resultado"></div>
+      </div>
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

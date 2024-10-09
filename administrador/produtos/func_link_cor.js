@@ -12,7 +12,7 @@ else if(window.ActiveXObject) {
 }
  
 // Arquivo PHP juntamente com o valor digitado no campo (método GET)
-var url = "busca_pr.php?valor="+valor;
+var url = "busca_link_cor.php?valor="+valor;
  
 // Chamada do método open para processar a requisição
 req.open("Get", url, true); 
