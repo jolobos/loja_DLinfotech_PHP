@@ -28,8 +28,11 @@ $valor = $_GET['valor'];
   
   foreach($dados as $d){
 	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
-	  echo '<tr><td>'.$d['cod_produto'].'</td><td>'.$d['nome'].'</td><td><img style="width:50px;height:50px " src="../../img/produtos/'.$d['foto'].'"></td>
-	  <td>'.$status.'</td><td><button class="btn btn-dark border-success">Copiar</button></td></tr>';
+	  echo '<tr><td>
+          <textarea class="form-control ms-3" id="cod_produto" onclick="copiar()">'.$d['cod_produto'].'</textarea>
+          </td><td>'.$d['nome'].'</td><td><img style="width:50px;height:50px " src="../../img/produtos/'.$d['foto'].'"></td>
+	  <td>'.$status.'</td><td>
+          <p><button type="button" id="clip_btn" class="btn btn-primary ms-3"  data-toggle="tooltip" data-placement="top" title="Copiar código pix" onclick="copiar()"><i class="fas fa-clipboard"> - Copiar</i></button></p></td></tr>';
  }
   
   echo '</tbody>';

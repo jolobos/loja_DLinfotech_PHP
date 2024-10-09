@@ -68,7 +68,18 @@ if(!empty($_POST['cod_barras_dourado'])){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="func_link_cor.js"></script>
     <link rel="stylesheet" href="../../css/modal.css">
+    <script src="https://kit.fontawesome.com/0f8eed42e7.js" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6M96X7Y2Y"></script>
 
+    <script>
+    function copiar() {
+    var copyText = document.getElementById("cod_produto");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    document.execCommand("copy");
+    document.getElementById("clip_btn").innerHTML='<i class="fas fa-clipboard-check"></i> - Copiado';
+    }
+    </script>
 </head>
   <body style="background: #778899">
   <div class="container">
