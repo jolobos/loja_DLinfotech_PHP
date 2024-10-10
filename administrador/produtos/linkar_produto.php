@@ -138,7 +138,8 @@ if(!empty($_POST['cod_barras_dourado'])){
                             <div class="row">
                                 <div class="col">';
                          if($dados_b['azul'] == 1){
-                            echo '<h5>Azul: </h5>
+                            if(empty($dados_b['link_azul'])){
+                                echo '<h5>Azul: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -150,10 +151,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';
+                            </div>';}else{
+                                
+                            }
                              }
                             
                              if($dados_b['vermelho'] == 1){
+                                 if(empty($dados_b['link_vermelho'])){
                             echo '<h5>Vermelho: </h5>
                             <div>
                             <form action="" method="post">
@@ -166,9 +170,12 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                             </div>';}
+                             </div>';}else{
+                                
+                            }}
                             
                              if($dados_b['branco'] == 1){
+                                 if(empty($dados_b['link_branco'])){
                             echo '<h5>Branco: </h5>
                             <div>
                             <form action="" method="post">
@@ -181,9 +188,12 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                             </div>';}
+                             </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['preto'] == 1){
+                                if(empty($dados_b['link_preto'])){
                             echo '<h5>Preto: </h5>
                             <div>
                             <form action="" method="post">
@@ -196,10 +206,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['amarelo'] == 1){
-                            echo '<h5>Amarelo: </h5>
+                            if(empty($dados_b['link_amarelo'])){
+                                echo '<h5>Amarelo: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -211,10 +224,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['verde'] == 1){
-                            echo '<h5>Verde: </h5>
+                            if(empty($dados_b['link_verde'])){
+                                echo '<h5>Verde: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -226,10 +242,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['laranja'] == 1){
-                            echo '<h5>Laranja: </h5>
+                            if(empty($dados_b['link_laranja'])){
+                                echo '<h5>Laranja: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -241,14 +260,17 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             echo '</div>
                             
                             <div class="col">';
                             
                             if($dados_b['cinza'] == 1){
-                            echo '<h5>Cinza: </h5>
+                            if(empty($dados_b['link_cinza'])){
+                                echo '<h5>Cinza: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -260,10 +282,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['rosa'] == 1){
-                            echo '<h5>Rosa: </h5>
+                            if(empty($dados_b['link_rosa'])){
+                                echo '<h5>Rosa: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -275,10 +300,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['marrom'] == 1){
-                            echo '<h5>Marrom: </h5>
+                            if(empty($dados_b['link_marrom'])){
+                                echo '<h5>Marrom: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -290,10 +318,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['roxo'] == 1){
-                            echo '<h5>Roxo: </h5>
+                            if(empty($dados_b['link_roxo'])){
+                                echo '<h5>Roxo: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -305,10 +336,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['prata'] == 1){
-                            echo '<h5>Prata: </h5>
+                            if(empty($dados_b['link_prata'])){
+                                echo '<h5>Prata: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -320,10 +354,13 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             
                             if($dados_b['dourado'] == 1){
-                            echo '<h5>Dourado: </h5>
+                            if(empty($dados_b['link_dourado'])){
+                                echo '<h5>Dourado: </h5>
                             <div>
                             <form action="" method="post">
                             <div class="row">
@@ -335,7 +372,9 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                                 </div>
                             </form>
-                            </div>';}
+                            </div>';}else{
+                                
+                            }}
                             echo '</div>
                                 </div>';
                     }
