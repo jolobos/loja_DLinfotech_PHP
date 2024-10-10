@@ -152,7 +152,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Azul: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_azul" value="'.$dados_b['link_azul'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }
                              }
                             
@@ -171,7 +183,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                              </div>';}else{
-                                
+                                echo '<h5>Vermelho: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_vermelho" value="'.$dados_b['link_vermelho'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                             </div>';
                             }}
                             
                              if($dados_b['branco'] == 1){
@@ -189,7 +213,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                              </div>';}else{
-                                
+                                echo '<h5>Branco: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_branco" value="'.$dados_b['link_branco'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                             </div>';
                             }}
                             
                             if($dados_b['preto'] == 1){
@@ -207,7 +243,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Preto: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_preto" value="'.$dados_b['link_preto'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['amarelo'] == 1){
@@ -225,7 +273,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Amarelo: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_amarelo" value="'.$dados_b['link_amarelo'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['verde'] == 1){
@@ -243,7 +303,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Verde: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_verde" value="'.$dados_b['link_verde'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['laranja'] == 1){
@@ -261,7 +333,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Laranja: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_laranja" value="'.$dados_b['link_laranja'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             echo '</div>
@@ -283,7 +367,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Cinza: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_cinza" value="'.$dados_b['link_cinza'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['rosa'] == 1){
@@ -301,7 +397,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Rosa: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_rosa" value="'.$dados_b['link_rosa'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['marrom'] == 1){
@@ -319,7 +427,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Marrom: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_marrom" value="'.$dados_b['link_marrom'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['roxo'] == 1){
@@ -337,7 +457,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Roxo: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_roxo" value="'.$dados_b['link_roxo'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['prata'] == 1){
@@ -355,7 +487,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Prata: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_prata" value="'.$dados_b['link_prata'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             
                             if($dados_b['dourado'] == 1){
@@ -373,7 +517,19 @@ if(!empty($_POST['cod_barras_dourado'])){
                                 </div>
                             </form>
                             </div>';}else{
-                                
+                                echo '<h5>Dourado: </h5>
+                            <div>
+                            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8" >            
+                                    <input class="form-control " placeholder="Digite ou leia código do produto..." name="cod_barras_dourado" value="'.$dados_b['link_dourado'].'">
+                                </div>
+                                        <div class="col" >            
+                                            <input type="submit" class="btn btn-dark " value="Linkar">
+                                </div>
+                                </div>
+                            </form>
+                            </div>';
                             }}
                             echo '</div>
                                 </div>';
@@ -608,6 +764,7 @@ if(!empty($_POST['cod_barras_dourado'])){
   </div>
 </div>
 <?php
+//document.getElementById("clip_btn").innerHTML='<i class="fas fa-clipboard-check"></i> - Copiado';
 $cont_2 = 0;
 while($cont_2 < 8){
     echo '<script>
@@ -616,6 +773,7 @@ while($cont_2 < 8){
             copyText.select();
             copyText.setSelectionRange(0, 99999); /* For mobile devices */
             document.execCommand("copy");
+
             }
             </script>';
 
