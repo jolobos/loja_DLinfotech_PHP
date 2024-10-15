@@ -13,46 +13,76 @@ if(!empty($_POST['cod_barras'])){
     $_SESSION['produto_escolhido'] = $dados['id_produto'];
     }
 }
-
+$escolha_cor = '';
+$cod_selecionado = '';
 if(!empty($_POST['cod_barras_azul'])){
-    $_SESSION['azul'] = $_POST['cod_barras_azul'];
+    $cod_selecionado = $_POST['cod_barras_azul'];
+    $escolha_cor = 'link_azul';
 }
 if(!empty($_POST['cod_barras_vermelho'])){
-    $_SESSION['vermelho'] = $_POST['cod_barras_vermelho'];
+    $cod_selecionado = $_POST['cod_barras_vermelho'];
+    $escolha_cor = 'link_vermelho';
 }
 if(!empty($_POST['cod_barras_preto'])){
-    $_SESSION['preto'] = $_POST['cod_barras_preto'];
+    $cod_selecionado = $_POST['cod_barras_preto'];
+    $escolha_cor = 'link_preto';
 }
 if(!empty($_POST['cod_barras_branco'])){
-    $_SESSION['branco'] = $_POST['cod_barras_branco'];
+    $cod_selecionado = $_POST['cod_barras_branco'];
+    $escolha_cor = 'link_branco';
 }
 if(!empty($_POST['cod_barras_amarelo'])){
-    $_SESSION['amarelo'] = $_POST['cod_barras_amarelo'];
+    $cod_selecionado = $_POST['cod_barras_amarelo'];
+    $escolha_cor = 'link_amarelo';
 }
 if(!empty($_POST['cod_barras_verde'])){
-    $_SESSION['verde'] = $_POST['cod_barras_verde'];
+    $cod_selecionado = $_POST['cod_barras_verde'];
+    $escolha_cor = 'link_verde';
 }
 if(!empty($_POST['cod_barras_laranja'])){
-    $_SESSION['laranja'] = $_POST['cod_barras_laranja'];
+    $cod_selecionado = $_POST['cod_barras_laranja'];
+    $escolha_cor = 'link_laranja';
 }
 if(!empty($_POST['cod_barras_cinza'])){
-    $_SESSION['cinza'] = $_POST['cod_barras_cinza'];
+    $cod_selecionado = $_POST['cod_barras_cinza'];
+    $escolha_cor = 'link_cinza';
 }
 if(!empty($_POST['cod_barras_rosa'])){
-    $_SESSION['rosa'] = $_POST['cod_barras_rosa'];
+    $cod_selecionado = $_POST['cod_barras_rosa'];
+    $escolha_cor = 'link_rosa';
 }
 if(!empty($_POST['cod_barras_marrom'])){
-    $_SESSION['marrom'] = $_POST['cod_barras_marrom'];
+    $cod_selecionado = $_POST['cod_barras_marrom'];
+    $escolha_cor = 'link_marrom';
 }
 if(!empty($_POST['cod_barras_roxo'])){
-    $_SESSION['roxo'] = $_POST['cod_barras_roxo'];
+    $cod_selecionado = $_POST['cod_barras_roxo'];
+    $escolha_cor = 'link_roxo';
 }
 if(!empty($_POST['cod_barras_prata'])){
-    $_SESSION['prata'] = $_POST['cod_barras_prata'];
+    $cod_selecionado = $_POST['cod_barras_prata'];
+    $escolha_cor = 'link_prata';
 }
 if(!empty($_POST['cod_barras_dourado'])){
-    $_SESSION['dourado'] = $_POST['cod_barras_dourado'];
+    $cod_selecionado = $_POST['cod_barras_dourado'];
+    $escolha_cor = 'link_dourado';
 }
+
+if(!empty($cod_selecionado) && !empty($_SESSION['produto_escolhido'])){
+    echo '<h5>codigo selecionado = '.$cod_selecionado.' link = '.$escolha_cor.'</h5>';
+    $sql ='UPDATE produtos SET '.$escolha_cor.'=? WHERE id_produto = '.$_SESSION['produto_escolhido'].'';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($cod_selecionado));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+    header('location:linkar_produto.php');
+}
+
 
 ?>
 <!doctype html>
