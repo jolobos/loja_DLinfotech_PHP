@@ -69,7 +69,6 @@ if(!empty($_POST['cod_barras_dourado'])){
 }
 
 if(!empty($cod_selecionado) && !empty($_SESSION['produto_escolhido'])){
-    echo '<h5>codigo selecionado = '.$cod_selecionado.' link = '.$escolha_cor.'</h5>';
     $sql ='UPDATE produtos SET '.$escolha_cor.'=? WHERE id_produto = '.$_SESSION['produto_escolhido'].'';
     try {
         $insercao = $conexao->prepare($sql);
@@ -83,6 +82,87 @@ if(!empty($cod_selecionado) && !empty($_SESSION['produto_escolhido'])){
     header('location:linkar_produto.php');
 }
 
+$ativa_cor = 0;
+$esc_at_cor = '';
+if(!empty($_GET['ativa_cor_azul']) || !empty($_GET['desativa_cor_azul'])){
+    $esc_at_cor = 'azul';
+    if(isset($_GET['ativa_cor_azul'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_vermelho']) || !empty($_GET['desativa_cor_vermelho'])){
+    $esc_at_cor = 'vermelho';
+    if(isset($_GET['ativa_cor_vermelho'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_branco']) || !empty($_GET['desativa_cor_branco'])){
+    $esc_at_cor = 'branco';
+    if(isset($_GET['ativa_cor_branco'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_preto']) || !empty($_GET['desativa_cor_preto'])){
+    $esc_at_cor = 'preto';
+    if(isset($_GET['ativa_cor_preto'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_amarelo']) || !empty($_GET['desativa_cor_amarelo'])){
+    $esc_at_cor = 'amarelo';
+    if(isset($_GET['ativa_cor_amarelo'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_verde']) || !empty($_GET['desativa_cor_verde'])){
+    $esc_at_cor = 'verde';
+    if(isset($_GET['ativa_cor_verde'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_laranja']) || !empty($_GET['desativa_cor_laranja'])){
+    $esc_at_cor = 'laranja';
+    if(isset($_GET['ativa_cor_laranja'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_cinza']) || !empty($_GET['desativa_cor_cinza'])){
+    $esc_at_cor = 'cinza';
+    if(isset($_GET['ativa_cor_cinza'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_rosa']) || !empty($_GET['desativa_cor_rosa'])){
+    $esc_at_cor = 'rosa';
+    if(isset($_GET['ativa_cor_rosa'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_marrom']) || !empty($_GET['desativa_cor_marrom'])){
+    $esc_at_cor = 'marrom';
+    if(isset($_GET['ativa_cor_marrom'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_roxo']) || !empty($_GET['desativa_cor_roxo'])){
+    $esc_at_cor = 'roxo';
+    if(isset($_GET['ativa_cor_roxo'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_prata']) || !empty($_GET['desativa_cor_prata'])){
+    $esc_at_cor = 'prata';
+    if(isset($_GET['ativa_cor_prata'])){$ativa_cor = 1;}
+}
+if(!empty($_GET['ativa_cor_dourado']) || !empty($_GET['desativa_cor_dourado'])){
+    $esc_at_cor = 'dourado';
+    if(isset($_GET['ativa_cor_dourado'])){$ativa_cor = 1;}
+}
+
+if(!empty($esc_at_cor) && $ativa_cor == 1){
+    $sql ='UPDATE produtos SET '.$esc_at_cor.'=? WHERE id_produto = '.$_SESSION['produto_escolhido'].'';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($ativa_cor));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+    header('location:linkar_produto.php');
+}
+if(!empty($esc_at_cor) && $ativa_cor == 0){
+    $sql ='UPDATE produtos SET '.$esc_at_cor.'=? WHERE id_produto = '.$_SESSION['produto_escolhido'].'';
+    try {
+        $insercao = $conexao->prepare($sql);
+	$ok = $insercao->execute(array ($ativa_cor));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok = False;
+    }catch (Exception $r){//todos as exceções
+	$ok= False; 
+    }
+    header('location:linkar_produto.php');
+}
 
 ?>
 <!doctype html>
@@ -772,6 +852,9 @@ if(!empty($cod_selecionado) && !empty($_SESSION['produto_escolhido'])){
                 </div>
                 </div>
                 </div>
+              <div>
+                  <a class="btn btn-secondary border-info" href="regularizar_cores.php">Aplicar configurações em todos os produtos</a>
+              </div>
       </div>
       </div>
       </div>
