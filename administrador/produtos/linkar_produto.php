@@ -214,6 +214,11 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
 				</div>
 				</div>
 				</div>
+      <?php
+      if(isset($_GET['msg'])){          
+            echo '<h2 class="alert alert-info mt-2">'.$_GET['msg'].'</h2>';}
+      ?>
+      
       <div class="card mt-2">
           <div class="card-header">
               <h4>Escolha uma das opções abaixo:</h4>
