@@ -5,6 +5,14 @@ ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 require_once("../database.php");
 
+if(!empty($_GET['cor_produto'])){
+$cod_produto = $_GET['cor_produto'];
+$sql = "SELECT * FROM produtos WHERE cod_produto = '".$cod_produto."'";
+$consulta = $conexao->query($sql);
+$dados = $consulta->fetch(PDO::FETCH_ASSOC);
+$_GET['id_produto'] = $dados['id_produto'];
+}
+
 if(!empty($_GET['id_produto'])){
 $id_produto = $_GET['id_produto'];
 $sql = "SELECT * FROM produtos WHERE id_produto = '".$id_produto."'";
@@ -136,31 +144,31 @@ echo '</div></div></div>
         
     echo '<div>';
        if($dados['azul']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#3561bb" href="?id_produto='.$dados['link_azul'].'">azul</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#3561bb" href="?cor_produto='.$dados['link_azul'].'">azul</a>';}
        if($dados['vermelho']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ff1e04" href="?id_produto='.$dados['link_vermelho'].'">vermelho</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ff1e04" href="?cor_produto='.$dados['link_vermelho'].'">vermelho</a>';}
        if($dados['preto']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#000101"href="?id_produto='.$dados['link_preto'].'">preto</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#000101"href="?cor_produto='.$dados['link_preto'].'">preto</a>';}
        if($dados['branco']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ddfff5" href="?id_produto='.$dados['link_branco'].'">branco</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ddfff5" href="?cor_produto='.$dados['link_branco'].'">branco</a>';}
        if($dados['amarelo']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ebf500" href="?id_produto='.$dados['link_amarelo'].'">amarelo</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ebf500" href="?cor_produto='.$dados['link_amarelo'].'">amarelo</a>';}
        if($dados['verde']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#3eca5e" href="?id_produto='.$dados['link_verde'].'">verde</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#3eca5e" href="?cor_produto='.$dados['link_verde'].'">verde</a>';}
        if($dados['laranja']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#cd7a0f" href="?id_produto='.$dados['link_laranja'].'">laranja</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#cd7a0f" href="?cor_produto='.$dados['link_laranja'].'">laranja</a>';}
        if($dados['cinza']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#878788" href="?id_produto='.$dados['link_cinza'].'">cinza</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#878788" href="?cor_produto='.$dados['link_cinza'].'">cinza</a>';}
        if($dados['rosa']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ed2d7d" href="?id_produto='.$dados['link_rosa'].'">rosa</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#ed2d7d" href="?cor_produto='.$dados['link_rosa'].'">rosa</a>';}
        if($dados['marrom']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#88564d" href="?id_produto='.$dados['link_marrom'].'">marrom</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#88564d" href="?cor_produto='.$dados['link_marrom'].'">marrom</a>';}
        if($dados['roxo']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#660099" href="?id_produto='.$dados['link_roxo'].'">roxo</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#660099" href="?cor_produto='.$dados['link_roxo'].'">roxo</a>';}
        if($dados['prata']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#cacaba" href="?id_produto='.$dados['link_prata'].'">prata</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#cacaba" href="?cor_produto='.$dados['link_prata'].'">prata</a>';}
        if($dados['dourado']>0){
-       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#daa520" href="?id_produto='.$dados['link_dourado'].'">dourado</a>';}
+       echo '<a class="btn btn-light me-2 mt-2" style="border-color:#daa520" href="?cor_produto='.$dados['link_dourado'].'">dourado</a>';}
       
     echo '</div>';}
     
