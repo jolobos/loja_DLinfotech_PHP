@@ -12,7 +12,15 @@ require $rdir.'/email/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+if(!empty($POST['email_usuario'])){
+    $email = $_POST['email_usuario'];
+    $sql = 'SELECT * FROM usuarios WHERE email=?';
+    $consulta = $conexao->prepare($sql);
+    $consulta->execute(array($email));
+    $dado = $consulta->fetch(PDO::FETCH_ASSOC);
+    $res = $consulta->rowCount();
 
+if($res == 1){    
 $mail = new PHPMailer(true);
 
 try {
@@ -56,5 +64,53 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+}else{
+    header('location:recupera_senha.php?mens=O E-mail utilizado não consta em nosso banco de dados!');
+ }
 
+}
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+   <link rel="stylesheet" href="../css/cadastro.css">
+    <title>Casdatre-se e aproveite nossos produtos</title>
+</head>
+<body>
+<?php
+    if(!empty($_GET['mens'])){
+        $msg = $_GET['mens'];
+        echo '';
+        echo '<div align="center"'
+        . 'style=" height: 50px;width: 1000px;position: absolute;top: 35px;margin: auto;border-radius;border: 2px solid #191970;
+  border-radius: 25px;background:#FF6347;">'
+        . '<h3 style="margin-top: 10px ;">Desculpa, '.$msg.'</h3></div>';
+    }
+    ?>
+
+<div class="box" style="justify-content: center;">
+<div class="img-box">
+            <img src="../img/recupera.png">
+        </div>
+<div class="form-box">
+<form action="recupera_senha.php" method="post">
+				<h2 align="center">Recuperação de Senha</h2>
+                <div class="input-group">
+                    <label class="text-dark">Digite seu E-mail para receber o token de recuperação da senha.</label>
+                    <label for="nome">E-mail</label>
+                    <input type="text" name="email_usuario" placeholder="Digite o seu E-mail..." required>
+                </div>
+
+                
+				<div align="right" class="input-group" style="margin-top:80px;">
+                    <button type="submit" style="width:100px;">Enviar</button>
+                </div>
+</form>
+</div>
+</div>
+</body>
