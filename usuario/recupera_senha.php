@@ -12,7 +12,7 @@ require $rdir.'/email/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-if(!empty($POST['email_usuario'])){
+if(!empty($_POST['email_usuario'])){
     $email = $_POST['email_usuario'];
     $sql = 'SELECT * FROM usuarios WHERE email=?';
     $consulta = $conexao->prepare($sql);
@@ -23,8 +23,41 @@ if(!empty($POST['email_usuario'])){
 if($res == 1){    
 $mail = new PHPMailer(true);
 
+    $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuwxyz0123456789";
+   $randomString = '';
+   for($i = 0; $i < 6; $i = $i+1){
+      $randomString .= $chars[mt_rand(0,60)];
+   }
+$token = $randomString;;
+$id_recuperacao = $dado['id_usuario'];
+echo $token.'<br>'.$id_recuperacao;
+   
+    $sql_recu ='UPDATE usuarios SET token_recupercao=? WHERE id_usuario=?';
+    try {
+        $insercao = $conexao->prepare($sql_recu);
+	$ok1 = $insercao->execute(array ($token,$id_recuperacao));
+    }catch(PDOException $r){
+//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+        $ok1 = False;
+    }catch (Exception $r){//todos as exceções
+	$ok1= False; 
+        }
+
+
+ if($ok1){
 try {
     //Server settings
+    $assunto = 'Recuperação de senha - DLInfotech Soluções em Informática.';
+    $mensagem_email = 'Olá, lamentamos que você tenha perdido a sua senha de acesso!<br>
+                        Para sua segurança, estamos enviando um código de 6 digitos,<br>
+                        para que você possa estar atualizando a sua senha e recuperar<br>
+                        o seu acesso a plataforma.<br><br><br>
+                        Caso você não tenha tentado acessar a sua conta e recebeu essa<br>
+                        mensagem, fique atento à uma tentativa de acesso indevido!<br>
+                        <br>
+                        Seu token de acesso é: '.$token.'.<br>
+                        <br><br>
+                        Equipe DLInfotech.' ;
     $mail->SMTPOptions = array(
         'ssl' => array(
         'verify_peer' => false,
@@ -32,18 +65,19 @@ try {
         'allow_self_signed' => true
         )
         );
+    $mail->CharSet = "UTF-8";
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'email do usuario';                     //SMTP username
-    $mail->Password   = 'Criar senha de aplicativo';                               //SMTP password
+    $mail->Username   = 'email da loja';                     //SMTP username
+    $mail->Password   = 'senha de aplicativo da loja';            //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
     $mail->setFrom('digo8432@gmail.com', 'Digo');
-    $mail->addAddress('luana.koling@gmail.com', 'Digo');     //Add a recipient
+    $mail->addAddress($email, 'Usuario');     //Add a recipient
     //$mail->addAddress('ellen@example.com');               //Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -55,15 +89,22 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Assunto';
-    $mail->Body    = 'Mensagem';
+    $mail->Subject = $assunto;
+    $mail->Body    = $mensagem_email;
     //$mail->AltBody = 'Testando oque é Altbody in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
+    $msg_enviada = 'Mensagem enviada com sucesso.';
+    header('location:Inserir_token.php?mens='.$msg_enviada);
+
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    $msg_enviada = 'Mensagem enviada com sucesso.';
+    header("location:recupera_senha.php?mens=Mensagem não enviada . Mailer Error: {$mail->ErrorInfo}");
 }
+ }else{
+        header('location:recupera_senha.php?mens=Houve um erro ao salvar o Token em nosso banco de dados!');
+
+} 
 }else{
     header('location:recupera_senha.php?mens=O E-mail utilizado não consta em nosso banco de dados!');
  }
@@ -101,14 +142,25 @@ try {
 <form action="recupera_senha.php" method="post">
 				<h2 align="center">Recuperação de Senha</h2>
                 <div class="input-group">
-                    <label class="text-dark">Digite seu E-mail para receber o token de recuperação da senha.</label>
+                    <label style="color: black">Digite seu E-mail para receber o token de recuperação da senha.</label>
                     <label for="nome">E-mail</label>
                     <input type="text" name="email_usuario" placeholder="Digite o seu E-mail..." required>
                 </div>
 
                 
-				<div align="right" class="input-group" style="margin-top:80px;">
-                    <button type="submit" style="width:100px;">Enviar</button>
+		<div align="right" class="input-group" style="margin-top:80px;">
+                    <table><tr><td>
+                    <a href="login.php"><input type="button" name="name" value="Voltar" style="width:100px;
+    height: 47px;background: #808080;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    margin-top: 15px;
+    padding-top: 10px; 
+    color: white;
+    cursor: pointer;
+    font-size: 16px;"></a></td><td>
+                                <button type="submit" style="width:100px;">Enviar</button></td></tr></table>
                 </div>
 </form>
 </div>
