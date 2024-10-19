@@ -22,7 +22,7 @@ if(!empty($_POST['email_usuario'])){
 
 if($res == 1){    
 $mail = new PHPMailer(true);
-
+$_SESSION['id_email'] = $dado['id_usuario'];
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuwxyz0123456789";
    $randomString = '';
    for($i = 0; $i < 6; $i = $i+1){

@@ -28,7 +28,7 @@ if(!empty($_POST)){
 				header('location:../index.php?mens='.$msg);
 				}else{
 					$msg='E-mail de usuario ou senha invalidos.';
-				header('location:../login.php?mens='.$msg);
+				header('location:login.php?mens='.$msg);
 
 					}
 			}else{
