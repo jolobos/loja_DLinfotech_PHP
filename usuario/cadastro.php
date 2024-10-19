@@ -1,4 +1,7 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors','on');
 require_once ('../database.php');
 date_default_timezone_set('America/Sao_Paulo');
 if(!empty($_POST) ){
@@ -38,7 +41,25 @@ if($senha1 == $senha2){
 		}
 			if ($ok){
 				$msg= 'Seja Bem Vindo a DLInfotech.';
-				}else{
+                                $sql = 'SELECT * FROM usuarios WHERE email=?';
+                                $consulta = $conexao->prepare($sql);
+                                $consulta->execute(array($email));
+                                $dado = $consulta->fetch(PDO::FETCH_ASSOC);
+                                $res = $consulta->rowCount();
+                                $senha = md5($_POST['senha1']);
+
+                                if($res==1){
+                                        if($senha==$dado['senha']){
+                                        $_SESSION['email'] = $dado['email'];
+                                        $_SESSION['id_usuario'] = $dado['id_usuario'];
+                                        $_SESSION['administrador'] = $dado['administrador'];
+                                        $_SESSION['apelido'] = $dado['apelido'];
+                                        $_SESSION['foto'] = $dado['foto'];
+                                        $_SESSION['nome'] = $dado['nome'];
+                                        $_SESSION['vida'] = 1000; //segundos
+                                        $_SESSION['decorrido'] = time();
+                                        header('location:../index.php?mens='.$msg);
+                        }}}else{
 					$msg='Lamento, não foi possivel cadastrar o usuario.'.$r->getMessage().'';
 			}
 			header('location:../index.php?mensagem='.$msg);

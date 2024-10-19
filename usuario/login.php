@@ -77,7 +77,7 @@ if(!empty($_POST)){
                 <div class="input-group">
                     <label for="email">Senha</label>
                     <input type="password" name="senha" placeholder="Digite a sua senha..." required>
-                    <a href="recupera_senha.php" style="color: #000000;" target="_blank">Esqueceu a senha?Click Aqui.</button>
+                    <a href="recupera_senha.php" style="color: #000000;" >Esqueceu a senha?Click Aqui.</button>
 				</div>
 				<div align="right" class="input-group" style="margin-top:80px;">
                     <button type="submit" style="width:100px;">Iniciar</button>
