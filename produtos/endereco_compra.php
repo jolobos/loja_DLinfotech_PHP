@@ -141,35 +141,35 @@ $(window).load(function() {
                                         $checked +=1;
 							
 		echo '<div class="form-check">
-		  <input class="form-check-input" type="radio" name="id_endereco" value="'.$d['id_endereco'].'" '.$checked_show.'>
-		  <label class="form-check-label" for="flexRadioDefault1">
+		  <input class="form-check-input" type="radio" id="endereco'.$d['id_endereco'].'" name="id_endereco" value="'.$d['id_endereco'].'" '.$checked_show.'>
+		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong>CEP:</strong> '.$d['CEP'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'>
                   <strong> Rua:</strong> '.$d['logradouro'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'>
                   <strong> Bairro:</strong> '.$d['bairro'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Cidade:</strong> '.$d['cidade'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> UF:</strong> '.$d['UF'].' 
 		  </label></br>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> n°:</strong> '.$d['numero'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Complemento:</strong> '.$d['complemento'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
 		  </label></br>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
 		  </label>
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
 		  </label>
 		</div><hr/>

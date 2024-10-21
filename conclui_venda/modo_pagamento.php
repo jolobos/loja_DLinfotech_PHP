@@ -25,6 +25,9 @@ $dados = $consulta->fetch(PDO::FETCH_ASSOC);
 $total += $dados['valor'] * $qtd;
 
 }
+if(isset($_SESSION['compra_efetuada'])){
+     $_SESSION['compra_efetuada'] = false;
+}
 
 require_once'cabecalho.php';
 
