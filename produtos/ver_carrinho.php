@@ -58,9 +58,10 @@ require_once 'cabecalho.php';
             <?php
                 if(count($_SESSION['produto_carrinho'])==0){
                 echo '<h4 align="center" class="alert alert-info">Nenhum Produto No Carrinho</h4>';
-                echo '<h5>Escolha uma das opções a seguir: </h5>
-                <a class="btn btn-secondary" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">Ultimo Produto Visto</a>
-                <a class="btn btn-info" href="../index.php">Voltar ao INICIO</a>';
+                echo '<h5>Escolha uma das opções a seguir: </h5>';
+                if(!empty($_SESSION['ultimo_visto'])){
+                    echo '<a class="btn btn-secondary me-2" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">Ultimo Produto Visto</a>';
+                }echo '<a class="btn btn-info" href="../index.php">Voltar ao INICIO</a>';
                 }else{
 				echo '<div class="row"><div class="col-sm-2 "><a class="btn btn-secondary ms-3" href="pagina_produto.php?id_produto='.$_SESSION['ultimo_visto'].'">Ultimo Produto Visto</a>
                 </div><div class="col-sm-2"><a class="btn btn-info" href="../index.php">Voltar ao INICIO</a></div>

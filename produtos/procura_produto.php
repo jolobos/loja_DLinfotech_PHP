@@ -40,7 +40,7 @@ require_once 'cabecalho.php';
             echo '<h3 class="alert alert-secondary">Produtos com o nome "'.$busca_produto_nome.'"</h3>
         <div class="row">';
         }else if(isset($busca_produto_cat)){
-            echo '<h3 class="alert alert-secondary">Produtos com o nome "'.$busca_produto_cat.'"</h3>
+            echo '<h3 class="alert alert-secondary">Produtos na categoria "'.$busca_produto_cat.'"</h3>
         <div class="row">';
         }
    
