@@ -258,8 +258,8 @@ echo '<div class="row mt-2">
         <div class="col">
             <div class="card" style="width: 100%; height: 100%;">
 		<h3 class="text-info">MEGA PROMOÇÃO DA SEMANA</h3>
-		<img src="img/produtos/'.$dados1['foto'].'"  alt="Imagem de capa do card" style="width:95%">
-                <div class="card-body">
+		<img src="img/produtos/'.$dados1['foto'].'"  alt="Imagem de capa do card" style="width:70%;margin:auto;margin-top:0px">
+                <div class="card-body" style="position:absolute;bottom:0px">
                     <h5 class="card-title">'.$dados1['nome'].'</h5>
                     <p class="card-text">'.$dados1['descricao'].'</p>
                     <a href="produtos/pagina_produto.php?id_produto='.$id_produto1.'" class="btn btn-success" >preço R$ '. number_format($dados1['valor'],2,',','.').'</a>
@@ -269,9 +269,9 @@ echo '<div class="row mt-2">
         <div class="col">
         <div class="row">
         <div class="col">
-            <div class="card" style="width: 100%; height: 100%;">
-                 <img src="img/produtos/'.$dados2['foto'].'" alt="Imagem de capa do card" style="width:95%">
-                    <div class="card-body">
+            <div class="card" style="width: 100%; height: 600px;">
+                 <img src="img/produtos/'.$dados2['foto'].'" alt="Imagem de capa do card" style="width:65%;height:65%;margin:auto;margin-top:0px">
+                    <div class="card-body" style="position:absolute;bottom:0px">
                         <h5 class="card-title">'.$dados2['nome'].'</h5>
                         <p class="card-text">'.$dados2['descricao'].'</p>
                         <a href="produtos/pagina_produto.php?id_produto='.$id_produto2.'" class="btn btn-success" >preço R$ '. number_format($dados2['valor'],2,',','.').'</a>
@@ -279,9 +279,9 @@ echo '<div class="row mt-2">
             </div>
         </div>
         <div class="col">
-            <div class="card" style="width: 100%; height: 100%;">
-                <img src="img/produtos/'.$dados3['foto'].'" alt="Imagem de capa do card" style="width:95%">
-		<div class="card-body">
+            <div class="card" style="width: 100%; height: 600px;">
+                <img src="img/produtos/'.$dados3['foto'].'" alt="Imagem de capa do card" style="width:65%;height:65%;margin:auto;margin-top:0px">
+		<div class="card-body" style="position:absolute;bottom:0px">
                     <h5 class="card-title">'.$dados3['nome'].'</h5>
                     <p class="card-text">'.$dados3['descricao'].'</p>
                     <a href="produtos/pagina_produto.php?id_produto='.$id_produto3.'" class="btn btn-success" >preço R$ '. number_format($dados3['valor'],2,',','.').'</a>
@@ -291,9 +291,9 @@ echo '<div class="row mt-2">
         </div>
         <div class="row mt-2">
         <div class="col">
-            <div class="card" style="width: 100%; height: 100%;">
-                <img src="img/produtos/'.$dados4['foto'].'" alt="Imagem de capa do card" style="width:95%">
-		<div class="card-body">
+            <div class="card" style="width: 100%; height: 600px;">
+                <img src="img/produtos/'.$dados4['foto'].'" alt="Imagem de capa do card" style="width:65%;height:65%;margin:auto;margin-top:0px">
+		<div class="card-body" style="position:absolute;bottom:0px">
                     <h5 class="card-title">'.$dados4['nome'].'</h5>
                     <p class="card-text">'.$dados4['descricao'].'</p>
                     <a href="produtos/pagina_produto.php?id_produto='.$id_produto4.'" class="btn btn-success" >preço R$ '. number_format($dados4['valor'],2,',','.').'</a>
@@ -301,13 +301,14 @@ echo '<div class="row mt-2">
             </div>
         </div>
         <div class="col">
-            <div class="card" style="width: 100%; height: 100%;">
-		<img src="img/produtos/'.$dados5['foto'].'" alt="Imagem de capa do card" style="width:95%">
-		<div class="card-body">
+            <div class="card" style="width: 100%; height: 600px;">
+		<img src="img/produtos/'.$dados5['foto'].'" alt="Imagem de capa do card" style="width:65%;height:65%;margin:auto;margin-top:0px">
+		<div class="card-body" style="position:absolute;bottom:0px">
                     <h5 class="card-title">'.$dados5['nome'].'</h5>
                     <p class="card-text">'.$dados5['descricao'].'</p>
                     <a href="produtos/pagina_produto.php?id_produto='.$id_produto5.'" class="btn btn-success">preço R$ '. number_format($dados5['valor'],2,',','.').'</a>
                 </div>
+                
             </div>
         </div>
         </div>
