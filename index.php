@@ -258,7 +258,7 @@ echo '<div class="row mt-2">
         <div class="col">
             <div class="card" style="width: 100%; height: 100%;">
 		<h3 class="text-info">MEGA PROMOÇÃO DA SEMANA</h3>
-		<img src="img/produtos/'.$dados1['foto'].'"  alt="Imagem de capa do card" style="width:70%;margin:auto;margin-top:0px">
+		<img src="img/produtos/'.$dados1['foto'].'"  alt="Imagem de capa do card" style="width:100%;height:75%;margin:auto;margin-top:0px">
                 <div class="card-body" style="position:absolute;bottom:0px">
                     <h5 class="card-title">'.$dados1['nome'].'</h5>
                     <p class="card-text">'.$dados1['descricao'].'</p>

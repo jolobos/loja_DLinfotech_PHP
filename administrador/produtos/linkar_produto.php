@@ -221,7 +221,14 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
       
       <div class="card mt-2">
           <div class="card-header">
+              <div class="row">
+                  <div class="col">
               <h4>Escolha uma das opções abaixo:</h4>
+                  </div>
+                  <div class="col" align="right">
+                      <button class="btn btn-secondary border-info" data-bs-toggle="modal" data-bs-target="#exampleModal7">Visualizar produtos sem link</button>
+                  </div>
+                  </div>
           </div>
           <div class="card-body">
             <div class="row">
@@ -874,6 +881,63 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
       <div class="modal-body bg-light">
          <input type="search" id="busca" style="width:500px" class="form-control" placeholder="Digite o nome do produto..." onKeyUp="buscarprodutos(this.value)"/>
          <div class="mt-2" id="resultado"></div>
+      </div>
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="modal fade modal-xl" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Busca de Produtos</h5>
+      </div>
+      <div class="modal-body bg-light">
+     <?php 
+      $sql = "SELECT * FROM produtos WHERE link_azul = 0 AND
+               link_vermelho = 0 AND link_preto = 0 AND link_branco = 0 AND
+               link_amarelo = 0 AND link_verde = 0 AND link_laranja = 0 AND
+               link_cinza = 0 AND link_rosa = 0 AND link_marrom = 0 AND
+               link_roxo = 0 AND link_prata = 0 AND link_dourado = 0";
+      $consulta = $conexao->query($sql);
+      $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+  
+
+    
+  
+  echo '<table  border="3" class="table table-striped border-secondary" >';
+  echo '<thead>';
+  echo '<tr>';
+  
+  echo '<th>codigo do produto</th><th>Produto</th><th>foto</th><th>status</th><th>Açoes</th>';
+  
+  echo '</tr>';
+  echo '</thead>';
+  echo '<tbody>';
+  $cont = 0;
+  $clip = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
+  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
+</svg> - Copiar';
+  foreach($dados as $d){
+          
+
+	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
+	  echo '<tr><td>
+          <textarea class="form-control ms-3 border-dark" rows="1"  id="cod_produto_'.$cont.'" onclick="copiar_'.$cont.'()">'.$d['cod_produto'].'</textarea>
+          </td><td>'.$d['nome'].'</td><td><img style="width:50px;height:50px " src="../../img/produtos/'.$d['foto'].'"></td>
+	  <td>'.$status.'</td><td>
+          <p><button type="button" id="clip_btn" class="btn btn-primary ms-3"  data-toggle="tooltip" data-placement="top" title="Copiar código pix" onclick="copiar_'.$cont.'()">'.$clip.'</button></p></td></tr>';
+ 
+          $cont++;
+          }
+  
+  echo '</tbody>';
+   echo '</table>';
+   ?>
       </div>
       <div class="modal-footer bg-light">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
