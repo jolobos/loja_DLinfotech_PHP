@@ -896,13 +896,16 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
       </div>
       <div class="modal-body bg-light">
      <?php 
-      $sql = "SELECT * FROM produtos WHERE link_azul = 0 AND
+     $quantidade_us = 10; 
+     $pagina     = (isset($_GET['pagina'])) ? (int)$_GET['pagina'] : 1;
+     $inicio     = ($quantidade_us * $pagina) - $quantidade_us;  
+      $sql_37 = "SELECT * FROM produtos WHERE link_azul = 0 AND
                link_vermelho = 0 AND link_preto = 0 AND link_branco = 0 AND
                link_amarelo = 0 AND link_verde = 0 AND link_laranja = 0 AND
                link_cinza = 0 AND link_rosa = 0 AND link_marrom = 0 AND
-               link_roxo = 0 AND link_prata = 0 AND link_dourado = 0";
-      $consulta = $conexao->query($sql);
-      $dados = $consulta->fetchALL(PDO::FETCH_ASSOC);
+               link_roxo = 0 AND link_prata = 0 AND link_dourado = 0 LIMIT $inicio,$quantidade_us";
+      $consulta_37 = $conexao->query($sql_37);
+      $dados_37 = $consulta_37->fetchALL(PDO::FETCH_ASSOC);
 
   
 
@@ -922,7 +925,7 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
   <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
   <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
 </svg> - Copiar';
-  foreach($dados as $d){
+  foreach($dados_37 as $d){
           
 
 	  if($d['status'] > 0){ $status = 'ativo'; }else{ $status = 'desativado';}
@@ -937,6 +940,71 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
   
   echo '</tbody>';
    echo '</table>';
+   
+   //paginacao
+   if(!empty($dados_37)){
+            //continuando paginação
+            $sqlTotal ="SELECT COUNT(id_produto) as id FROM produtos WHERE link_azul = 0 AND
+               link_vermelho = 0 AND link_preto = 0 AND link_branco = 0 AND
+               link_amarelo = 0 AND link_verde = 0 AND link_laranja = 0 AND
+               link_cinza = 0 AND link_rosa = 0 AND link_marrom = 0 AND
+               link_roxo = 0 AND link_prata = 0 AND link_dourado = 0";
+            //Executa o SQL
+            $consulta_c = $conexao->query($sqlTotal);
+            $qrTotal = $consulta_c->fetch(PDO::FETCH_ASSOC);
+            
+            //O calculo do Total de página ser exibido
+            $totalPagina= ceil($qrTotal['id']/$quantidade_us);
+            /**
+            * Defini o valor máximo a ser exibida na página tanto para direita quando para esquerda
+            */
+            $exibir = 3;
+            /**
+            * Aqui montará o link que voltará uma pagina
+            * Caso o valor seja zero, por padrão ficará o valor 1
+            */
+            $anterior  = (($pagina - 1) == 0) ? 1 : $pagina - 1;
+            /**
+            * Aqui montará o link que ir para proxima pagina
+            * Caso pagina +1 for maior ou igual ao total, ele terá o valor do total
+            * caso contrario, ele pegar o valor da página + 1
+            */
+            $posterior = (($pagina+1) >= $totalPagina) ? $totalPagina : $pagina+1;
+            /**
+            * Agora monta o Link paar Primeira Página
+            * Depois O link para voltar uma página
+            */
+            /**
+            * Agora monta o Link para Próxima Página
+            * Depois O link para Última Página
+            */
+            echo '<div id="navegacao" align="center">';
+            echo '<a  class="btn btn-primary mb-2" href="?pagina=1">primeira</a> | ';
+            echo "<a  class='btn btn-primary mb-2' href=\"?pagina=$anterior\">anterior</a> | ";
+            /**
+            * O loop para exibir os valores à esquerda
+            */
+            for($i = $pagina-$exibir; $i <= $pagina-1; $i++){
+            if($i > 0)
+            echo '<a  class="btn btn-primary mb-2 ms-1" href="?pagina='.$i.'"> '.$i.'</a>';
+            }
+            echo '<a  class="btn btn-primary mb-2 ms-1" href="?pagina='.$pagina.'"><strong>'.$pagina.'</strong></a>';
+            for($i = $pagina+1; $i < $pagina+$exibir; $i++){
+            if($i <= $totalPagina)
+            echo '<a class="btn btn-primary mb-2 ms-1" href="?pagina='.$i.'"> '.$i.' </a>';
+            }
+            /**
+            * Depois o link da página atual
+            */
+            /**
+            * O loop para exibir os valores à direita
+            */
+            echo " | <a class='btn btn-primary mb-2' href=\"?pagina=$posterior\">próxima</a> | ";
+            echo "  <a class='btn btn-primary mb-2' href=\"?pagina=$totalPagina\">última</a>";
+            }
+   
+   
+   
    ?>
       </div>
       <div class="modal-footer bg-light">
@@ -948,7 +1016,7 @@ if(!empty($esc_at_cor) && $ativa_cor == 0){
 <?php
 //document.getElementById("clip_btn").innerHTML='<i class="fas fa-clipboard-check"></i> - Copiado';
 $cont_2 = 0;
-while($cont_2 < 8){
+while($cont_2 < 10){
     echo '<script>
             function copiar_'.$cont_2.'() {
             var copyText = document.getElementById("cod_produto_'.$cont_2.'");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18/10/2024 às 21:42
+-- Tempo de geração: 26/10/2024 às 20:36
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -76,7 +76,9 @@ INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_endereco`, `data`, `total`
 (21, 6, 1, '2024-04-25 14:14:48', 529.00, 0, 0, 'PIX', 1),
 (22, 6, 1, '2024-04-28 18:16:21', 20.00, 0, 0, 'PIX', 1),
 (29, 6, 1, '2024-04-30 13:35:01', 20.00, 0, 0, 'BOLETO', 1),
-(30, 6, 1, '2024-05-01 14:45:54', 17.50, 0, 0, 'BOLETO', 1);
+(30, 6, 1, '2024-05-01 14:45:54', 17.50, 0, 0, 'BOLETO', 1),
+(32, 6, 1, '2024-10-09 08:06:49', 99.99, 0, 0, 'PIX', 1),
+(33, 6, 1, '2024-10-09 08:57:15', 99.99, 0, 0, 'PIX', 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +189,9 @@ INSERT INTO `itens_da_compra` (`id_item_compra`, `id_compra`, `id_produto`, `qua
 (20, 27, 4, 1.00, '2024-04-28 18:23:48'),
 (21, 28, 4, 1.00, '2024-04-28 18:24:43'),
 (22, 29, 4, 1.00, '2024-04-30 13:35:01'),
-(23, 30, 5, 1.00, '2024-05-01 14:45:54');
+(23, 30, 5, 1.00, '2024-05-01 14:45:54'),
+(25, 32, 3, 1.00, '2024-10-09 08:06:49'),
+(26, 33, 3, 1.00, '2024-10-09 08:57:15');
 
 -- --------------------------------------------------------
 
@@ -234,7 +238,10 @@ CREATE TABLE `produtos` (
   `categoria` varchar(120) NOT NULL,
   `cor` varchar(15) NOT NULL,
   `voltagem` varchar(10) NOT NULL,
-  `voltagem_opcoes` varchar(10) NOT NULL,
+  `v_110` int(1) NOT NULL,
+  `v_220` int(1) NOT NULL,
+  `v_bivolt` int(1) NOT NULL,
+  `s_volt` int(1) NOT NULL,
   `descricao` varchar(250) NOT NULL,
   `status` int(1) NOT NULL,
   `foto` varchar(100) NOT NULL,
@@ -245,6 +252,9 @@ CREATE TABLE `produtos` (
   `foto_5` varchar(50) NOT NULL,
   `foto_6` varchar(50) NOT NULL,
   `var_cores` int(1) NOT NULL,
+  `link_110` varchar(50) NOT NULL,
+  `link_220` varchar(50) NOT NULL,
+  `link_bivolt` varchar(50) NOT NULL,
   `azul` int(1) NOT NULL,
   `vermelho` int(1) NOT NULL,
   `preto` int(1) NOT NULL,
@@ -277,20 +287,20 @@ CREATE TABLE `produtos` (
 -- Despejando dados para a tabela `produtos`
 --
 
-INSERT INTO `produtos` (`id_produto`, `cod_produto`, `nome`, `valor`, `quantidade`, `categoria`, `cor`, `voltagem`, `voltagem_opcoes`, `descricao`, `status`, `foto`, `foto_1`, `foto_2`, `foto_3`, `foto_4`, `foto_5`, `foto_6`, `var_cores`, `azul`, `vermelho`, `preto`, `branco`, `amarelo`, `verde`, `laranja`, `cinza`, `rosa`, `marrom`, `roxo`, `prata`, `dourado`, `link_azul`, `link_vermelho`, `link_preto`, `link_branco`, `link_amarelo`, `link_verde`, `link_laranja`, `link_cinza`, `link_rosa`, `link_marrom`, `link_roxo`, `link_prata`, `link_dourado`) VALUES
-(1, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 220V', 529.00, 3.00, 'eletronicos', 'azul', '220', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(2, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 110V\n', 500.00, 5.00, 'eletronicos', 'azul', '110', 'bi-volt', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(3, '', 'Carregador Motorola TurboPower 20w - Tipo-C - bivolt', 99.99, 12.00, 'carregadores', 'preto', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto7.png', 'produto7_1.png', 'produto7_2.png', 'produto7_3.png', 'produto7_4.png', 'produto7_5.png', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(4, '', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(5, '', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', '', 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(13, '1124232', 'Cabo HDMI pix 2 mts', 0.10, 25.00, 'cabos', 'preto', 'bivolt', 'bivolt', 'adicione uma descrição rapida.', 1, '23d4d9b5c26523e78fcfa235086abfdb.jpg', 'c2651ef93f6c67524860edc685193b8b.jpg', '6d86194c9cb692ce87c1d48c9cd349c2.jpg', 'd6d480bf7636b60e55719541f3a3a6ef.jpg', '213e8b4f8997971bf057201053f7721b.jpg', '', '', 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(14, '2222222', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'azul', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, 'produto_null.png', 'c2d875ec9f5094d95038f6a8f25f70d4.png', '491aa62c03774825e5735704c62f9be2.png', 'f79c62c08d874f7b54f6074feaa9567c.png', 'cb13f2f3178b35ca577b444d906f3415.png', '', '', 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
-(15, '3333333', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'azul', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, 'produto_null.png', '5cbee13e2d3fb291115ffb86535a4479.png', 'd00825ff62a7e39e457c152e75e34e3e.png', '444636ed60c277101ff9f92262eaadba.png', '303f3abfdea2e90b1828dfe3e210fec2.png', '', '', 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, '15', '', '16', '17', '', '', '', '', '', '', '19', '', '18'),
-(16, '4444444', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'preto', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, 'e5158611001608e7f38559d5641b58b8.png', 'd30743d0756b346b7ed7cb7c19ec7086.png', 'd6059ed3fc9a5cc9937496376ddcb645.png', '0af7967ecb4ec94c6e261067c1cfa1df.png', 'caf9f457c14cc51f5947c62d023b1e5f.png', '', '', 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
-(17, '5555555', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'branco', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '619cf42139df60b4b6deb288d144c2ec.png', '0d2f4ca474001d7903b9ad87c27e1764.png', '61508bd6b6ac1b742b482388968c5175.png', '6f87e41f778f09f18ab0f82f3b27919f.png', 'd88a9b87567ed092da432ae12fbbc387.png', '', '', 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
-(18, '6666666', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'dourado', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '69c48b83bb50cf39974946e64264ff86.png', 'fede0edc6e3914a2e4e4d342e9a93ea0.png', '5ec7112002b67a37abbe4de22b6704e2.png', '', '', '', '', 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
-(19, '7777777', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'roxo', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '4566a72b49c21a7672c06c84e5ed4466.png', '', '', '', '', '', '', 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
-(20, '8888888', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'verde', 'bivolt', 'bivolt', 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '2dd25e0428dd5335e26bd2be9170b753.png', 'eeb1928efa181cb216a2807d79bd9c82.png', '62ae8041e6ad2fcb5cb5ea8e5181a2fe.png', '', '', '', '', 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666');
+INSERT INTO `produtos` (`id_produto`, `cod_produto`, `nome`, `valor`, `quantidade`, `categoria`, `cor`, `voltagem`, `v_110`, `v_220`, `v_bivolt`, `s_volt`, `descricao`, `status`, `foto`, `foto_1`, `foto_2`, `foto_3`, `foto_4`, `foto_5`, `foto_6`, `var_cores`, `link_110`, `link_220`, `link_bivolt`, `azul`, `vermelho`, `preto`, `branco`, `amarelo`, `verde`, `laranja`, `cinza`, `rosa`, `marrom`, `roxo`, `prata`, `dourado`, `link_azul`, `link_vermelho`, `link_preto`, `link_branco`, `link_amarelo`, `link_verde`, `link_laranja`, `link_cinza`, `link_rosa`, `link_marrom`, `link_roxo`, `link_prata`, `link_dourado`) VALUES
+(1, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 220V', 529.00, 3.00, 'eletronicos', 'azul', '', 0, 0, 0, 0, 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 0, '', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2, '', 'Estação de Solda e Retrabalho Yaxun 886D ESD Safe 2 em 1 de Uso Industrial - 110V\n', 500.00, 5.00, 'eletronicos', 'azul', '', 0, 0, 0, 0, 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto6.png', 'produto6_1.png', 'produto6_2.png', 'produto6_3.png', 'produto6_4.png', '', '', 0, '', '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(3, '', 'Carregador Motorola TurboPower 20w - Tipo-C - bivolt', 99.99, 12.00, 'carregadores', 'preto', '', 0, 0, 0, 0, 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto7.png', 'produto7_1.png', 'produto7_2.png', 'produto7_3.png', 'produto7_4.png', 'produto7_5.png', '', 0, '', '', '', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(4, '', 'Carregador KAIDI 2.4 Amperes - c/2 saidas USB mod. KD-301s - bivolt', 20.00, 45.00, 'carregadores', 'branco', '', 0, 0, 0, 0, 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto8.png', 'produto8_1.png', 'produto8_2.png', 'produto8_3.png', 'produto8_4.png', '', '', 0, '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(5, '', 'Carregador para Iphone simples 2.4 Amperes - bivolt', 17.50, 20.00, 'carregadores', 'branco', '', 0, 0, 0, 0, 'Colocarei uma descrição qualquer aqui apenas para ilustrar esse produto, não sendo necessario especifica-lo nesse momento, eu só preciso desse texto mesmo.', 1, 'produto9.png', 'produto9_1.png', 'produto9_2.png', '', '', '', '', 0, '', '', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(13, '1124232', 'Cabo HDMI pix 2 mts', 0.10, 25.00, 'cabos', 'preto', '', 0, 0, 0, 0, 'adicione uma descrição rapida.', 1, '23d4d9b5c26523e78fcfa235086abfdb.jpg', 'c2651ef93f6c67524860edc685193b8b.jpg', '6d86194c9cb692ce87c1d48c9cd349c2.jpg', 'd6d480bf7636b60e55719541f3a3a6ef.jpg', '213e8b4f8997971bf057201053f7721b.jpg', '', '', 0, '', '', '', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(14, '2222222', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'azul', '', 0, 0, 0, 1, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, 'produto_null.png', 'c2d875ec9f5094d95038f6a8f25f70d4.png', '491aa62c03774825e5735704c62f9be2.png', 'f79c62c08d874f7b54f6074feaa9567c.png', 'cb13f2f3178b35ca577b444d906f3415.png', '', '', 1, '', '', '', 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
+(15, '3333333', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'azul', '', 1, 1, 0, 0, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, 'produto_null.png', '5cbee13e2d3fb291115ffb86535a4479.png', 'd00825ff62a7e39e457c152e75e34e3e.png', '444636ed60c277101ff9f92262eaadba.png', '303f3abfdea2e90b1828dfe3e210fec2.png', '', '', 1, '2222222', '3333333', '', 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, '15', '', '16', '17', '', '', '', '', '', '', '19', '', '18'),
+(16, '4444444', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'preto', '', 0, 0, 0, 1, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, 'e5158611001608e7f38559d5641b58b8.png', 'd30743d0756b346b7ed7cb7c19ec7086.png', 'd6059ed3fc9a5cc9937496376ddcb645.png', '0af7967ecb4ec94c6e261067c1cfa1df.png', 'caf9f457c14cc51f5947c62d023b1e5f.png', '', '', 1, '', '', '', 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
+(17, '5555555', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'branco', '', 0, 0, 0, 0, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '619cf42139df60b4b6deb288d144c2ec.png', '0d2f4ca474001d7903b9ad87c27e1764.png', '61508bd6b6ac1b742b482388968c5175.png', '6f87e41f778f09f18ab0f82f3b27919f.png', 'd88a9b87567ed092da432ae12fbbc387.png', '', '', 1, '', '', '', 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
+(18, '6666666', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'dourado', '', 0, 0, 0, 0, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '69c48b83bb50cf39974946e64264ff86.png', 'fede0edc6e3914a2e4e4d342e9a93ea0.png', '5ec7112002b67a37abbe4de22b6704e2.png', '', '', '', '', 1, '', '', '', 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
+(19, '7777777', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'roxo', '', 0, 0, 0, 0, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '4566a72b49c21a7672c06c84e5ed4466.png', '', '', '', '', '', '', 1, '', '', '', 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666'),
+(20, '8888888', 'fone de ouvido xiaomi via bluetooth', 90.50, 20.00, 'audio', 'verde', '', 0, 0, 0, 0, 'Fone de ouvido da marca XIOAMI via Bluetooth 3.1', 1, '2dd25e0428dd5335e26bd2be9170b753.png', 'eeb1928efa181cb216a2807d79bd9c82.png', '62ae8041e6ad2fcb5cb5ea8e5181a2fe.png', '', '', '', '', 1, '', '', '', 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, '2222222', '', '4444444', '5555555', '', '8888888', '', '', '', '', '7777777', '', '6666666');
 
 -- --------------------------------------------------------
 
@@ -398,10 +408,13 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `CPF`, `telefone`, `celular`, `CEP`, `UF`, `cidade`, `bairro`, `logradouro`, `complemento`, `email`, `senha`, `foto`, `apelido`, `data_entrada`, `status`, `administrador`, `token_recupercao`) VALUES
-(6, 'nome teste ', 2351055039, 51985078897, 51985078897, 94945330, 'RS', 'kaxuxa', 'vista', 'logo ali', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'digo', '2024-04-01 10:56:47', 0, 1, ''),
+(6, 'nome teste ', 2351055039, 51985078897, 51985078897, 94945330, 'RS', 'kaxuxa', 'vista', 'logo ali', 'casa', 'email.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'digo', '2024-04-01 10:56:47', 0, 1, 'a4FPJG'),
 (7, 'seliria santos de azevedo', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'ail.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:32:57', 1, 0, ''),
 (8, 'Asus_m1', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'il.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-04-01 13:45:34', 1, 0, ''),
-(9, 'malaquias', 0, 5198995452, 5198995452, 0, '', '', '', '', '', 'malaquias.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-09-13 15:18:30', 1, 0, '');
+(9, 'malaquias', 0, 5198995452, 5198995452, 0, '', '', '', '', '', 'malaquias.teste@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-09-13 15:18:30', 1, 0, ''),
+(10, 'Luana Koling Ribeiro', 0, 51987057798, 51987057798, 0, '', '', '', '', '', 'luana.koling@gmail.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-10-18 19:05:26', 1, 0, 'Hq3PUp'),
+(11, 'barilochi', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'email.testeas@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-10-19 15:35:19', 1, 0, ''),
+(12, 'jujubalindah', 0, 51985078897, 51985078897, 0, '', '', '', '', '', 'email.testandoconexao@testando.com', '854a3864c2bef0b3948892a2c7b93ddd', '', '', '2024-10-19 15:47:17', 1, 0, '');
 
 --
 -- Índices para tabelas despejadas
@@ -463,7 +476,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `endereco_usuario`
@@ -481,7 +494,7 @@ ALTER TABLE `ficha_tec_produto`
 -- AUTO_INCREMENT de tabela `itens_da_compra`
 --
 ALTER TABLE `itens_da_compra`
-  MODIFY `id_item_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_item_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `notificacoes`
@@ -505,7 +518,7 @@ ALTER TABLE `tela_principal`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

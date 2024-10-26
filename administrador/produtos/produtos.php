@@ -95,7 +95,65 @@ if(empty($_POST['cod_produto'])){
 	  <a class="btn btn-dark border-success me-2" href = "alterar.php?id_produto='.$dados['id_produto'].'"> alterar</a>
 	  <a class="btn btn-dark border-success" href = "deletar.php?id_produto='.$dados['id_produto'].'"> deletar</a></td></tr>';		
 		}
- }?>
+ 
+                
+        
+  }
+  
+  
+  $sql_37 = "SELECT * FROM produtos WHERE link_azul = 0 AND
+               link_vermelho = 0 AND link_preto = 0 AND link_branco = 0 AND
+               link_amarelo = 0 AND link_verde = 0 AND link_laranja = 0 AND
+               link_cinza = 0 AND link_rosa = 0 AND link_marrom = 0 AND
+               link_roxo = 0 AND link_prata = 0 AND link_dourado = 0";
+  $consulta_37 = $conexao->query($sql_37);
+  $dados_37 = $consulta_37->fetchALL(PDO::FETCH_ASSOC);
+  
+  $sql_38 = "SELECT * FROM produtos WHERE link_110 = 0 AND
+               link_220 = 0 AND link_bivolt = 0";
+  $consulta_38 = $conexao->query($sql_38);
+  $dados_38 = $consulta_38->fetchALL(PDO::FETCH_ASSOC);
+  
+  if(!empty($dados_37)){
+      echo '<div class="modal fade modal-lg" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header bg-info">
+          <h3 class="modal-title">Fique esperto!!!!</h3>
+      </div>
+      <div class="modal-body bg-light">';
+        if(!empty($dados_37)){
+            echo '<h5>Voce Possue produtos que não tem seus links de cores atualizados.</h5>
+	<p>Se você deseja atualizar seus links de cores, click no botão abaixo, e você será redirecionado para à pagina de linkar cores.</p>
+        <a class="btn btn-primary" href="linkar_produto.php">Linkar Cores</a>
+        ';
+          
+        }
+        
+        if(!empty($dados_38)){
+            echo '<h5>Voce Possue produtos que não tem seus links de voltagem atualizados.</h5>
+	<p>Se você deseja atualizar seus links de voltagem, click no botão abaixo, e você será redirecionado para à pagina de linkar voltagens.</p>
+        <a class="btn btn-primary" href="linkar_voltagem.php">Linkar Voltagem</a>
+        ';}
+        
+      echo '</div>
+      <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>';
+  }
+?>
 </div>
 
   </body>
+  
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+	  <script type="text/javascript">
+$(window).load(function() {
+    $("#exemplomodal").modal("show");
+});
+</script>
