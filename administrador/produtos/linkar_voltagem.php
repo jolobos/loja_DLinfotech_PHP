@@ -164,6 +164,7 @@ if(isset($_GET['ativa_s_volt'])){
 				<a class="btn btn-secondary border-danger m-2" href="produtos.php">Produtos</a></br>
 				<a class="btn btn-secondary border-danger m-2" href="add_produto.php">Inserir Produto</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="linkar_produto.php">Linkar cores de produtos</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="linkar_voltagem.php">Linkar voltagem de produtos</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_quantidade.php">Controle de quantidade</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_saida_produto.php">Controle de saida</a></br>
 				

@@ -114,32 +114,25 @@ echo '</div></div></div>
      }else if($dados['valor'] >= 100){
         echo '<p>em 6X de R$ '.number_format(($dados['valor']/6),2,'.',',').'</p>';
      }
-    if($dados['voltagem_opcoes'] == 'bi-volt'){
-        if($dados['voltagem']== '110'){
-    echo '<div>
-    <a class="btn btn-light active">110V</a>
-    <a class="btn btn-light" href="#">220V</a>
-    </div>';}else if($dados['voltagem']== '220'){
-     echo '<div>
-    <a class="btn btn-light" href="#">110V</a>
-    <a class="btn btn-light active">220V</a>
-    </div>';  
-        
-    }}else{ echo '</br></br>';}
+     
+    if($dados['s_volt'] == 0){echo '<div>';}
+    if($dados['v_bivolt'] == 1){
+        if(!empty($dados['link_bivolt'])){
+    echo '<a class="btn btn-light border-primary active">Bivolt</a>';}
+    //echo '</br></br>';
+    }else{    
+    if($dados['v_110'] == 1 && !empty($dados['link_110'])){
+       if($dados['voltagem'] == 110){
+       echo '<a class="btn btn-light me-2 border-primary active">110V</a>';}
+    else{ echo '<a class="btn btn-light me-2 border-primary" href="?cor_produto='.$dados['link_110'].'">110V</a>';}}
     
-    if($dados['voltagem_opcoes']== '110v'){
-       echo '
-    <div>
-    <a class="btn btn-light active">110V</a>
-    </div>';  
-    }
-    if($dados['voltagem_opcoes']== '220v'){
-       echo '
-    <div>
-    <a class="btn btn-light active">220V</a>
-    </div>';  
-    }
-    
+    if($dados['v_220'] == 1 && !empty($dados['link_220'])){
+       if($dados['voltagem'] == 220){
+       echo '<a class="btn btn-light border-primary active">220V</a>';}
+       else{ echo '<a class="btn btn-light me-2 border-primary" href="?cor_produto='.$dados['link_220'].'">220V</a>';}}
+     }
+       if($dados['s_volt'] == 0){echo '</div>';}
+ 
     if(!empty($dados['cor'])){
         
     echo '<div>';

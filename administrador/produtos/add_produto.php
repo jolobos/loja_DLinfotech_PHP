@@ -41,6 +41,7 @@ date_default_timezone_set('America/Sao_Paulo');
 				<a class="btn btn-secondary border-danger m-2" href="produtos.php">Produtos</a></br>
 				<a class="btn btn-secondary border-danger m-2" href="add_produto.php">Inserir Produto</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="linkar_produto.php">Linkar cores de produtos</a></br>
+				<a class="btn btn-secondary border-warning m-2" href="linkar_voltagem.php">Linkar voltagem de produtos</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_quantidade.php">Controle de quantidade</a></br>
 				<a class="btn btn-secondary border-warning m-2" href="ctrl_saida_produto.php">Controle de saida</a></br>
 				
@@ -132,7 +133,7 @@ echo '<div style="width: 50%;margin:auto;">
             <option value="verde">Verde</option>
             <option value="laranja">Laranja</option>
             <option value="cinza">Cinza</option>
-            <option value="rosa">Rosa/Touch</option>
+            <option value="rosa">Rosa</option>
             <option value="marrom">Marrom</option>
             <option value="roxo">Roxo</option>
             <option value="prata">Prata</option>
@@ -142,6 +143,7 @@ echo '<div style="width: 50%;margin:auto;">
 			<div class="mb-3 mt-3">
             <label class="form-label">Voltagem:</label>
             <select class="form-control" name="voltagem" >
+            <option value="">Sem voltagem</option>
             <option value="110">110 V</option>
             <option value="220">220 V</option>
             <option value="bivolt">Bi-volt</option>
@@ -150,6 +152,7 @@ echo '<div style="width: 50%;margin:auto;">
 			<div class="mb-3 mt-3">
             <label class="form-label">Opções de voltagem:</label>
             <select class="form-control" name="voltagem_opcoes" >
+            <option value="">Sem voltagem</option>
             <option value="110">110 V</option>
             <option value="220">220 V</option>
             <option value="bivolt">Bi-volt</option>

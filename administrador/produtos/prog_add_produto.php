@@ -66,7 +66,7 @@ if(isset($_FILES['arquivo6'])){
 
 //adicionando na sql produtos:
 //Para cada checkbox eu tenho que colocar a condição de vazio.
-if(!empty($_POST['var_cores'])){
+if(isset($_POST['var_cores'])){
     if($_POST['var_cores'] == 1){
         $var_cores = $_POST['var_cores'];
         if(!empty($_POST['azul'])){$azul = $_POST['azul'];}else{ $azul = 0;}
@@ -82,7 +82,7 @@ if(!empty($_POST['var_cores'])){
         if(!empty($_POST['roxo'])){$roxo = $_POST['roxo'];}else{ $roxo = 0;}
         if(!empty($_POST['prata'])){$prata = $_POST['prata'];}else{ $prata = 0;}
         if(!empty($_POST['dourado'])){$dourado = $_POST['dourado'];}else{ $dourado = 0;}
-    }else{
+}}else{
         $var_cores = 0;
         $azul = 0;
         $vermelho = 0;
@@ -97,28 +97,95 @@ if(!empty($_POST['var_cores'])){
         $roxo = 0;
         $prata = 0;
         $dourado = 0;
-    }}
-
+    }
     
 
 if(!empty($_POST['cod_produto']) && !empty($_POST['valor']) && !empty($_POST['quantidade'])){
 //Lançando o produto no sgbd    
+    $volt = '';
+    $link_volt = '';
+    $link_cor = '';
+    $voltagem_opcoes = 1;
     $cod_produto = $_POST['cod_produto'];		
     $nome= $_POST['nome'];		
     $valor= $_POST['valor'];		
     $quantidade = $_POST['quantidade'];		
     $categoria = $_POST['categoria'];		
-    $cor = $_POST['cor'];		
+    $cor = $_POST['cor'];
+    if($cor == 'branco'){
+        $link_cor = 'link_branco';
+        $branco = 1;
+    }elseif ($cor == 'preto' ) {
+        $link_cor = 'link_preto';
+        $preto = 1;
+        }elseif ($cor == 'azul') {
+        $link_cor = 'link_azul';
+        $azul = 1;
+    }elseif ($cor == 'vermelho') {
+        $link_cor = 'link_vermelho';
+        $vermelho = 1;
+    }elseif ($cor == 'amarelo') {
+        $link_cor = 'link_amarelo';
+        $amarelo = 1;
+    }elseif ($cor == 'verde') {
+        $link_cor = 'link_verde';
+        $verde = 1;
+    }elseif ($cor == 'laranja') {
+        $link_cor = 'link_laranja';
+        $laranja = 1;
+    }elseif ($cor == 'cinza') {
+        $link_cor = 'link_cinza';
+        $cinza = 1;
+    }elseif ($cor == 'rosa') {
+        $link_cor = 'link_rosa';
+        $rosa = 1;
+    }elseif ($cor == 'marrom') {
+        $link_cor = 'link_marrom';
+        $marrom = 1;
+    }elseif ($cor == 'roxo') {
+        $link_cor = 'link_roxo';
+        $roxo = 1;
+    }elseif ($cor == 'prata') {
+        $link_cor = 'link_prata';
+        $prata = 1;
+    }elseif ($cor == 'dourado') {
+        $link_cor = 'link_dourado';
+        $dourado = 1;
+    }        
+    
     $voltagem = $_POST['voltagem'];		
-    $voltagem_opcoes = $_POST['voltagem_opcoes'];		
+    if($_POST['voltagem_opcoes'] == 110){
+        $volt = 'v_110';
+        $link_volt = ',link_110,';
+    }elseif ($_POST['voltagem_opcoes'] == 220) {
+         $volt = 'v_220';
+        $link_volt = ',link_220,';
+    }elseif ($_POST['voltagem_opcoes'] == 'bivolt') {
+         $volt = 'v_bivolt';
+        $link_volt = ',link_bivolt,';
+    }else{
+        $volt = 's_volt';
+    }	
+    
+
     $descricao = $_POST['descricao'];		
     $status = $_POST['status'];		
-			
-    $sql ='INSERT INTO produtos(cod_produto,nome,valor,quantidade,categoria,cor,voltagem,voltagem_opcoes,descricao,status,foto,foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,var_cores,azul,vermelho,preto,branco,amarelo,verde,laranja,cinza,rosa,marrom,roxo,prata,dourado)
-    values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    if($volt == 's_volt'){
+        $link_volt = ',';
+    $sql ='INSERT INTO produtos(cod_produto,nome,valor,quantidade,categoria,cor,voltagem,'.$volt.',descricao,status,foto,foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,var_cores'.$link_volt.'azul,vermelho,preto,branco,amarelo,verde,laranja,cinza,rosa,marrom,roxo,prata,dourado,'.$link_cor.')
+    values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    }else{
+    $sql ='INSERT INTO produtos(cod_produto,nome,valor,quantidade,categoria,cor,voltagem,'.$volt.',descricao,status,foto,foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,var_cores'.$link_volt.'azul,vermelho,preto,branco,amarelo,verde,laranja,cinza,rosa,marrom,roxo,prata,dourado,'.$link_cor.')
+    values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    }
     try {
         $insercao = $conexao->prepare($sql);
-	$ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$var_cores,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado));
+	 if($volt == 's_volt'){
+        $ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$var_cores,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado,$cod_produto));
+         }else{
+        $ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$var_cores,$cod_produto,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado,$cod_produto));
+         }
+        
     }catch(PDOException $r){
 //$msg= 'Problemas com o SGBD.'.$r->getMessage();
         $ok = False;
@@ -178,6 +245,6 @@ $msg = 'Não é possivel inserir produto com campos vazio.';
 header('location:add_produto.php?mensagem='.$msg);
 
 }
-echo '<p>'.$_GET['mensagem'].'</p>';
+echo '<p>'.$msg.'</p>';
 
 ?>
