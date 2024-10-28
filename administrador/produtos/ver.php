@@ -70,11 +70,34 @@ date_default_timezone_set('America/Sao_Paulo');
 			$sql1 = "SELECT * FROM ficha_tec_produto WHERE id_produto = '".$id."'";
 			$consulta1 = $conexao->query($sql1);
 			$dados1 = $consulta1->fetch(PDO::FETCH_ASSOC);
-			
+			$jun_volt = '';
+                        $v1 = 0;
+                        $v2 = 0;
+                        $vb = 0;
+                        if($dados['v_110'] == 1){
+                            $v1 = 1;
+                        }
+                        if ($dados['v_220'] == 1) {
+                            $v2 = 1;
+                        }
+                        if ($dados['v_bivolt'] == 1) {
+                            $vb = 1;
+                        }
+                        if($v1 == 1 && $v2 == 1){ $volt = '110/220';}
+                        elseif ($vb == 1) {$volt = 'Bivolt';}
+                        elseif ($v1 == 1) {$volt = '110';}
+                        elseif ($v2 == 1) {$volt = '220';}
+                        
+                        if(empty($volt)){
+                            $volt = 'Sem Voltagem';
+                        }
+                        
 			if($dados['status'] > 0){ $status = 'ativo';}else{ $status = 'desativado';}
 			if(!empty($dados1)){
-                        if($dados1['prova_agua'] > 0){ $p_agua= 'sim';}else{ $p_agua = 'nao';}
-                        if($dados1['resistente_agua'] > 0){ $r_agua = 'sim';}else{ $r_agua= 'nao';}}
+                           
+                        
+                        if($dados1['prova_agua'] > 0){ $p_agua= 'Sim';}else{ $p_agua = 'Não';}
+                        if($dados1['resistente_agua'] > 0){ $r_agua = 'Sim';}else{ $r_agua= 'Não';}}
 			echo '<h5>Produto</h5>
 			<form action="prog_add_produto.php"  method="POST" enctype="multipart/form-data" >
             <div class="row">
@@ -104,7 +127,7 @@ date_default_timezone_set('America/Sao_Paulo');
                       
             </div>
 			<div class="mb-3 mt-3">
-            <label class="form-label">Opções de voltagem: '.$dados['voltagem_opcoes'].'</label>
+            <label class="form-label">Opções de voltagem: '.$volt.'</label>
             
             </div>
 			<div class="mb-3 mt-3">

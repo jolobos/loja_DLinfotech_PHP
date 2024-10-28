@@ -111,7 +111,7 @@ if(empty($_POST['cod_produto'])){
   $dados_37 = $consulta_37->fetchALL(PDO::FETCH_ASSOC);
   
   $sql_38 = "SELECT * FROM produtos WHERE link_110 = 0 AND
-               link_220 = 0 AND link_bivolt = 0";
+               link_220 = 0 AND link_bivolt = 0 AND s_volt =0";
   $consulta_38 = $conexao->query($sql_38);
   $dados_38 = $consulta_38->fetchALL(PDO::FETCH_ASSOC);
   
