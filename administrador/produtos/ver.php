@@ -70,7 +70,6 @@ date_default_timezone_set('America/Sao_Paulo');
 			$sql1 = "SELECT * FROM ficha_tec_produto WHERE id_produto = '".$id."'";
 			$consulta1 = $conexao->query($sql1);
 			$dados1 = $consulta1->fetch(PDO::FETCH_ASSOC);
-			$jun_volt = '';
                         $v1 = 0;
                         $v2 = 0;
                         $vb = 0;

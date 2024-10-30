@@ -162,6 +162,28 @@ if(!empty($_GET['deletar'])){
     <div class="card-body overflow-auto" style="max-height: 750px;">
 		<?php
 		if(!empty($_GET['id_produto'])){
+                    
+                        $v1 = 0;
+                        $v2 = 0;
+                        $vb = 0;
+                        if($dados['v_110'] == 1){
+                            $v1 = 1;
+                        }
+                        if ($dados['v_220'] == 1) {
+                            $v2 = 1;
+                        }
+                        if ($dados['v_bivolt'] == 1) {
+                            $vb = 1;
+                        }
+                        if($v1 == 1 && $v2 == 1){ $volt = '110/220';}
+                        elseif ($vb == 1) {$volt = 'Bivolt';}
+                        elseif ($v1 == 1) {$volt = '110';}
+                        elseif ($v2 == 1) {$volt = '220';}
+                        
+                        if(empty($volt)){
+                            $volt = 'Sem Voltagem';
+                        }
+                        
 			if($dados['status'] > 0){ $status = 'ativo';}else{ $status = 'desativado';}
 			if(!empty($dados1)){
                         if($dados1['prova_agua'] > 0){ $p_agua= 'sim';}else{ $p_agua = 'nao';}
@@ -197,7 +219,7 @@ if(!empty($_GET['deletar'])){
                       
             </div>
 			<div class="mb-3 mt-3">
-            <label class="form-label">Opções de voltagem: '.$dados['voltagem_opcoes'].'</label>
+            <label class="form-label">Opções de voltagem: '.$volt.'</label>
             
             </div>
 			<div class="mb-3 mt-3">

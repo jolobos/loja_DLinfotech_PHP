@@ -111,7 +111,7 @@ if(!empty($_POST['dourado'])){$dourado = $_POST['dourado'];}else{ $dourado = 0;}
     
 
 if(!empty($_POST['id_produto'])){
-        $id_produto = $_POST['id_produto'];
+    $id_produto = $_POST['id_produto'];
 //Lançando o produto no sgbd    
     $cod_produto = $_POST['cod_produto'];		
     $nome= $_POST['nome'];		
@@ -119,11 +119,21 @@ if(!empty($_POST['id_produto'])){
     $quantidade = $_POST['quantidade'];		
     $categoria = $_POST['categoria'];		
     $cor = $_POST['cor'];		
-    $voltagem = $_POST['voltagem'];		
-    $voltagem_opcoes = $_POST['voltagem_opcoes'];		
+    $voltagem = $_POST['voltagem'];
+    if($_POST['voltagem_opcoes'] == 110){
+        $volt = 'v_110';
+    }elseif ($_POST['voltagem_opcoes'] == 220) {
+         $volt = 'v_220';
+    }elseif ($_POST['voltagem_opcoes'] == 'bivolt') {
+         $volt = 'v_bivolt';
+    }else{
+        $volt = 's_volt';
+    }	
+    
+    $voltagem_opcoes = 1;		
     $descricao = $_POST['descricao'];		
     $status = $_POST['status'];		
-    $sql ='UPDATE produtos SET cod_produto=?,nome=?,valor=?,quantidade=?,categoria=?,cor=?,voltagem=?,voltagem_opcoes=?,descricao=?,status=?,foto=?,foto_1=?,foto_2=?,foto_3=?,foto_4=?,foto_5=?,foto_6=?,azul=?,vermelho=?,preto=?,branco=?,amarelo=?,verde=?,laranja=?,cinza=?,rosa=?,marrom=?,roxo=?,prata=?,dourado=? WHERE id_produto = '.$id_produto.'';
+    $sql ='UPDATE produtos SET cod_produto=?,nome=?,valor=?,quantidade=?,categoria=?,cor=?,voltagem=?,'.$volt.'=?,descricao=?,status=?,foto=?,foto_1=?,foto_2=?,foto_3=?,foto_4=?,foto_5=?,foto_6=?,azul=?,vermelho=?,preto=?,branco=?,amarelo=?,verde=?,laranja=?,cinza=?,rosa=?,marrom=?,roxo=?,prata=?,dourado=? WHERE id_produto = '.$id_produto.'';
     try {
         $insercao = $conexao->prepare($sql);
 	$ok = $insercao->execute(array ($cod_produto,$nome,$valor,$quantidade,$categoria,$cor,$voltagem,$voltagem_opcoes,$descricao,$status,$foto_pr,$foto_1,$foto_2,$foto_3,$foto_4,$foto_5,$foto_6,$azul,$vermelho,$preto,$branco,$amarelo,$verde,$laranja,$cinza,$rosa,$marrom,$roxo,$prata,$dourado));
@@ -253,7 +263,28 @@ header('location:ver.php?mensagem='.$msg.'&id_produto='.$id_produto);
         if($dados1['prova_agua'] > 0){ $p_agua= 'sim';}else{ $p_agua = 'nao';}
         if($dados1['resistente_agua'] > 0){ $r_agua = 'sim';}else{ $r_agua= 'nao';}}
         
-        
+           $v1 = 0;
+           $v2 = 0;
+           $vb = 0;
+           if($dados['v_110'] == 1){
+            $v1 = 1;
+           }
+           if ($dados['v_220'] == 1) {
+            $v2 = 1;
+           }
+           if ($dados['v_bivolt'] == 1) {
+            $vb = 1;
+           }
+           if($v1 == 1 && $v2 == 1){ $volt = '110/220';}
+           elseif ($vb == 1) {$volt = 'Bivolt';}
+           elseif ($v1 == 1) {$volt = '110';}
+           elseif ($v2 == 1) {$volt = '220';}
+           if(empty($volt)){
+            $volt = 'Sem Voltagem';
+           }
+                                             
+                        
+
 echo '<div style="width: 50%;margin:auto;">
     
         <form action="alterar.php"  method="POST" enctype="multipart/form-data" >
@@ -308,14 +339,16 @@ echo '<div style="width: 50%;margin:auto;">
 			<div class="mb-3 mt-3">
             <label class="form-label">Voltagem: '.$dados['voltagem'].'</label>
             <select class="form-control" name="voltagem" >
+            <option value="0">Sem voltagem</option>
             <option value="110">110 V</option>
             <option value="220">220 V</option>
             <option value="bivolt">Bi-volt</option>
             </select>            
             </div>
 			<div class="mb-3 mt-3">
-            <label class="form-label">Opções de voltagem: '.$dados['voltagem_opcoes'].'</label>
+            <label class="form-label">Opções de voltagem: '.$volt.'</label>
             <select class="form-control" name="voltagem_opcoes" >
+            <option value="">Sem voltagem</option>
             <option value="110">110 V</option>
             <option value="220">220 V</option>
             <option value="bivolt">Bi-volt</option>
