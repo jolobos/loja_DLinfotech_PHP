@@ -42,22 +42,22 @@ echo '<div class="container bg-light" >
 
         <a data-bs-target="#demo" data-bs-slide-to="0" class="active">
         <img src="../img/produtos/'.$dados['foto'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>';
-        if(!empty($dados['foto_1'])){
+        if(!empty($dados['foto_1']) && $dados['foto_1'] != 'produto_null.png'){
         echo '<a data-bs-target="#demo" data-bs-slide-to="1">
         <img src="../img/produtos/'.$dados['foto_1'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>'; }
-        if(!empty($dados['foto_2'])){
+        if(!empty($dados['foto_2']) && $dados['foto_2'] != 'produto_null.png'){
         echo '<a data-bs-target="#demo" data-bs-slide-to="2">
         <img src="../img/produtos/'.$dados['foto_2'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>'; }
-        if(!empty($dados['foto_3'])){
+        if(!empty($dados['foto_3']) && $dados['foto_3'] != 'produto_null.png'){
         echo '<a data-bs-target="#demo" data-bs-slide-to="3">
         <img src="../img/produtos/'.$dados['foto_3'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>'; }
-        if(!empty($dados['foto_4'])){
+        if(!empty($dados['foto_4']) && $dados['foto_4'] != 'produto_null.png'){
         echo '<a data-bs-target="#demo" data-bs-slide-to="4">
         <img src="../img/produtos/'.$dados['foto_4'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>'; }
-        if(!empty($dados['foto_5'])){
+        if(!empty($dados['foto_5']) && $dados['foto_5'] != 'produto_null.png'){
         echo '<a data-bs-target="#demo" data-bs-slide-to="5">
         <img src="../img/produtos/'.$dados['foto_5'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>'; }
-        if(!empty($dados['foto_6'])){
+        if(!empty($dados['foto_6']) && $dados['foto_6'] != 'produto_null.png'){
         echo '<a data-bs-target="#demo" data-bs-slide-to="6">
         <img src="../img/produtos/'.$dados['foto_6'].'" class="d-block w-100 img-thumbnail mt-2" style="height: 100px;"></a>'; }
     
@@ -70,27 +70,27 @@ echo '<div class="container bg-light" >
         echo '<div class="carousel-item active ">
         <img src="../img/produtos/'.$dados['foto'].'" class="d-block  " style="height: 600px;margin:auto">
         </div>'; }
-        if(!empty($dados['foto_1'])){
+        if(!empty($dados['foto_1']) && $dados['foto_1'] != 'produto_null.png'){
         echo '<div class="carousel-item">
         <img src="../img/produtos/'.$dados['foto_1'].'" class="d-block " style="height: 600px;margin:auto">
         </div>';}
-         if(!empty($dados['foto_2'])){
+         if(!empty($dados['foto_2']) && $dados['foto_2'] != 'produto_null.png'){
         echo '<div class="carousel-item">
         <img src="../img/produtos/'.$dados['foto_2'].'" class="d-block " style="height: 600px;margin:auto">
         </div>';}
-         if(!empty($dados['foto_3'])){
+         if(!empty($dados['foto_3']) && $dados['foto_3'] != 'produto_null.png'){
         echo '<div class="carousel-item">
         <img src="../img/produtos/'.$dados['foto_3'].'" class="d-block " style="height: 600px;margin:auto">
         </div>';}
-         if(!empty($dados['foto_4'])){
+         if(!empty($dados['foto_4']) && $dados['foto_4'] != 'produto_null.png'){
         echo '<div class="carousel-item">
         <img src="../img/produtos/'.$dados['foto_4'].'" class="d-block " style="height: 600px;margin:auto">
         </div>';}
-         if(!empty($dados['foto_5'])){
+         if(!empty($dados['foto_5']) && $dados['foto_5'] != 'produto_null.png'){
         echo '<div class="carousel-item">
         <img src="../img/produtos/'.$dados['foto_5'].'" class="d-block " style="height: 600px;margin:auto">
         </div>';}
-         if(!empty($dados['foto_6'])){
+         if(!empty($dados['foto_6']) && $dados['foto_6'] != 'produto_null.png'){
         echo '<div class="carousel-item">
         <img src="../img/produtos/'.$dados['foto_6'].'" class="d-block " style="height: 600px;margin:auto">
         </div>';}

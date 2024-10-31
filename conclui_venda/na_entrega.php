@@ -221,6 +221,30 @@ $(window).load(function() {
 });
 </script>   
  <?php
+ 
+ 
+  if(isset($_SESSION['compra_efetuada']) && $_SESSION['compra_efetuada'] == true){
+     echo '
+ <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info">   
+      </div>
+      <div class="modal-body bg-light">
+      <h4>Lamento, mas essa compra já foi concluída em outro momento.<br>Por favor, escolha uma das duas opções a seguir.</h4>
+      <p>Caso você tenha reiniciado à página ou tenha saido dela sem querer, você pode visualizar o seu QRCode em suas compras 
+      realizadas. Voce pode ser direcionado para essa página clicando no botão "minhas compras", logo abaixo desse menu, ou através do menu na página inicial.</p>
+      </div>';
+     echo '<div class="modal-footer bg-light">
+			<a href="?concluido_compra=ok" class="btn btn-secondary">INICIO</a>
+			<a href="../usuario/compras.php" class="btn btn-secondary">Minhas Compras</a>
+      </div>
+    </div>
+  </div>
+</div>';
+ }
+ 
+ if(!isset($_SESSION['compra_efetuada']) || $_SESSION['compra_efetuada'] == false){
  if(isset($_POST['confirma_pix'])){
     $data = date('Y-m-d H:i:s');
     $autorizado = 0;
@@ -261,6 +285,8 @@ $(window).load(function() {
  
         }
     if($ok_a){
+        $_SESSION['compra_efetuada'] = true;
+
 	 echo '
  <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
   <div class="modal-dialog">
@@ -340,6 +366,7 @@ if(isset($_POST['confirma_dinheiro'])){
  
         }
     if($ok_a){
+        $_SESSION['compra_efetuada'] = true;
 	 echo '
  <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
   <div class="modal-dialog">
@@ -419,6 +446,7 @@ if(isset($_POST['confirma_cartao'])){
  
         }
     if($ok_a){
+        $_SESSION['compra_efetuada'] = true;
 	 echo '
  <div class="modal fade modal-lg" data-bs-backdrop="static" id="exemplomodal">
   <div class="modal-dialog">
@@ -458,5 +486,5 @@ echo '
  }
  }
  }
-
+ }
 ?>      
