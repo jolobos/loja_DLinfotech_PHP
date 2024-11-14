@@ -15,6 +15,11 @@ require_once 'cabecalho.php';
 
 if(isset($_GET['ver_pr_compra'])){
 	$id_venda_lista = $_GET['ver_pr_compra'];
+        $sql_90 = "SELECT id_compra,pagamento FROM compras WHERE id_compra = '".$id_venda_lista."'";
+	$consulta_90 = $conexao->query($sql_90);
+	$dados_90 = $consulta_90->fetch(PDO::FETCH_ASSOC);
+	      
+        
 	$sql_10 = "SELECT * FROM itens_da_compra WHERE id_compra = '".$id_venda_lista."'";
 	$consulta_10 = $conexao->query($sql_10);
 	$dados_ab = $consulta_10->fetchALL(PDO::FETCH_ASSOC);
@@ -65,15 +70,25 @@ if(isset($_GET['ver_pr_compra'])){
                 <td><P style="margin-top: 40px; width: 70px"> R$: '.number_format($total,2,',','.').'</P></td></tr>';
 	
 	}        
-		
+        
       echo '<tr><td align="right" colspan="6"><P >Total R$: '.number_format($total_somado,2,',','.').'</P></td></tr>
-
-          </tbody></table></div>
-      <div class="modal-footer bg-light">
+        </tbody></table></div>';
+      if($dados_90['pagamento'] == 'PIX' && isset($_GET['lib'])){
+        echo '<div class="modal-footer bg-light">
+                <a class="btn btn-primary" href="../conclui_venda/pix/ver_pix.php?valor='.$total_somado.'" target="_blank">Gerar PIX</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-
-      </div>
-    </div>
+            </div>';
+        }elseif ($dados_90['pagamento'] == 'BOLETO' && isset($_GET['lib'])) {
+        echo '<div class="modal-footer bg-light">
+                <a class="btn btn-primary" href="../conclui_venda/boleto/ver_boleto.php?valor='.$total_somado.'" target="_blank">Gerar Boleto</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>';
+    }else{
+        echo '<div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>';
+    }
+      echo '</div>
   </div>
 </div>';
 }
@@ -178,7 +193,7 @@ if($cont > 0){
                 <td><P class="mt-4">'.$pago.'</P></td>
                 <td><P class="mt-4">'.$ent.'</P></td>
                 <td><P class="mt-4"> R$: '.number_format($total,2,',','.').'</P></td>
-                <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'">Ver Produtos</a>
+                <td><a class="btn btn-success w-75 mt-2" href="?ver_pr_compra='.$id_compra.'&lib=ok">Ver Produtos</a>
                 <a class="btn btn-dark mt-2 w-75" href="?cancelar_compra='.$id_compra.'">Cancelar Compra</a></td></tr>
 ';
 				}}}else{ echo '<h3 class="alert alert-secondary text-center">Nenhum produto pendente de aprovação de pagamento</h3>';}
