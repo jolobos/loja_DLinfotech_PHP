@@ -120,7 +120,7 @@ echo '<div style="width: 50%;margin:auto;">
       <h5 class="mb-0">
           <div style="width: 50%;margin:auto;">
         <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapsetwo" aria-expanded="true" aria-controls="collapsetwo">
-          Cartões Cadastrados
+          Endereços Cadastrados
         </button>
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -136,55 +136,52 @@ echo '<div style="width: 50%;margin:auto;">
         <div style="width: 50%;margin:auto;">
            <?php
            
-            if(!empty($_SESSION['id_usuario'])){
-                $id_usuario = $_SESSION['id_usuario'];
-                $sql= 'SELECT * FROM cartao_usuario WHERE id_usuario= ?';
-                $consulta = $conexao->prepare($sql);
-                $consulta->execute(array($id_usuario));
-                $dado = $consulta->fetch(PDO::FETCH_ASSOC);
-                $data = DateTime::createFromFormat('Y-m-d',$dado['vencimento'] );
-                $data1 = $data->format('d/m/Y');
-            if(!empty($dado['id_cartao'])){
-                echo '<div class="mb-3 mt-3">
-            <label class="form-label">Nome: '.$dado['nome'].'</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label">N° do cartão: '.$dado['numero'].'</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label">Vencimento: '. $data1 .'</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label">N° de CCV: ***</label>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="adiciona_cartao.php">
-                    <button class="btn btn-secondary me-2">Adicionar</button>
-                </a>
-                <a href="edita_cartao.php">
-                <button class="btn btn-primary">Editar</button></a>
-                </div>';
-            }else{
-       echo '<div class="mb-3 mt-3">
-            <label class="form-label">Nome: ------- ------ ------</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label">N° do cartão: -------------</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label">Vencimento:------</label>
-            </div>
-            <div class="mb-3 mt-3">
-            <label class="form-label">N° de CCV: ***</label>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="edita_cartao.php">
-                    <button class="btn btn-secondary me-2">Adicionar</button>
-                </a>
-                    <button class="btn btn-primary">Editar</button>
-                </div>';}
-            }
-            ?>
+
+$sql2 = "SELECT * FROM endereco_usuario WHERE id_usuario= '".$id_usuario."'";
+$consulta2 = $conexao->query($sql2);
+$d = $consulta2->fetchALL(PDO::FETCH_ASSOC);
+
+
+
+foreach($d as $e){							
+echo '<div class="form-check">
+<label class="form-check-label" for="flexRadioDefault1">
+<strong>CEP:</strong> '.$e['CEP'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Rua:</strong> '.$e['logradouro'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Bairro:</strong> '.$e['bairro'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Cidade:</strong> '.$e['cidade'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> UF:</strong> '.$e['UF'].' 
+</label></br>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> n°:</strong> '.$e['numero'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Complemento:</strong> '.$e['complemento'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Ponto de referência:</strong> '.$e['ponto_referencia'].' 
+</label></br>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Responsável pela retirada:</strong> '.$e['retirada_com'].' 
+</label>
+<label class="form-check-label" for="flexRadioDefault1">
+<strong> Telefone de contato:</strong> '.$e['telefone_entrega'].' 
+</label>
+</div>
+<div align="right">
+<a class="btn btn-primary" href="#">Editar</a>
+<a class="btn btn-danger" href="#">Excluir</a>
+</div><hr>
+';
+}            ?>
         </div>
 </div>
 </div>
