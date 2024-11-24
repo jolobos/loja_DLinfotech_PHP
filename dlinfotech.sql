@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28/10/2024 às 02:16
+-- Tempo de geração: 24/11/2024 às 17:31
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,29 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `dlinfotech`
 --
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `cartao_usuario`
---
-
-CREATE TABLE `cartao_usuario` (
-  `nome` varchar(120) NOT NULL,
-  `numero` varchar(16) NOT NULL,
-  `vencimento` date NOT NULL,
-  `CCV` varchar(6) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_cartao` int(11) NOT NULL,
-  `data_entrada` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Despejando dados para a tabela `cartao_usuario`
---
-
-INSERT INTO `cartao_usuario` (`nome`, `numero`, `vencimento`, `CCV`, `id_usuario`, `id_cartao`, `data_entrada`) VALUES
-('josias santos', '1234123412341234', '2030-04-30', '123', 6, 1, '2024-04-03');
 
 -- --------------------------------------------------------
 
@@ -108,6 +85,48 @@ CREATE TABLE `endereco_usuario` (
 INSERT INTO `endereco_usuario` (`id_endereco`, `id_usuario`, `CEP`, `logradouro`, `bairro`, `cidade`, `UF`, `numero`, `complemento`, `ponto_referencia`, `retirada_com`, `telefone_entrega`) VALUES
 (1, 6, '94945-330', 'so testando', 'Vista Alegre', 'Cachoeirinha', 'RS', 12, 'casa', 'igreja dos macumba', 'parangole', '(51) 98507-889'),
 (6, 6, '94945-330', 'rua do mane', 'logo ali', 'Cachoeirinha', 'RS', 21, 'beco', 'arvore mijada', 'rolifilty', '(51) 98507-889');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `entregador_us`
+--
+
+CREATE TABLE `entregador_us` (
+  `id_entregador` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `CPF` varchar(11) NOT NULL,
+  `senha_ent` varchar(100) NOT NULL,
+  `foto_ent` int(11) NOT NULL,
+  `endereco_ent` varchar(300) NOT NULL,
+  `telefone_1` varchar(14) NOT NULL,
+  `telefone_2` varchar(14) NOT NULL,
+  `nivel` int(2) NOT NULL,
+  `entregas_totais` int(10) NOT NULL,
+  `entregas_ok` int(10) NOT NULL,
+  `entregas_fails` int(10) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `entregas`
+--
+
+CREATE TABLE `entregas` (
+  `id_entregas` int(11) NOT NULL,
+  `id_entregador` int(11) NOT NULL,
+  `id_compra` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_endereco` int(11) NOT NULL,
+  `saida` int(1) NOT NULL,
+  `chegada` int(1) NOT NULL,
+  `devolucao` int(1) NOT NULL,
+  `cancelamento` int(1) NOT NULL,
+  `observacoes` varchar(500) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -437,6 +456,18 @@ ALTER TABLE `endereco_usuario`
   ADD PRIMARY KEY (`id_endereco`);
 
 --
+-- Índices de tabela `entregador_us`
+--
+ALTER TABLE `entregador_us`
+  ADD PRIMARY KEY (`id_entregador`);
+
+--
+-- Índices de tabela `entregas`
+--
+ALTER TABLE `entregas`
+  ADD PRIMARY KEY (`id_entregas`);
+
+--
 -- Índices de tabela `ficha_tec_produto`
 --
 ALTER TABLE `ficha_tec_produto`
@@ -487,6 +518,18 @@ ALTER TABLE `compras`
 --
 ALTER TABLE `endereco_usuario`
   MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `entregador_us`
+--
+ALTER TABLE `entregador_us`
+  MODIFY `id_entregador` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `entregas`
+--
+ALTER TABLE `entregas`
+  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `ficha_tec_produto`

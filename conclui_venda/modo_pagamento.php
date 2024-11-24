@@ -7,10 +7,7 @@ require_once("../database.php");
 if(isset($_POST['id_endereco']) && isset($_SESSION['lista_produto'])){
 		$_SESSION['id_endereco'] = $_POST['id_endereco'];
 }
-$sql = "SELECT * FROM cartao_usuario WHERE id_usuario = '".$id_usuario."'";
-$consulta = $conexao->query($sql);
-$dados = $consulta->fetch   (PDO::FETCH_ASSOC);
-$id_cartao = $dados['id_cartao'];
+
 		
 if(!empty($_POST['id_endereco'])){
     $_SESSION['endereco'] = $_POST['id_endereco'];
