@@ -49,7 +49,58 @@ date_default_timezone_set('America/Sao_Paulo');
                     $dados_a = $consulta->fetchALL(PDO::FETCH_ASSOC);
                     
                     foreach ($dados_a as $a){
-                        echo $a['id_usuario'].'<hr>';
+                        
+                        $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$a['id_endereco']."'";
+			$consulta2 = $conexao->query($sql2);
+			$d = $consulta2->fetch(PDO::FETCH_ASSOC);
+                        
+                        $CEP = $d['CEP'];
+					$rua = $d['logradouro'];
+					$bairro = $d['bairro'];
+					$cidade = $d['cidade'];
+					$UF = $d['UF'];
+					$numero = $d['numero'];
+					$complemento = $d['complemento'];
+					$ponto_referencia = $d['ponto_referencia'];
+					$retirada_com = $d['retirada_com'];
+					$telefone_entrega = $d['telefone_entrega'];
+                                        
+							
+		echo '<div class="form-check">
+		  <input class="form-check-input" type="radio" id="endereco'.$d['id_endereco'].'" name="id_endereco" value="'.$d['id_endereco'].'">
+		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong>CEP:</strong> '.$d['CEP'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'>
+                  <strong> Rua:</strong> '.$d['logradouro'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'>
+                  <strong> Bairro:</strong> '.$d['bairro'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Cidade:</strong> '.$d['cidade'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> UF:</strong> '.$d['UF'].' 
+		  </label></br>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> n°:</strong> '.$d['numero'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Complemento:</strong> '.$d['complemento'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
+		  </label></br>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
+		  </label>
+		</div><hr/>
+                ';
+                        
                     }
                     
                     ?>
