@@ -4,6 +4,21 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+if(!isset($_SESSION['entregas_selecionadas'])){
+    $_SESSION['entregas_selecionadas'] = array();
+}
+
+if(!empty($_POST['sel_entrega'])){
+    $id_ent = intval($_POST['sel_entrega']);
+    if(!isset($_SESSION['sel_entrega'][$id_ent])){
+        $_SESSION['sel_entrega'][$id_ent]=1;
+    }else{
+       $_SESSION['sel_entrega'][$id_ent] +=1;
+    }
+   
+}
+
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -41,13 +56,17 @@ date_default_timezone_set('America/Sao_Paulo');
                 <h2 class="text-primary">Selecione as entregas que voce deseja entregar</h2>  
             </div>
             <div class="card-body">
-                <h5>Entregas:</h5>
-                <div style="max-height:400px" class="overflow-auto">
+                
+                
                     <?php
-                    $sql = "SELECT * FROM compras WHERE autorizado = 1";
+                    $sql = "SELECT * FROM compras WHERE autorizado = 1 AND sel_entrega = 0";
                     $consulta = $conexao->query($sql);
                     $dados_a = $consulta->fetchALL(PDO::FETCH_ASSOC);
-                    
+                    echo '<div class="row">
+                            <div class="col">
+                                <h5>Entregas:</h5>
+                                <div style="max-height:400px" class="overflow-auto">
+                                    ';
                     foreach ($dados_a as $a){
                         
                         $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$a['id_endereco']."'";
@@ -66,15 +85,14 @@ date_default_timezone_set('America/Sao_Paulo');
 					$telefone_entrega = $d['telefone_entrega'];
                                         
 							
-		echo '<div class="form-check">
-		  <input class="form-check-input" type="radio" id="endereco'.$d['id_endereco'].'" name="id_endereco" value="'.$d['id_endereco'].'">
+		echo '<form method="POST">
 		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong>CEP:</strong> '.$d['CEP'].' 
 		  </label>
-                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Rua:</strong> '.$d['logradouro'].' 
 		  </label>
-                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Bairro:</strong> '.$d['bairro'].' 
 		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
@@ -97,11 +115,37 @@ date_default_timezone_set('America/Sao_Paulo');
 		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
-		  </label>
-		</div><hr/>
-                ';
-                        
+		  </label></br>
+                  <input type="hidden" name="sel_entrega" value="'.$a['id_endereco'].'">
+                  <div align="right">    
+                  <input class="btn btn-primary me-4" type="submit" id="endereco'.$d['id_endereco'].'"  value="Selecionar">
+                  </div>
+                  </form><hr/>
+                ';                   
                     }
+                    echo '
+                            </div>
+                            </div>
+                            <div class="col">
+                            <h5>Selecionadas:</h5>
+                            ';
+                    
+                    echo '<div class="card">
+                            <div class="card-header">
+                               
+                            </div>
+                            <div class="card-body" style="max-height:400px" class="overflow-auto">';
+                    if(isset($_SESSION['entregas_selecionadas'])){
+                        var_dump($_SESSION['entregas_selecionadas']);
+                        }
+                    
+                    echo '</div>
+                            <div class="card-footer">
+                            </div>
+                ';
+                    
+                    
+                    echo '</div>';
                     
                     ?>
                 </div>

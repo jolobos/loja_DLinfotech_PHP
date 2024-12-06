@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/11/2024 às 17:31
+-- Tempo de geração: 06/12/2024 às 20:34
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -34,6 +34,7 @@ CREATE TABLE `compras` (
   `data` datetime NOT NULL,
   `total` double(10,2) NOT NULL,
   `autorizado` int(1) NOT NULL,
+  `sel_entrega` int(1) NOT NULL,
   `entregue` int(1) NOT NULL,
   `pagamento` varchar(30) NOT NULL,
   `parcelas` int(3) NOT NULL
@@ -43,19 +44,19 @@ CREATE TABLE `compras` (
 -- Despejando dados para a tabela `compras`
 --
 
-INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_endereco`, `data`, `total`, `autorizado`, `entregue`, `pagamento`, `parcelas`) VALUES
-(14, 6, 1, '2024-04-23 14:31:35', 1.00, 0, 0, 'PIX', 1),
-(16, 6, 1, '2024-04-25 14:11:51', 287.48, 0, 0, 'PIX', 1),
-(17, 6, 1, '2024-04-25 14:12:53', 287.48, 0, 0, 'PIX', 1),
-(18, 6, 1, '2024-04-25 14:13:21', 287.48, 1, 0, 'PIX', 1),
-(19, 6, 1, '2024-04-25 14:14:13', 529.00, 1, 0, 'PIX', 1),
-(20, 6, 1, '2024-04-25 14:14:37', 529.00, 1, 1, 'PIX', 1),
-(21, 6, 1, '2024-04-25 14:14:48', 529.00, 0, 0, 'PIX', 1),
-(22, 6, 1, '2024-04-28 18:16:21', 20.00, 0, 0, 'PIX', 1),
-(29, 6, 1, '2024-04-30 13:35:01', 20.00, 0, 0, 'BOLETO', 1),
-(30, 6, 1, '2024-05-01 14:45:54', 17.50, 0, 0, 'BOLETO', 1),
-(32, 6, 1, '2024-10-09 08:06:49', 99.99, 0, 0, 'PIX', 1),
-(33, 6, 1, '2024-10-09 08:57:15', 99.99, 0, 0, 'PIX', 1);
+INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_endereco`, `data`, `total`, `autorizado`, `sel_entrega`, `entregue`, `pagamento`, `parcelas`) VALUES
+(14, 6, 1, '2024-04-23 14:31:35', 1.00, 0, 0, 0, 'PIX', 1),
+(16, 6, 1, '2024-04-25 14:11:51', 287.48, 0, 0, 0, 'PIX', 1),
+(17, 6, 1, '2024-04-25 14:12:53', 287.48, 0, 0, 0, 'PIX', 1),
+(18, 6, 1, '2024-04-25 14:13:21', 287.48, 1, 0, 0, 'PIX', 1),
+(19, 6, 1, '2024-04-25 14:14:13', 529.00, 1, 0, 0, 'PIX', 1),
+(20, 6, 1, '2024-04-25 14:14:37', 529.00, 1, 0, 1, 'PIX', 1),
+(21, 6, 1, '2024-04-25 14:14:48', 529.00, 1, 0, 0, 'PIX', 1),
+(22, 6, 1, '2024-04-28 18:16:21', 20.00, 1, 0, 0, 'PIX', 1),
+(29, 6, 1, '2024-04-30 13:35:01', 20.00, 1, 0, 0, 'BOLETO', 1),
+(30, 6, 1, '2024-05-01 14:45:54', 17.50, 1, 0, 0, 'BOLETO', 1),
+(32, 6, 1, '2024-10-09 08:06:49', 99.99, 1, 0, 0, 'PIX', 1),
+(33, 6, 1, '2024-10-09 08:57:15', 99.99, 1, 0, 0, 'PIX', 1);
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,7 @@ CREATE TABLE `entregador_us` (
   `nome` varchar(100) NOT NULL,
   `CPF` varchar(11) NOT NULL,
   `senha_ent` varchar(100) NOT NULL,
-  `foto_ent` int(11) NOT NULL,
+  `foto_ent` varchar(200) NOT NULL,
   `endereco_ent` varchar(300) NOT NULL,
   `telefone_1` varchar(14) NOT NULL,
   `telefone_2` varchar(14) NOT NULL,
@@ -107,6 +108,13 @@ CREATE TABLE `entregador_us` (
   `entregas_fails` int(10) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `entregador_us`
+--
+
+INSERT INTO `entregador_us` (`id_entregador`, `nome`, `CPF`, `senha_ent`, `foto_ent`, `endereco_ent`, `telefone_1`, `telefone_2`, `nivel`, `entregas_totais`, `entregas_ok`, `entregas_fails`, `status`) VALUES
+(1, 'josias santos', '02351055039', '854a3864c2bef0b3948892a2c7b93ddd', '8c34c4ee0b0ce8ba859f0a6ac21be992.jpg', 'rua logo ali.', '51993596160', '51985078897', 1, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -523,7 +531,7 @@ ALTER TABLE `endereco_usuario`
 -- AUTO_INCREMENT de tabela `entregador_us`
 --
 ALTER TABLE `entregador_us`
-  MODIFY `id_entregador` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_entregador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `entregas`
