@@ -30,8 +30,55 @@ if(!empty($_POST['sel_entrega'])){
 		$ok= False; 
 			
 		}
-		
-			if ($ok){
+		if($ok){
+                    $valor = 1;
+                    $sql ='UPDATE compras SET sel_entrega=? WHERE id_compra = '.$id_compra.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok1 = $insercao->execute(array ($valor));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok1 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok1= False; 
+                    }
+    
+                }
+			if ($ok1){
+				$msg= 'Seus dados foram alterados com sucesso!.';
+				}else{
+					$msg='Lamento, não foi possivel alterar seus dados!.'.$r->getMessage().'';
+			}
+		header('location:seleciona_entrega.php?mensagem='.$msg);
+} 
+if(!empty($_POST['rec_entrega'])){
+    $id_compra = $_POST['rec_entrega'];
+    
+    $sql1 ='DELETE FROM entregas WHERE id_compra = ?';
+		try {
+			$insercao1 = $conexao->prepare($sql1);
+		$ok1 = $insercao1->execute(array ($id_compra));
+		}catch(PDOException $r){
+	//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok1 = False;
+		}catch (Exception $r){//todos as exceções
+		$ok1= False; 
+		}
+		if($ok1){
+                    $valor = 0;
+                    $sql ='UPDATE compras SET sel_entrega=? WHERE id_compra = '.$id_compra.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok2 = $insercao->execute(array ($valor));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok2 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok2= False; 
+                    }
+    
+                }
+			if ($ok2){
 				$msg= 'Seus dados foram alterados com sucesso!.';
 				}else{
 					$msg='Lamento, não foi possivel alterar seus dados!.'.$r->getMessage().'';
@@ -61,7 +108,7 @@ if(!empty($_POST['sel_entrega'])){
                     </h1>
                 </div>
                 <div class="col" align="right">
-                    <a class="btn btn-secondary border-info m-2" href="home.php">INICIO</a>
+                    <a class="btn btn-secondary border-info m-2" href="../home.php">INICIO</a>
                     <a href="../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
                 </div>
             </div>
@@ -179,37 +226,41 @@ if(!empty($_POST['sel_entrega'])){
 					$telefone_entrega = $d['telefone_entrega'];
                                         
 							
-                                echo '
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                echo '<form method="POST">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong>CEP:</strong> '.$d['CEP'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Rua:</strong> '.$d['logradouro'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Bairro:</strong> '.$d['bairro'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Cidade:</strong> '.$d['cidade'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> UF:</strong> '.$d['UF'].' 
                                   </label></br>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> n°:</strong> '.$d['numero'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Complemento:</strong> '.$d['complemento'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
                                   </label></br>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
                                   </label>
-                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <label class="form-check-label" for="endereco_2'.$d['id_endereco'].'">
                                   <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
                                   </label></br>
+                                  <input type="hidden" name="rec_entrega" value="'.$s['id_compra'].'">
+                                  <div align="right">    
+                                  <input class="btn btn-primary me-4" type="submit" id="endereco_2'.$d['id_endereco'].'"  value="Selecionar">
+                                  </div></form>
                                   <hr/>
                                 ';                   
                                     }    
