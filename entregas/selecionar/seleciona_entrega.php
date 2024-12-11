@@ -103,7 +103,7 @@ if(!empty($_POST['rec_entrega'])){
         <div class="bg-dark">
             <div class="row">
                 <div class="col" >
-                    <h1 class="text-success">
+                    <h1 class="text-success ms-3">
                         Sistema de entregas DL
                     </h1>
                 </div>
@@ -202,9 +202,9 @@ if(!empty($_POST['rec_entrega'])){
                     
                     echo '<div class="card">
                             <div class="card-header">
-                               
+                               <h5 class="">Lista para entregas</h5>
                             </div>
-                            <div class="card-body"><div style="max-height:400px" class="overflow-auto">';
+                            <div class="card-body"><div style="max-height:320px" class="overflow-auto">';
                             $sql93 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."'";
                             $consulta93 = $conexao->query($sql93);
                             $d93 = $consulta93->fetchALL(PDO::FETCH_ASSOC);
@@ -259,14 +259,16 @@ if(!empty($_POST['rec_entrega'])){
                                   </label></br>
                                   <input type="hidden" name="rec_entrega" value="'.$s['id_compra'].'">
                                   <div align="right">    
-                                  <input class="btn btn-primary me-4" type="submit" id="endereco_2'.$d['id_endereco'].'"  value="Selecionar">
-                                  </div></form>
-                                  <hr/>
+                                  <input class="btn btn-primary me-4" type="submit" id="endereco_2'.$d['id_endereco'].'"  value="Excluir">
+                                  </div><hr/></form>
+                                  
                                 ';                   
                                     }    
 
                     echo '</div></div>
-                            <div class="card-footer">
+                            <div class="card-footer" align="right">
+                                <a class="btn btn-secondary" href="../etinerario/seleciona_etinerario.php">Marcar etinerário</a>
+
                             </div>';
                     
                     echo '</div>';
