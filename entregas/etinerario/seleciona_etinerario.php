@@ -4,7 +4,28 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+   if(!isset($_SESSION['ordem_etinerario'])){
+                      $_SESSION['ordem_etinerario'] = array();
+}
 
+if(isset($_GET['zerar'])){
+    unset($_SESSION['ordem_etinerario']);
+    header('location:seleciona_etinerario.php');
+}
+if(isset($_GET['tirar'])){
+    $remover = array($_GET['tirar']);
+    array_diff($_SESSION['ordem_etinerario'], $remover);
+    //header('location:seleciona_etinerario.php');
+}
+if(!empty($_POST['sel_etinerario'])){
+    $cont = 0;
+    foreach ($_SESSION['ordem_etinerario'] as $ZYS){
+        if($ZYS == $_POST['sel_etinerario']){
+            $cont++;
+        }
+    }
+    if($cont == 0){
+    array_push($_SESSION['ordem_etinerario'], $_POST['sel_etinerario']); }}             
 ?>
 
 <!doctype html>
@@ -44,20 +65,14 @@ date_default_timezone_set('America/Sao_Paulo');
                 <h2 class="text-primary">Monte a ordem de suas entregas</h2>  
             </div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8" ><div  style="max-height:320px" class="overflow-auto">
+                            <h5>Entregas</h5>
                 <?php
                     $sql45 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."'";
                     $consulta45 = $conexao->query($sql45);
                     $d45 = $consulta45->fetchALL(PDO::FETCH_ASSOC);
-                    $_SESSION['ordem_SGBD'] = array();
-                    $_SESSION['ordem_etinerario'] = array();
                     
-                    foreach($d45 as $b){
-                        array_push($_SESSION['ordem_SGBD'],$b['id_endereco']);
-                       
-                    }  
-                    print_r($_SESSION['ordem_SGBD']);
-                    var_dump($_SESSION['ordem_SGBD']);
-                    /*
                     foreach($d45 as $a){
                        $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$a['id_endereco']."'";
 			$consulta2 = $conexao->query($sql2);
@@ -75,7 +90,12 @@ date_default_timezone_set('America/Sao_Paulo');
 					$telefone_entrega = $d['telefone_entrega'];
                                         
 							
-		echo '<form method="POST">
+		echo '<div class="row">
+                        <div class="col">
+                  <form method="POST">
+		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong>Código:</strong> '.$a['id_compra'].' 
+		  </label></br>
 		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong>CEP:</strong> '.$d['CEP'].' 
 		  </label>
@@ -105,15 +125,36 @@ date_default_timezone_set('America/Sao_Paulo');
 		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
-		  </label></br>
-                  <div align="right">    
+		  </label></div>
+                  <div class="col-sm-2"> 
+                  <input type="hidden" name="sel_etinerario" value="'.$a['id_compra'].'">
+                  <input class="btn btn-primary me-4" type="submit" id="endereco'.$d['id_endereco'].'"  value=">>"></br>
+                  <a class="btn btn-primary mt-2" href="#" target="_blank">Ver no mapa</a>
+                  </div>
                   </div>
                   </form><hr/>
                 ';                   
                     
                     }
-                    */
-                ?>    
+                  
+                ?>  
+                </div>            
+                </div>
+                    <div class="col">
+                        <div  style="max-height:320px" class="overflow-auto">
+                        <h5>Ordem de entrega</h5>
+                            <?php
+                                            $contt = 1;
+                                 foreach ($_SESSION['ordem_etinerario'] as $ZWQ){
+                                     echo $contt.'° - '.$ZWQ.' <a class="btn btn-secondary mb-2" href="?tirar='.$ZWQ.'">R</a></br>';
+                                     $contt++;
+                                 }            
+                                 echo '<a class="btn btn-secondary" href="?zerar=ok">Excluir Ordem</a>';           
+                            ?>
+
+                    </div>    
+                    </div>    
+                </div>
             </div>
     </div>
     </div>
