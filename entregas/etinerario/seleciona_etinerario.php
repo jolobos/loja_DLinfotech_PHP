@@ -5,17 +5,71 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
    if(!isset($_SESSION['ordem_etinerario'])){
-                      $_SESSION['ordem_etinerario'] = array();
+        $_SESSION['ordem_etinerario'] = array();
+        $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
+	$consultaZYZ = $conexao->query($sqlZYZ);
+	$dZYZ = $consultaZYZ->fetchALL(PDO::FETCH_ASSOC);
+        foreach ($dZYZ as $g){
+            array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
+        }            
 }
+
+if(isset($_POST['concluir_etinerario'])){
+    if(!empty($_SESSION['ordem_etinerario'])){
+        
+        $sql ='UPDATE entregas SET ordem_ent=? WHERE id_entregador = '.$id_entregador.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok1 = $insercao->execute(array ($conttt));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok1 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok1= False; 
+                    }
+        
+        $conttt = 1;
+        foreach ($_SESSION['ordem_etinerario'] as $id_compra21){
+           
+            $sql ='UPDATE entregas SET ordem_ent=? WHERE id_compra = '.$id_compra21.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok1 = $insercao->execute(array ($conttt));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok1 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok1= False; 
+                    }
+                    $conttt++;
+                    }
+			}
+		unset($_SESSION['ordem_etinerario']);
+                header('location:../entregas/iniciar.php');
+        
+    }
+
+
 
 if(isset($_GET['zerar'])){
     unset($_SESSION['ordem_etinerario']);
+    $sql ='UPDATE entregas SET ordem_ent=? WHERE id_entregador = '.$id_entregador.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok1 = $insercao->execute(array ($conttt));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok1 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok1= False; 
+                    }
+                    
     header('location:seleciona_etinerario.php');
 }
 if(isset($_GET['tirar'])){
     $remover = array($_GET['tirar']);
-    array_diff($_SESSION['ordem_etinerario'], $remover);
-    //header('location:seleciona_etinerario.php');
+    $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
+    header('location:seleciona_etinerario.php');
 }
 if(!empty($_POST['sel_etinerario'])){
     $cont = 0;
@@ -154,6 +208,12 @@ if(!empty($_POST['sel_etinerario'])){
 
                     </div>    
                     </div>    
+                </div>
+                <div align="center">
+                <form method="POST">
+                    <input type="hidden" name="concluir_etinerario" value="ok"/>
+                    <input type="submit" class="btn btn-success mt-4" value="Fechar Etinerario"/>
+                </form>
                 </div>
             </div>
     </div>
