@@ -4,6 +4,11 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+
+if(!isset($_SESSION['ordem_etinerario'])){
+    $_SESSION['ordem_etinerario'] = array();
+}
+
 ?>
 
 <!doctype html>
@@ -43,7 +48,19 @@ date_default_timezone_set('America/Sao_Paulo');
                 <h2 class="text-primary">Entregas</h2>  
             </div>
         <div class="card-body">
-            
+            <?php
+                $sql45 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent != 0 ORDER BY ordem_ent ASC";
+		$consulta45 = $conexao->query($sql45);
+		$d45 = $consulta45->fetchALL(PDO::FETCH_ASSOC);
+                
+                foreach ($d45 as $g){
+                    array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
+                }
+                
+               $contador = 0;
+               $marcador = 1;
+               echo $marcador.'° Entrega </br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'';
+            ?>
         </div>
     </div>
     </div>
