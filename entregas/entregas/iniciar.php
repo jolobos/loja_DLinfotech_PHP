@@ -6,6 +6,7 @@ ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
 if(!isset($_SESSION['ordem_etinerario'])){
+    unset($_SESSION['ordem_etinerario']);
     $_SESSION['ordem_etinerario'] = array();
 }
 
@@ -52,14 +53,94 @@ if(!isset($_SESSION['ordem_etinerario'])){
                 $sql45 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent != 0 ORDER BY ordem_ent ASC";
 		$consulta45 = $conexao->query($sql45);
 		$d45 = $consulta45->fetchALL(PDO::FETCH_ASSOC);
-                
                 foreach ($d45 as $g){
                     array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
                 }
                 
-               $contador = 0;
-               $marcador = 1;
-               echo $marcador.'° Entrega </br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'';
+               
+               echo '<form method="POST">
+                   <div class="row">
+                   <div class="col">
+                    Próxima entrega </br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'';
+                    
+                        if(!empty($_SESSION['ordem_etinerario'][0])){
+                        $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$_SESSION['ordem_etinerario'][0]."'";
+                        $consulta455 = $conexao->query($sql455);
+                        $a = $consulta455->fetch(PDO::FETCH_ASSOC);
+                    
+                            
+                        $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$a['id_endereco']."'";
+			$consulta2 = $conexao->query($sql2);
+			$d = $consulta2->fetch(PDO::FETCH_ASSOC);
+                        
+                        $CEP = $d['CEP'];
+					$rua = $d['logradouro'];
+					$bairro = $d['bairro'];
+					$cidade = $d['cidade'];
+					$UF = $d['UF'];
+					$numero = $d['numero'];
+					$complemento = $d['complemento'];
+					$ponto_referencia = $d['ponto_referencia'];
+					$retirada_com = $d['retirada_com'];
+					$telefone_entrega = $d['telefone_entrega'];
+                                        
+							
+		echo '<form method="POST">
+		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong>CEP:</strong> '.$d['CEP'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Rua:</strong> '.$d['logradouro'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Bairro:</strong> '.$d['bairro'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Cidade:</strong> '.$d['cidade'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> UF:</strong> '.$d['UF'].' 
+		  </label></br>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> n°:</strong> '.$d['numero'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Complemento:</strong> '.$d['complemento'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
+		  </label></br>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
+		  </label>
+                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                  <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
+		  </label></br>
+                  <div align="right">    
+                    <input type="hidden" name="iniciar_corrida" value="'.$_SESSION['ordem_etinerario'][0].'"/>
+                    <a class="btn btn-primary" href="../etinerario/seleciona_etinerario.php">Mudar Etinerario</a>    
+                    <input type="submit" class="btn btn-secondary" value="Iniciar Entrega">
+                                      </div>
+                  </form><hr/>
+                ';                   
+                    }
+                    
+                    echo '</div>
+                    <div class="col">
+                    <h5>Mapa de entrega</h5>
+                       <div class="card">
+                        <div class="card-body">
+                            <div style="height:300px">
+                            
+                            </div>
+                        </div>
+                       </div>
+                   </div>
+                    </div>
+    
+
+</form>';
+               
             ?>
         </div>
     </div>
