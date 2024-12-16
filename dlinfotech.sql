@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/12/2024 às 20:34
+-- Tempo de geração: 16/12/2024 às 19:52
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -48,8 +48,8 @@ INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_endereco`, `data`, `total`
 (14, 6, 1, '2024-04-23 14:31:35', 1.00, 0, 0, 0, 'PIX', 1),
 (16, 6, 1, '2024-04-25 14:11:51', 287.48, 0, 0, 0, 'PIX', 1),
 (17, 6, 1, '2024-04-25 14:12:53', 287.48, 0, 0, 0, 'PIX', 1),
-(18, 6, 1, '2024-04-25 14:13:21', 287.48, 1, 0, 0, 'PIX', 1),
-(19, 6, 1, '2024-04-25 14:14:13', 529.00, 1, 0, 0, 'PIX', 1),
+(18, 6, 1, '2024-04-25 14:13:21', 287.48, 1, 1, 0, 'PIX', 1),
+(19, 6, 1, '2024-04-25 14:14:13', 529.00, 1, 1, 0, 'PIX', 1),
 (20, 6, 1, '2024-04-25 14:14:37', 529.00, 1, 0, 1, 'PIX', 1),
 (21, 6, 1, '2024-04-25 14:14:48', 529.00, 1, 0, 0, 'PIX', 1),
 (22, 6, 1, '2024-04-28 18:16:21', 20.00, 1, 0, 0, 'PIX', 1),
@@ -128,13 +128,23 @@ CREATE TABLE `entregas` (
   `id_compra` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_endereco` int(11) NOT NULL,
+  `ordem_ent` int(10) NOT NULL,
   `saida` int(1) NOT NULL,
   `chegada` int(1) NOT NULL,
+  `hora_saida` datetime NOT NULL,
+  `hora_chegada` datetime NOT NULL,
   `devolucao` int(1) NOT NULL,
   `cancelamento` int(1) NOT NULL,
   `observacoes` varchar(500) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `entregas`
+--
+
+INSERT INTO `entregas` (`id_entregas`, `id_entregador`, `id_compra`, `id_usuario`, `id_endereco`, `ordem_ent`, `saida`, `chegada`, `hora_saida`, `hora_chegada`, `devolucao`, `cancelamento`, `observacoes`, `status`) VALUES
+(5, 1, 19, 6, 1, 1, 1, 0, '2024-12-16 15:38:46', '0000-00-00 00:00:00', 0, 0, 'vazio', 0);
 
 -- --------------------------------------------------------
 
@@ -537,7 +547,7 @@ ALTER TABLE `entregador_us`
 -- AUTO_INCREMENT de tabela `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `ficha_tec_produto`

@@ -4,12 +4,41 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-
 if(!isset($_SESSION['ordem_etinerario'])){
     unset($_SESSION['ordem_etinerario']);
     $_SESSION['ordem_etinerario'] = array();
 }
 
+if(!empty($_POST['iniciar_corrida'])){
+    $id_compra = $_POST['iniciar_corrida'];
+    $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$id_compra."'";
+    $consulta455 = $conexao->query($sql455);
+    $a = $consulta455->fetch(PDO::FETCH_ASSOC);
+    if(!empty($a)){
+        $valido = 1;
+        $hora_iniciada = date('Y-m-d H:i:s');
+        if(!isset($_SESSION['controlador'])){
+            $_SESSION['controlador'] = 0;
+        }
+        if( $_SESSION['controlador'] == 0){
+        $sql ='UPDATE entregas SET saida=?,hora_saida=? WHERE id_compra = '.$id_compra.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok1 = $insercao->execute(array ($valido,$hora_iniciada));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok1 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok1= False; 
+                    }
+                    if($ok1){
+                        $_SESSION['controlador'] = $id_compra;
+        }}
+    }               
+}else{
+        header('location:iniciar.php?msg=A corrida nao pode ser iniciada por um erro com o banco de dados');
+
+}
 ?>
 
 <!doctype html>
@@ -34,7 +63,6 @@ if(!isset($_SESSION['ordem_etinerario'])){
                     </h1>
                 </div>
                 <div class="col" align="right">
-                    <a class="btn btn-secondary border-info m-2" href="../selecionar/seleciona_entrega.php">selecionar entregas</a>
                     <a class="btn btn-secondary border-info m-2" href="../home.php">INICIO</a>
                     <a href="../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
                 </div>
@@ -46,31 +74,17 @@ if(!isset($_SESSION['ordem_etinerario'])){
 	</div>
     <div class="card">
             <div class="card-header">
-                <h2 class="text-primary">Entregas</h2>  
+                <h2 class="text-primary">Entrega Iniciada</h2>  
             </div>
         <div class="card-body">
             <?php
             
-                $sql45 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent != 0 ORDER BY ordem_ent ASC";
-		$consulta45 = $conexao->query($sql45);
-		$d45 = $consulta45->fetchALL(PDO::FETCH_ASSOC);
-                if(!empty($d45)){
-                foreach ($d45 as $g){
-                    array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
-                }
-                
-               
-               echo '
+            echo '
                    <div class="row">
                    <div class="col">
-                    Próxima entrega </br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'</br>';
+                    Entrega Iniciada</br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'</br>';
                     
                         if(!empty($_SESSION['ordem_etinerario'][0])){
-                        $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$_SESSION['ordem_etinerario'][0]."'";
-                        $consulta455 = $conexao->query($sql455);
-                        $a = $consulta455->fetch(PDO::FETCH_ASSOC);
-                    
-                            
                         $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$a['id_endereco']."'";
 			$consulta2 = $conexao->query($sql2);
 			$d = $consulta2->fetch(PDO::FETCH_ASSOC);
@@ -87,7 +101,7 @@ if(!isset($_SESSION['ordem_etinerario'])){
 					$telefone_entrega = $d['telefone_entrega'];
                                         
 							
-		echo '<form method="POST" action="entrega_iniciada.php">
+		echo '
 		  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong>CEP:</strong> '.$d['CEP'].' 
 		  </label>
@@ -118,14 +132,14 @@ if(!isset($_SESSION['ordem_etinerario'])){
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
 		  </label></br>
-                  <div align="right">    
-                    <input type="hidden" name="iniciar_corrida" value="'.$_SESSION['ordem_etinerario'][0].'"/>
-                    <a class="btn btn-primary" href="../etinerario/seleciona_etinerario.php">Mudar Etinerario</a>    
-                    <input type="submit" class="btn btn-secondary" value="Iniciar Entrega">
-                                      </div>
-                  </form><hr/>
                 ';                   
                     }
+                    
+                    
+                    
+                    
+                    
+                    
                     $localizacao = $d['logradouro'].' '.$d['numero'].' '.$d['bairro'].' '.$d['cidade'].' '.$d['UF'];
                     echo '</div>
                     <div class="col">
@@ -139,18 +153,12 @@ if(!isset($_SESSION['ordem_etinerario'])){
                        </div>
                    </div>
                     </div>
-    
-
-</form>';
-                }else{
-                    echo '<h3 class="">Sem entregas selecionadas ou ordem definida de etinerário.</br></h3><h5>'
-                    . ' Por favor seleciona novas entregas ou coloque a ordem de etinerario correta para iniciar as suas entregas.</h5>'
-                            . '<a class="btn btn-secondary border-info m-2" href="../selecionar/seleciona_entrega.php">selecionar entregas</a>'
-                            . '<a class="btn btn-secondary border-info m-2" href="../etinerario/seleciona_etinerario.php">Montar etinerario</a>';
-                } 
+                        ';
+                
+            
+            
             ?>
         </div>
     </div>
     </div>
   </body>
-           

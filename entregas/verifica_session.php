@@ -2,6 +2,9 @@
 session_start();
 if(empty($_SESSION['id_entregador'])){
 	session_destroy();
+        $msg = 'Sua sessão expirou!';
+        header('location:session_exp.php?mens='.$msg);
+
 	}else{
 	$id_entregador = $_SESSION['id_entregador'];
         $nivel = $_SESSION['nivel'];
