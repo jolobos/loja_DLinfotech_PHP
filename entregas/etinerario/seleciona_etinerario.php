@@ -143,7 +143,7 @@ if(!empty($_POST['sel_etinerario'])){
 					$retirada_com = $d['retirada_com'];
 					$telefone_entrega = $d['telefone_entrega'];
                                         
-							
+		$localizacao = $d['logradouro'].' '.$d['numero'].' '.$d['bairro'].' '.$d['cidade'].' '.$d['UF'];					
 		echo '<div class="row">
                         <div class="col">
                   <form method="POST">
@@ -183,12 +183,12 @@ if(!empty($_POST['sel_etinerario'])){
                   <div class="col-sm-2"> 
                   <input type="hidden" name="sel_etinerario" value="'.$a['id_compra'].'">
                   <input class="btn btn-primary me-4" type="submit" id="endereco'.$d['id_endereco'].'"  value=">>"></br>
-                  <a class="btn btn-primary mt-2" href="#" target="_blank">Ver no mapa</a>
+                  <a class="btn btn-primary mt-2" href="https://maps.google.it/maps?q='.$localizacao.'" target="_blank">Ver no mapa</a>
                   </div>
                   </div>
                   </form><hr/>
-                ';                   
-                    
+                ';                  
+                   
                     }
                   
                 ?>  

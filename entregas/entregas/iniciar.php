@@ -61,7 +61,7 @@ if(!isset($_SESSION['ordem_etinerario'])){
                echo '<form method="POST">
                    <div class="row">
                    <div class="col">
-                    Próxima entrega </br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'';
+                    Próxima entrega </br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'</br>';
                     
                         if(!empty($_SESSION['ordem_etinerario'][0])){
                         $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$_SESSION['ordem_etinerario'][0]."'";
@@ -100,7 +100,7 @@ if(!isset($_SESSION['ordem_etinerario'])){
 		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> UF:</strong> '.$d['UF'].' 
-		  </label></br>
+		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> n°:</strong> '.$d['numero'].' 
 		  </label>
@@ -109,7 +109,7 @@ if(!isset($_SESSION['ordem_etinerario'])){
 		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
-		  </label></br>
+		  </label>
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
 		  </label>
@@ -124,14 +124,14 @@ if(!isset($_SESSION['ordem_etinerario'])){
                   </form><hr/>
                 ';                   
                     }
-                    
+                    $localizacao = $d['logradouro'].' '.$d['numero'].' '.$d['bairro'].' '.$d['cidade'].' '.$d['UF'];
                     echo '</div>
                     <div class="col">
                     <h5>Mapa de entrega</h5>
                        <div class="card">
                         <div class="card-body">
                             <div style="height:300px">
-                            
+                            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q='.$localizacao.'&output=embed"></iframe>
                             </div>
                         </div>
                        </div>
