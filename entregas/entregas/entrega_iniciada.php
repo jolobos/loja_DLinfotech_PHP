@@ -8,7 +8,9 @@ if(!isset($_SESSION['ordem_etinerario'])){
     unset($_SESSION['ordem_etinerario']);
     $_SESSION['ordem_etinerario'] = array();
 }
-
+if(isset($_SESSION['controlador'])){
+    $_POST['iniciar_corrida'] = $_SESSION['controlador'];
+}
 if(!empty($_POST['iniciar_corrida'])){
     $id_compra = $_POST['iniciar_corrida'];
     $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$id_compra."'";
@@ -191,6 +193,9 @@ if(!empty($_POST['iniciar_corrida'])){
                         Próximas entregas
                       </button>
 
+
+
+                     </div>
                       <!-- The Modal -->
                       <div class="modal" id="myModal">
                         <div class="modal-dialog modal-lg">
@@ -206,7 +211,64 @@ if(!empty($_POST['iniciar_corrida'])){
                             <div class="modal-body">';
                             
                             //colocarei as proximas entregas aqui...
-                    
+                            $sql455ty = "SELECT id_endereco,id_compra FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent >= 2 ORDER BY ordem_ent ASC";
+                            $consulta455ty = $conexao->query($sql455ty);
+                            $ty = $consulta455ty->fetchALL(PDO::FETCH_ASSOC);
+                            
+                            foreach($ty as $t){
+                                $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$t['id_endereco']."'";
+                                $consulta2 = $conexao->query($sql2);
+                                $d = $consulta2->fetch(PDO::FETCH_ASSOC);
+
+                                $CEP = $d['CEP'];
+					$rua = $d['logradouro'];
+					$bairro = $d['bairro'];
+					$cidade = $d['cidade'];
+					$UF = $d['UF'];
+					$numero = $d['numero'];
+					$complemento = $d['complemento'];
+					$ponto_referencia = $d['ponto_referencia'];
+					$retirada_com = $d['retirada_com'];
+					$telefone_entrega = $d['telefone_entrega'];
+                                        
+							
+                                echo '
+                                  <label class="form-check-label">
+                                  <strong>Código da entrega:</strong> '.$t['id_compra'].' 
+                                  </label><br>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong>CEP:</strong> '.$d['CEP'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Rua:</strong> '.$d['logradouro'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Bairro:</strong> '.$d['bairro'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Cidade:</strong> '.$d['cidade'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> UF:</strong> '.$d['UF'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> n°:</strong> '.$d['numero'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Complemento:</strong> '.$d['complemento'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Ponto de referência:</strong> '.$d['ponto_referencia'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Responsável pela retirada:</strong> '.$d['retirada_com'].' 
+                                  </label>
+                                  <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
+                                  <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
+                                  </label><hr/>
+                                ';                   
+
+                            }
                     
                             echo '</div>
 
@@ -219,7 +281,7 @@ if(!empty($_POST['iniciar_corrida'])){
                         </div>
                       </div>
                   
-                  </div>
+                 
                   </form>
 
                     ';
@@ -247,4 +309,33 @@ if(!empty($_POST['iniciar_corrida'])){
         </div>
     </div>
     </div>
+<?php
+if(isset($_GET['rodando'])){
+echo '<div class="modal" id="myModal23">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="modal-title">Fique Ligado!!!!</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h5>'.$_GET['rodando'].'</h5>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            </div>
+
+        </div>
+    </div>
+</div>';
+}
+?>
+                   
   </body>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+	  <script type="text/javascript">
+$(window).load(function() {
+    $("#myModal23").modal("show");
+});
+</script>

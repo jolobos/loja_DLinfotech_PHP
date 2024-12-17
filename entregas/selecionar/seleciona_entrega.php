@@ -5,6 +5,9 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
+if(isset($_SESSION['controlador'])){
+    header('location:../entregas/entrega_iniciada.php?rodando=Você tem uma entrega curso, conclua ela ou cancele para poder acessar as outras paginas do entregador. Em até 6 horas de curso, sua entrega será cancelada automaticamente');
+}
 if(!empty($_POST['sel_entrega'])){
     $id_compra = $_POST['sel_entrega'];
     $sql_YU = "SELECT * FROM compras WHERE id_compra = '".$id_compra."'";

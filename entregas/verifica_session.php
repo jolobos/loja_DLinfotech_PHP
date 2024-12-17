@@ -3,7 +3,7 @@ session_start();
 if(empty($_SESSION['id_entregador'])){
 	session_destroy();
         $msg = 'Login necessario para acessar as suas entregas!';
-        header('location:session_exp.php?mens='.$msg);
+        header('location:index.php?mens='.$msg);
 
 	}else{
 	$id_entregador = $_SESSION['id_entregador'];

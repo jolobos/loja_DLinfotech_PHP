@@ -4,6 +4,10 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
+
+if(isset($_SESSION['controlador'])){
+    header('location:../entregas/entrega_iniciada.php?rodando=Você tem uma entrega curso, conclua ela ou cancele para poder acessar as outras paginas do entregador. Em até 6 horas de curso, sua entrega será cancelada automaticamente');
+}
    if(!isset($_SESSION['ordem_etinerario'])){
         $_SESSION['ordem_etinerario'] = array();
         $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
