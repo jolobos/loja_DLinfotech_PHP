@@ -2,7 +2,7 @@
 session_start();
 if(empty($_SESSION['id_entregador'])){
 	session_destroy();
-        $msg = 'Sua sessão expirou!';
+        $msg = 'Login necessario para acessar as suas entregas!';
         header('location:session_exp.php?mens='.$msg);
 
 	}else{
@@ -12,7 +12,7 @@ if(empty($_SESSION['id_entregador'])){
         $nome = $_SESSION['nome'];
         $foto = $_SESSION['foto'];
 	}
-
+/*
 if (!empty($_SESSION['decorrido'])) {
 	$tempo = time() - $_SESSION['decorrido'];
 	if ($tempo>$_SESSION['vida']){
@@ -23,5 +23,5 @@ if (!empty($_SESSION['decorrido'])) {
 		$_SESSION['decorrido'] = time();
 	}
 }
-
+*/
 ?>

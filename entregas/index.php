@@ -22,8 +22,8 @@ if(!empty($_POST)){
 				$_SESSION['nivel'] = $dado['nivel'];
 				$_SESSION['foto'] = $dado['foto_ent'];
 				$_SESSION['nome'] = $dado['nome'];
-				$_SESSION['vida'] = 1000; //segundos
-				$_SESSION['decorrido'] = time();
+				//$_SESSION['vida'] = 1000; //segundos
+				//s$_SESSION['decorrido'] = time();
 				header('location:home.php?mens='.$msg);
 				}else{
 					$msg='Senha invalida para o CPF digitado. '.$dado['senha_ent'];

@@ -33,7 +33,11 @@ if(!empty($_POST['iniciar_corrida'])){
                     }
                     if($ok1){
                         $_SESSION['controlador'] = $id_compra;
-        }}
+
+                        
+                    }else{
+                        header('location:iniciar.php?msg=A corrida nao pode ser iniciada por um erro com o banco de dados');
+                    }}
     }               
 }else{
         header('location:iniciar.php?msg=A corrida nao pode ser iniciada por um erro com o banco de dados');
@@ -78,11 +82,15 @@ if(!empty($_POST['iniciar_corrida'])){
             </div>
         <div class="card-body">
             <?php
+            $sql455z = "SELECT hora_saida FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$id_compra."'";
+            $consulta455z = $conexao->query($sql455z);
+            $b = $consulta455z->fetch(PDO::FETCH_ASSOC);
+            $hora_de_inicio = date_create($b['hora_saida']);
             
             echo '
                    <div class="row">
                    <div class="col">
-                    Entrega Iniciada</br> Código da entrega = '.$_SESSION['ordem_etinerario'][0].'</br>';
+                   <strong>Código da entrega = </strong>'.$_SESSION['ordem_etinerario'][0].'</br>   <strong>Hora de inicio da entrega = </strong>'.date_format($hora_de_inicio, 'd/m/Y H:i:s').'</br>';
                     
                         if(!empty($_SESSION['ordem_etinerario'][0])){
                         $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$a['id_endereco']."'";
@@ -136,7 +144,85 @@ if(!empty($_POST['iniciar_corrida'])){
                     }
                     
                     
+                    echo '<form method="post" action="finalizar_entrega.php">
+                  <div class="row">      
+                  <div class="col-sm-4">      
+                  <label class="form-check-label mt-3" for="Nome_entrega">
+                  <strong>Nome de quem recebe:</strong></label>
+                  </div>
+                  <div class="col">      
+                  <input class="form-control mt-3" type="text" name="nome_entrega" id="Nome_entrega" title="digite o nome de quem recebera o pacote." required>
+                  </div>
+                  </div>
+                  
+                  <div class="row">      
+                  <div class="col-sm-4">    
+                  <label class="form-check-label mt-3" for="Cpf_entrega">
+                  <strong>CPF de quem recebe:</strong></label>
+                  </div>
+                  <div class="col">
+                  <input class="form-control w-50 mt-3" type="text" name="CPF_entrega" id="Cpf_entrega" required>
+                  </div>
+                  </div>
+                  
+                  <div class="row">      
+                  <div class="col-sm-4">
+                  <label class="form-check-label mt-3" for="parent_entrega">
+                  <strong>Parentesco:</strong></label>
+                  </div>
+                  <div class="col">
+                  <input class="form-control mt-3" type="text" name="parente_entrega" id="parent_entrega">
+                  </div>
+                  </div>
+                  
+                  <div class="row">      
+                  <div class="col-sm-4">
+                  <label class="form-check-label mt-3" for="obs_entrega">
+                  <strong>Observações de entrega:</strong></label>
+                  </div>
+                  <div class="col">
+                  <textarea class="form-control mt-3" rows="4" name="parente_entrega" id="obs_entrega"></textarea>
+                  </div>
+                  </div>
+                  
+                  <div class="mt-2" align="right">
+                    <a class="btn btn-secondary" href="#">Cancelar entrega</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Próximas entregas
+                      </button>
+
+                      <!-- The Modal -->
+                      <div class="modal" id="myModal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Próximas entregas</h4>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">';
+                            
+                            //colocarei as proximas entregas aqui...
                     
+                    
+                            echo '</div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                  
+                  </div>
+                  </form>
+
+                    ';
                     
                     
                     
@@ -146,7 +232,7 @@ if(!empty($_POST['iniciar_corrida'])){
                     <h5>Mapa de entrega</h5>
                        <div class="card">
                         <div class="card-body">
-                            <div style="height:300px">
+                            <div style="height:400px">
                             <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q='.$localizacao.'&output=embed"></iframe>
                             </div>
                         </div>
