@@ -5,12 +5,25 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 if(!isset($_SESSION['ordem_etinerario'])){
-    unset($_SESSION['ordem_etinerario']);
     $_SESSION['ordem_etinerario'] = array();
+        $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
+	$consultaZYZ = $conexao->query($sqlZYZ);
+	$dZYZ = $consultaZYZ->fetchALL(PDO::FETCH_ASSOC);
+        foreach ($dZYZ as $g){
+            array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
+        }
+}else{
+    unset($_SESSION['controlador']);
+    $_POST['iniciar_corrida'] = $_SESSION['ordem_etinerario'][0] ;
+   
 }
+/*
 if(isset($_SESSION['controlador'])){
     $_POST['iniciar_corrida'] = $_SESSION['controlador'];
 }
+*/
+
+
 if(!empty($_POST['iniciar_corrida'])){
     $id_compra = $_POST['iniciar_corrida'];
     $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$id_compra."'";
@@ -44,6 +57,15 @@ if(!empty($_POST['iniciar_corrida'])){
 }else{
         header('location:iniciar.php?msg=A corrida nao pode ser iniciada por um erro com o banco de dados');
 
+}
+
+if(isset($_GET['cancelar_ent'])){
+    $remover = array($_GET['cancelar_ent']);
+    $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
+    foreach ($_SESSION['ordem_etinerario'] as $vish){
+        echo $vish.'<br>';
+    }
+    header('location:entrega_iniciada.php');
 }
 ?>
 
@@ -188,7 +210,9 @@ if(!empty($_POST['iniciar_corrida'])){
                   </div>
                   
                   <div class="mt-2" align="right">
-                    <a class="btn btn-secondary" href="#">Cancelar entrega</a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal2323">
+                        Cancelar Entrega
+                      </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                         Próximas entregas
                       </button>
@@ -281,6 +305,24 @@ if(!empty($_POST['iniciar_corrida'])){
                         </div>
                       </div>
                   
+                      <div class="modal" id="myModal2323">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header bg-info">
+                                    <h4 class="modal-title">Fique Ligado!!!!</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                <h4>Tem certeza que você deseja cancelar essa entrega?</h4>
+                                <div align="right">
+                                <a class="btn btn-info" href="?cancelar_ent='.$id_compra.'">Sim</a>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Não</button>
+                                </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                      </div>
                  
                   </form>
 
