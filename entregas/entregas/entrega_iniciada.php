@@ -12,17 +12,53 @@ if(!isset($_SESSION['ordem_etinerario'])){
         foreach ($dZYZ as $g){
             array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
         }
-}else{
-    unset($_SESSION['controlador']);
-    $_POST['iniciar_corrida'] = $_SESSION['ordem_etinerario'][0] ;
-   
 }
-/*
-if(isset($_SESSION['controlador'])){
-    $_POST['iniciar_corrida'] = $_SESSION['controlador'];
-}
-*/
 
+if(isset($_SESSION['controlador']) && !empty($_SESSION['ordem_etinerario'])){
+    $_POST['iniciar_corrida'] = $_SESSION['ordem_etinerario'][0];
+}
+
+if(isset($_SESSION['controlador']) && empty($_SESSION['ordem_etinerario'])){
+    unset($_SESSION['controlador']);
+    header('location:entrega_iniciada.php?tudo_certo11=ok');
+}
+
+if(isset($_GET['cancelar_ent'])){
+    $remover = array($_GET['cancelar_ent']);
+    $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
+    $zero = 0;
+    $rem = $remover[0];
+    $sql ='UPDATE entregas SET ordem_ent=? WHERE id_compra = '.$rem.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok2 = $insercao->execute(array ($zero));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok2 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok2= False; 
+                    }
+    if($ok2){   
+        $conttt = 1;
+    foreach ($_SESSION['ordem_etinerario'] as $vish){
+               
+               $sql ='UPDATE entregas SET ordem_ent=? WHERE id_compra = '.$vish.'';
+                try {
+               $insercao = $conexao->prepare($sql);
+                $ok1 = $insercao->execute(array ($conttt));
+                }catch(PDOException $r){
+                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
+                        $ok1 = False;
+                    }catch (Exception $r){//todos as exceções
+                        $ok1= False; 
+                    }
+                $conttt++;}
+                    unset($_SESSION['ordem_etinerario']);
+    
+    header('location:entrega_iniciada.php?zera_control=ok');}else{
+        header('location:entrega_iniciada.php?tudo_errado=ok');
+    }
+}
 
 if(!empty($_POST['iniciar_corrida'])){
     $id_compra = $_POST['iniciar_corrida'];
@@ -32,6 +68,9 @@ if(!empty($_POST['iniciar_corrida'])){
     if(!empty($a)){
         $valido = 1;
         $hora_iniciada = date('Y-m-d H:i:s');
+        if(isset($_GET['zera_control'])){
+            $_SESSION['controlador'] = 0;
+        }
         if(!isset($_SESSION['controlador'])){
             $_SESSION['controlador'] = 0;
         }
@@ -59,14 +98,7 @@ if(!empty($_POST['iniciar_corrida'])){
 
 }
 
-if(isset($_GET['cancelar_ent'])){
-    $remover = array($_GET['cancelar_ent']);
-    $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
-    foreach ($_SESSION['ordem_etinerario'] as $vish){
-        echo $vish.'<br>';
-    }
-    header('location:entrega_iniciada.php');
-}
+
 ?>
 
 <!doctype html>
@@ -238,7 +270,7 @@ if(isset($_GET['cancelar_ent'])){
                             $sql455ty = "SELECT id_endereco,id_compra FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent >= 2 ORDER BY ordem_ent ASC";
                             $consulta455ty = $conexao->query($sql455ty);
                             $ty = $consulta455ty->fetchALL(PDO::FETCH_ASSOC);
-                            
+                            if(!empty($ty)){
                             foreach($ty as $t){
                                 $sql2 = "SELECT * FROM endereco_usuario WHERE id_endereco = '".$t['id_endereco']."'";
                                 $consulta2 = $conexao->query($sql2);
@@ -292,6 +324,8 @@ if(isset($_GET['cancelar_ent'])){
                                   </label><hr/>
                                 ';                   
 
+                            }}else{
+                                echo '<h4>Você esta na sua ultima entrega!</h4>';
                             }
                     
                             echo '</div>

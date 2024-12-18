@@ -20,18 +20,7 @@ if(isset($_SESSION['controlador'])){
 
 if(isset($_POST['concluir_etinerario'])){
     if(!empty($_SESSION['ordem_etinerario'])){
-        
-        $sql ='UPDATE entregas SET ordem_ent=? WHERE id_entregador = '.$id_entregador.'';
-                try {
-               $insercao = $conexao->prepare($sql);
-                $ok1 = $insercao->execute(array ($conttt));
-                }catch(PDOException $r){
-                //$msg= 'Problemas com o SGBD.'.$r->getMessage();
-                        $ok1 = False;
-                    }catch (Exception $r){//todos as exceções
-                        $ok1= False; 
-                    }
-        
+      
         $conttt = 1;
         foreach ($_SESSION['ordem_etinerario'] as $id_compra21){
            
