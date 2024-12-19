@@ -4,36 +4,18 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-if(!isset($_SESSION['ordem_etinerario'])){
-        $_SESSION['ordem_etinerario'] = array();
-        $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
-	$consultaZYZ = $conexao->query($sqlZYZ);
-	$dZYZ = $consultaZYZ->fetchALL(PDO::FETCH_ASSOC);
-        foreach ($dZYZ as $g){
-            array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
-        }
-}
-
-if(isset($_SESSION['controlador']) && !empty($_SESSION['ordem_etinerario'])){
-    $_POST['iniciar_corrida'] = $_SESSION['ordem_etinerario'][0];
-}
-
-if(isset($_SESSION['controlador']) && empty($_SESSION['ordem_etinerario'])){
-    unset($_SESSION['controlador']);
-    //header('location:iniciar.php?tudo_certo11=ok');
-}
 
 if(isset($_POST['cancelar_ent'])){
     $remover = array($_POST['cancelar_ent']);
     $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
     $zero = 0;
     //$zera_hora = gmdate('Y-m-d H:i:s', strtotime('0000-00-00 00:00:00'));
-    //$zera_hor = '';
+    $zera_hor = '';
     $rem = $_POST['cancelar_ent'];
-    $sql ='UPDATE entregas SET ordem_ent=?,saida=? WHERE id_compra = '.$rem.'';
+    $sql ='UPDATE entregas SET ordem_ent=?,saida=?,hora_saida=? WHERE id_compra = '.$rem.'';
                 try {
                $insercao = $conexao->prepare($sql);
-                $ok2 = $insercao->execute(array ($zero,$zero));
+                $ok2 = $insercao->execute(array ($zero,$zero,$zera_hor));
                 }catch(PDOException $r){
                 //$msg= 'Problemas com o SGBD.'.$r->getMessage();
                         $ok2 = False;
@@ -64,17 +46,37 @@ if(isset($_POST['cancelar_ent'])){
     }
 }
 
+
+
+if(!isset($_SESSION['ordem_etinerario'])){
+        $_SESSION['ordem_etinerario'] = array();
+        $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
+	$consultaZYZ = $conexao->query($sqlZYZ);
+	$dZYZ = $consultaZYZ->fetchALL(PDO::FETCH_ASSOC);
+        foreach ($dZYZ as $g){
+            array_push($_SESSION['ordem_etinerario'],$g['id_compra']);
+        }
+}
+
+if(isset($_SESSION['controlador']) && !empty($_SESSION['ordem_etinerario'])){
+    $_POST['iniciar_corrida'] = $_SESSION['ordem_etinerario'][0];
+}
+
+if(isset($_SESSION['controlador']) && empty($_SESSION['ordem_etinerario'])){
+    unset($_SESSION['controlador']);
+}
+
+
+
 if(!empty($_POST['iniciar_corrida'])){
     $id_compra = $_POST['iniciar_corrida'];
     $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$id_compra."'";
     $consulta455 = $conexao->query($sql455);
     $a = $consulta455->fetch(PDO::FETCH_ASSOC);
-    echo $a['hora_saida'];
     if(!empty($a)){
         $valido = 1;
         if($a['hora_saida'] != '0000-00-00 00:00:00'){
         $hora_iniciada = $a['hora_saida'];
-        echo $a['hora_saida'];
         }else{
         $hora_iniciada = date('Y-m-d H:i:s');
         }
@@ -214,7 +216,7 @@ if(!empty($_POST['iniciar_corrida'])){
                   <strong>Nome de quem recebe:</strong></label>
                   </div>
                   <div class="col">      
-                  <input class="form-control mt-3" type="text" name="nome_entrega" id="Nome_entrega" title="digite o nome de quem recebera o pacote." required>
+                  <input class="form-control mt-3" type="text" name="nome_entrega" id="Nome_entrega"  title="Digite o nome de quem recebera o pacote." required>
                   </div>
                   </div>
                   
@@ -244,7 +246,7 @@ if(!empty($_POST['iniciar_corrida'])){
                   <strong>Observações de entrega:</strong></label>
                   </div>
                   <div class="col">
-                  <textarea class="form-control mt-3" rows="4" name="parente_entrega" id="obs_entrega"></textarea>
+                  <textarea class="form-control mt-3" rows="4" name="obs_entrega" id="obs_entrega"></textarea>
                   </div>
                   </div>
                     
