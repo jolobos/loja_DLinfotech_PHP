@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 if(!isset($_SESSION['ordem_etinerario'])){
-    $_SESSION['ordem_etinerario'] = array();
+        $_SESSION['ordem_etinerario'] = array();
         $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
 	$consultaZYZ = $conexao->query($sqlZYZ);
 	$dZYZ = $consultaZYZ->fetchALL(PDO::FETCH_ASSOC);
@@ -20,18 +20,20 @@ if(isset($_SESSION['controlador']) && !empty($_SESSION['ordem_etinerario'])){
 
 if(isset($_SESSION['controlador']) && empty($_SESSION['ordem_etinerario'])){
     unset($_SESSION['controlador']);
-    header('location:entrega_iniciada.php?tudo_certo11=ok');
+    //header('location:iniciar.php?tudo_certo11=ok');
 }
 
-if(isset($_GET['cancelar_ent'])){
-    $remover = array($_GET['cancelar_ent']);
+if(isset($_POST['cancelar_ent'])){
+    $remover = array($_POST['cancelar_ent']);
     $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
     $zero = 0;
-    $rem = $remover[0];
-    $sql ='UPDATE entregas SET ordem_ent=? WHERE id_compra = '.$rem.'';
+    //$zera_hora = gmdate('Y-m-d H:i:s', strtotime('0000-00-00 00:00:00'));
+    //$zera_hor = '';
+    $rem = $_POST['cancelar_ent'];
+    $sql ='UPDATE entregas SET ordem_ent=?,saida=? WHERE id_compra = '.$rem.'';
                 try {
                $insercao = $conexao->prepare($sql);
-                $ok2 = $insercao->execute(array ($zero));
+                $ok2 = $insercao->execute(array ($zero,$zero));
                 }catch(PDOException $r){
                 //$msg= 'Problemas com o SGBD.'.$r->getMessage();
                         $ok2 = False;
@@ -55,7 +57,9 @@ if(isset($_GET['cancelar_ent'])){
                 $conttt++;}
                     unset($_SESSION['ordem_etinerario']);
     
-    header('location:entrega_iniciada.php?zera_control=ok');}else{
+    header('location:entrega_iniciada.php?zera_control=ok');
+    
+                    }else{
         header('location:entrega_iniciada.php?tudo_errado=ok');
     }
 }
@@ -65,13 +69,16 @@ if(!empty($_POST['iniciar_corrida'])){
     $sql455 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND id_compra = '".$id_compra."'";
     $consulta455 = $conexao->query($sql455);
     $a = $consulta455->fetch(PDO::FETCH_ASSOC);
+    echo $a['hora_saida'];
     if(!empty($a)){
         $valido = 1;
+        if($a['hora_saida'] != '0000-00-00 00:00:00'){
+        $hora_iniciada = $a['hora_saida'];
+        echo $a['hora_saida'];
+        }else{
         $hora_iniciada = date('Y-m-d H:i:s');
-        if(isset($_GET['zera_control'])){
-            $_SESSION['controlador'] = 0;
         }
-        if(!isset($_SESSION['controlador'])){
+        if(!isset($_SESSION['controlador']) || isset($_GET['zera_control'])){
             $_SESSION['controlador'] = 0;
         }
         if( $_SESSION['controlador'] == 0){
@@ -240,15 +247,18 @@ if(!empty($_POST['iniciar_corrida'])){
                   <textarea class="form-control mt-3" rows="4" name="parente_entrega" id="obs_entrega"></textarea>
                   </div>
                   </div>
-                  
+                    
                   <div class="mt-2" align="right">
+                  
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal2323">
                         Cancelar Entrega
                       </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Próximas entregas
+                        Próximas Entregas
                       </button>
-
+                    <input type="hidden" name="concluir_ent" value="'.$id_compra.'">
+                    <input type="submit" class="btn btn-success" value="Concluir Entrega">
+                    </form>
 
 
                      </div>
@@ -349,8 +359,11 @@ if(!empty($_POST['iniciar_corrida'])){
                                 <div class="modal-body">
                                 <h4>Tem certeza que você deseja cancelar essa entrega?</h4>
                                 <div align="right">
-                                <a class="btn btn-info" href="?cancelar_ent='.$id_compra.'">Sim</a>
+                                <form method="post">
+                                <input type="hidden" class="btn btn-info" name="cancelar_ent" value="'.$_SESSION['ordem_etinerario'][0].'">
+                                <input type="submit" class="btn btn-info" value="Sim">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Não</button>
+                                </form>
                                 </div>
                                 </div>
                                
@@ -358,7 +371,7 @@ if(!empty($_POST['iniciar_corrida'])){
                         </div>
                       </div>
                  
-                  </form>
+                
 
                     ';
                     
