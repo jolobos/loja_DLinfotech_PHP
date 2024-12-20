@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/12/2024 às 12:06
+-- Tempo de geração: 20/12/2024 às 20:27
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -247,7 +247,7 @@ CREATE TABLE `notificacoes` (
   `id_notificacoes` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `titulo` varchar(120) NOT NULL,
-  `conteudo` varchar(250) NOT NULL,
+  `conteudo` varchar(1000) NOT NULL,
   `link_1` varchar(120) NOT NULL,
   `link_2` varchar(120) NOT NULL,
   `link_3` varchar(120) NOT NULL,
@@ -266,6 +266,26 @@ INSERT INTO `notificacoes` (`id_notificacoes`, `id_usuario`, `titulo`, `conteudo
 (2, 6, '', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00'),
 (3, 6, 'Testando as notitifacações', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00'),
 (4, 6, '', 'OLa!!!!\r\ncolocando essa notificação apenas para ver oque pode ser colocado.', '0', '0', '0', '0', '0', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `notificacoes_entregas`
+--
+
+CREATE TABLE `notificacoes_entregas` (
+  `id_notificacao` int(11) NOT NULL,
+  `id_entregador` int(11) NOT NULL,
+  `titulo` varchar(120) NOT NULL,
+  `conteudo` varchar(1000) NOT NULL,
+  `link_1` varchar(120) NOT NULL,
+  `link_2` varchar(120) NOT NULL,
+  `link_3` varchar(120) NOT NULL,
+  `link_4` varchar(120) NOT NULL,
+  `link_5` varchar(120) NOT NULL,
+  `condicao` int(1) NOT NULL,
+  `data_envio` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -508,6 +528,12 @@ ALTER TABLE `notificacoes`
   ADD PRIMARY KEY (`id_notificacoes`);
 
 --
+-- Índices de tabela `notificacoes_entregas`
+--
+ALTER TABLE `notificacoes_entregas`
+  ADD PRIMARY KEY (`id_notificacao`);
+
+--
 -- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
@@ -551,7 +577,7 @@ ALTER TABLE `entregador_us`
 -- AUTO_INCREMENT de tabela `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `ficha_tec_produto`
@@ -570,6 +596,12 @@ ALTER TABLE `itens_da_compra`
 --
 ALTER TABLE `notificacoes`
   MODIFY `id_notificacoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `notificacoes_entregas`
+--
+ALTER TABLE `notificacoes_entregas`
+  MODIFY `id_notificacao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
