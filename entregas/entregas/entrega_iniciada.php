@@ -7,15 +7,15 @@ date_default_timezone_set('America/Sao_Paulo');
 
 if(isset($_POST['cancelar_ent'])){
     $remover = array($_POST['cancelar_ent']);
+    $motivo_can = $_POST['motivo_can'];
     $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
     $zero = 0;
-    //$zera_hora = gmdate('Y-m-d H:i:s', strtotime('0000-00-00 00:00:00'));
     $zera_hor = '';
     $rem = $_POST['cancelar_ent'];
-    $sql ='UPDATE entregas SET ordem_ent=?,saida=?,hora_saida=? WHERE id_compra = '.$rem.'';
+    $sql ='UPDATE entregas SET ordem_ent=?,saida=?,hora_saida=?,motivo_canc=?,cancelamento=1 WHERE id_compra = '.$rem.'';
                 try {
                $insercao = $conexao->prepare($sql);
-                $ok2 = $insercao->execute(array ($zero,$zero,$zera_hor));
+                $ok2 = $insercao->execute(array ($zero,$zero,$zera_hor,$motivo_can));
                 }catch(PDOException $r){
                 //$msg= 'Problemas com o SGBD.'.$r->getMessage();
                         $ok2 = False;
@@ -246,7 +246,7 @@ if(!empty($_POST['iniciar_corrida'])){
                   <strong>Observações de entrega:</strong></label>
                   </div>
                   <div class="col">
-                  <textarea class="form-control mt-3" rows="4" name="obs_entrega" id="obs_entrega"></textarea>
+                  <textarea class="form-control mt-3" rows="4" name="obs_entrega" id="obs_entrega" maxlength="1000"></textarea>
                   </div>
                   </div>
                     
@@ -360,13 +360,17 @@ if(!empty($_POST['iniciar_corrida'])){
                                 </div>
                                 <div class="modal-body">
                                 <h4>Tem certeza que você deseja cancelar essa entrega?</h4>
-                                <div align="right">
+                               
                                 <form method="post">
+                                <h5>Motivo do cancelamento:</h5>
+                                <textarea class="form-control" name="motivo_can" rows="2" maxlength="1000" placeholder="Limite máximo de 1000 caracteres..." required></textarea>
+                                
+                                <div align="right" class="mt-2">
                                 <input type="hidden" class="btn btn-info" name="cancelar_ent" value="'.$_SESSION['ordem_etinerario'][0].'">
                                 <input type="submit" class="btn btn-info" value="Sim">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Não</button>
-                                </form>
                                 </div>
+                                </form>
                                 </div>
                                
                             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16/12/2024 às 19:52
+-- Tempo de geração: 20/12/2024 às 12:06
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -84,8 +84,8 @@ CREATE TABLE `endereco_usuario` (
 --
 
 INSERT INTO `endereco_usuario` (`id_endereco`, `id_usuario`, `CEP`, `logradouro`, `bairro`, `cidade`, `UF`, `numero`, `complemento`, `ponto_referencia`, `retirada_com`, `telefone_entrega`) VALUES
-(1, 6, '94945-330', 'so testando', 'Vista Alegre', 'Cachoeirinha', 'RS', 12, 'casa', 'igreja dos macumba', 'parangole', '(51) 98507-889'),
-(6, 6, '94945-330', 'rua do mane', 'logo ali', 'Cachoeirinha', 'RS', 21, 'beco', 'arvore mijada', 'rolifilty', '(51) 98507-889');
+(1, 6, '94945-330', 'cristovao colombo', 'Vista Alegre', 'Cachoeirinha', 'RS', 426, 'casa', 'igreja dos macumba', 'parangole', '(51) 98507-889'),
+(6, 6, '94945-330', 'lima e silva', 'Vista Alegre', 'Cachoeirinha', 'RS', 535, 'beco', 'arvore mijada', 'rolifilty', '(51) 98507-889');
 
 -- --------------------------------------------------------
 
@@ -133,9 +133,13 @@ CREATE TABLE `entregas` (
   `chegada` int(1) NOT NULL,
   `hora_saida` datetime NOT NULL,
   `hora_chegada` datetime NOT NULL,
+  `nome_entrega` varchar(120) NOT NULL,
+  `CPF_entrega` varchar(11) NOT NULL,
+  `parente_entrega` varchar(100) NOT NULL,
+  `obs_entrega` varchar(1000) NOT NULL,
   `devolucao` int(1) NOT NULL,
+  `motivo_canc` varchar(1000) NOT NULL,
   `cancelamento` int(1) NOT NULL,
-  `observacoes` varchar(500) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -143,8 +147,8 @@ CREATE TABLE `entregas` (
 -- Despejando dados para a tabela `entregas`
 --
 
-INSERT INTO `entregas` (`id_entregas`, `id_entregador`, `id_compra`, `id_usuario`, `id_endereco`, `ordem_ent`, `saida`, `chegada`, `hora_saida`, `hora_chegada`, `devolucao`, `cancelamento`, `observacoes`, `status`) VALUES
-(5, 1, 19, 6, 1, 1, 1, 0, '2024-12-16 15:38:46', '0000-00-00 00:00:00', 0, 0, 'vazio', 0);
+INSERT INTO `entregas` (`id_entregas`, `id_entregador`, `id_compra`, `id_usuario`, `id_endereco`, `ordem_ent`, `saida`, `chegada`, `hora_saida`, `hora_chegada`, `nome_entrega`, `CPF_entrega`, `parente_entrega`, `obs_entrega`, `devolucao`, `motivo_canc`, `cancelamento`, `status`) VALUES
+(21, 1, 19, 6, 1, 0, 1, 1, '2024-12-20 07:57:55', '2024-12-20 08:03:21', 'as', 'as', '', '', 0, '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -547,7 +551,7 @@ ALTER TABLE `entregador_us`
 -- AUTO_INCREMENT de tabela `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_entregas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `ficha_tec_produto`

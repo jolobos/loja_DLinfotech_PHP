@@ -24,12 +24,13 @@ if($_POST['concluir_ent']){
     
     $remover = array($id_compra);
     $_SESSION['ordem_etinerario'] = array_diff($_SESSION['ordem_etinerario'], $remover);
+    
     $zero = 1;
     $zera_hor =  date('Y-m-d H:i:s');
-    $sql ='UPDATE entregas SET ordem_ent=?,chegada=?,hora_chegada=?,status=? WHERE id_compra = '.$id_compra.'';
+    $sql ='UPDATE entregas SET ordem_ent=0,chegada=?,hora_chegada=?,nome_entrega=?,CPF_entrega=?,parente_entrega=?,obs_entrega=?,status=? WHERE id_compra = '.$id_compra.'';
                 try {
                $insercao = $conexao->prepare($sql);
-                $ok2 = $insercao->execute(array ($zero,$zero,$zera_hor,$zero));
+                $ok2 = $insercao->execute(array ($zero,$zera_hor,$nome_entrega,$CPF_entrega,$parente_entrega,$obs_entrega,$zero));
                 }catch(PDOException $r){
                 //$msg= 'Problemas com o SGBD.'.$r->getMessage();
                         $ok2 = False;
@@ -54,6 +55,8 @@ if($_POST['concluir_ent']){
     
        
 }
+
+
 }
 
 ?>
@@ -90,7 +93,14 @@ if($_POST['concluir_ent']){
            ?>
 	</div>
     <div class="card">
-        <div class="card-header"></div>
+        <div class="card-header">
+            <h3 class="text-primary">Entrega Concluida</h3>
+        </div>
+        <div class="card-body">
+            <h5>A sua entrega foi registrada corretamente, Clique em seguir para a proxima entrega!</h5>
+            <a class="btn btn-info" href="entrega_iniciada.php">Seguir para Próxima entrega</a>
+        </div>
+        <div class="card-footer"></div>
     </div>
     </div>
   </body>

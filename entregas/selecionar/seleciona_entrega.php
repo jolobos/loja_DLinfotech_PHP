@@ -19,13 +19,12 @@ if(!empty($_POST['sel_entrega'])){
     $chegada = 0;
     $devolucao = 0;
     $cancelamento = 0;
-    $observações = 'vazio';
     $status = 0;
     
-    $sql ='INSERT INTO entregas (id_entregador,id_compra,id_usuario,id_endereco,saida,chegada,devolucao,cancelamento,observacoes,status) values(?,?,?,?,?,?,?,?,?,?)';
+    $sql ='INSERT INTO entregas (id_entregador,id_compra,id_usuario,id_endereco,saida,chegada,devolucao,cancelamento,status) values(?,?,?,?,?,?,?,?,?)';
 		try {
 		$insercao = $conexao->prepare($sql);
-		$ok = $insercao->execute(array ($id_entregador,$id_compra,$id_usuario,$id_endereco,$saida,$chegada,$devolucao,$cancelamento,$observações,$status));
+		$ok = $insercao->execute(array ($id_entregador,$id_compra,$id_usuario,$id_endereco,$saida,$chegada,$devolucao,$cancelamento,$status));
 		}catch(PDOException $r){
 			//$msg= 'Problemas com o SGBD.'.$r->getMessage();
 			$ok = False;
@@ -208,7 +207,7 @@ if(!empty($_POST['rec_entrega'])){
                                <h5 class="">Lista para entregas</h5>
                             </div>
                             <div class="card-body"><div style="max-height:320px" class="overflow-auto">';
-                            $sql93 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."'";
+                            $sql93 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND devolucao != 1 AND status != 1";
                             $consulta93 = $conexao->query($sql93);
                             $d93 = $consulta93->fetchALL(PDO::FETCH_ASSOC);
 

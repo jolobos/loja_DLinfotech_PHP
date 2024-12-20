@@ -10,7 +10,7 @@ if(isset($_SESSION['controlador'])){
 }
    if(!isset($_SESSION['ordem_etinerario'])){
         $_SESSION['ordem_etinerario'] = array();
-        $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 ORDER BY ordem_ent ASC";
+        $sqlZYZ = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND ordem_ent !=0 AND devolucao != 1 AND status != 1 ORDER BY ordem_ent ASC";
 	$consultaZYZ = $conexao->query($sqlZYZ);
 	$dZYZ = $consultaZYZ->fetchALL(PDO::FETCH_ASSOC);
         foreach ($dZYZ as $g){
@@ -116,7 +116,7 @@ if(!empty($_POST['sel_etinerario'])){
                     <div class="col-sm-8" ><div  style="max-height:320px" class="overflow-auto">
                             <h5>Entregas</h5>
                 <?php
-                    $sql45 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."'";
+                    $sql45 = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND devolucao != 1 AND status != 1";
                     $consulta45 = $conexao->query($sql45);
                     $d45 = $consulta45->fetchALL(PDO::FETCH_ASSOC);
                     

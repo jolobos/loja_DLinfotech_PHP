@@ -121,12 +121,12 @@ if(!isset($_SESSION['ordem_etinerario'])){
                   <label class="form-check-label" for="endereco'.$d['id_endereco'].'">
                   <strong> Telefone de contato:</strong> '.$d['telefone_entrega'].' 
 		  </label></br>
-                  <div align="right">    
+                  <div align="right">
                     <input type="hidden" name="iniciar_corrida" value="'.$_SESSION['ordem_etinerario'][0].'"/>
                     <a class="btn btn-primary" href="../etinerario/seleciona_etinerario.php">Mudar Etinerario</a>    
                     <input type="submit" class="btn btn-secondary" value="Iniciar Entrega">
-                                      </div>
-                  </form><hr/>
+                  </div>
+                  </form>
                 ';                   
                     }
                     $localizacao = $d['logradouro'].' '.$d['numero'].' '.$d['bairro'].' '.$d['cidade'].' '.$d['UF'];
