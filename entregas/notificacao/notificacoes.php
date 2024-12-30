@@ -5,7 +5,9 @@ error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
 
-
+if(isset($_GET['excluir'])){
+    $_POST['excluir'] = $_GET['excluir'];
+}
 if(isset($_POST['excluir'])){
 	$id = $_POST['excluir'];
 	$sql ='DELETE FROM notificacoes_entregas WHERE id_notificacao=?';

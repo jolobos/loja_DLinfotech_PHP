@@ -55,23 +55,23 @@ if(isset($_GET['ver'])){
 			<?php
 				
 				if(!empty($dados_ab['link_1'])){
-					echo '<div class="col-sm-4"><p>Link 1: <a href="'.$dados_ab['link_1'].'" target="_blank">'.$dados_ab['link_1'].'</a></p></div>';
+					echo '<div class="col-sm-4"><p>Link 1: <a href="//'.$dados_ab['link_1'].'" target="_blank">'.$dados_ab['link_1'].'</a></p></div>';
 					
 				}
 				if(!empty($dados_ab['link_2'])){
-					echo '<div class="col-sm-4"><p>Link 2: <a href="'.$dados_ab['link_2'].'" target="_blank">'.$dados_ab['link_2'].'</a></p></div>';
+					echo '<div class="col-sm-4"><p>Link 2: <a href="//'.$dados_ab['link_2'].'" target="_blank">'.$dados_ab['link_2'].'</a></p></div>';
 					
 				}
 				if(!empty($dados_ab['link_3'])){
-					echo '<div class="col-sm-4"><p>Link 3: <a href="'.$dados_ab['link_3'].'" target="_blank">'.$dados_ab['link_3'].'</a></p></div>';
+					echo '<div class="col-sm-4"><p>Link 3: <a href="//'.$dados_ab['link_3'].'" target="_blank">'.$dados_ab['link_3'].'</a></p></div>';
 					
 				}
 				if(!empty($dados_ab['link_4'])){
-					echo '<div class="col-sm-4"><p>Link 4: <a href="'.$dados_ab['link_4'].'" target="_blank">'.$dados_ab['link_4'].'</a></p></div>';
+					echo '<div class="col-sm-4"><p>Link 4: <a href="//'.$dados_ab['link_4'].'" target="_blank">'.$dados_ab['link_4'].'</a></p></div>';
 					
 				}
 				if(!empty($dados_ab['link_5'])){
-					echo '<div class="col-sm-4"><p>Link 5: <a href="'.$dados_ab['link_5'].'" target="_blank">'.$dados_ab['link_5'].'</a></p></div>';
+					echo '<div class="col-sm-4"><p>Link 5: <a href="//'.$dados_ab['link_5'].'" target="_blank">'.$dados_ab['link_5'].'</a></p></div>';
 					
 				}
 			?>
