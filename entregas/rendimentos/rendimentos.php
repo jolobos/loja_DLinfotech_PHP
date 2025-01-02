@@ -4,7 +4,7 @@ require_once '../verifica_session.php';
 error_reporting(E_ALL);
 ini_set('display_errors','on');
 date_default_timezone_set('America/Sao_Paulo');
-
+       
 ?>
 
 <!doctype html>
@@ -43,7 +43,6 @@ date_default_timezone_set('America/Sao_Paulo');
             <h3 class="text-primary">Performace do entregador</h3>
         </div>
         <div class="card-body">
-            
         </div>
     </div>
     </div>
