@@ -43,6 +43,9 @@ date_default_timezone_set('America/Sao_Paulo');
             <h3 class="text-primary">Performace do entregador</h3>
         </div>
         <div class="card-body">
+            <?php
+                       require_once 'grafico.php';
+            ?>
         </div>
     </div>
     </div>
