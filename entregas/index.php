@@ -39,6 +39,10 @@ if(!empty($_POST)){
 		
 	}
 }
+
+if(isset($_SESSION['id_entregador'])){
+    header('location:home.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
