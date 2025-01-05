@@ -15,15 +15,25 @@ if(isset($_GET['mes']) && isset($_GET['ano'])){
     header('location:rendimentos.php');
 }
 $dia = 1;
-while($dia <= 31){
-    $sql = "SELECT COUNT(id_entregador) AS valor,hora_chegada FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."".$dia."' AND hora_chegada <= '".$ano."-".$meses."".$dia."' AND status = 1";
+if($meses == 1 || $meses == 3 || $meses == 5 || $meses == 7 || $meses == 8 || $meses == 10 || $meses == 12){
+    $ctrl_dia = 31;
+}elseif($meses == 4 || $meses == 6 || $meses == 9 || $meses == 11){
+    $ctrl_dia = 30;
+}else{
+    if($meses == 2 && $ano % 4 == 0){
+    $ctrl_dia = 29;}else{
+        $ctrl_dia = 28;
+    }
+}
+while($dia <= $ctrl_dia){
+    $sql = "SELECT COUNT(id_entregador) AS valor,hora_chegada FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."-".$dia." 00:00:00' AND hora_chegada <= '".$ano."-".$meses."-".$dia." 23:59:59' AND status = 1";
     $consulta = $conexao->query($sql);
     $a = $consulta->fetch(PDO::FETCH_ASSOC);
     $data[] = array('mes_arr' => $a['valor'],'valor' => $dia);
-    $meses++;
-    }
+    $dia++;
+        }
     $new_data = array_column($data,'mes_arr','valor');
-    
+    $legenda = $mes.' de '.$ano;
 ?>
 
 <!doctype html>
@@ -48,6 +58,7 @@ while($dia <= 31){
                     </h1>
                 </div>
                 <div class="col" align="right">
+                    <a class="btn btn-secondary border-info m-2" href="rendimentos.php">Voltar</a>
                     <a class="btn btn-secondary border-info m-2" href="../home.php">INICIO</a>
                     <a href="../sair.php" class="btn btn-secondary border-info m-2">Sair</a>
                 </div>
@@ -62,9 +73,40 @@ while($dia <= 31){
             <h3 class="text-primary">Performace do entregador</h3>
         </div>
         <div class="card-body">
+            <h5>Entregas no mês de <?php echo $legenda;?></h5>
+            <h6 class="text-secondary">Total de entregas no mês: <?php
+                $sqly = "SELECT COUNT(id_entregador) AS valor FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."-01 00:00:00' AND hora_chegada <= '".$ano."-".$meses."-31 23:59:59' AND status = 1";
+                $consultay = $conexao->query($sqly);
+                $ay = $consultay->fetch(PDO::FETCH_ASSOC);
+                echo $ay['valor'];
+                ?></h6>
                  <canvas id="myChart" width="1600" height="300"></canvas>
    
+                <div class="row">
+            <div class="col">
+                <h5>Dia de menor rendimento</h5>
+                    <?php
+                    $vy = min($new_data);
+                    $vw = array_search($vy,$new_data);
+                    echo $vw.'° dia - '.$vy.' entregas';
+                    ?>
             
+            </div>
+            <div class="col">
+                <h5>Dia de maior rendimento</h5>
+                    <?php
+                    $vy = max($new_data);
+                    $vw = array_search($vy,$new_data);
+                    echo $vw.'° dia - '.$vy.' entregas ';
+                    ?>
+            </div>
+            
+            <div class="col-sm-5">
+                <h5>Opções de rendimentos</h5>
+                <a href="verificar.php" class="btn btn-secondary">Verificar entregas</a>
+
+            </div>
+        </div>
         </div>
     </div>
   </div>
@@ -95,7 +137,7 @@ while($dia <= 31){
           //labels são cada uma das barrinhas. Basta adicionar a array abaixo:
           labels: nomes,
           datasets: [{
-              label: 'Quantidade de entregas no ano de '.concat(ano2),
+              label: 'Quantidade de entregas para o periodo',
               //data serve para adicionar o valor de cada barrinha. Basta adicionar a array abaixo:
               data: valores,
               backgroundColor: [

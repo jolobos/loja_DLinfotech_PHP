@@ -11,7 +11,7 @@ if(isset($_POST['ano_gr'])){
 }
 $meses = 1;
 while($meses <= 12){
-    $sql = "SELECT COUNT(id_entregador) AS valor,hora_chegada FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."-01' AND hora_chegada <= '".$ano."-".$meses."-31'";
+    $sql = "SELECT COUNT(id_entregador) AS valor,hora_chegada FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."-01' AND hora_chegada <= '".$ano."-".$meses."-31' AND status = 1";
     $consulta = $conexao->query($sql);
     $a = $consulta->fetch(PDO::FETCH_ASSOC);
     if($meses==1){$cal = 'janeiro';}elseif($meses==2) {$cal = 'fevereiro';}elseif($meses==3) {$cal = 'marco';}
@@ -57,7 +57,20 @@ while($meses <= 12){
 	</div>
     <div class="card">
         <div class="card-header">
+            <div class="row">
+            <div class="col">
             <h3 class="text-primary">Performace do entregador</h3>
+            </div>
+            <div class="col" align="right">
+                <h5 class="text-secondary">Quantidade total de entregas:
+            <?php
+            $sqls = "SELECT COUNT(id_entregador) AS valor FROM entregas WHERE id_entregador = '".$id_entregador."' AND status = 1";
+            $consultas = $conexao->query($sqls);
+            $as = $consultas->fetch(PDO::FETCH_ASSOC);
+            echo $as['valor'];
+            ?></h5>
+            </div>
+            </div>
         </div>
         <div class="card-body">
             <form method="POST">
@@ -83,7 +96,7 @@ while($meses <= 12){
                     <?php
                     $vy = min($new_data);
                     $vw = array_search($vy,$new_data);
-                    echo $vw.' - '.$vy.' entregas <a href="ver_rend_mes_menor.php?mes='.$vw.'&ano='.$ano.'" class="btn btn-secondary">Ver entregas</a>';
+                    echo $vw.' - '.$vy.' entregas <a href="ver_rend_mes_m.php?mes='.$vw.'&ano='.$ano.'" class="btn btn-secondary">Ver entregas</a>';
                     ?>
             
             </div>
@@ -92,7 +105,7 @@ while($meses <= 12){
                     <?php
                     $vy = max($new_data);
                     $vw = array_search($vy,$new_data);
-                    echo $vw.' - '.$vy.' entregas <a href="ver_rend_mes_maior.php?mes='.$vw.'&ano='.$ano.'" class="btn btn-secondary">Ver entregas</a>';
+                    echo $vw.' - '.$vy.' entregas <a href="ver_rend_mes_m.php?mes='.$vw.'&ano='.$ano.'" class="btn btn-secondary">Ver entregas</a>';
                     ?>
             </div>
             
