@@ -103,7 +103,7 @@ while($dia <= $ctrl_dia){
             
             <div class="col-sm-5">
                 <h5>Opções de rendimentos</h5>
-                <a href="verificar.php" class="btn btn-secondary">Verificar entregas</a>
+                <?php echo '<a href="verificar.php?mes='.$mes.'&ano='.$ano.'" class="btn btn-secondary">Verificar entregas</a>'; ?>
 
             </div>
         </div>

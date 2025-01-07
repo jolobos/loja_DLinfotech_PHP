@@ -59,6 +59,7 @@ $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
             <h4>Lista de entregas feitas em <?php echo $mes.' de '.$ano; ?></h4>
             <div  style="max-height:320px" class="overflow-auto bg-light">
                    <?php
+                        if(!empty($a)){
                         foreach($a as $b){
                             
                             if(empty($b['parente_entrega'])){
@@ -75,17 +76,6 @@ $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
                             $consulta2 = $conexao->query($sql2);
                             $d = $consulta2->fetch(PDO::FETCH_ASSOC);
                         
-                            $CEP = $d['CEP'];
-                            $rua = $d['logradouro'];
-                            $bairro = $d['bairro'];
-                            $cidade = $d['cidade'];
-                            $UF = $d['UF'];
-                            $numero = $d['numero'];
-                            $complemento = $d['complemento'];
-                            $ponto_referencia = $d['ponto_referencia'];
-                            $retirada_com = $d['retirada_com'];
-                            $telefone_entrega = $d['telefone_entrega'];
-
                             $localizacao = $d['logradouro'].' '.$d['numero'].' '.$d['bairro'].' '.$d['cidade'].' '.$d['UF'];
                         echo '<form method="POST">
                                  <div class="row">
@@ -135,13 +125,85 @@ $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
                                 <strong>Observações:</strong> '.$obs.' 
                                 </label>
                                </form><hr/>';
+                        }}else{
+                             echo '<h3 class="alert alert-danger">Não existe entregas para a data selecionada!</h3>';
                         }
-                        //<input type="hidden" name="sel_etinerario" value="'.$b['id_compra'].'">
-                        //<a class="btn btn-primary mt-2" href="https://maps.google.it/maps?q='.$localizacao.'" target="_blank">Ver no mapa</a>
-                               
+                              
                             ?>
             </div>
         </div>        
     </div>        
-  </div>        
+  </div>    
+      <?php
+      if(isset($_POST['ver_entrega'])){
+          $id = $_POST['ver_entrega'];
+          echo $id;
+          echo  '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+                            <script type="text/javascript">
+                  $(window).load(function() {
+                      $("#exemplomodal").modal("show");
+                  });
+                  </script>
+                            <div class="modal fade modal-lg" id="exemplomodal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">';
+                      echo '<div class="modal-header bg-info">
+                        <h3 class="modal-title">Verificação completa</h3>
+                    </div>
+                    <div class="modal-body bg-light">';
+                        $sql = "SELECT * FROM entregas WHERE id_entregas = ".$id."";
+                        $consulta = $conexao->query($sql);
+                        $a = $consulta->fetch(PDO::FETCH_ASSOC);
+                        
+                        $sqlu = "SELECT * FROM usuarios WHERE id_usuario = ".$a['id_usuario']."";
+                        $consultau = $conexao->query($sqlu);
+                        $au = $consultau->fetch(PDO::FETCH_ASSOC);
+                        
+                        $sqlc = "SELECT * FROM compras WHERE id_compra = ".$a['id_compra']."";
+                        $consultac = $conexao->query($sqlc);
+                        $ac = $consultac->fetch(PDO::FETCH_ASSOC);
+                        $date_n = date_format(date_create($ac['data']),"d/m/Y H:i:s");
+                        
+                        $sqlic = "SELECT * FROM itens_da_compra WHERE id_compra = ".$a['id_compra']."";
+                        $consultaic = $conexao->query($sqlic);
+                        $aic = $consultaic->fetchALL(PDO::FETCH_ASSOC);
+                        
+                        $sqle = "SELECT * FROM endereco_usuario WHERE id_endereco = ".$a['id_endereco']."";
+                        $consultae = $conexao->query($sqle);
+                        $ae = $consultae->fetch(PDO::FETCH_ASSOC);
+                        
+                        echo '<table class="table table-strip border border-2 border-dark">
+                        <tbody><tr><td><strong>Código da entrega</strong> '.$id.'</td><td><strong>Comprador</strong> '.$au['nome'].'</td><td><strong>Data da compra</strong> '.$date_n.'</td></tr>
+                        <tr><td colspan=3><strong>Endereço de entrega</strong><br>
+                        <strong>Rua:</strong> '.$ae['logradouro'].'<strong> N°:</strong> '.$ae['numero'].' <strong>Bairro:</strong> '.$ae['bairro'].' <strong>Cidade:</strong> '.$ae['cidade'].' <strong>CEP:</strong> '.$ae['CEP'].'</td></tr>
+                        <tr><td colspan=3><strong>Produtos da entrega</strong><br>';
+                        $contador = 1;
+                        foreach($aic as $itens){
+                            $sqlp = "SELECT * FROM produtos WHERE id_produto = ".$itens['id_produto']."";
+                            $consultap = $conexao->query($sqlp);
+                            $ap = $consultap->fetch(PDO::FETCH_ASSOC);
+                            
+                            echo '<strong>'.$contador.'° Produto:</strong><br><strong>Código:</strong> '.$ap['cod_produto'].'<strong>Produto:</strong> '.$ap['nome'].'
+                                  <strong>Quantidade:</strong> '.$itens['quantidade'].'<hr>';
+                            $contador++;
+                        }
+                        
+                        echo '</td></tr>
+                        
+
+
+                        </tbody></table>';
+                        
+                    
+                      echo '</div><div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>';
+
+                                      }
+      ?>
 </body>
