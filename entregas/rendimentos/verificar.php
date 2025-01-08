@@ -145,13 +145,15 @@ $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
                       $("#exemplomodal").modal("show");
                   });
                   </script>
-                            <div class="modal fade modal-lg" id="exemplomodal">
+                   <div class="modal fade modal-lg" id="exemplomodal">
                     <div class="modal-dialog">
                       <div class="modal-content">';
                       echo '<div class="modal-header bg-info">
                         <h3 class="modal-title">Verificação completa</h3>
                     </div>
-                    <div class="modal-body bg-light">';
+                    <div class="modal-body bg-light">
+                        <div style="max-height:400px" class="overflow-auto bg-light">        
+';
                         $sql = "SELECT * FROM entregas WHERE id_entregas = ".$id."";
                         $consulta = $conexao->query($sql);
                         $a = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -190,13 +192,13 @@ $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
                         }
                         
                         echo '</td></tr>
-                        
-
-
+                        <tr><td colspan=3><strong>Informações sobre a entrega</strong><br>
+                        <strong>Pessoa que recebeu a entrega:</strong> '.$a['nome_entrega'].'<strong> CPF do responsável:</strong> '.$a['CPF_entrega'].' <strong>Parentesco:</strong> '.$a['parente_entrega'].'<br>
+                            <strong>Observações da entrega: </strong> '.$a['obs_entrega'].'</td></tr>
                         </tbody></table>';
                         
                     
-                      echo '</div><div class="modal-footer bg-light">
+                      echo '</div></div><div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 
                           </div>
