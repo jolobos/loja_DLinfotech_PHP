@@ -38,6 +38,14 @@ if(isset($_SESSION['controlador'])){
                 
            <?php echo '<img src="../img/foto_usuario/'.$foto.'" style="border-radius: 50%;width:50px;height:50px;align=left;margin-left:20px;margin-bottom:15px;">';
            echo '<strong class="text-success"> - '.$nome.' </strong>';
+          
+           $sqlZYZ = "SELECT * FROM notificacoes_entregas WHERE id_entregador = '".$id_entregador."' AND condicao = 1";
+           $consultaZYZ = $conexao->query($sqlZYZ);
+           $dZYZ = $consultaZYZ->fetch(PDO::FETCH_ASSOC);
+           if(!empty($dZYZ['id_notificacao'])){
+               echo '<a href="notificacao/notificacoes.php"><img src="../img/noti_entr.png" width="30"></a>';
+
+           }
            ?>
             
 	</div>
