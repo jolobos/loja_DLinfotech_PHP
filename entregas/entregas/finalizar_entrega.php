@@ -38,6 +38,42 @@ if($_POST['concluir_ent']){
                         $ok2= False; 
                     }
     if($ok2){   
+        
+        $sqlzb = 'SELECT * FROM compras WHERE id_compra='.$id_compra.'';
+                                $consultazb = $conexao->query($sqlzb);
+                                $dadozb = $consultazb->fetch(PDO::FETCH_ASSOC);
+                                
+                        $id_usuarioza = $dadozb['id_usuario'];
+                        $tituloza = 'Entrega efetuada com sucesso!!!';
+                        $conteudoza = 'A sua compra foi entregue com sucesso no seu endereço.<br>'
+                                . 'Salientamos que qualquer duvida, ou reclamação junto ao entregador pode ser direcionada '
+                                . 'através dos canais de contato junto ao link - www.reclameaqui.com, anexado a essa mensagem.<br>'
+                                . 'Para conferir se a sua compra contem todos os produtos selecionados no site, voce pode acessar '
+                                . '- www.dlinfotech.com, que tambem está anexado junto a mensagem.<br> '
+                                . 'Nome de quem recebeu a compra: '.$nome_entrega.'<br>'
+                                . 'Parentesco da pessoa que recebeu a sua entrega: '.$parente_entrega.'<br>'
+                                . 'Observações realizadas pelo entregador: '.$obs_entrega.'<br><br>Aproveite seus produtos. ';
+                        $link_1 = 'www.dlinfotech.com';
+                        $link_2 = 'www.reclameaqui.com';
+                        $link_3 = '';
+                        $link_4 = '';
+                        $link_5 = '';
+                        $condicaoza = 1;
+                        $data_new = date('Y-m-d H:i:s');
+                                
+                $sqlza ='INSERT INTO notificacoes (id_usuario,titulo,conteudo,link_1,link_2,link_3,link_4,link_5,condicao,data_envio) values(?,?,?,?,?,?,?,?,?,?)';
+		try {
+		$insercaoza = $conexao->prepare($sqlza);
+		$okza = $insercaoza->execute(array ($id_usuarioza,$tituloza,$conteudoza,$link_1,$link_2,$link_3,$link_4,$link_5,$condicaoza,$data_new));
+		}catch(PDOException $r){
+			//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
+        
+        
         $conttt = 1;
     foreach ($_SESSION['ordem_etinerario'] as $vish){
                

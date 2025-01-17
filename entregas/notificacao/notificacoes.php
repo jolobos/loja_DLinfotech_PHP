@@ -131,7 +131,7 @@ if(isset($_POST['ler_todas'])){
 			</div>';
             echo '
 			<div class="card-body">
-			<span class="d-inline-block text-truncate" style="max-width: 650px;">'.$conteudo.'</span>';
+			<span class="d-inline-block text-truncate" style="max-width: 650px;max-height: 80px">'.$conteudo.'</span>';
             if(!empty($link_1) || !empty($link_2) || !empty($link_3) || !empty($link_4) || !empty($link_5)){
 				echo '<br><div class="card-footer text-muted">Existe algum link na mensagem....</div></div></div>';
 
@@ -178,7 +178,7 @@ if(isset($_POST['ler_todas'])){
 			</div>';
             echo '
 			<div class="card-body">
-			<span class="d-inline-block text-truncate" style="max-width: 650px;">'.$conteudo.'</span>';
+			<span class="d-inline-block text-truncate" style="max-width: 650px;max-height: 80px">'.$conteudo.'</span>';
             if(!empty($link_1) || !empty($link_2) || !empty($link_3) || !empty($link_4) || !empty($link_5)){
 				echo '<br><div class="card-footer text-muted">Existe algum link na mensagem....</div></div></div>';
 

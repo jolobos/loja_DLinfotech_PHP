@@ -57,7 +57,7 @@ require_once 'cabecalho.php';
     <h4>Notificações não lidas</h4></div><div class="col" align="right"><a href="?ler_todas=ok" class="btn btn-info me-3">Marcar como lidas</a></div></div>
     <hr>
 <?php
-    $sql = "SELECT * FROM notificacoes WHERE id_usuario = '".$id_usuario."'";
+    $sql = "SELECT * FROM notificacoes WHERE id_usuario = '".$id_usuario."' ORDER BY data_envio DESC";
     $consulta = $conexao->query($sql);
     $dados_a = $consulta->fetchALL(PDO::FETCH_ASSOC);
    echo '<div style="max-height:400px" class="overflow-auto">';
@@ -88,7 +88,7 @@ require_once 'cabecalho.php';
 			</div>';
             echo '
 			<div class="card-body">
-			<span class="d-inline-block text-truncate" style="max-width: 650px;">'.$conteudo.'</span>';
+			<span class="d-inline-block text-truncate" style="max-width: 650px;max-height: 80px;">'.$conteudo.'</span>';
             if(!empty($link_1) || !empty($link_2) || !empty($link_3) || !empty($link_4) || !empty($link_5)){
 				echo '<br><div class="card-footer text-muted">Existe algum link na mensagem....</div></div></div>';
 
@@ -132,7 +132,7 @@ require_once 'cabecalho.php';
 			</div>';
             echo '
 			<div class="card-body">
-			<span class="d-inline-block text-truncate" style="max-width: 650px;">'.$conteudo.'</span>';
+			<span class="d-inline-block text-truncate" style="max-width: 650px;max-height: 80px">'.$conteudo.'</span>';
             if(!empty($link_1) || !empty($link_2) || !empty($link_3) || !empty($link_4) || !empty($link_5)){
 				echo '<br><div class="card-footer text-muted">Existe algum link na mensagem....</div></div></div>';
 

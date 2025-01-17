@@ -22,7 +22,38 @@ if(isset($_POST['cancelar_ent'])){
                     }catch (Exception $r){//todos as exceções
                         $ok2= False; 
                     }
-    if($ok2){   
+    if($ok2){  
+        
+                $sqlzb = 'SELECT * FROM compras WHERE id_compra='.$rem.'';
+                                $consultazb = $conexao->query($sqlzb);
+                                $dadozb = $consultazb->fetch(PDO::FETCH_ASSOC);
+                                
+                        $id_usuarioza = $dadozb['id_usuario'];
+                        $tituloza = 'Lamento! Aconteceu algo inesperado na sua entrega.';
+                        $conteudoza = 'Infelizmente não foi possivel realizar a sua entrega nesse momento.<br>'
+                                . 'Mas não se preocupe, assim que possivel estaremos realizando novamente a sua entrega.<br>'
+                                . 'Segue a motivação do porque não foi possivel entregar a sua compra:<br>'.$motivo_can;
+                        $link_1 = '';
+                        $link_2 = '';
+                        $link_3 = '';
+                        $link_4 = '';
+                        $link_5 = '';
+                        $condicaoza = 1;
+                        $data_new = date('Y-m-d H:i:s');
+                                
+                $sqlza ='INSERT INTO notificacoes (id_usuario,titulo,conteudo,link_1,link_2,link_3,link_4,link_5,condicao,data_envio) values(?,?,?,?,?,?,?,?,?,?)';
+		try {
+		$insercaoza = $conexao->prepare($sqlza);
+		$okza = $insercaoza->execute(array ($id_usuarioza,$tituloza,$conteudoza,$link_1,$link_2,$link_3,$link_4,$link_5,$condicaoza,$data_new));
+		}catch(PDOException $r){
+			//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
+        
+        
         $conttt = 1;
     foreach ($_SESSION['ordem_etinerario'] as $vish){
                
@@ -96,7 +127,33 @@ if(!empty($_POST['iniciar_corrida'])){
                     }
                     if($ok1){
                         $_SESSION['controlador'] = $id_compra;
-
+                         $sqlzb = 'SELECT * FROM compras WHERE id_compra='.$id_compra.'';
+                                $consultazb = $conexao->query($sqlzb);
+                                $dadozb = $consultazb->fetch(PDO::FETCH_ASSOC);
+                                
+                        $id_usuarioza = $dadozb['id_usuario'];
+                        $tituloza = 'Boa noticia! Sua compra esta em curso para entrega.';
+                        $conteudoza = 'Sua Compra acabou de sair da empresa para ser entregue no seu endereço.<br>'
+                                . 'Por favor, fique atento e no local de retrada para receber o seu pacote.';
+                        $link_1 = '';
+                        $link_2 = '';
+                        $link_3 = '';
+                        $link_4 = '';
+                        $link_5 = '';
+                        $condicaoza = 1;
+                        $data_new = date('Y-m-d H:i:s');
+                                
+                $sqlza ='INSERT INTO notificacoes (id_usuario,titulo,conteudo,link_1,link_2,link_3,link_4,link_5,condicao,data_envio) values(?,?,?,?,?,?,?,?,?,?)';
+		try {
+		$insercaoza = $conexao->prepare($sqlza);
+		$okza = $insercaoza->execute(array ($id_usuarioza,$tituloza,$conteudoza,$link_1,$link_2,$link_3,$link_4,$link_5,$condicaoza,$data_new));
+		}catch(PDOException $r){
+			//$msg= 'Problemas com o SGBD.'.$r->getMessage();
+			$ok = False;
+		}catch (Exception $r){//todos as exceções
+		$ok= False; 
+			
+		}
                         
                     }else{
                         header('location:iniciar.php?msg=A corrida nao pode ser iniciada por um erro com o banco de dados');
