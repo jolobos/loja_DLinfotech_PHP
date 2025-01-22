@@ -68,15 +68,16 @@ date_default_timezone_set('America/Sao_Paulo');
                     $consultaz = $conexao->query($sqlz);
                     $az = $consultaz->fetch(PDO::FETCH_ASSOC);
                     echo '<h3 class="alert alert-success">Quantidade total de entregas nesse periodo "'.$az['contagem'].'"</h3><br>';
-                    
-                    $sqly = "SELECT DAY(hora_chegada) AS dia, COUNT(id_entregador) AS cont FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$data_1."' AND hora_chegada <= '".$data_2."' AND status = 1 GROUP BY dia";
-                    $consultay = $conexao->query($sqly);
-                    $ay = $consultay->fetchALL(PDO::FETCH_ASSOC);
-                    foreach($ay as $ai){
-                        $data[] = array('mes_arr' => $ai['cont'],'valor' => $ai['dia']);
+                    $dateas = new DateTime($data_1);
+                    while($dateas->format('Y-m-d') <= $data_2){
+                        $sqlzxa = "SELECT COUNT(id_entregas) as contagem FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$dateas->format('Y-m-d')." 00:00:00' AND hora_chegada <= '".$dateas->format('Y-m-d')." 23:59:59' AND status = 1";
+                        $consultazxa = $conexao->query($sqlzxa);
+                        $azxa = $consultazxa->fetch(PDO::FETCH_ASSOC);
+                        $data[] = array('mes_arr' => $azxa['contagem'],'valor' => $dateas->format('d/m/Y'));
+                        $dateas->modify('+1 day');
                     }
                     $new_data = array_column($data,'mes_arr','valor');
-                    print_r($new_data);
+
                     echo '<canvas id="myChart" width="1600" height="300"></canvas>';
                     }else{
                     echo '<h3 class="alert alert-danger">Data selecionada está incorreta para pesquisa!</h3>';
@@ -85,6 +86,8 @@ date_default_timezone_set('America/Sao_Paulo');
                 }else{
                     echo '<h3 class="alert alert-danger">Data selecionada está incorreta para pesquisa!</h3>';
                 }
+                
+
             ?>
         </div>
     </div>
@@ -94,9 +97,8 @@ date_default_timezone_set('America/Sao_Paulo');
     
       // unica diferença é que você receberá o json dinamicamente
       // valor que chegará da requisição            
-      //let json = <?php echo json_encode($new_data); ?>
-      let json = JSON.parse('{ "jose":3 , "maria":2, "joão":3 , "pedro":4}');
-      var ano2 = <?php echo $ano; ?>
+      let json = <?php echo json_encode($new_data); ?>
+      //let json = JSON.parse('{ "jose":3 , "maria":2, "joão":3 , "pedro":4}')
       // cria uma array para nomes e valore
       let nomes = [];
       let valores = [];
@@ -116,7 +118,7 @@ date_default_timezone_set('America/Sao_Paulo');
           //labels são cada uma das barrinhas. Basta adicionar a array abaixo:
           labels: nomes,
           datasets: [{
-              label: 'Quantidade de entregas para o periodo',
+              label: 'Quantidade de entregas no periodo',
               //data serve para adicionar o valor de cada barrinha. Basta adicionar a array abaixo:
               data: valores,
               backgroundColor: [
