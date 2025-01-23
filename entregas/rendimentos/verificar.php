@@ -11,12 +11,22 @@ if(isset($_GET['mes']) && isset($_GET['ano'])){
     if($mes == 'janeiro'){ $meses = 1;}elseif($mes == 'fevereiro'){$meses = 2;}elseif($mes == 'marco'){$meses = 3;}elseif($mes == 'abril'){$meses = 4;}
     elseif($mes == 'maio'){$meses = 5;}elseif($mes == 'junho'){$meses = 6;}elseif($mes == 'julho'){$meses = 7;}elseif($mes == 'agosto'){$meses = 8;}
     elseif($mes == 'setembro'){$meses = 9;}elseif($mes == 'outubro'){$meses = 10;}elseif($mes == 'novembro'){$meses = 11;}else{$meses = 12;}
+    $sql = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."-01 00:00:00' AND hora_chegada <= '".$ano."-".$meses."-31 23:59:59' AND status = 1";
+    $consulta = $conexao->query($sql);
+    $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
+
+    }elseif(isset($_GET['periodo1']) && isset($_GET['periodo2'])) {
+    $periodo1 = $_GET['periodo1'];
+    $periodo2 = $_GET['periodo2'];
+    $sql = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$periodo1." 00:00:00' AND hora_chegada <= '".$periodo2." 23:59:59' AND status = 1";
+    $consulta = $conexao->query($sql);
+    $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
 }else{
     header('location:rendimentos.php?msg=Data invalida para veririficacao.');
 }
-$sql = "SELECT * FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$ano."-".$meses."-01 00:00:00' AND hora_chegada <= '".$ano."-".$meses."-31 23:59:59' AND status = 1";
-$consulta = $conexao->query($sql);
-$a = $consulta->fetchALL(PDO::FETCH_ASSOC);
+    
+
+
 ?>
 
 <!doctype html>
@@ -55,8 +65,12 @@ $a = $consulta->fetchALL(PDO::FETCH_ASSOC);
         <div class="card-header">
             <h3 class="text-primary">Verificação de entregas</h3>
         </div>
-        <div class="card-body">
-            <h4>Lista de entregas feitas em <?php echo $mes.' de '.$ano; ?></h4>
+        <div class="card-body"> <?php
+        if(isset($_GET['mes']) && isset($_GET['ano'])){
+        echo '<h4>Lista de entregas feitas em '.$mes.' de '.$ano.'</h4>';}else{
+            echo '<h4>Lista de entregas feitas desde '.date_format(new DateTime($periodo1),'d/m/Y').' até '.date_format(new DateTime($periodo2),'d/m/Y').'</h4>';
+        }
+        ?>
             <div  style="max-height:320px" class="overflow-auto bg-light">
                    <?php
                         if(!empty($a)){

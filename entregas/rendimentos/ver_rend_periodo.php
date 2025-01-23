@@ -64,6 +64,12 @@ date_default_timezone_set('America/Sao_Paulo');
                     if($_POST['periodo_1'] <= $_POST['periodo_2']){
                     $data_1 = $_POST['periodo_1'];
                     $data_2 = $_POST['periodo_2'];
+                    
+                    $data_3 = new DateTime($_POST['periodo_1']);
+                    $data_4 = new DateTime($_POST['periodo_2']);
+                    $ctrl_dias_0 = $data_3->diff($data_4);
+                    $ctrl_dias = $ctrl_dias_0->days;
+                    if($ctrl_dias < 60){
                     $sqlz = "SELECT COUNT(id_entregas) as contagem FROM entregas WHERE id_entregador = '".$id_entregador."' AND hora_chegada >= '".$data_1."' AND hora_chegada <= '".$data_2."' AND status = 1";
                     $consultaz = $conexao->query($sqlz);
                     $az = $consultaz->fetch(PDO::FETCH_ASSOC);
@@ -79,6 +85,29 @@ date_default_timezone_set('America/Sao_Paulo');
                     $new_data = array_column($data,'mes_arr','valor');
 
                     echo '<canvas id="myChart" width="1600" height="300"></canvas>';
+                    echo ' <div class="row">
+                            <div class="col">
+                                <h5>Dia de menor rendimento</h5>';
+                    $vy = min($new_data);
+                    $vw = array_search($vy,$new_data);
+                    echo $vw.' - '.$vy.' entregas';
+                    echo ' </div>
+                            <div class="col">
+                                <h5>Dia de maior rendimento</h5>';
+                    $vy = max($new_data);
+                    $vw = array_search($vy,$new_data);
+                    echo $vw.' - '.$vy.' entregas';
+                    echo '</div>
+                            <div class="col-sm-5">
+                                <h5>Opções de rendimentos</h5>
+                                <a href="verificar.php?periodo1='.$data_1.'&periodo2='.$data_2.'" class="btn btn-secondary">Verificar entregas</a>
+
+                            </div>
+                        </div>';
+                                                    }else{
+                        echo '<h3 class="alert alert-danger">A data selecionada não pode ser maior que 60 dias!</h3>';
+                    }
+                    
                     }else{
                     echo '<h3 class="alert alert-danger">Data selecionada está incorreta para pesquisa!</h3>';
     
