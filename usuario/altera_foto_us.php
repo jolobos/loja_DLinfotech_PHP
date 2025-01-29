@@ -8,7 +8,8 @@ require_once("../database.php");
   $msg = false;
 
   if(isset($_FILES['arquivo'])){
-
+    $arq = '../../img/foto_usuario/'.$foto;
+    unlink($arq);
     $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
     $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
     $diretorio = "../img/foto_usuario/"; //define o diretorio para onde enviaremos o arquivo
